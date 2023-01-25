@@ -88,7 +88,7 @@ namespace CsiMigrationHelper
                         }
                         catch (ExceptionEmptyResultSet ex)
                         {
-                            throw;
+                            //throw;
                         }
 
                         if (childNodeDbo.Gui != null)

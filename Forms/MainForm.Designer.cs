@@ -1648,6 +1648,7 @@ namespace CsiMigrationHelper
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1500, 700);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CsiMigrationHelper";
             this.tabControl.ResumeLayout(false);
             this.tabSrcTgtSetup.ResumeLayout(false);

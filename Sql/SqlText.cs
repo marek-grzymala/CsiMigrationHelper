@@ -59,8 +59,8 @@
                                                        , "INNER JOIN  sys.partition_parameters AS [pp] ON [pp].function_id = [pf].function_id "
                                                        , "INNER JOIN  sys.types                AS [ty] ON [ty].system_type_id = [pp].system_type_id "
                                                        , "INNER JOIN  sys.columns              AS [co] ON [co].system_type_id = [ty].system_type_id "
-                                                       , "INNER JOIN  sys.tables               AS [tb] ON [tb].object_id = [co].object_id "
-                                                       , "INNER JOIN  sys.schemas              AS [sc] ON [sc].schema_id = [tb].schema_id "
+                                                       //, "INNER JOIN  sys.tables               AS [tb] ON [tb].object_id = [co].object_id "
+                                                       //, "INNER JOIN  sys.schemas              AS [sc] ON [sc].schema_id = [tb].schema_id "
                                                        , "WHERE       [ty].name = @DataTypeName;");
 
 

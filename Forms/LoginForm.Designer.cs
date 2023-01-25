@@ -29,6 +29,7 @@ namespace CsiMigrationHelper
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.authenticationCmb = new System.Windows.Forms.ComboBox();
             this.passwordTxtb = new System.Windows.Forms.TextBox();
             this.userNmTxtb = new System.Windows.Forms.TextBox();
@@ -152,7 +153,11 @@ namespace CsiMigrationHelper
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.loginBtn);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(620, 274);
+            this.MinimumSize = new System.Drawing.Size(620, 274);
             this.Name = "LoginForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LoginForm";
             this.ResumeLayout(false);
             this.PerformLayout();

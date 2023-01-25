@@ -44,13 +44,13 @@ namespace CsiMigrationHelper
             this.tabControlOptions = new System.Windows.Forms.TabControl();
             this.SrcTgtSetup = new System.Windows.Forms.TabPage();
             this.TgtMetaDataSetup = new System.Windows.Forms.TabPage();
+            this.chkbxRenameTgtColumns = new System.Windows.Forms.CheckBox();
             this.chkbxMakeCSIClustered = new System.Windows.Forms.CheckBox();
             this.chbxDoNotCreateFKsOnCrossDbTarget = new System.Windows.Forms.CheckBox();
             this.gpbxUserDefDataTypeHndling = new System.Windows.Forms.GroupBox();
             this.rdbtnTranslateUserDefinedDataTypes = new System.Windows.Forms.RadioButton();
             this.rdbtnUseDataTypesAsDefinedInSrc = new System.Windows.Forms.RadioButton();
             this.pnlButtons = new System.Windows.Forms.Panel();
-            this.chkbxRenameTgtColumns = new System.Windows.Forms.CheckBox();
             this.tabControlOptions.SuspendLayout();
             this.SrcTgtSetup.SuspendLayout();
             this.TgtMetaDataSetup.SuspendLayout();
@@ -216,6 +216,18 @@ namespace CsiMigrationHelper
             this.TgtMetaDataSetup.Text = "Target Metadata:";
             this.TgtMetaDataSetup.UseVisualStyleBackColor = true;
             // 
+            // chkbxRenameTgtColumns
+            // 
+            this.chkbxRenameTgtColumns.AutoSize = true;
+            this.chkbxRenameTgtColumns.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkbxRenameTgtColumns.Location = new System.Drawing.Point(41, 212);
+            this.chkbxRenameTgtColumns.Name = "chkbxRenameTgtColumns";
+            this.chkbxRenameTgtColumns.Size = new System.Drawing.Size(340, 22);
+            this.chkbxRenameTgtColumns.TabIndex = 15;
+            this.chkbxRenameTgtColumns.Text = "Rename Tgt Columns using TableName pattern";
+            this.chkbxRenameTgtColumns.UseVisualStyleBackColor = true;
+            this.chkbxRenameTgtColumns.CheckedChanged += new System.EventHandler(this.chkbxRenameTgtColumns_CheckedChanged);
+            // 
             // chkbxMakeCSIClustered
             // 
             this.chkbxMakeCSIClustered.AutoSize = true;
@@ -282,18 +294,6 @@ namespace CsiMigrationHelper
             this.pnlButtons.Size = new System.Drawing.Size(539, 53);
             this.pnlButtons.TabIndex = 13;
             // 
-            // chkbxRenameTgtColumns
-            // 
-            this.chkbxRenameTgtColumns.AutoSize = true;
-            this.chkbxRenameTgtColumns.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkbxRenameTgtColumns.Location = new System.Drawing.Point(41, 212);
-            this.chkbxRenameTgtColumns.Name = "chkbxRenameTgtColumns";
-            this.chkbxRenameTgtColumns.Size = new System.Drawing.Size(340, 22);
-            this.chkbxRenameTgtColumns.TabIndex = 15;
-            this.chkbxRenameTgtColumns.Text = "Rename Tgt Columns using TableName pattern";
-            this.chkbxRenameTgtColumns.UseVisualStyleBackColor = true;
-            this.chkbxRenameTgtColumns.CheckedChanged += new System.EventHandler(this.chkbxRenameTgtColumns_CheckedChanged);
-            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -304,6 +304,7 @@ namespace CsiMigrationHelper
             this.MaximumSize = new System.Drawing.Size(555, 420);
             this.MinimumSize = new System.Drawing.Size(555, 420);
             this.Name = "Options";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Options";
             this.tabControlOptions.ResumeLayout(false);
             this.SrcTgtSetup.ResumeLayout(false);
