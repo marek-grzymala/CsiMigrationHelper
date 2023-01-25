@@ -115,13 +115,13 @@ namespace CsiMigrationHelper
 
         public DataSetForGui GetDataSetForGui(TreeNode<DbObject> instanceNode, TreeNode<DbObject> childNode, string dsOptions)
         {
-            DataSetForGui dataSetForGui = null;            
+            DataSetForGui dataSetForGui = null;
             using (instanceNode.Data.Dbu)
             {
                 instanceNode.Data.Dbu.OpenConnection();
-                    ParamSelector dsParams = new ParamSelector(childNode, dsOptions);
-                    DataSet ds = PopulateDataSet(dsParams, dsOptions);
-                    dataSetForGui = new DataSetForGui(ds, dsParams);
+                ParamSelector dsParams = new ParamSelector(childNode, dsOptions);
+                DataSet ds = PopulateDataSet(dsParams, dsOptions);
+                dataSetForGui = new DataSetForGui(ds, dsParams);
                 instanceNode.Data.Dbu.CloseConnection();
             }
             return dataSetForGui;

@@ -26,93 +26,106 @@ namespace CsiMigrationHelper
         public bool LoadGrids()
         {
             bool result = false;
-            if (e.TgtTable.CloneableFromSrc && e.TgtTable.Enabled)
+            if (e.TgtTable.CloneableFromSrc && e.TgtTable.Enabled && e.TgtTable.Data.ObjectText.Length > 0)
             {
                 TreeNode<DbObject> instanceNode = e.SrcColumn.TraverseUpUntil(e.SrcColumn, (int)DbObjectLevel.Instance);
-                string dsOption = string.Empty;
-                string tgtColNameSuffix = Options.suffixTgtColName;
-                DataSetForGui dsColumnList = new DataSetForGui();
-                DataSetForGui dsConstraintList = new DataSetForGui();
-                try
-                {
-                    dsOption = Options.translateUserDefinedDataTypes ? "TableDefinitionTranslateUserTypes" : "TableDefinition";
-                    dsColumnList = instanceNode.Data.Dbu.GetDataSetForGui(instanceNode, e.SrcColumn, dsOption);                                      
-                    
-                    e.GridColList.DataSource = dsColumnList.Ds;
-                    e.GridColList.DataMember = dsColumnList.Ds.Tables["Table"].TableName;
-                    e.GridColList.Columns["Id"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                    e.GridColList.Columns["ColumnName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                    e.GridColList.Columns["ColumnDefinition"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                    e.GridColList.Columns["Id"].ValueType = typeof(int);
-                    e.GridColList.Sort(e.GridColList.Columns["Id"], System.ComponentModel.ListSortDirection.Ascending);                    
-                    e.TbxTgtTableName.Text = "[" + e.TgtTable.Parent.Data.ObjectText + "].[" + e.TgtTable.Data.ObjectText + "]";
-                }
-                catch (ExceptionEmptyResultSet ex)
-                {
-                    throw;
-                }
-
-                try
-                {               
-                    dsOption = "ConstraintDefinition";
-                    dsConstraintList = instanceNode.Data.Dbu.GetDataSetForGui(instanceNode, e.SrcColumn, dsOption);
-                    e.GridConstraintList.DataSource = dsConstraintList.Ds;
-                    e.GridConstraintList.DataMember = dsConstraintList.Ds.Tables["Table"].TableName;
-
-                    if (e.TgtTable.Data.ObjectName.Equals("tgtTable_Archive") && e.TgtIndex.Data.ObjectText.Length > 0)
-                    {
-                        if (Options.makeCSIClustered == true)
-                        {
-                            this.RenameDataSetFieldValue(dsConstraintList.Ds, "ConstraintType", " CLUSTERED", "", 0, false);
-                        }
-                        DataRow dr = dsConstraintList.Ds.Tables[0].NewRow();
-                        //CSI Index has to be before the PK (if there is a seperate one), so let's put it as the first on the list just in case:
-                        dr["Id"] = 0; // dsConstraintList.Ds.Tables["Table"].Rows.Count + 1;
-                        dr["ConstraintName"] = "[" + e.TgtIndex.Data.ObjectText + "]";
-                        dr["Type"] = "IX";
-                        dr["ConstraintType"] = string.Concat(Options.makeCSIClustered == true ? "CLUSTERED " : "", "COLUMNSTORE");
-                        dr["ColumnList"] = "";
-                        dr["ConstraintDefinition"] = "";
-                        dsConstraintList.Ds.Tables[0].Rows.Add(dr);
-                    }
-                    this.RenameDataSetFieldValue(dsConstraintList.Ds, "ConstraintName", e.SrcTable.Data.ObjectText, e.TgtTable.Data.ObjectText, 0, false);
-
-                    e.GridConstraintList.Columns["Id"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                    e.GridConstraintList.Columns["ConstraintName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                    e.GridConstraintList.Columns["Type"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                    e.GridConstraintList.Columns["ConstraintType"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                    e.GridConstraintList.Columns["ColumnList"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                    e.GridConstraintList.Columns["ConstraintDefinition"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;                
-                    e.GridConstraintList.Columns["Id"].ValueType = typeof(int);
-                    e.GridConstraintList.Sort(e.GridConstraintList.Columns["Id"], System.ComponentModel.ListSortDirection.Ascending);                    
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(string.Concat("Exception in method LoadGrids() when populating list of constraints of table: ", e.TgtTable.Data.ObjectText, ex.Message));
-                }
-
-                if (Options.renameTgtColumns == true)
-                {
-                    this.RenameDataSetFieldValue(dsColumnList.Ds, "ColumnName", e.SrcTable.Data.ObjectText, string.Concat(e.TgtTable.Data.ObjectText, Options.suffixTgtColName), 0, true);
-                    this.RenameDataSetFieldValue(dsConstraintList.Ds, "ColumnList", e.SrcTable.Data.ObjectText, string.Concat(e.TgtTable.Data.ObjectText, Options.suffixTgtColName), 0, true);
-                    this.RenameDataSetFieldValue(dsConstraintList.Ds, "ConstraintDefinition", e.SrcTable.Data.ObjectText, string.Concat(e.TgtTable.Data.ObjectText, Options.suffixTgtColName), 0, true, "ConstraintType = 'CHECK'");
-                }
-                e.GridColList.Update();
-                e.GridConstraintList.Update();
-
-                e.CheckSyntaxButton.Image = null;
-                e.CheckSyntaxButton.Enabled = true;
-
-                e.ExecButton.Image = null;
-                e.ExecButton.Enabled = false;
                 
-                result = true;
+                if (instanceNode.Data.Dbu.GetConnection() != null)
+                {
+                    string dsOption = string.Empty;
+                    string tgtColNameSuffix = Options.suffixTgtColName;
+                    DataSetForGui dsColumnList = new DataSetForGui();
+                    DataSetForGui dsConstraintList = new DataSetForGui();
+                    try
+                    {
+                        dsOption = Options.translateUserDefinedDataTypes ? "TableDefinitionTranslateUserTypes" : "TableDefinition";
+                        dsColumnList = instanceNode.Data.Dbu.GetDataSetForGui(instanceNode, e.SrcColumn, dsOption);                                      
+                        
+                        if (dsColumnList != null)
+                        {
+                            e.GridColList.DataSource = dsColumnList.Ds;
+                            e.GridColList.DataMember = dsColumnList.Ds.Tables["Table"].TableName;
+                            e.GridColList.Columns["Id"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                            e.GridColList.Columns["ColumnName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                            e.GridColList.Columns["ColumnDefinition"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                            e.GridColList.Columns["Id"].ValueType = typeof(int);
+                            e.GridColList.Sort(e.GridColList.Columns["Id"], System.ComponentModel.ListSortDirection.Ascending);                    
+                            e.TbxTgtTableName.Text = "[" + e.TgtTable.Parent.Data.ObjectText + "].[" + e.TgtTable.Data.ObjectText + "]";
+                        }
+                    }
+                    catch (ExceptionEmptyResultSet ex)
+                    {
+                        MessageBox.Show(string.Concat("Exception in method LoadGrids() when populating list of column list of table: ", e.TgtTable.Data.ObjectText, ex.Message));
+                    }
+
+                    try
+                    {               
+                        dsOption = "ConstraintDefinition";
+                        dsConstraintList = instanceNode.Data.Dbu.GetDataSetForGui(instanceNode, e.SrcColumn, dsOption);
+                        
+                        if (dsConstraintList != null)
+                        {
+                            e.GridConstraintList.DataSource = dsConstraintList.Ds;
+                            e.GridConstraintList.DataMember = dsConstraintList.Ds.Tables["Table"].TableName;
+
+                            if (e.TgtTable.Data.ObjectName.Equals("tgtTable_Archive") && e.TgtIndex.Data.ObjectText.Length > 0)
+                            {
+                                if (Options.makeCSIClustered == true)
+                                {
+                                    this.RenameDataSetFieldValue(dsConstraintList.Ds, "ConstraintType", " CLUSTERED", "", 0, false);
+                                }
+                                DataRow dr = dsConstraintList.Ds.Tables[0].NewRow();
+                                //CSI Index has to be before the PK (if there is a seperate one), so let's put it as the first on the list just in case:
+                                dr["Id"] = 0; // dsConstraintList.Ds.Tables["Table"].Rows.Count + 1;
+                                dr["ConstraintName"] = "[" + e.TgtIndex.Data.ObjectText + "]";
+                                dr["Type"] = "IX";
+                                dr["ConstraintType"] = string.Concat(Options.makeCSIClustered == true ? "CLUSTERED " : "", "COLUMNSTORE");
+                                dr["ColumnList"] = "";
+                                dr["ConstraintDefinition"] = "";
+                                dsConstraintList.Ds.Tables[0].Rows.Add(dr);
+                            }
+                            this.RenameDataSetFieldValue(dsConstraintList.Ds, "ConstraintName", e.SrcTable.Data.ObjectText, e.TgtTable.Data.ObjectText, 0, false);
+
+                            e.GridConstraintList.Columns["Id"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                            e.GridConstraintList.Columns["ConstraintName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                            e.GridConstraintList.Columns["Type"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                            e.GridConstraintList.Columns["ConstraintType"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                            e.GridConstraintList.Columns["ColumnList"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                            e.GridConstraintList.Columns["ConstraintDefinition"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;                
+                            e.GridConstraintList.Columns["Id"].ValueType = typeof(int);
+                            e.GridConstraintList.Sort(e.GridConstraintList.Columns["Id"], System.ComponentModel.ListSortDirection.Ascending);                    
+
+                            if (Options.renameTgtColumns == true)
+                            {
+                                this.RenameDataSetFieldValue(dsColumnList.Ds, "ColumnName", e.SrcTable.Data.ObjectText, string.Concat(e.TgtTable.Data.ObjectText, Options.suffixTgtColName), 0, true);
+                                this.RenameDataSetFieldValue(dsConstraintList.Ds, "ColumnList", e.SrcTable.Data.ObjectText, string.Concat(e.TgtTable.Data.ObjectText, Options.suffixTgtColName), 0, true);
+                                this.RenameDataSetFieldValue(dsConstraintList.Ds, "ConstraintDefinition", e.SrcTable.Data.ObjectText, string.Concat(e.TgtTable.Data.ObjectText, Options.suffixTgtColName), 0, true, "ConstraintType = 'CHECK'");
+                            }
+                            e.GridColList.Update();
+                            e.GridConstraintList.Update();
+
+                            e.CheckSyntaxButton.Image = null;
+                            e.CheckSyntaxButton.Enabled = true;
+
+                            e.ExecButton.Image = null;
+                            e.ExecButton.Enabled = false;
+                            result = true;
+                        }
+                    }
+                    catch (ExceptionEmptyResultSet ex)
+                    {
+                        MessageBox.Show(string.Concat("No results found when populating list of constraints of table: ", e.TgtTable.Data.ObjectText, ex.Message));
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(string.Concat("Connection: ", e.TgtInstance.Data.ObjectName, " not initialized"), "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);                    
+                }
             }
             else
             {
                 e.GridColList.DataSource = null;
-                e.GridConstraintList.DataSource = null;
-                
+                e.GridConstraintList.DataSource = null;                
                 e.CheckSyntaxButton.Image = null;
                 e.CheckSyntaxButton.Enabled = false;
                 e.ExecButton.Image = null;

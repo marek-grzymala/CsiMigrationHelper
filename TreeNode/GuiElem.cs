@@ -239,7 +239,7 @@ namespace CsiMigrationHelper
         }
         public void PopulateGuiElem(GuiElem gui, DataSetForGui ds)
         {
-            if (ds.Ds != null)
+            if (gui != null && ds != null && ds.Ds != null)
             {
                 try
                 {

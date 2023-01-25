@@ -138,6 +138,7 @@ namespace CsiMigrationHelper
             this.optionsStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.btnClearConfig = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabSrcTgtSetup.SuspendLayout();
             this.tblpTabSetupOuter.SuspendLayout();
@@ -513,12 +514,12 @@ namespace CsiMigrationHelper
             this.lbl_SchemaTgt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbl_SchemaTgt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbl_SchemaTgt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_SchemaTgt.Location = new System.Drawing.Point(3, 63);
-            this.lbl_SchemaTgt.Margin = new System.Windows.Forms.Padding(3);
+            this.lbl_SchemaTgt.Location = new System.Drawing.Point(5, 63);
+            this.lbl_SchemaTgt.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.lbl_SchemaTgt.Name = "lbl_SchemaTgt";
             this.lbl_SchemaTgt.Padding = new System.Windows.Forms.Padding(3);
             this.tblpTabSetupTgt.SetRowSpan(this.lbl_SchemaTgt, 2);
-            this.lbl_SchemaTgt.Size = new System.Drawing.Size(154, 54);
+            this.lbl_SchemaTgt.Size = new System.Drawing.Size(152, 54);
             this.lbl_SchemaTgt.TabIndex = 74;
             this.lbl_SchemaTgt.Text = "Select Schema:";
             this.lbl_SchemaTgt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -528,9 +529,10 @@ namespace CsiMigrationHelper
             this.tblpTabSetupTgt.SetColumnSpan(this.cbx_idxList_Tgt, 2);
             this.cbx_idxList_Tgt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cbx_idxList_Tgt.FormattingEnabled = true;
-            this.cbx_idxList_Tgt.Location = new System.Drawing.Point(3, 381);
+            this.cbx_idxList_Tgt.Location = new System.Drawing.Point(5, 381);
+            this.cbx_idxList_Tgt.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.cbx_idxList_Tgt.Name = "cbx_idxList_Tgt";
-            this.cbx_idxList_Tgt.Size = new System.Drawing.Size(585, 24);
+            this.cbx_idxList_Tgt.Size = new System.Drawing.Size(583, 24);
             this.cbx_idxList_Tgt.TabIndex = 67;
             this.cbx_idxList_Tgt.SelectedIndexChanged += new System.EventHandler(this.cbx_idxList_Tgt_SelectedIndexChanged);
             // 
@@ -540,9 +542,10 @@ namespace CsiMigrationHelper
             this.tblpTabSetupTgt.SetColumnSpan(this.cbx_psList_Tgt, 2);
             this.cbx_psList_Tgt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cbx_psList_Tgt.FormattingEnabled = true;
-            this.cbx_psList_Tgt.Location = new System.Drawing.Point(3, 351);
+            this.cbx_psList_Tgt.Location = new System.Drawing.Point(5, 351);
+            this.cbx_psList_Tgt.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.cbx_psList_Tgt.Name = "cbx_psList_Tgt";
-            this.cbx_psList_Tgt.Size = new System.Drawing.Size(585, 24);
+            this.cbx_psList_Tgt.Size = new System.Drawing.Size(583, 24);
             this.cbx_psList_Tgt.TabIndex = 66;
             this.cbx_psList_Tgt.SelectedIndexChanged += new System.EventHandler(this.cbx_psList_Tgt_SelectedIndexChanged);
             // 
@@ -550,9 +553,10 @@ namespace CsiMigrationHelper
             // 
             this.tblpTabSetupTgt.SetColumnSpan(this.tbx_DataType_Tgt, 2);
             this.tbx_DataType_Tgt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbx_DataType_Tgt.Location = new System.Drawing.Point(3, 321);
+            this.tbx_DataType_Tgt.Location = new System.Drawing.Point(5, 321);
+            this.tbx_DataType_Tgt.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.tbx_DataType_Tgt.Name = "tbx_DataType_Tgt";
-            this.tbx_DataType_Tgt.Size = new System.Drawing.Size(585, 22);
+            this.tbx_DataType_Tgt.Size = new System.Drawing.Size(583, 22);
             this.tbx_DataType_Tgt.TabIndex = 65;
             this.tbx_DataType_Tgt.TextChanged += new System.EventHandler(this.tbx_DataType_Tgt_TextChanged);
             // 
@@ -562,9 +566,10 @@ namespace CsiMigrationHelper
             this.tblpTabSetupTgt.SetColumnSpan(this.cbx_colList_Tgt, 2);
             this.cbx_colList_Tgt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cbx_colList_Tgt.FormattingEnabled = true;
-            this.cbx_colList_Tgt.Location = new System.Drawing.Point(3, 291);
+            this.cbx_colList_Tgt.Location = new System.Drawing.Point(5, 291);
+            this.cbx_colList_Tgt.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.cbx_colList_Tgt.Name = "cbx_colList_Tgt";
-            this.cbx_colList_Tgt.Size = new System.Drawing.Size(585, 24);
+            this.cbx_colList_Tgt.Size = new System.Drawing.Size(583, 24);
             this.cbx_colList_Tgt.TabIndex = 64;
             this.cbx_colList_Tgt.SelectedIndexChanged += new System.EventHandler(this.cbx_colList_Tgt_SelectedIndexChanged);
             // 
@@ -574,9 +579,10 @@ namespace CsiMigrationHelper
             this.cbx_dbList_Tgt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cbx_dbList_Tgt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbx_dbList_Tgt.FormattingEnabled = true;
-            this.cbx_dbList_Tgt.Location = new System.Drawing.Point(3, 33);
+            this.cbx_dbList_Tgt.Location = new System.Drawing.Point(5, 33);
+            this.cbx_dbList_Tgt.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.cbx_dbList_Tgt.Name = "cbx_dbList_Tgt";
-            this.cbx_dbList_Tgt.Size = new System.Drawing.Size(585, 24);
+            this.cbx_dbList_Tgt.Size = new System.Drawing.Size(583, 24);
             this.cbx_dbList_Tgt.TabIndex = 57;
             this.cbx_dbList_Tgt.SelectedIndexChanged += new System.EventHandler(this.cbx_dbList_Tgt_SelectedIndexChanged);
             // 
@@ -595,9 +601,10 @@ namespace CsiMigrationHelper
             // 
             this.tblpTabSetupTgt.SetColumnSpan(this.tbxInstanceTgt, 2);
             this.tbxInstanceTgt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbxInstanceTgt.Location = new System.Drawing.Point(3, 3);
+            this.tbxInstanceTgt.Location = new System.Drawing.Point(5, 3);
+            this.tbxInstanceTgt.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.tbxInstanceTgt.Name = "tbxInstanceTgt";
-            this.tbxInstanceTgt.Size = new System.Drawing.Size(585, 22);
+            this.tbxInstanceTgt.Size = new System.Drawing.Size(583, 22);
             this.tbxInstanceTgt.TabIndex = 44;
             // 
             // grpBx_Current
@@ -1539,6 +1546,7 @@ namespace CsiMigrationHelper
             // 
             // tabTrackingTbl
             // 
+            this.tabTrackingTbl.Controls.Add(this.btnClearConfig);
             this.tabTrackingTbl.Controls.Add(this.btnPrint);
             this.tabTrackingTbl.Location = new System.Drawing.Point(4, 25);
             this.tabTrackingTbl.Name = "tabTrackingTbl";
@@ -1550,7 +1558,7 @@ namespace CsiMigrationHelper
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(1167, 493);
+            this.btnPrint.Location = new System.Drawing.Point(1046, 292);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(106, 42);
             this.btnPrint.TabIndex = 0;
@@ -1636,6 +1644,16 @@ namespace CsiMigrationHelper
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "GreenChkMrk.png");
             this.imageList1.Images.SetKeyName(1, "FailIcon.png");
+            // 
+            // btnClearConfig
+            // 
+            this.btnClearConfig.Location = new System.Drawing.Point(1049, 378);
+            this.btnClearConfig.Name = "btnClearConfig";
+            this.btnClearConfig.Size = new System.Drawing.Size(102, 41);
+            this.btnClearConfig.TabIndex = 1;
+            this.btnClearConfig.Text = "Clear Config";
+            this.btnClearConfig.UseVisualStyleBackColor = true;
+            this.btnClearConfig.Click += new System.EventHandler(this.btnClearConfig_Click);
             // 
             // MainForm
             // 
@@ -1838,6 +1856,7 @@ namespace CsiMigrationHelper
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.TabPage tabEventLog;
         private System.Windows.Forms.RichTextBox rtbxEventLog;
+        private System.Windows.Forms.Button btnClearConfig;
     }
 }
 

@@ -40,8 +40,6 @@ namespace CsiMigrationHelper
         private TgtTblMetaDataHandler TgtMtdHdlr_Archive = new TgtTblMetaDataHandler();
         private EventLog elg;
 
-
-
         public MainForm()
         {
             InitializeComponent();
@@ -154,6 +152,16 @@ namespace CsiMigrationHelper
 
         }
 
+
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------
+        //-------------------------------------------------------------------- MENU BAR: ------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        private void optionsStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Options.HandleOptionsMenuClick();
+        }
+
         //-------------------------------------------------------------------------------------------------------------------------------------------------------
         //-------------------------------------------------------------------- SOURCE: --------------------------------------------------------------------------
         //-------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -188,7 +196,7 @@ namespace CsiMigrationHelper
             catch (ExceptionEmptyResultSet ex)
             {
                 if (ex.retry)
-                {
+                {                    
                     SrcTgtHdlr.HandleGuiSelectionChange(cbx_dbList_Src, srcDatabase);
                 }
             }
@@ -218,17 +226,18 @@ namespace CsiMigrationHelper
             catch (ExceptionEmptyResultSet ex)
             {
                 if (ex.retry)
-                {
+                {                    
                     SrcTgtHdlr.HandleGuiSelectionChange(cbx_tbList_Src, srcTable);
                 }
-            }
+            }            
             catch (ExceptionDataTypeMismatch ex)
             {
                 if (ex.retry)
-                {
+                {                    
                     SrcTgtHdlr.HandleGuiSelectionChange(cbx_tbList_Src, srcTable);
                 }
             }
+            
         }
 
         private void tbx_DataType_Src_TextChanged(object sender, EventArgs e)
@@ -236,18 +245,18 @@ namespace CsiMigrationHelper
             try
             {
                 SrcTgtHdlr.HandleGuiSelectionChange(sender, srcDataType);
-            }
+            }           
             catch (ExceptionEmptyResultSet ex)
             {
                 if (ex.retry)
-                {
+                {                    
                     SrcTgtHdlr.HandleGuiSelectionChange(cbx_tbList_Src, srcTable);
                 }
             }
             catch (ExceptionDataTypeMismatch ex)
             {
                 if (ex.retry)
-                {
+                {                    
                     SrcTgtHdlr.HandleGuiSelectionChange(cbx_tbList_Src, srcTable);
                 }
             }
@@ -468,21 +477,23 @@ namespace CsiMigrationHelper
             }
         }
 
+
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------
+        //-------------------------------------------------------------------- CHCKBX & RDBTNS: -----------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------
+
         private void chkBxCurrent_CheckedChanged(object sender, EventArgs e)
         {
-            //SrcTgtHdlr.HandleGuiSelectionChange(sender, tgtSchema_Current);//
             tgtSchema_Current.Enabled = chkBxCurrent.Checked ? true : false;
         }
 
         private void chkBxStaging_CheckedChanged(object sender, EventArgs e)
         {
-            //SrcTgtHdlr.HandleGuiSelectionChange(sender, tgtSchema_Staging);
             tgtSchema_Staging.Enabled = chkBxStaging.Checked ? true : false;
         }
 
         private void chkBxArchive_CheckedChanged(object sender, EventArgs e)
         {
-            //SrcTgtHdlr.HandleGuiSelectionChange(sender, tgtSchema_Archive);
             tgtSchema_Archive.Enabled = chkBxArchive.Checked ? true : false;
         }
 
@@ -513,10 +524,10 @@ namespace CsiMigrationHelper
             }
         }
 
-        private void optionsStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Options.HandleOptionsMenuClick();
-        }
+
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------
+        //-------------------------------------------------------------------- TGT METADATA: --------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
         private void btnCurrentReload_Click(object sender, EventArgs e)
         {
@@ -617,11 +628,6 @@ namespace CsiMigrationHelper
                 btnArchiveSyntax.Image = imageList1.Images[1];
             }
         }
-        private void btnPrintTree_Click(object sender, EventArgs e)
-        {
-            TreeNode<DbObject>.PrintNodeTree(root);
-        }
-
         private void gridColList_Current_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             btnCurrentExecute.Enabled = false;
@@ -686,6 +692,20 @@ namespace CsiMigrationHelper
             {
                 btnArchiveExecute.Image = imageList1.Images[1];
             }
+        }
+
+
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------
+        //-------------------------------------------------------------------- MGRT TRACKING TBL: ---------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        private void btnClearConfig_Click(object sender, EventArgs e)
+        {
+            root.EmptySubtreeText(root);
+        }
+        private void btnPrintTree_Click(object sender, EventArgs e)
+        {
+            TreeNode<DbObject>.PrintNodeTree(root);
         }
     }
 }

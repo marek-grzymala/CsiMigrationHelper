@@ -106,29 +106,8 @@ namespace CsiMigrationHelper
                                     break;
 
                                 case (int)DbObjectLevel.Index:
-                                    tableNameSuffix = Options.GetTableSuffixPerNode(cousin.TraverseUpUntil(cousin, (int)DbObjectLevel.Table));
-                                    string input = newObjectText;
-                                    string pattern = t.TraverseUpUntil(t, (int)DbObjectLevel.Table).Data.ObjectText;
-                                    string replacement = string.Concat(pattern, tableNameSuffix);
-                                    if (RegexUtil.ReplaceSubstringMatchingPattern(input, pattern, replacement, 0, false).Length > 0)
-                                    {
-                                        indexNameTgt = RegexUtil.ReplaceSubstringMatchingPattern(input, pattern, replacement, 0, false);
-                                    }
-                                    else
-                                    {
-                                        indexNameTgt = cousin.Data.ObjectText;
-                                    }
-
-                                    if (RegexUtil.ReplaceSubstringMatchingPattern(indexNameTgt, "PK_", "", 0, false).Length > 0)
-                                    {
-                                        indexNameTgt = RegexUtil.ReplaceSubstringMatchingPattern(indexNameTgt, "PK_", "", 0, false);
-                                    }
-
-                                    // clone Src index name into Tgt replacing index name if pattern found:
-                                    if (indexNameTgt.Length > 0)
-                                    {
-                                        cousin.SetTreeNodeText(cousin, string.Concat(Options.prefixCSI, indexNameTgt));
-                                    }
+                                    // clone cousin's index name into Tgt with CSI Prefix:
+                                    cousin.SetTreeNodeText(cousin, string.Concat(Options.prefixCSI, newObjectText));
                                     break;
 
                                 default:
@@ -147,9 +126,13 @@ namespace CsiMigrationHelper
                                 && !t.Data.ObjectText.Equals(cousin.Data.ObjectText)
                                 )
                         {
+
+                            string cBranch = cousin.Data.ObjectBranch == (int)DbObjectBranch.Src ? "Source" : "Target";
+                            string tBranch = t.Data.ObjectBranch == (int)DbObjectBranch.Src ? "Source" : "Target";
+
                             string errorMsg = string.Concat("DataType mismatch detected between: ", Environment.NewLine, 
-                                                            "Data Types: [", cousin.Data.ObjectText
-                                                            , "] and: [", t.Data.ObjectText, "]", Environment.NewLine);
+                                                            "Data Types in ", cBranch, ": [", cousin.Data.ObjectText
+                                                            , "] and in ", tBranch, ": [", t.Data.ObjectText, "]", Environment.NewLine);
                             
                             eventDbObjectTextChanged -= new HandlerDbObjectTextChanged(OnDbObjectTextChanged);
                             throw new ExceptionDataTypeMismatch(errorMsg);

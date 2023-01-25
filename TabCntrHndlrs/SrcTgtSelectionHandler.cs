@@ -88,7 +88,11 @@ namespace CsiMigrationHelper
                         }
                         catch (ExceptionEmptyResultSet ex)
                         {
-                            //throw;
+                            throw; // do not comment that out otherwise the re-populate of combo-box after user retry decision (in the exception ) will stop working
+                        }
+                        catch (ExceptionDataTypeMismatch ex)
+                        {
+                            throw; // do not comment that out otherwise the re-populate of combo-box after user retry decision (in the exception ) will stop working
                         }
 
                         if (childNodeDbo.Gui != null)
@@ -140,7 +144,7 @@ namespace CsiMigrationHelper
                         {
                             foreach (TreeNode<DbObject> cousin in childNode.Cousins)
                             {
-                                if (cousin.Data.ObjectText.Length > 0) // && !childNode.Data.ObjectText.Equals(cousin.Data.ObjectText)) //check this
+                                if (cousin.Data.ObjectText.Length > 0) // && !childNode.Data.ObjectText.Equals(cousin.Data.ObjectText))
                                 {
                                     //Console.WriteLine(string.Concat("CLONING FROM Src Branch Cousin: [", cousin.Data.ObjectName,
                                     //                                "] detected Text: [", cousin.Data.ObjectText,
@@ -160,26 +164,8 @@ namespace CsiMigrationHelper
                                             break;
 
                                         case (int)DbObjectLevel.Index:
-                                            tableNameSuffix = Options.GetTableSuffixPerNode(childNode.TraverseUpUntil(childNode, (int)DbObjectLevel.Table));
-                                            string input = cousin.Data.ObjectText;
-                                            string pattern = cousin.TraverseUpUntil(cousin, (int)DbObjectLevel.Table).Data.ObjectText;
-                                            string replacement = string.Concat(pattern, tableNameSuffix);
-                                            if (RegexUtil.ReplaceSubstringMatchingPattern(input, pattern, replacement, 0, false).Length > 0)
-                                            {
-                                                indexNameTgt = RegexUtil.ReplaceSubstringMatchingPattern(input, pattern, replacement, 0, false);
-                                            }
-                                            else
-                                            {
-                                                indexNameTgt = cousin.Data.ObjectText;
-                                            }
-
-                                            if (RegexUtil.ReplaceSubstringMatchingPattern(indexNameTgt, "PK_", "", 0, false).Length > 0)
-                                            {
-                                                indexNameTgt = RegexUtil.ReplaceSubstringMatchingPattern(indexNameTgt, "PK_", "", 0, false);
-                                            }
-
-                                            // clone cousin's index name from Src replacing index name if pattern found:
-                                            childNode.SetTreeNodeText(childNode, string.Concat(Options.prefixCSI, indexNameTgt));
+                                            // clone cousin's table name from Src with CSI Prefix:
+                                            childNode.SetTreeNodeText(childNode, string.Concat(Options.prefixCSI, cousin.Data.ObjectText));
                                             break;
 
                                         default:
