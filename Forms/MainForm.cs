@@ -707,6 +707,11 @@ namespace CsiMigrationHelper
         {
             TreeNode<DbObject>.PrintNodeTree(root);
         }
+
+        private void cbx_dbList_Src_Resize(object sender, EventArgs e)
+        {
+            cbx_dbList_Src.SelectionLength = 0;
+        }
     }
 }
 

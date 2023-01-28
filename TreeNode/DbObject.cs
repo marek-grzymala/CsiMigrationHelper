@@ -200,5 +200,6 @@ namespace CsiMigrationHelper
         Root = 0,
         Src = 1,
         Tgt = 2,
+        TrckTbl = 3,
     }
 }
