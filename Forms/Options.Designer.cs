@@ -29,6 +29,7 @@ namespace CsiMigrationHelper
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Options));
             this.OK = new System.Windows.Forms.Button();
             this.Cancel = new System.Windows.Forms.Button();
             this.lblCurrent = new System.Windows.Forms.Label();
@@ -301,6 +302,7 @@ namespace CsiMigrationHelper
             this.ClientSize = new System.Drawing.Size(539, 381);
             this.Controls.Add(this.pnlButtons);
             this.Controls.Add(this.tabControlOptions);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(555, 420);
             this.MinimumSize = new System.Drawing.Size(555, 420);
             this.Name = "Options";

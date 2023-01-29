@@ -205,6 +205,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TreeNode\ComboBoxExt.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="EventArgs\EventArgsTgtTblMetadata.cs" />
     <Compile Include="TabCntrHndlrs\EventLog.cs" />
     <Compile Include="Exceptions\ExceptionDataTypeMismatch.cs" />

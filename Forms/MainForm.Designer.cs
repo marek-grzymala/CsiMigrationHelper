@@ -1,5 +1,4 @@
-﻿
-namespace CsiMigrationHelper
+﻿namespace CsiMigrationHelper
 {
     partial class MainForm
     {
@@ -34,17 +33,17 @@ namespace CsiMigrationHelper
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabSrcTgtSetup = new System.Windows.Forms.TabPage();
             this.tblp_TabSetupOuter = new System.Windows.Forms.TableLayoutPanel();
-            this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.split_SrcTgtSetup = new System.Windows.Forms.SplitContainer();
             this.gpbxSrc = new System.Windows.Forms.GroupBox();
             this.tblp_TabSetupSrc = new System.Windows.Forms.TableLayoutPanel();
-            this.cbx_idxList_Src = new System.Windows.Forms.ComboBox();
+            this.cbx_idxList_Src = new ComboBoxExt();
             this.tbx_DataType_Src = new System.Windows.Forms.TextBox();
-            this.cbx_colList_Src = new System.Windows.Forms.ComboBox();
-            this.cbx_tbList_Src = new System.Windows.Forms.ComboBox();
-            this.cbx_schList_Src = new System.Windows.Forms.ComboBox();
-            this.cbx_dbList_Src = new System.Windows.Forms.ComboBox();
+            this.cbx_colList_Src = new ComboBoxExt();
+            this.cbx_tbList_Src = new ComboBoxExt();
+            this.cbx_schList_Src = new ComboBoxExt();
+            this.cbx_dbList_Src = new ComboBoxExt();
             this.buttonLoginSrc = new System.Windows.Forms.Button();
-            this.tbxInstanceSrc = new System.Windows.Forms.TextBox();
+            this.tbx_InstanceSrc = new System.Windows.Forms.TextBox();
             this.gpbxTgt = new System.Windows.Forms.GroupBox();
             this.tblp_TabSetupTgt = new System.Windows.Forms.TableLayoutPanel();
             this.lbl_UseExisting = new System.Windows.Forms.Label();
@@ -52,32 +51,32 @@ namespace CsiMigrationHelper
             this.lbl_Enabled = new System.Windows.Forms.Label();
             this.lbl_TableTgt = new System.Windows.Forms.Label();
             this.lbl_SchemaTgt = new System.Windows.Forms.Label();
-            this.cbx_idxList_Tgt = new System.Windows.Forms.ComboBox();
-            this.cbx_psList_Tgt = new System.Windows.Forms.ComboBox();
+            this.cbx_idxList_Tgt = new ComboBoxExt();
+            this.cbx_psList_Tgt = new ComboBoxExt();
             this.tbx_DataType_Tgt = new System.Windows.Forms.TextBox();
-            this.cbx_colList_Tgt = new System.Windows.Forms.ComboBox();
-            this.cbx_dbList_Tgt = new System.Windows.Forms.ComboBox();
+            this.cbx_colList_Tgt = new ComboBoxExt();
+            this.cbx_dbList_Tgt = new ComboBoxExt();
             this.buttonLoginTgt = new System.Windows.Forms.Button();
-            this.tbxInstanceTgt = new System.Windows.Forms.TextBox();
+            this.tbx_InstanceTgt = new System.Windows.Forms.TextBox();
             this.grpBx_Current = new System.Windows.Forms.GroupBox();
             this.tblp_Current = new System.Windows.Forms.TableLayoutPanel();
             this.chkBxCurrent = new System.Windows.Forms.CheckBox();
-            this.cbx_tbList_Tgt_Current = new System.Windows.Forms.ComboBox();
-            this.cbx_schList_Tgt_Current = new System.Windows.Forms.ComboBox();
+            this.cbx_tbList_Tgt_Current = new ComboBoxExt();
+            this.cbx_schList_Tgt_Current = new ComboBoxExt();
             this.rdbtn_Current_Clone = new System.Windows.Forms.RadioButton();
             this.rdbtn_Current_UseExisting = new System.Windows.Forms.RadioButton();
             this.grpBx_Staging = new System.Windows.Forms.GroupBox();
             this.tblp_Staging = new System.Windows.Forms.TableLayoutPanel();
             this.chkBxStaging = new System.Windows.Forms.CheckBox();
-            this.cbx_tbList_Tgt_Staging = new System.Windows.Forms.ComboBox();
-            this.cbx_schList_Tgt_Staging = new System.Windows.Forms.ComboBox();
+            this.cbx_tbList_Tgt_Staging = new ComboBoxExt();
+            this.cbx_schList_Tgt_Staging = new ComboBoxExt();
             this.rdbtn_Staging_Clone = new System.Windows.Forms.RadioButton();
             this.rdbtn_Staging_UseExisting = new System.Windows.Forms.RadioButton();
             this.grpBx_Archive = new System.Windows.Forms.GroupBox();
             this.tblp_Archive = new System.Windows.Forms.TableLayoutPanel();
             this.chkBxArchive = new System.Windows.Forms.CheckBox();
-            this.cbx_tbList_Tgt_Archive = new System.Windows.Forms.ComboBox();
-            this.cbx_schList_Tgt_Archive = new System.Windows.Forms.ComboBox();
+            this.cbx_tbList_Tgt_Archive = new ComboBoxExt();
+            this.cbx_schList_Tgt_Archive = new ComboBoxExt();
             this.rdbtn_Archive_Clone = new System.Windows.Forms.RadioButton();
             this.rdbtn_Archive_UseExisting = new System.Windows.Forms.RadioButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -91,35 +90,35 @@ namespace CsiMigrationHelper
             this.lbl_Database = new System.Windows.Forms.Label();
             this.lbl_Instance = new System.Windows.Forms.Label();
             this.tabTgtMetadata = new System.Windows.Forms.TabPage();
-            this.splitContOuter = new System.Windows.Forms.SplitContainer();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.split_TgtMetadata = new System.Windows.Forms.SplitContainer();
+            this.split_TgtMeta_Current = new System.Windows.Forms.SplitContainer();
             this.tblp_TgtMeta_ColumnList_Current = new System.Windows.Forms.TableLayoutPanel();
             this.gridColList_Current = new System.Windows.Forms.DataGridView();
             this.pnlTgtTableName_Current = new System.Windows.Forms.Panel();
-            this.tbxTgtTableName_Current = new System.Windows.Forms.TextBox();
+            this.tbx_TgtMetadataTableName_Current = new System.Windows.Forms.TextBox();
             this.tblp_TgtMeta_ConstraintList_Current = new System.Windows.Forms.TableLayoutPanel();
             this.gridConstraintList_Current = new System.Windows.Forms.DataGridView();
             this.tblp_TgtMeta_Btns_Current = new System.Windows.Forms.TableLayoutPanel();
             this.btnCurrentExecute = new System.Windows.Forms.Button();
             this.btnCurrentSyntax = new System.Windows.Forms.Button();
             this.btnCurrentReload = new System.Windows.Forms.Button();
-            this.splitContStagingArchive = new System.Windows.Forms.SplitContainer();
+            this.split_TgtMeta_StagingArchive = new System.Windows.Forms.SplitContainer();
             this.splitStaging = new System.Windows.Forms.SplitContainer();
             this.tblp_TgtMeta_ColumnList_Staging = new System.Windows.Forms.TableLayoutPanel();
             this.gridColList_Staging = new System.Windows.Forms.DataGridView();
             this.pnlTgtTableName_Staging = new System.Windows.Forms.Panel();
-            this.tbxTgtTableName_Staging = new System.Windows.Forms.TextBox();
+            this.tbx_TgtMetadataTableName_Staging = new System.Windows.Forms.TextBox();
             this.tblp_TgtMeta_ConstraintList_Staging = new System.Windows.Forms.TableLayoutPanel();
             this.gridConstraintList_Staging = new System.Windows.Forms.DataGridView();
             this.tblp_TgtMeta_Btns_Staging = new System.Windows.Forms.TableLayoutPanel();
             this.btnStagingExecute = new System.Windows.Forms.Button();
             this.btnStagingSyntax = new System.Windows.Forms.Button();
             this.btnStagingReload = new System.Windows.Forms.Button();
-            this.splitArchive = new System.Windows.Forms.SplitContainer();
+            this.split_TgtMeta_Archive = new System.Windows.Forms.SplitContainer();
             this.tblp_TgtMeta_ColumnList_Archive = new System.Windows.Forms.TableLayoutPanel();
             this.gridColList_Archive = new System.Windows.Forms.DataGridView();
             this.pnlTgtTableName_Archive = new System.Windows.Forms.Panel();
-            this.tbxTgtTableName_Archive = new System.Windows.Forms.TextBox();
+            this.tbx_TgtMetaDataTableName_Archive = new System.Windows.Forms.TextBox();
             this.tblp_TgtMeta_ConstraintList_Archive = new System.Windows.Forms.TableLayoutPanel();
             this.gridConstraintList_Archive = new System.Windows.Forms.DataGridView();
             this.tblp_TgtMeta_Btns_Archive = new System.Windows.Forms.TableLayoutPanel();
@@ -128,19 +127,22 @@ namespace CsiMigrationHelper
             this.btnArchiveReload = new System.Windows.Forms.Button();
             this.tabTrackingTbl = new System.Windows.Forms.TabPage();
             this.tblp_TrackingTable = new System.Windows.Forms.TableLayoutPanel();
-            this.splitContTrackingTblOuter = new System.Windows.Forms.SplitContainer();
+            this.split_TrackTbl_Outer = new System.Windows.Forms.SplitContainer();
             this.grpbxInstance = new System.Windows.Forms.GroupBox();
             this.tblp_TabTrackTbl_Instance = new System.Windows.Forms.TableLayoutPanel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbx_TrackTblInstance = new System.Windows.Forms.TextBox();
             this.btnTrackTblLogin = new System.Windows.Forms.Button();
-            this.splitContTrackTblDatabase = new System.Windows.Forms.SplitContainer();
+            this.split_TrackTbl_Database = new System.Windows.Forms.SplitContainer();
             this.grpbxDatabase = new System.Windows.Forms.GroupBox();
-            this.splitContTrackTblSchema = new System.Windows.Forms.SplitContainer();
+            this.cbxt_TrackTbl_Database = new CsiMigrationHelper.ComboBoxExt();
+            this.split_TrackTbl_Schema = new System.Windows.Forms.SplitContainer();
             this.grpbxSchema = new System.Windows.Forms.GroupBox();
-            this.splitContTrackTblTable = new System.Windows.Forms.SplitContainer();
+            this.cbxt_TrackTbl_Schema = new CsiMigrationHelper.ComboBoxExt();
+            this.split_TrackTbl_Table = new System.Windows.Forms.SplitContainer();
             this.grpbxTable = new System.Windows.Forms.GroupBox();
+            this.cbxt_TrackTbl_Table = new CsiMigrationHelper.ComboBoxExt();
             this.tblp_TrackTbl_SaveRunBtns = new System.Windows.Forms.TableLayoutPanel();
-            this.btnTrackTblRun = new System.Windows.Forms.Button();
+            this.btnTrackTblEdit = new System.Windows.Forms.Button();
             this.btnTrackTblSave = new System.Windows.Forms.Button();
             this.lblTrackTblUseExisting = new System.Windows.Forms.Label();
             this.lblTrackTblCreateNew = new System.Windows.Forms.Label();
@@ -148,6 +150,7 @@ namespace CsiMigrationHelper
             this.tblp_TrackTbl_UseExistingCreateNew = new System.Windows.Forms.TableLayoutPanel();
             this.rdbtn_TrackTbl_UseExisting = new System.Windows.Forms.RadioButton();
             this.rdbtn_TrackTbl_CreateNew = new System.Windows.Forms.RadioButton();
+            this.gridTrackingTable = new System.Windows.Forms.DataGridView();
             this.tabEventLog = new System.Windows.Forms.TabPage();
             this.rtbxEventLog = new System.Windows.Forms.RichTextBox();
             this.tabSandBox = new System.Windows.Forms.TabPage();
@@ -161,14 +164,13 @@ namespace CsiMigrationHelper
             this.optionsStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.gridTrackingTable = new System.Windows.Forms.DataGridView();
             this.tabControl.SuspendLayout();
             this.tabSrcTgtSetup.SuspendLayout();
             this.tblp_TabSetupOuter.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
-            this.splitContainer.Panel1.SuspendLayout();
-            this.splitContainer.Panel2.SuspendLayout();
-            this.splitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.split_SrcTgtSetup)).BeginInit();
+            this.split_SrcTgtSetup.Panel1.SuspendLayout();
+            this.split_SrcTgtSetup.Panel2.SuspendLayout();
+            this.split_SrcTgtSetup.SuspendLayout();
             this.gpbxSrc.SuspendLayout();
             this.tblp_TabSetupSrc.SuspendLayout();
             this.gpbxTgt.SuspendLayout();
@@ -181,24 +183,24 @@ namespace CsiMigrationHelper
             this.tblp_Archive.SuspendLayout();
             this.tblp_ObjectLablels.SuspendLayout();
             this.tabTgtMetadata.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContOuter)).BeginInit();
-            this.splitContOuter.Panel1.SuspendLayout();
-            this.splitContOuter.Panel2.SuspendLayout();
-            this.splitContOuter.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.split_TgtMetadata)).BeginInit();
+            this.split_TgtMetadata.Panel1.SuspendLayout();
+            this.split_TgtMetadata.Panel2.SuspendLayout();
+            this.split_TgtMetadata.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.split_TgtMeta_Current)).BeginInit();
+            this.split_TgtMeta_Current.Panel1.SuspendLayout();
+            this.split_TgtMeta_Current.Panel2.SuspendLayout();
+            this.split_TgtMeta_Current.SuspendLayout();
             this.tblp_TgtMeta_ColumnList_Current.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridColList_Current)).BeginInit();
             this.pnlTgtTableName_Current.SuspendLayout();
             this.tblp_TgtMeta_ConstraintList_Current.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridConstraintList_Current)).BeginInit();
             this.tblp_TgtMeta_Btns_Current.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContStagingArchive)).BeginInit();
-            this.splitContStagingArchive.Panel1.SuspendLayout();
-            this.splitContStagingArchive.Panel2.SuspendLayout();
-            this.splitContStagingArchive.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.split_TgtMeta_StagingArchive)).BeginInit();
+            this.split_TgtMeta_StagingArchive.Panel1.SuspendLayout();
+            this.split_TgtMeta_StagingArchive.Panel2.SuspendLayout();
+            this.split_TgtMeta_StagingArchive.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitStaging)).BeginInit();
             this.splitStaging.Panel1.SuspendLayout();
             this.splitStaging.Panel2.SuspendLayout();
@@ -209,10 +211,10 @@ namespace CsiMigrationHelper
             this.tblp_TgtMeta_ConstraintList_Staging.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridConstraintList_Staging)).BeginInit();
             this.tblp_TgtMeta_Btns_Staging.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitArchive)).BeginInit();
-            this.splitArchive.Panel1.SuspendLayout();
-            this.splitArchive.Panel2.SuspendLayout();
-            this.splitArchive.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.split_TgtMeta_Archive)).BeginInit();
+            this.split_TgtMeta_Archive.Panel1.SuspendLayout();
+            this.split_TgtMeta_Archive.Panel2.SuspendLayout();
+            this.split_TgtMeta_Archive.SuspendLayout();
             this.tblp_TgtMeta_ColumnList_Archive.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridColList_Archive)).BeginInit();
             this.pnlTgtTableName_Archive.SuspendLayout();
@@ -221,31 +223,34 @@ namespace CsiMigrationHelper
             this.tblp_TgtMeta_Btns_Archive.SuspendLayout();
             this.tabTrackingTbl.SuspendLayout();
             this.tblp_TrackingTable.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContTrackingTblOuter)).BeginInit();
-            this.splitContTrackingTblOuter.Panel1.SuspendLayout();
-            this.splitContTrackingTblOuter.Panel2.SuspendLayout();
-            this.splitContTrackingTblOuter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.split_TrackTbl_Outer)).BeginInit();
+            this.split_TrackTbl_Outer.Panel1.SuspendLayout();
+            this.split_TrackTbl_Outer.Panel2.SuspendLayout();
+            this.split_TrackTbl_Outer.SuspendLayout();
             this.grpbxInstance.SuspendLayout();
             this.tblp_TabTrackTbl_Instance.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContTrackTblDatabase)).BeginInit();
-            this.splitContTrackTblDatabase.Panel1.SuspendLayout();
-            this.splitContTrackTblDatabase.Panel2.SuspendLayout();
-            this.splitContTrackTblDatabase.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContTrackTblSchema)).BeginInit();
-            this.splitContTrackTblSchema.Panel1.SuspendLayout();
-            this.splitContTrackTblSchema.Panel2.SuspendLayout();
-            this.splitContTrackTblSchema.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContTrackTblTable)).BeginInit();
-            this.splitContTrackTblTable.Panel1.SuspendLayout();
-            this.splitContTrackTblTable.Panel2.SuspendLayout();
-            this.splitContTrackTblTable.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.split_TrackTbl_Database)).BeginInit();
+            this.split_TrackTbl_Database.Panel1.SuspendLayout();
+            this.split_TrackTbl_Database.Panel2.SuspendLayout();
+            this.split_TrackTbl_Database.SuspendLayout();
+            this.grpbxDatabase.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.split_TrackTbl_Schema)).BeginInit();
+            this.split_TrackTbl_Schema.Panel1.SuspendLayout();
+            this.split_TrackTbl_Schema.Panel2.SuspendLayout();
+            this.split_TrackTbl_Schema.SuspendLayout();
+            this.grpbxSchema.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.split_TrackTbl_Table)).BeginInit();
+            this.split_TrackTbl_Table.Panel1.SuspendLayout();
+            this.split_TrackTbl_Table.Panel2.SuspendLayout();
+            this.split_TrackTbl_Table.SuspendLayout();
+            this.grpbxTable.SuspendLayout();
             this.tblp_TrackTbl_SaveRunBtns.SuspendLayout();
             this.grpbxTrackTblCreateNewUseExisting.SuspendLayout();
             this.tblp_TrackTbl_UseExistingCreateNew.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridTrackingTable)).BeginInit();
             this.tabEventLog.SuspendLayout();
             this.tabSandBox.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridTrackingTable)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -280,7 +285,7 @@ namespace CsiMigrationHelper
             this.tblp_TabSetupOuter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tblp_TabSetupOuter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblp_TabSetupOuter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tblp_TabSetupOuter.Controls.Add(this.splitContainer, 1, 0);
+            this.tblp_TabSetupOuter.Controls.Add(this.split_SrcTgtSetup, 1, 0);
             this.tblp_TabSetupOuter.Controls.Add(this.statusStrip1, 0, 1);
             this.tblp_TabSetupOuter.Controls.Add(this.tblp_ObjectLablels, 0, 0);
             this.tblp_TabSetupOuter.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -292,22 +297,22 @@ namespace CsiMigrationHelper
             this.tblp_TabSetupOuter.Size = new System.Drawing.Size(1470, 602);
             this.tblp_TabSetupOuter.TabIndex = 0;
             // 
-            // splitContainer
+            // split_SrcTgtSetup
             // 
-            this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer.Location = new System.Drawing.Point(153, 3);
-            this.splitContainer.Name = "splitContainer";
+            this.split_SrcTgtSetup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.split_SrcTgtSetup.Location = new System.Drawing.Point(153, 3);
+            this.split_SrcTgtSetup.Name = "split_SrcTgtSetup";
             // 
-            // splitContainer.Panel1
+            // split_SrcTgtSetup.Panel1
             // 
-            this.splitContainer.Panel1.Controls.Add(this.gpbxSrc);
+            this.split_SrcTgtSetup.Panel1.Controls.Add(this.gpbxSrc);
             // 
-            // splitContainer.Panel2
+            // split_SrcTgtSetup.Panel2
             // 
-            this.splitContainer.Panel2.Controls.Add(this.gpbxTgt);
-            this.splitContainer.Size = new System.Drawing.Size(1314, 576);
-            this.splitContainer.SplitterDistance = 407;
-            this.splitContainer.TabIndex = 0;
+            this.split_SrcTgtSetup.Panel2.Controls.Add(this.gpbxTgt);
+            this.split_SrcTgtSetup.Size = new System.Drawing.Size(1314, 576);
+            this.split_SrcTgtSetup.SplitterDistance = 407;
+            this.split_SrcTgtSetup.TabIndex = 0;
             // 
             // gpbxSrc
             // 
@@ -333,7 +338,7 @@ namespace CsiMigrationHelper
             this.tblp_TabSetupSrc.Controls.Add(this.cbx_schList_Src, 0, 2);
             this.tblp_TabSetupSrc.Controls.Add(this.cbx_dbList_Src, 0, 1);
             this.tblp_TabSetupSrc.Controls.Add(this.buttonLoginSrc, 1, 0);
-            this.tblp_TabSetupSrc.Controls.Add(this.tbxInstanceSrc, 0, 0);
+            this.tblp_TabSetupSrc.Controls.Add(this.tbx_InstanceSrc, 0, 0);
             this.tblp_TabSetupSrc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblp_TabSetupSrc.Location = new System.Drawing.Point(3, 18);
             this.tblp_TabSetupSrc.Name = "tblp_TabSetupSrc";
@@ -362,7 +367,7 @@ namespace CsiMigrationHelper
             this.cbx_idxList_Src.Name = "cbx_idxList_Src";
             this.cbx_idxList_Src.Size = new System.Drawing.Size(305, 24);
             this.cbx_idxList_Src.TabIndex = 74;
-            this.cbx_idxList_Src.SelectedIndexChanged += new System.EventHandler(this.cbx_idxList_Src_SelectedIndexChanged);
+            //this.cbx_idxList_Src.SelectedIndexChanged += new System.EventHandler(this.cbx_idxList_Src_SelectedIndexChanged);
             // 
             // tbx_DataType_Src
             // 
@@ -383,7 +388,7 @@ namespace CsiMigrationHelper
             this.cbx_colList_Src.Name = "cbx_colList_Src";
             this.cbx_colList_Src.Size = new System.Drawing.Size(305, 24);
             this.cbx_colList_Src.TabIndex = 72;
-            this.cbx_colList_Src.SelectedIndexChanged += new System.EventHandler(this.cbx_colList_Src_SelectedIndexChanged);
+            //this.cbx_colList_Src.SelectedIndexChanged += new System.EventHandler(this.cbx_colList_Src_SelectedIndexChanged);
             // 
             // cbx_tbList_Src
             // 
@@ -394,7 +399,7 @@ namespace CsiMigrationHelper
             this.cbx_tbList_Src.Name = "cbx_tbList_Src";
             this.cbx_tbList_Src.Size = new System.Drawing.Size(305, 24);
             this.cbx_tbList_Src.TabIndex = 71;
-            this.cbx_tbList_Src.SelectedIndexChanged += new System.EventHandler(this.cbx_tbList_Src_SelectedIndexChanged);
+            //this.cbx_tbList_Src.SelectedIndexChanged += new System.EventHandler(this.cbx_tbList_Src_SelectedIndexChanged);
             // 
             // cbx_schList_Src
             // 
@@ -405,7 +410,7 @@ namespace CsiMigrationHelper
             this.cbx_schList_Src.Name = "cbx_schList_Src";
             this.cbx_schList_Src.Size = new System.Drawing.Size(305, 24);
             this.cbx_schList_Src.TabIndex = 70;
-            this.cbx_schList_Src.SelectedIndexChanged += new System.EventHandler(this.cbx_schList_Src_SelectedIndexChanged);
+            //this.cbx_schList_Src.SelectedIndexChanged += new System.EventHandler(this.cbx_schList_Src_SelectedIndexChanged);
             // 
             // cbx_dbList_Src
             // 
@@ -416,8 +421,8 @@ namespace CsiMigrationHelper
             this.cbx_dbList_Src.Name = "cbx_dbList_Src";
             this.cbx_dbList_Src.Size = new System.Drawing.Size(305, 24);
             this.cbx_dbList_Src.TabIndex = 69;
-            this.cbx_dbList_Src.SelectedIndexChanged += new System.EventHandler(this.cbx_dbList_Src_SelectedIndexChanged);
-            this.cbx_dbList_Src.Resize += new System.EventHandler(this.cbx_dbList_Src_Resize);
+            //this.cbx_dbList_Src.SelectedIndexChanged += new System.EventHandler(this.cbx_dbList_Src_SelectedIndexChanged);
+            //this.cbx_dbList_Src.Resize += new System.EventHandler(this.cbx_dbList_Src_Resize);
             // 
             // buttonLoginSrc
             // 
@@ -430,14 +435,14 @@ namespace CsiMigrationHelper
             this.buttonLoginSrc.UseVisualStyleBackColor = true;
             this.buttonLoginSrc.Click += new System.EventHandler(this.buttonLoginSrc_Click);
             // 
-            // tbxInstanceSrc
+            // tbx_InstanceSrc
             // 
-            this.tbxInstanceSrc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbxInstanceSrc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxInstanceSrc.Location = new System.Drawing.Point(3, 3);
-            this.tbxInstanceSrc.Name = "tbxInstanceSrc";
-            this.tbxInstanceSrc.Size = new System.Drawing.Size(305, 22);
-            this.tbxInstanceSrc.TabIndex = 67;
+            this.tbx_InstanceSrc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbx_InstanceSrc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_InstanceSrc.Location = new System.Drawing.Point(3, 3);
+            this.tbx_InstanceSrc.Name = "tbx_InstanceSrc";
+            this.tbx_InstanceSrc.Size = new System.Drawing.Size(305, 22);
+            this.tbx_InstanceSrc.TabIndex = 67;
             // 
             // gpbxTgt
             // 
@@ -470,7 +475,7 @@ namespace CsiMigrationHelper
             this.tblp_TabSetupTgt.Controls.Add(this.cbx_colList_Tgt, 0, 7);
             this.tblp_TabSetupTgt.Controls.Add(this.cbx_dbList_Tgt, 0, 1);
             this.tblp_TabSetupTgt.Controls.Add(this.buttonLoginTgt, 2, 0);
-            this.tblp_TabSetupTgt.Controls.Add(this.tbxInstanceTgt, 0, 0);
+            this.tblp_TabSetupTgt.Controls.Add(this.tbx_InstanceTgt, 0, 0);
             this.tblp_TabSetupTgt.Controls.Add(this.grpBx_Current, 0, 4);
             this.tblp_TabSetupTgt.Controls.Add(this.grpBx_Staging, 0, 5);
             this.tblp_TabSetupTgt.Controls.Add(this.grpBx_Archive, 0, 6);
@@ -583,7 +588,7 @@ namespace CsiMigrationHelper
             this.cbx_idxList_Tgt.Name = "cbx_idxList_Tgt";
             this.cbx_idxList_Tgt.Size = new System.Drawing.Size(639, 24);
             this.cbx_idxList_Tgt.TabIndex = 67;
-            this.cbx_idxList_Tgt.SelectedIndexChanged += new System.EventHandler(this.cbx_idxList_Tgt_SelectedIndexChanged);
+            //this.cbx_idxList_Tgt.SelectedIndexChanged += new System.EventHandler(this.cbx_idxList_Tgt_SelectedIndexChanged);
             // 
             // cbx_psList_Tgt
             // 
@@ -596,7 +601,7 @@ namespace CsiMigrationHelper
             this.cbx_psList_Tgt.Name = "cbx_psList_Tgt";
             this.cbx_psList_Tgt.Size = new System.Drawing.Size(639, 24);
             this.cbx_psList_Tgt.TabIndex = 66;
-            this.cbx_psList_Tgt.SelectedIndexChanged += new System.EventHandler(this.cbx_psList_Tgt_SelectedIndexChanged);
+            //this.cbx_psList_Tgt.SelectedIndexChanged += new System.EventHandler(this.cbx_psList_Tgt_SelectedIndexChanged);
             // 
             // tbx_DataType_Tgt
             // 
@@ -620,7 +625,7 @@ namespace CsiMigrationHelper
             this.cbx_colList_Tgt.Name = "cbx_colList_Tgt";
             this.cbx_colList_Tgt.Size = new System.Drawing.Size(639, 24);
             this.cbx_colList_Tgt.TabIndex = 64;
-            this.cbx_colList_Tgt.SelectedIndexChanged += new System.EventHandler(this.cbx_colList_Tgt_SelectedIndexChanged);
+            //this.cbx_colList_Tgt.SelectedIndexChanged += new System.EventHandler(this.cbx_colList_Tgt_SelectedIndexChanged);
             // 
             // cbx_dbList_Tgt
             // 
@@ -633,7 +638,7 @@ namespace CsiMigrationHelper
             this.cbx_dbList_Tgt.Name = "cbx_dbList_Tgt";
             this.cbx_dbList_Tgt.Size = new System.Drawing.Size(639, 24);
             this.cbx_dbList_Tgt.TabIndex = 57;
-            this.cbx_dbList_Tgt.SelectedIndexChanged += new System.EventHandler(this.cbx_dbList_Tgt_SelectedIndexChanged);
+            //this.cbx_dbList_Tgt.SelectedIndexChanged += new System.EventHandler(this.cbx_dbList_Tgt_SelectedIndexChanged);
             // 
             // buttonLoginTgt
             // 
@@ -646,15 +651,15 @@ namespace CsiMigrationHelper
             this.buttonLoginTgt.UseVisualStyleBackColor = true;
             this.buttonLoginTgt.Click += new System.EventHandler(this.buttonLoginTgt_Click);
             // 
-            // tbxInstanceTgt
+            // tbx_InstanceTgt
             // 
-            this.tblp_TabSetupTgt.SetColumnSpan(this.tbxInstanceTgt, 2);
-            this.tbxInstanceTgt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbxInstanceTgt.Location = new System.Drawing.Point(5, 3);
-            this.tbxInstanceTgt.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
-            this.tbxInstanceTgt.Name = "tbxInstanceTgt";
-            this.tbxInstanceTgt.Size = new System.Drawing.Size(639, 22);
-            this.tbxInstanceTgt.TabIndex = 44;
+            this.tblp_TabSetupTgt.SetColumnSpan(this.tbx_InstanceTgt, 2);
+            this.tbx_InstanceTgt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbx_InstanceTgt.Location = new System.Drawing.Point(5, 3);
+            this.tbx_InstanceTgt.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
+            this.tbx_InstanceTgt.Name = "tbx_InstanceTgt";
+            this.tbx_InstanceTgt.Size = new System.Drawing.Size(639, 22);
+            this.tbx_InstanceTgt.TabIndex = 44;
             // 
             // grpBx_Current
             // 
@@ -711,7 +716,7 @@ namespace CsiMigrationHelper
             this.cbx_tbList_Tgt_Current.Name = "cbx_tbList_Tgt_Current";
             this.cbx_tbList_Tgt_Current.Size = new System.Drawing.Size(481, 24);
             this.cbx_tbList_Tgt_Current.TabIndex = 61;
-            this.cbx_tbList_Tgt_Current.SelectedIndexChanged += new System.EventHandler(this.cbx_tbList_Tgt_Current_SelectedIndexChanged);
+            //this.cbx_tbList_Tgt_Current.SelectedIndexChanged += new System.EventHandler(this.cbx_tbList_Tgt_Current_SelectedIndexChanged);
             // 
             // cbx_schList_Tgt_Current
             // 
@@ -721,7 +726,7 @@ namespace CsiMigrationHelper
             this.cbx_schList_Tgt_Current.Name = "cbx_schList_Tgt_Current";
             this.cbx_schList_Tgt_Current.Size = new System.Drawing.Size(148, 24);
             this.cbx_schList_Tgt_Current.TabIndex = 58;
-            this.cbx_schList_Tgt_Current.SelectedIndexChanged += new System.EventHandler(this.cbx_schList_Tgt_Current_SelectedIndexChanged);
+            //this.cbx_schList_Tgt_Current.SelectedIndexChanged += new System.EventHandler(this.cbx_schList_Tgt_Current_SelectedIndexChanged);
             // 
             // rdbtn_Current_Clone
             // 
@@ -805,7 +810,7 @@ namespace CsiMigrationHelper
             this.cbx_tbList_Tgt_Staging.Name = "cbx_tbList_Tgt_Staging";
             this.cbx_tbList_Tgt_Staging.Size = new System.Drawing.Size(481, 24);
             this.cbx_tbList_Tgt_Staging.TabIndex = 62;
-            this.cbx_tbList_Tgt_Staging.SelectedIndexChanged += new System.EventHandler(this.cbx_tbList_Tgt_Staging_SelectedIndexChanged);
+            //this.cbx_tbList_Tgt_Staging.SelectedIndexChanged += new System.EventHandler(this.cbx_tbList_Tgt_Staging_SelectedIndexChanged);
             // 
             // cbx_schList_Tgt_Staging
             // 
@@ -815,7 +820,7 @@ namespace CsiMigrationHelper
             this.cbx_schList_Tgt_Staging.Name = "cbx_schList_Tgt_Staging";
             this.cbx_schList_Tgt_Staging.Size = new System.Drawing.Size(148, 24);
             this.cbx_schList_Tgt_Staging.TabIndex = 59;
-            this.cbx_schList_Tgt_Staging.SelectedIndexChanged += new System.EventHandler(this.cbx_schList_Tgt_Staging_SelectedIndexChanged);
+            //this.cbx_schList_Tgt_Staging.SelectedIndexChanged += new System.EventHandler(this.cbx_schList_Tgt_Staging_SelectedIndexChanged);
             // 
             // rdbtn_Staging_Clone
             // 
@@ -899,7 +904,7 @@ namespace CsiMigrationHelper
             this.cbx_tbList_Tgt_Archive.Name = "cbx_tbList_Tgt_Archive";
             this.cbx_tbList_Tgt_Archive.Size = new System.Drawing.Size(481, 24);
             this.cbx_tbList_Tgt_Archive.TabIndex = 63;
-            this.cbx_tbList_Tgt_Archive.SelectedIndexChanged += new System.EventHandler(this.cbx_tbList_Tgt_Archive_SelectedIndexChanged);
+            //this.cbx_tbList_Tgt_Archive.SelectedIndexChanged += new System.EventHandler(this.cbx_tbList_Tgt_Archive_SelectedIndexChanged);
             // 
             // cbx_schList_Tgt_Archive
             // 
@@ -909,7 +914,7 @@ namespace CsiMigrationHelper
             this.cbx_schList_Tgt_Archive.Name = "cbx_schList_Tgt_Archive";
             this.cbx_schList_Tgt_Archive.Size = new System.Drawing.Size(148, 24);
             this.cbx_schList_Tgt_Archive.TabIndex = 60;
-            this.cbx_schList_Tgt_Archive.SelectedIndexChanged += new System.EventHandler(this.cbx_schList_Tgt_Archive_SelectedIndexChanged);
+            //this.cbx_schList_Tgt_Archive.SelectedIndexChanged += new System.EventHandler(this.cbx_schList_Tgt_Archive_SelectedIndexChanged);
             // 
             // rdbtn_Archive_Clone
             // 
@@ -1100,7 +1105,7 @@ namespace CsiMigrationHelper
             // 
             // tabTgtMetadata
             // 
-            this.tabTgtMetadata.Controls.Add(this.splitContOuter);
+            this.tabTgtMetadata.Controls.Add(this.split_TgtMetadata);
             this.tabTgtMetadata.Location = new System.Drawing.Point(4, 25);
             this.tabTgtMetadata.Name = "tabTgtMetadata";
             this.tabTgtMetadata.Padding = new System.Windows.Forms.Padding(3);
@@ -1109,46 +1114,46 @@ namespace CsiMigrationHelper
             this.tabTgtMetadata.Text = "Tgt Metadata";
             this.tabTgtMetadata.UseVisualStyleBackColor = true;
             // 
-            // splitContOuter
+            // split_TgtMetadata
             // 
-            this.splitContOuter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContOuter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContOuter.Location = new System.Drawing.Point(3, 3);
-            this.splitContOuter.Name = "splitContOuter";
+            this.split_TgtMetadata.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.split_TgtMetadata.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.split_TgtMetadata.Location = new System.Drawing.Point(3, 3);
+            this.split_TgtMetadata.Name = "split_TgtMetadata";
             // 
-            // splitContOuter.Panel1
+            // split_TgtMetadata.Panel1
             // 
-            this.splitContOuter.Panel1.BackColor = System.Drawing.Color.Transparent;
-            this.splitContOuter.Panel1.Controls.Add(this.splitContainer2);
+            this.split_TgtMetadata.Panel1.BackColor = System.Drawing.Color.Transparent;
+            this.split_TgtMetadata.Panel1.Controls.Add(this.split_TgtMeta_Current);
             // 
-            // splitContOuter.Panel2
+            // split_TgtMetadata.Panel2
             // 
-            this.splitContOuter.Panel2.BackColor = System.Drawing.Color.Transparent;
-            this.splitContOuter.Panel2.Controls.Add(this.splitContStagingArchive);
-            this.splitContOuter.Size = new System.Drawing.Size(1470, 602);
-            this.splitContOuter.SplitterDistance = 457;
-            this.splitContOuter.TabIndex = 1;
+            this.split_TgtMetadata.Panel2.BackColor = System.Drawing.Color.Transparent;
+            this.split_TgtMetadata.Panel2.Controls.Add(this.split_TgtMeta_StagingArchive);
+            this.split_TgtMetadata.Size = new System.Drawing.Size(1470, 602);
+            this.split_TgtMetadata.SplitterDistance = 457;
+            this.split_TgtMetadata.TabIndex = 1;
             // 
-            // splitContainer2
+            // split_TgtMeta_Current
             // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(5);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.split_TgtMeta_Current.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.split_TgtMeta_Current.Location = new System.Drawing.Point(0, 0);
+            this.split_TgtMeta_Current.Margin = new System.Windows.Forms.Padding(5);
+            this.split_TgtMeta_Current.Name = "split_TgtMeta_Current";
+            this.split_TgtMeta_Current.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer2.Panel1
+            // split_TgtMeta_Current.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.tblp_TgtMeta_ColumnList_Current);
-            this.splitContainer2.Panel1.Padding = new System.Windows.Forms.Padding(3);
+            this.split_TgtMeta_Current.Panel1.Controls.Add(this.tblp_TgtMeta_ColumnList_Current);
+            this.split_TgtMeta_Current.Panel1.Padding = new System.Windows.Forms.Padding(3);
             // 
-            // splitContainer2.Panel2
+            // split_TgtMeta_Current.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.tblp_TgtMeta_ConstraintList_Current);
-            this.splitContainer2.Panel2.Padding = new System.Windows.Forms.Padding(3);
-            this.splitContainer2.Size = new System.Drawing.Size(455, 600);
-            this.splitContainer2.SplitterDistance = 362;
-            this.splitContainer2.TabIndex = 1;
+            this.split_TgtMeta_Current.Panel2.Controls.Add(this.tblp_TgtMeta_ConstraintList_Current);
+            this.split_TgtMeta_Current.Panel2.Padding = new System.Windows.Forms.Padding(3);
+            this.split_TgtMeta_Current.Size = new System.Drawing.Size(455, 600);
+            this.split_TgtMeta_Current.SplitterDistance = 362;
+            this.split_TgtMeta_Current.TabIndex = 1;
             // 
             // tblp_TgtMeta_ColumnList_Current
             // 
@@ -1178,20 +1183,20 @@ namespace CsiMigrationHelper
             // pnlTgtTableName_Current
             // 
             this.pnlTgtTableName_Current.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlTgtTableName_Current.Controls.Add(this.tbxTgtTableName_Current);
+            this.pnlTgtTableName_Current.Controls.Add(this.tbx_TgtMetadataTableName_Current);
             this.pnlTgtTableName_Current.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTgtTableName_Current.Location = new System.Drawing.Point(3, 3);
             this.pnlTgtTableName_Current.Name = "pnlTgtTableName_Current";
             this.pnlTgtTableName_Current.Size = new System.Drawing.Size(443, 24);
             this.pnlTgtTableName_Current.TabIndex = 3;
             // 
-            // tbxTgtTableName_Current
+            // tbx_TgtMetadataTableName_Current
             // 
-            this.tbxTgtTableName_Current.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbxTgtTableName_Current.Location = new System.Drawing.Point(0, 0);
-            this.tbxTgtTableName_Current.Name = "tbxTgtTableName_Current";
-            this.tbxTgtTableName_Current.Size = new System.Drawing.Size(441, 22);
-            this.tbxTgtTableName_Current.TabIndex = 0;
+            this.tbx_TgtMetadataTableName_Current.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbx_TgtMetadataTableName_Current.Location = new System.Drawing.Point(0, 0);
+            this.tbx_TgtMetadataTableName_Current.Name = "tbx_TgtMetadataTableName_Current";
+            this.tbx_TgtMetadataTableName_Current.Size = new System.Drawing.Size(441, 22);
+            this.tbx_TgtMetadataTableName_Current.TabIndex = 0;
             // 
             // tblp_TgtMeta_ConstraintList_Current
             // 
@@ -1276,28 +1281,28 @@ namespace CsiMigrationHelper
             this.btnCurrentReload.UseVisualStyleBackColor = true;
             this.btnCurrentReload.Click += new System.EventHandler(this.btnCurrentReload_Click);
             // 
-            // splitContStagingArchive
+            // split_TgtMeta_StagingArchive
             // 
-            this.splitContStagingArchive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContStagingArchive.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContStagingArchive.Location = new System.Drawing.Point(0, 0);
-            this.splitContStagingArchive.Name = "splitContStagingArchive";
+            this.split_TgtMeta_StagingArchive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.split_TgtMeta_StagingArchive.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.split_TgtMeta_StagingArchive.Location = new System.Drawing.Point(0, 0);
+            this.split_TgtMeta_StagingArchive.Name = "split_TgtMeta_StagingArchive";
             // 
-            // splitContStagingArchive.Panel1
+            // split_TgtMeta_StagingArchive.Panel1
             // 
-            this.splitContStagingArchive.Panel1.Controls.Add(this.splitStaging);
-            this.splitContStagingArchive.Panel1.Margin = new System.Windows.Forms.Padding(0, 0, 1, 0);
-            this.splitContStagingArchive.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 1, 0);
+            this.split_TgtMeta_StagingArchive.Panel1.Controls.Add(this.splitStaging);
+            this.split_TgtMeta_StagingArchive.Panel1.Margin = new System.Windows.Forms.Padding(0, 0, 1, 0);
+            this.split_TgtMeta_StagingArchive.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 1, 0);
             // 
-            // splitContStagingArchive.Panel2
+            // split_TgtMeta_StagingArchive.Panel2
             // 
-            this.splitContStagingArchive.Panel2.BackColor = System.Drawing.Color.Transparent;
-            this.splitContStagingArchive.Panel2.Controls.Add(this.splitArchive);
-            this.splitContStagingArchive.Panel2.Margin = new System.Windows.Forms.Padding(1, 0, 0, 0);
-            this.splitContStagingArchive.Panel2.Padding = new System.Windows.Forms.Padding(1, 0, 0, 0);
-            this.splitContStagingArchive.Size = new System.Drawing.Size(1009, 602);
-            this.splitContStagingArchive.SplitterDistance = 480;
-            this.splitContStagingArchive.TabIndex = 0;
+            this.split_TgtMeta_StagingArchive.Panel2.BackColor = System.Drawing.Color.Transparent;
+            this.split_TgtMeta_StagingArchive.Panel2.Controls.Add(this.split_TgtMeta_Archive);
+            this.split_TgtMeta_StagingArchive.Panel2.Margin = new System.Windows.Forms.Padding(1, 0, 0, 0);
+            this.split_TgtMeta_StagingArchive.Panel2.Padding = new System.Windows.Forms.Padding(1, 0, 0, 0);
+            this.split_TgtMeta_StagingArchive.Size = new System.Drawing.Size(1009, 602);
+            this.split_TgtMeta_StagingArchive.SplitterDistance = 480;
+            this.split_TgtMeta_StagingArchive.TabIndex = 0;
             // 
             // splitStaging
             // 
@@ -1348,20 +1353,20 @@ namespace CsiMigrationHelper
             // pnlTgtTableName_Staging
             // 
             this.pnlTgtTableName_Staging.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlTgtTableName_Staging.Controls.Add(this.tbxTgtTableName_Staging);
+            this.pnlTgtTableName_Staging.Controls.Add(this.tbx_TgtMetadataTableName_Staging);
             this.pnlTgtTableName_Staging.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTgtTableName_Staging.Location = new System.Drawing.Point(3, 3);
             this.pnlTgtTableName_Staging.Name = "pnlTgtTableName_Staging";
             this.pnlTgtTableName_Staging.Size = new System.Drawing.Size(465, 24);
             this.pnlTgtTableName_Staging.TabIndex = 3;
             // 
-            // tbxTgtTableName_Staging
+            // tbx_TgtMetadataTableName_Staging
             // 
-            this.tbxTgtTableName_Staging.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbxTgtTableName_Staging.Location = new System.Drawing.Point(0, 0);
-            this.tbxTgtTableName_Staging.Name = "tbxTgtTableName_Staging";
-            this.tbxTgtTableName_Staging.Size = new System.Drawing.Size(463, 22);
-            this.tbxTgtTableName_Staging.TabIndex = 0;
+            this.tbx_TgtMetadataTableName_Staging.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbx_TgtMetadataTableName_Staging.Location = new System.Drawing.Point(0, 0);
+            this.tbx_TgtMetadataTableName_Staging.Name = "tbx_TgtMetadataTableName_Staging";
+            this.tbx_TgtMetadataTableName_Staging.Size = new System.Drawing.Size(463, 22);
+            this.tbx_TgtMetadataTableName_Staging.TabIndex = 0;
             // 
             // tblp_TgtMeta_ConstraintList_Staging
             // 
@@ -1446,26 +1451,26 @@ namespace CsiMigrationHelper
             this.btnStagingReload.UseVisualStyleBackColor = true;
             this.btnStagingReload.Click += new System.EventHandler(this.btnStagingReload_Click);
             // 
-            // splitArchive
+            // split_TgtMeta_Archive
             // 
-            this.splitArchive.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitArchive.Location = new System.Drawing.Point(1, 0);
-            this.splitArchive.Margin = new System.Windows.Forms.Padding(5);
-            this.splitArchive.Name = "splitArchive";
-            this.splitArchive.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.split_TgtMeta_Archive.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.split_TgtMeta_Archive.Location = new System.Drawing.Point(1, 0);
+            this.split_TgtMeta_Archive.Margin = new System.Windows.Forms.Padding(5);
+            this.split_TgtMeta_Archive.Name = "split_TgtMeta_Archive";
+            this.split_TgtMeta_Archive.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitArchive.Panel1
+            // split_TgtMeta_Archive.Panel1
             // 
-            this.splitArchive.Panel1.Controls.Add(this.tblp_TgtMeta_ColumnList_Archive);
-            this.splitArchive.Panel1.Padding = new System.Windows.Forms.Padding(3);
+            this.split_TgtMeta_Archive.Panel1.Controls.Add(this.tblp_TgtMeta_ColumnList_Archive);
+            this.split_TgtMeta_Archive.Panel1.Padding = new System.Windows.Forms.Padding(3);
             // 
-            // splitArchive.Panel2
+            // split_TgtMeta_Archive.Panel2
             // 
-            this.splitArchive.Panel2.Controls.Add(this.tblp_TgtMeta_ConstraintList_Archive);
-            this.splitArchive.Panel2.Padding = new System.Windows.Forms.Padding(3);
-            this.splitArchive.Size = new System.Drawing.Size(522, 600);
-            this.splitArchive.SplitterDistance = 362;
-            this.splitArchive.TabIndex = 2;
+            this.split_TgtMeta_Archive.Panel2.Controls.Add(this.tblp_TgtMeta_ConstraintList_Archive);
+            this.split_TgtMeta_Archive.Panel2.Padding = new System.Windows.Forms.Padding(3);
+            this.split_TgtMeta_Archive.Size = new System.Drawing.Size(522, 600);
+            this.split_TgtMeta_Archive.SplitterDistance = 362;
+            this.split_TgtMeta_Archive.TabIndex = 2;
             // 
             // tblp_TgtMeta_ColumnList_Archive
             // 
@@ -1495,20 +1500,20 @@ namespace CsiMigrationHelper
             // pnlTgtTableName_Archive
             // 
             this.pnlTgtTableName_Archive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlTgtTableName_Archive.Controls.Add(this.tbxTgtTableName_Archive);
+            this.pnlTgtTableName_Archive.Controls.Add(this.tbx_TgtMetaDataTableName_Archive);
             this.pnlTgtTableName_Archive.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTgtTableName_Archive.Location = new System.Drawing.Point(3, 3);
             this.pnlTgtTableName_Archive.Name = "pnlTgtTableName_Archive";
             this.pnlTgtTableName_Archive.Size = new System.Drawing.Size(510, 24);
             this.pnlTgtTableName_Archive.TabIndex = 3;
             // 
-            // tbxTgtTableName_Archive
+            // tbx_TgtMetaDataTableName_Archive
             // 
-            this.tbxTgtTableName_Archive.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbxTgtTableName_Archive.Location = new System.Drawing.Point(0, 0);
-            this.tbxTgtTableName_Archive.Name = "tbxTgtTableName_Archive";
-            this.tbxTgtTableName_Archive.Size = new System.Drawing.Size(508, 22);
-            this.tbxTgtTableName_Archive.TabIndex = 0;
+            this.tbx_TgtMetaDataTableName_Archive.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbx_TgtMetaDataTableName_Archive.Location = new System.Drawing.Point(0, 0);
+            this.tbx_TgtMetaDataTableName_Archive.Name = "tbx_TgtMetaDataTableName_Archive";
+            this.tbx_TgtMetaDataTableName_Archive.Size = new System.Drawing.Size(508, 22);
+            this.tbx_TgtMetaDataTableName_Archive.TabIndex = 0;
             // 
             // tblp_TgtMeta_ConstraintList_Archive
             // 
@@ -1608,7 +1613,7 @@ namespace CsiMigrationHelper
             // 
             this.tblp_TrackingTable.ColumnCount = 1;
             this.tblp_TrackingTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblp_TrackingTable.Controls.Add(this.splitContTrackingTblOuter, 0, 0);
+            this.tblp_TrackingTable.Controls.Add(this.split_TrackTbl_Outer, 0, 0);
             this.tblp_TrackingTable.Controls.Add(this.gridTrackingTable, 0, 1);
             this.tblp_TrackingTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblp_TrackingTable.Location = new System.Drawing.Point(3, 3);
@@ -1619,22 +1624,22 @@ namespace CsiMigrationHelper
             this.tblp_TrackingTable.Size = new System.Drawing.Size(1470, 602);
             this.tblp_TrackingTable.TabIndex = 0;
             // 
-            // splitContTrackingTblOuter
+            // split_TrackTbl_Outer
             // 
-            this.splitContTrackingTblOuter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContTrackingTblOuter.Location = new System.Drawing.Point(3, 3);
-            this.splitContTrackingTblOuter.Name = "splitContTrackingTblOuter";
+            this.split_TrackTbl_Outer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.split_TrackTbl_Outer.Location = new System.Drawing.Point(3, 3);
+            this.split_TrackTbl_Outer.Name = "split_TrackTbl_Outer";
             // 
-            // splitContTrackingTblOuter.Panel1
+            // split_TrackTbl_Outer.Panel1
             // 
-            this.splitContTrackingTblOuter.Panel1.Controls.Add(this.grpbxInstance);
+            this.split_TrackTbl_Outer.Panel1.Controls.Add(this.grpbxInstance);
             // 
-            // splitContTrackingTblOuter.Panel2
+            // split_TrackTbl_Outer.Panel2
             // 
-            this.splitContTrackingTblOuter.Panel2.Controls.Add(this.splitContTrackTblDatabase);
-            this.splitContTrackingTblOuter.Size = new System.Drawing.Size(1464, 54);
-            this.splitContTrackingTblOuter.SplitterDistance = 388;
-            this.splitContTrackingTblOuter.TabIndex = 1;
+            this.split_TrackTbl_Outer.Panel2.Controls.Add(this.split_TrackTbl_Database);
+            this.split_TrackTbl_Outer.Size = new System.Drawing.Size(1464, 54);
+            this.split_TrackTbl_Outer.SplitterDistance = 295;
+            this.split_TrackTbl_Outer.TabIndex = 1;
             // 
             // grpbxInstance
             // 
@@ -1642,7 +1647,7 @@ namespace CsiMigrationHelper
             this.grpbxInstance.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpbxInstance.Location = new System.Drawing.Point(0, 0);
             this.grpbxInstance.Name = "grpbxInstance";
-            this.grpbxInstance.Size = new System.Drawing.Size(388, 54);
+            this.grpbxInstance.Size = new System.Drawing.Size(295, 54);
             this.grpbxInstance.TabIndex = 0;
             this.grpbxInstance.TabStop = false;
             this.grpbxInstance.Text = "Instance:";
@@ -1652,7 +1657,7 @@ namespace CsiMigrationHelper
             this.tblp_TabTrackTbl_Instance.ColumnCount = 2;
             this.tblp_TabTrackTbl_Instance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblp_TabTrackTbl_Instance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
-            this.tblp_TabTrackTbl_Instance.Controls.Add(this.textBox1, 0, 0);
+            this.tblp_TabTrackTbl_Instance.Controls.Add(this.tbx_TrackTblInstance, 0, 0);
             this.tblp_TabTrackTbl_Instance.Controls.Add(this.btnTrackTblLogin, 1, 0);
             this.tblp_TabTrackTbl_Instance.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblp_TabTrackTbl_Instance.Location = new System.Drawing.Point(3, 18);
@@ -1662,23 +1667,23 @@ namespace CsiMigrationHelper
             this.tblp_TabTrackTbl_Instance.RowCount = 1;
             this.tblp_TabTrackTbl_Instance.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblp_TabTrackTbl_Instance.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            this.tblp_TabTrackTbl_Instance.Size = new System.Drawing.Size(382, 33);
+            this.tblp_TabTrackTbl_Instance.Size = new System.Drawing.Size(289, 33);
             this.tblp_TabTrackTbl_Instance.TabIndex = 72;
             // 
-            // textBox1
+            // tbx_TrackTblInstance
             // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(4, 6);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(284, 22);
-            this.textBox1.TabIndex = 70;
+            this.tbx_TrackTblInstance.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbx_TrackTblInstance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_TrackTblInstance.Location = new System.Drawing.Point(4, 6);
+            this.tbx_TrackTblInstance.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.tbx_TrackTblInstance.Name = "tbx_TrackTblInstance";
+            this.tbx_TrackTblInstance.Size = new System.Drawing.Size(191, 22);
+            this.tbx_TrackTblInstance.TabIndex = 70;
             // 
             // btnTrackTblLogin
             // 
             this.btnTrackTblLogin.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnTrackTblLogin.Location = new System.Drawing.Point(295, 3);
+            this.btnTrackTblLogin.Location = new System.Drawing.Point(202, 3);
             this.btnTrackTblLogin.Margin = new System.Windows.Forms.Padding(2);
             this.btnTrackTblLogin.Name = "btnTrackTblLogin";
             this.btnTrackTblLogin.Padding = new System.Windows.Forms.Padding(1);
@@ -1686,88 +1691,120 @@ namespace CsiMigrationHelper
             this.btnTrackTblLogin.TabIndex = 69;
             this.btnTrackTblLogin.Text = "Login";
             this.btnTrackTblLogin.UseVisualStyleBackColor = true;
+            this.btnTrackTblLogin.Click += new System.EventHandler(this.btnTrackTblLogin_Click);
             // 
-            // splitContTrackTblDatabase
+            // split_TrackTbl_Database
             // 
-            this.splitContTrackTblDatabase.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContTrackTblDatabase.Location = new System.Drawing.Point(0, 0);
-            this.splitContTrackTblDatabase.Name = "splitContTrackTblDatabase";
+            this.split_TrackTbl_Database.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.split_TrackTbl_Database.Location = new System.Drawing.Point(0, 0);
+            this.split_TrackTbl_Database.Name = "split_TrackTbl_Database";
             // 
-            // splitContTrackTblDatabase.Panel1
+            // split_TrackTbl_Database.Panel1
             // 
-            this.splitContTrackTblDatabase.Panel1.Controls.Add(this.grpbxDatabase);
+            this.split_TrackTbl_Database.Panel1.Controls.Add(this.grpbxDatabase);
             // 
-            // splitContTrackTblDatabase.Panel2
+            // split_TrackTbl_Database.Panel2
             // 
-            this.splitContTrackTblDatabase.Panel2.Controls.Add(this.splitContTrackTblSchema);
-            this.splitContTrackTblDatabase.Size = new System.Drawing.Size(1072, 54);
-            this.splitContTrackTblDatabase.SplitterDistance = 196;
-            this.splitContTrackTblDatabase.TabIndex = 0;
+            this.split_TrackTbl_Database.Panel2.Controls.Add(this.split_TrackTbl_Schema);
+            this.split_TrackTbl_Database.Size = new System.Drawing.Size(1165, 54);
+            this.split_TrackTbl_Database.SplitterDistance = 239;
+            this.split_TrackTbl_Database.TabIndex = 0;
             // 
             // grpbxDatabase
             // 
+            this.grpbxDatabase.Controls.Add(this.cbxt_TrackTbl_Database);
             this.grpbxDatabase.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpbxDatabase.Location = new System.Drawing.Point(0, 0);
             this.grpbxDatabase.Name = "grpbxDatabase";
-            this.grpbxDatabase.Size = new System.Drawing.Size(196, 54);
+            this.grpbxDatabase.Padding = new System.Windows.Forms.Padding(3, 3, 3, 5);
+            this.grpbxDatabase.Size = new System.Drawing.Size(239, 54);
             this.grpbxDatabase.TabIndex = 0;
             this.grpbxDatabase.TabStop = false;
             this.grpbxDatabase.Text = "Database:";
             // 
-            // splitContTrackTblSchema
+            // cbxt_TrackTbl_Database
             // 
-            this.splitContTrackTblSchema.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContTrackTblSchema.Location = new System.Drawing.Point(0, 0);
-            this.splitContTrackTblSchema.Name = "splitContTrackTblSchema";
+            this.cbxt_TrackTbl_Database.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.cbxt_TrackTbl_Database.FormattingEnabled = true;
+            this.cbxt_TrackTbl_Database.Location = new System.Drawing.Point(3, 25);
+            this.cbxt_TrackTbl_Database.Name = "cbxt_TrackTbl_Database";
+            this.cbxt_TrackTbl_Database.Size = new System.Drawing.Size(233, 24);
+            this.cbxt_TrackTbl_Database.TabIndex = 0;
             // 
-            // splitContTrackTblSchema.Panel1
+            // split_TrackTbl_Schema
             // 
-            this.splitContTrackTblSchema.Panel1.Controls.Add(this.grpbxSchema);
+            this.split_TrackTbl_Schema.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.split_TrackTbl_Schema.Location = new System.Drawing.Point(0, 0);
+            this.split_TrackTbl_Schema.Name = "split_TrackTbl_Schema";
             // 
-            // splitContTrackTblSchema.Panel2
+            // split_TrackTbl_Schema.Panel1
             // 
-            this.splitContTrackTblSchema.Panel2.Controls.Add(this.splitContTrackTblTable);
-            this.splitContTrackTblSchema.Size = new System.Drawing.Size(872, 54);
-            this.splitContTrackTblSchema.SplitterDistance = 196;
-            this.splitContTrackTblSchema.TabIndex = 0;
+            this.split_TrackTbl_Schema.Panel1.Controls.Add(this.grpbxSchema);
+            // 
+            // split_TrackTbl_Schema.Panel2
+            // 
+            this.split_TrackTbl_Schema.Panel2.Controls.Add(this.split_TrackTbl_Table);
+            this.split_TrackTbl_Schema.Size = new System.Drawing.Size(922, 54);
+            this.split_TrackTbl_Schema.SplitterDistance = 154;
+            this.split_TrackTbl_Schema.TabIndex = 0;
             // 
             // grpbxSchema
             // 
+            this.grpbxSchema.Controls.Add(this.cbxt_TrackTbl_Schema);
             this.grpbxSchema.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpbxSchema.Location = new System.Drawing.Point(0, 0);
             this.grpbxSchema.Name = "grpbxSchema";
-            this.grpbxSchema.Size = new System.Drawing.Size(196, 54);
+            this.grpbxSchema.Size = new System.Drawing.Size(154, 54);
             this.grpbxSchema.TabIndex = 3;
             this.grpbxSchema.TabStop = false;
             this.grpbxSchema.Text = "Schema:";
             // 
-            // splitContTrackTblTable
+            // cbxt_TrackTbl_Schema
             // 
-            this.splitContTrackTblTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContTrackTblTable.Location = new System.Drawing.Point(0, 0);
-            this.splitContTrackTblTable.Name = "splitContTrackTblTable";
+            this.cbxt_TrackTbl_Schema.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.cbxt_TrackTbl_Schema.FormattingEnabled = true;
+            this.cbxt_TrackTbl_Schema.Location = new System.Drawing.Point(3, 27);
+            this.cbxt_TrackTbl_Schema.Name = "cbxt_TrackTbl_Schema";
+            this.cbxt_TrackTbl_Schema.Size = new System.Drawing.Size(148, 24);
+            this.cbxt_TrackTbl_Schema.TabIndex = 1;
             // 
-            // splitContTrackTblTable.Panel1
+            // split_TrackTbl_Table
             // 
-            this.splitContTrackTblTable.Panel1.Controls.Add(this.grpbxTable);
+            this.split_TrackTbl_Table.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.split_TrackTbl_Table.Location = new System.Drawing.Point(0, 0);
+            this.split_TrackTbl_Table.Name = "split_TrackTbl_Table";
             // 
-            // splitContTrackTblTable.Panel2
+            // split_TrackTbl_Table.Panel1
             // 
-            this.splitContTrackTblTable.Panel2.Controls.Add(this.tblp_TrackTbl_SaveRunBtns);
-            this.splitContTrackTblTable.Size = new System.Drawing.Size(672, 54);
-            this.splitContTrackTblTable.SplitterDistance = 308;
-            this.splitContTrackTblTable.TabIndex = 0;
+            this.split_TrackTbl_Table.Panel1.Controls.Add(this.grpbxTable);
+            // 
+            // split_TrackTbl_Table.Panel2
+            // 
+            this.split_TrackTbl_Table.Panel2.Controls.Add(this.tblp_TrackTbl_SaveRunBtns);
+            this.split_TrackTbl_Table.Size = new System.Drawing.Size(764, 54);
+            this.split_TrackTbl_Table.SplitterDistance = 382;
+            this.split_TrackTbl_Table.TabIndex = 0;
             // 
             // grpbxTable
             // 
+            this.grpbxTable.Controls.Add(this.cbxt_TrackTbl_Table);
             this.grpbxTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpbxTable.Location = new System.Drawing.Point(0, 0);
             this.grpbxTable.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
             this.grpbxTable.Name = "grpbxTable";
-            this.grpbxTable.Size = new System.Drawing.Size(308, 54);
+            this.grpbxTable.Size = new System.Drawing.Size(382, 54);
             this.grpbxTable.TabIndex = 6;
             this.grpbxTable.TabStop = false;
             this.grpbxTable.Text = "Table:";
+            // 
+            // cbxt_TrackTbl_Table
+            // 
+            this.cbxt_TrackTbl_Table.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.cbxt_TrackTbl_Table.FormattingEnabled = true;
+            this.cbxt_TrackTbl_Table.Location = new System.Drawing.Point(3, 27);
+            this.cbxt_TrackTbl_Table.Name = "cbxt_TrackTbl_Table";
+            this.cbxt_TrackTbl_Table.Size = new System.Drawing.Size(376, 24);
+            this.cbxt_TrackTbl_Table.TabIndex = 2;
             // 
             // tblp_TrackTbl_SaveRunBtns
             // 
@@ -1775,8 +1812,8 @@ namespace CsiMigrationHelper
             this.tblp_TrackTbl_SaveRunBtns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tblp_TrackTbl_SaveRunBtns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tblp_TrackTbl_SaveRunBtns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tblp_TrackTbl_SaveRunBtns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 101F));
-            this.tblp_TrackTbl_SaveRunBtns.Controls.Add(this.btnTrackTblRun, 0, 1);
+            this.tblp_TrackTbl_SaveRunBtns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 102F));
+            this.tblp_TrackTbl_SaveRunBtns.Controls.Add(this.btnTrackTblEdit, 0, 1);
             this.tblp_TrackTbl_SaveRunBtns.Controls.Add(this.btnTrackTblSave, 0, 1);
             this.tblp_TrackTbl_SaveRunBtns.Controls.Add(this.lblTrackTblUseExisting, 1, 0);
             this.tblp_TrackTbl_SaveRunBtns.Controls.Add(this.lblTrackTblCreateNew, 0, 0);
@@ -1788,25 +1825,25 @@ namespace CsiMigrationHelper
             this.tblp_TrackTbl_SaveRunBtns.RowCount = 2;
             this.tblp_TrackTbl_SaveRunBtns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tblp_TrackTbl_SaveRunBtns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblp_TrackTbl_SaveRunBtns.Size = new System.Drawing.Size(360, 54);
+            this.tblp_TrackTbl_SaveRunBtns.Size = new System.Drawing.Size(378, 54);
             this.tblp_TrackTbl_SaveRunBtns.TabIndex = 72;
             // 
-            // btnTrackTblRun
+            // btnTrackTblEdit
             // 
-            this.btnTrackTblRun.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnTrackTblRun.Location = new System.Drawing.Point(260, 23);
-            this.btnTrackTblRun.Margin = new System.Windows.Forms.Padding(2, 3, 5, 3);
-            this.btnTrackTblRun.Name = "btnTrackTblRun";
-            this.btnTrackTblRun.Padding = new System.Windows.Forms.Padding(1);
-            this.btnTrackTblRun.Size = new System.Drawing.Size(95, 28);
-            this.btnTrackTblRun.TabIndex = 71;
-            this.btnTrackTblRun.Text = "Run";
-            this.btnTrackTblRun.UseVisualStyleBackColor = true;
+            this.btnTrackTblEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnTrackTblEdit.Location = new System.Drawing.Point(278, 23);
+            this.btnTrackTblEdit.Margin = new System.Windows.Forms.Padding(2, 3, 5, 3);
+            this.btnTrackTblEdit.Name = "btnTrackTblEdit";
+            this.btnTrackTblEdit.Padding = new System.Windows.Forms.Padding(1);
+            this.btnTrackTblEdit.Size = new System.Drawing.Size(95, 28);
+            this.btnTrackTblEdit.TabIndex = 71;
+            this.btnTrackTblEdit.Text = "Edit";
+            this.btnTrackTblEdit.UseVisualStyleBackColor = true;
             // 
             // btnTrackTblSave
             // 
             this.btnTrackTblSave.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnTrackTblSave.Location = new System.Drawing.Point(163, 23);
+            this.btnTrackTblSave.Location = new System.Drawing.Point(181, 23);
             this.btnTrackTblSave.Margin = new System.Windows.Forms.Padding(5, 3, 2, 3);
             this.btnTrackTblSave.Name = "btnTrackTblSave";
             this.btnTrackTblSave.Padding = new System.Windows.Forms.Padding(1);
@@ -1819,9 +1856,9 @@ namespace CsiMigrationHelper
             // 
             this.lblTrackTblUseExisting.AutoSize = true;
             this.lblTrackTblUseExisting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTrackTblUseExisting.Location = new System.Drawing.Point(82, 0);
+            this.lblTrackTblUseExisting.Location = new System.Drawing.Point(91, 0);
             this.lblTrackTblUseExisting.Name = "lblTrackTblUseExisting";
-            this.lblTrackTblUseExisting.Size = new System.Drawing.Size(73, 20);
+            this.lblTrackTblUseExisting.Size = new System.Drawing.Size(82, 20);
             this.lblTrackTblUseExisting.TabIndex = 4;
             this.lblTrackTblUseExisting.Text = "Existing:";
             this.lblTrackTblUseExisting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1832,7 +1869,7 @@ namespace CsiMigrationHelper
             this.lblTrackTblCreateNew.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTrackTblCreateNew.Location = new System.Drawing.Point(3, 0);
             this.lblTrackTblCreateNew.Name = "lblTrackTblCreateNew";
-            this.lblTrackTblCreateNew.Size = new System.Drawing.Size(73, 20);
+            this.lblTrackTblCreateNew.Size = new System.Drawing.Size(82, 20);
             this.lblTrackTblCreateNew.TabIndex = 3;
             this.lblTrackTblCreateNew.Text = "New:";
             this.lblTrackTblCreateNew.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1846,7 +1883,7 @@ namespace CsiMigrationHelper
             this.grpbxTrackTblCreateNewUseExisting.Margin = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.grpbxTrackTblCreateNewUseExisting.Name = "grpbxTrackTblCreateNewUseExisting";
             this.grpbxTrackTblCreateNewUseExisting.Padding = new System.Windows.Forms.Padding(0);
-            this.grpbxTrackTblCreateNewUseExisting.Size = new System.Drawing.Size(158, 33);
+            this.grpbxTrackTblCreateNewUseExisting.Size = new System.Drawing.Size(176, 33);
             this.grpbxTrackTblCreateNewUseExisting.TabIndex = 2;
             this.grpbxTrackTblCreateNewUseExisting.TabStop = false;
             // 
@@ -1865,7 +1902,7 @@ namespace CsiMigrationHelper
             this.tblp_TrackTbl_UseExistingCreateNew.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblp_TrackTbl_UseExistingCreateNew.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tblp_TrackTbl_UseExistingCreateNew.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tblp_TrackTbl_UseExistingCreateNew.Size = new System.Drawing.Size(158, 18);
+            this.tblp_TrackTbl_UseExistingCreateNew.Size = new System.Drawing.Size(176, 18);
             this.tblp_TrackTbl_UseExistingCreateNew.TabIndex = 0;
             // 
             // rdbtn_TrackTbl_UseExisting
@@ -1873,10 +1910,10 @@ namespace CsiMigrationHelper
             this.rdbtn_TrackTbl_UseExisting.AutoSize = true;
             this.rdbtn_TrackTbl_UseExisting.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rdbtn_TrackTbl_UseExisting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rdbtn_TrackTbl_UseExisting.Location = new System.Drawing.Point(79, -2);
+            this.rdbtn_TrackTbl_UseExisting.Location = new System.Drawing.Point(88, -2);
             this.rdbtn_TrackTbl_UseExisting.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
             this.rdbtn_TrackTbl_UseExisting.Name = "rdbtn_TrackTbl_UseExisting";
-            this.rdbtn_TrackTbl_UseExisting.Size = new System.Drawing.Size(79, 17);
+            this.rdbtn_TrackTbl_UseExisting.Size = new System.Drawing.Size(88, 17);
             this.rdbtn_TrackTbl_UseExisting.TabIndex = 1;
             this.rdbtn_TrackTbl_UseExisting.UseVisualStyleBackColor = true;
             // 
@@ -1889,10 +1926,20 @@ namespace CsiMigrationHelper
             this.rdbtn_TrackTbl_CreateNew.Location = new System.Drawing.Point(0, -2);
             this.rdbtn_TrackTbl_CreateNew.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
             this.rdbtn_TrackTbl_CreateNew.Name = "rdbtn_TrackTbl_CreateNew";
-            this.rdbtn_TrackTbl_CreateNew.Size = new System.Drawing.Size(79, 17);
+            this.rdbtn_TrackTbl_CreateNew.Size = new System.Drawing.Size(88, 17);
             this.rdbtn_TrackTbl_CreateNew.TabIndex = 0;
             this.rdbtn_TrackTbl_CreateNew.TabStop = true;
             this.rdbtn_TrackTbl_CreateNew.UseVisualStyleBackColor = true;
+            // 
+            // gridTrackingTable
+            // 
+            this.gridTrackingTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridTrackingTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridTrackingTable.Location = new System.Drawing.Point(5, 65);
+            this.gridTrackingTable.Margin = new System.Windows.Forms.Padding(5);
+            this.gridTrackingTable.Name = "gridTrackingTable";
+            this.gridTrackingTable.Size = new System.Drawing.Size(1460, 532);
+            this.gridTrackingTable.TabIndex = 2;
             // 
             // tabEventLog
             // 
@@ -2005,16 +2052,6 @@ namespace CsiMigrationHelper
             this.imageList1.Images.SetKeyName(0, "GreenChkMrk.png");
             this.imageList1.Images.SetKeyName(1, "FailIcon.png");
             // 
-            // gridTrackingTable
-            // 
-            this.gridTrackingTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridTrackingTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridTrackingTable.Location = new System.Drawing.Point(5, 65);
-            this.gridTrackingTable.Margin = new System.Windows.Forms.Padding(5);
-            this.gridTrackingTable.Name = "gridTrackingTable";
-            this.gridTrackingTable.Size = new System.Drawing.Size(1460, 532);
-            this.gridTrackingTable.TabIndex = 2;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2032,10 +2069,10 @@ namespace CsiMigrationHelper
             this.tabSrcTgtSetup.ResumeLayout(false);
             this.tblp_TabSetupOuter.ResumeLayout(false);
             this.tblp_TabSetupOuter.PerformLayout();
-            this.splitContainer.Panel1.ResumeLayout(false);
-            this.splitContainer.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
-            this.splitContainer.ResumeLayout(false);
+            this.split_SrcTgtSetup.Panel1.ResumeLayout(false);
+            this.split_SrcTgtSetup.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.split_SrcTgtSetup)).EndInit();
+            this.split_SrcTgtSetup.ResumeLayout(false);
             this.gpbxSrc.ResumeLayout(false);
             this.tblp_TabSetupSrc.ResumeLayout(false);
             this.tblp_TabSetupSrc.PerformLayout();
@@ -2054,14 +2091,14 @@ namespace CsiMigrationHelper
             this.tblp_ObjectLablels.ResumeLayout(false);
             this.tblp_ObjectLablels.PerformLayout();
             this.tabTgtMetadata.ResumeLayout(false);
-            this.splitContOuter.Panel1.ResumeLayout(false);
-            this.splitContOuter.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContOuter)).EndInit();
-            this.splitContOuter.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
+            this.split_TgtMetadata.Panel1.ResumeLayout(false);
+            this.split_TgtMetadata.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.split_TgtMetadata)).EndInit();
+            this.split_TgtMetadata.ResumeLayout(false);
+            this.split_TgtMeta_Current.Panel1.ResumeLayout(false);
+            this.split_TgtMeta_Current.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.split_TgtMeta_Current)).EndInit();
+            this.split_TgtMeta_Current.ResumeLayout(false);
             this.tblp_TgtMeta_ColumnList_Current.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridColList_Current)).EndInit();
             this.pnlTgtTableName_Current.ResumeLayout(false);
@@ -2070,10 +2107,10 @@ namespace CsiMigrationHelper
             ((System.ComponentModel.ISupportInitialize)(this.gridConstraintList_Current)).EndInit();
             this.tblp_TgtMeta_Btns_Current.ResumeLayout(false);
             this.tblp_TgtMeta_Btns_Current.PerformLayout();
-            this.splitContStagingArchive.Panel1.ResumeLayout(false);
-            this.splitContStagingArchive.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContStagingArchive)).EndInit();
-            this.splitContStagingArchive.ResumeLayout(false);
+            this.split_TgtMeta_StagingArchive.Panel1.ResumeLayout(false);
+            this.split_TgtMeta_StagingArchive.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.split_TgtMeta_StagingArchive)).EndInit();
+            this.split_TgtMeta_StagingArchive.ResumeLayout(false);
             this.splitStaging.Panel1.ResumeLayout(false);
             this.splitStaging.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitStaging)).EndInit();
@@ -2086,10 +2123,10 @@ namespace CsiMigrationHelper
             ((System.ComponentModel.ISupportInitialize)(this.gridConstraintList_Staging)).EndInit();
             this.tblp_TgtMeta_Btns_Staging.ResumeLayout(false);
             this.tblp_TgtMeta_Btns_Staging.PerformLayout();
-            this.splitArchive.Panel1.ResumeLayout(false);
-            this.splitArchive.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitArchive)).EndInit();
-            this.splitArchive.ResumeLayout(false);
+            this.split_TgtMeta_Archive.Panel1.ResumeLayout(false);
+            this.split_TgtMeta_Archive.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.split_TgtMeta_Archive)).EndInit();
+            this.split_TgtMeta_Archive.ResumeLayout(false);
             this.tblp_TgtMeta_ColumnList_Archive.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridColList_Archive)).EndInit();
             this.pnlTgtTableName_Archive.ResumeLayout(false);
@@ -2100,35 +2137,38 @@ namespace CsiMigrationHelper
             this.tblp_TgtMeta_Btns_Archive.PerformLayout();
             this.tabTrackingTbl.ResumeLayout(false);
             this.tblp_TrackingTable.ResumeLayout(false);
-            this.splitContTrackingTblOuter.Panel1.ResumeLayout(false);
-            this.splitContTrackingTblOuter.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContTrackingTblOuter)).EndInit();
-            this.splitContTrackingTblOuter.ResumeLayout(false);
+            this.split_TrackTbl_Outer.Panel1.ResumeLayout(false);
+            this.split_TrackTbl_Outer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.split_TrackTbl_Outer)).EndInit();
+            this.split_TrackTbl_Outer.ResumeLayout(false);
             this.grpbxInstance.ResumeLayout(false);
             this.tblp_TabTrackTbl_Instance.ResumeLayout(false);
             this.tblp_TabTrackTbl_Instance.PerformLayout();
-            this.splitContTrackTblDatabase.Panel1.ResumeLayout(false);
-            this.splitContTrackTblDatabase.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContTrackTblDatabase)).EndInit();
-            this.splitContTrackTblDatabase.ResumeLayout(false);
-            this.splitContTrackTblSchema.Panel1.ResumeLayout(false);
-            this.splitContTrackTblSchema.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContTrackTblSchema)).EndInit();
-            this.splitContTrackTblSchema.ResumeLayout(false);
-            this.splitContTrackTblTable.Panel1.ResumeLayout(false);
-            this.splitContTrackTblTable.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContTrackTblTable)).EndInit();
-            this.splitContTrackTblTable.ResumeLayout(false);
+            this.split_TrackTbl_Database.Panel1.ResumeLayout(false);
+            this.split_TrackTbl_Database.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.split_TrackTbl_Database)).EndInit();
+            this.split_TrackTbl_Database.ResumeLayout(false);
+            this.grpbxDatabase.ResumeLayout(false);
+            this.split_TrackTbl_Schema.Panel1.ResumeLayout(false);
+            this.split_TrackTbl_Schema.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.split_TrackTbl_Schema)).EndInit();
+            this.split_TrackTbl_Schema.ResumeLayout(false);
+            this.grpbxSchema.ResumeLayout(false);
+            this.split_TrackTbl_Table.Panel1.ResumeLayout(false);
+            this.split_TrackTbl_Table.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.split_TrackTbl_Table)).EndInit();
+            this.split_TrackTbl_Table.ResumeLayout(false);
+            this.grpbxTable.ResumeLayout(false);
             this.tblp_TrackTbl_SaveRunBtns.ResumeLayout(false);
             this.tblp_TrackTbl_SaveRunBtns.PerformLayout();
             this.grpbxTrackTblCreateNewUseExisting.ResumeLayout(false);
             this.tblp_TrackTbl_UseExistingCreateNew.ResumeLayout(false);
             this.tblp_TrackTbl_UseExistingCreateNew.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridTrackingTable)).EndInit();
             this.tabEventLog.ResumeLayout(false);
             this.tabSandBox.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridTrackingTable)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2140,32 +2180,32 @@ namespace CsiMigrationHelper
         private System.Windows.Forms.TabPage tabSrcTgtSetup;
         private System.Windows.Forms.TabPage tabTrackingTbl;
         private System.Windows.Forms.TableLayoutPanel tblp_TabSetupOuter;
-        private System.Windows.Forms.SplitContainer splitContainer;
+        private System.Windows.Forms.SplitContainer split_SrcTgtSetup;
         private System.Windows.Forms.GroupBox gpbxSrc;
         private System.Windows.Forms.GroupBox gpbxTgt;
         private System.Windows.Forms.TableLayoutPanel tblp_TabSetupSrc;
         private System.Windows.Forms.Button buttonLoginSrc;
-        private System.Windows.Forms.TextBox tbxInstanceSrc;
-        private System.Windows.Forms.ComboBox cbx_dbList_Src;
-        private System.Windows.Forms.ComboBox cbx_schList_Src;
-        private System.Windows.Forms.ComboBox cbx_tbList_Src;
-        private System.Windows.Forms.ComboBox cbx_colList_Src;
+        private System.Windows.Forms.TextBox tbx_InstanceSrc;
+        private ComboBoxExt cbx_dbList_Src;
+        private ComboBoxExt cbx_schList_Src;
+        private ComboBoxExt cbx_tbList_Src;
+        private ComboBoxExt cbx_colList_Src;
         private System.Windows.Forms.TextBox tbx_DataType_Src;
-        private System.Windows.Forms.ComboBox cbx_idxList_Src;
+        private ComboBoxExt cbx_idxList_Src;
         private System.Windows.Forms.TableLayoutPanel tblp_TabSetupTgt;
         private System.Windows.Forms.Button buttonLoginTgt;
-        private System.Windows.Forms.TextBox tbxInstanceTgt;
-        private System.Windows.Forms.ComboBox cbx_dbList_Tgt;
-        private System.Windows.Forms.ComboBox cbx_tbList_Tgt_Archive;
-        private System.Windows.Forms.ComboBox cbx_tbList_Tgt_Staging;
-        private System.Windows.Forms.ComboBox cbx_tbList_Tgt_Current;
-        private System.Windows.Forms.ComboBox cbx_schList_Tgt_Archive;
-        private System.Windows.Forms.ComboBox cbx_schList_Tgt_Staging;
-        private System.Windows.Forms.ComboBox cbx_schList_Tgt_Current;
-        private System.Windows.Forms.ComboBox cbx_idxList_Tgt;
-        private System.Windows.Forms.ComboBox cbx_psList_Tgt;
+        private System.Windows.Forms.TextBox tbx_InstanceTgt;
+        private ComboBoxExt cbx_dbList_Tgt;
+        private ComboBoxExt cbx_tbList_Tgt_Archive;
+        private ComboBoxExt cbx_tbList_Tgt_Staging;
+        private ComboBoxExt cbx_tbList_Tgt_Current;
+        private ComboBoxExt cbx_schList_Tgt_Archive;
+        private ComboBoxExt cbx_schList_Tgt_Staging;
+        private ComboBoxExt cbx_schList_Tgt_Current;
+        private ComboBoxExt cbx_idxList_Tgt;
+        private ComboBoxExt cbx_psList_Tgt;
         private System.Windows.Forms.TextBox tbx_DataType_Tgt;
-        private System.Windows.Forms.ComboBox cbx_colList_Tgt;
+        private ComboBoxExt cbx_colList_Tgt;
         private System.Windows.Forms.CheckBox chkBxArchive;
         private System.Windows.Forms.CheckBox chkBxStaging;
         private System.Windows.Forms.CheckBox chkBxCurrent;
@@ -2204,26 +2244,26 @@ namespace CsiMigrationHelper
         private System.Windows.Forms.RadioButton rdbtn_Archive_UseExisting;
         private System.Windows.Forms.ToolStripMenuItem optionsStripMenuItem;
         private System.Windows.Forms.TabPage tabTgtMetadata;
-        private System.Windows.Forms.SplitContainer splitContOuter;
-        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.SplitContainer split_TgtMetadata;
+        private System.Windows.Forms.SplitContainer split_TgtMeta_Current;
         private System.Windows.Forms.TableLayoutPanel tblp_TgtMeta_Btns_Current;
         private System.Windows.Forms.Button btnCurrentExecute;
         private System.Windows.Forms.Button btnCurrentSyntax;
         private System.Windows.Forms.Button btnCurrentReload;
-        private System.Windows.Forms.SplitContainer splitContStagingArchive;
+        private System.Windows.Forms.SplitContainer split_TgtMeta_StagingArchive;
         private System.Windows.Forms.SplitContainer splitStaging;
-        private System.Windows.Forms.SplitContainer splitArchive;
+        private System.Windows.Forms.SplitContainer split_TgtMeta_Archive;
         private System.Windows.Forms.TableLayoutPanel tblp_TgtMeta_ColumnList_Current;
         private System.Windows.Forms.DataGridView gridColList_Current;
         private System.Windows.Forms.Panel pnlTgtTableName_Current;
-        private System.Windows.Forms.TextBox tbxTgtTableName_Current;
+        private System.Windows.Forms.TextBox tbx_TgtMetadataTableName_Current;
         private System.Windows.Forms.TableLayoutPanel tblp_TgtMeta_ConstraintList_Current;
         private System.Windows.Forms.DataGridView gridConstraintList_Current;
         private System.Windows.Forms.Button btnPrint;
         private System.Windows.Forms.TableLayoutPanel tblp_TgtMeta_ColumnList_Staging;
         private System.Windows.Forms.DataGridView gridColList_Staging;
         private System.Windows.Forms.Panel pnlTgtTableName_Staging;
-        private System.Windows.Forms.TextBox tbxTgtTableName_Staging;
+        private System.Windows.Forms.TextBox tbx_TgtMetadataTableName_Staging;
         private System.Windows.Forms.TableLayoutPanel tblp_TgtMeta_ConstraintList_Staging;
         private System.Windows.Forms.DataGridView gridConstraintList_Staging;
         private System.Windows.Forms.TableLayoutPanel tblp_TgtMeta_Btns_Staging;
@@ -2233,7 +2273,7 @@ namespace CsiMigrationHelper
         private System.Windows.Forms.TableLayoutPanel tblp_TgtMeta_ColumnList_Archive;
         private System.Windows.Forms.DataGridView gridColList_Archive;
         private System.Windows.Forms.Panel pnlTgtTableName_Archive;
-        private System.Windows.Forms.TextBox tbxTgtTableName_Archive;
+        private System.Windows.Forms.TextBox tbx_TgtMetaDataTableName_Archive;
         private System.Windows.Forms.TableLayoutPanel tblp_TgtMeta_ConstraintList_Archive;
         private System.Windows.Forms.DataGridView gridConstraintList_Archive;
         private System.Windows.Forms.TableLayoutPanel tblp_TgtMeta_Btns_Archive;
@@ -2247,16 +2287,16 @@ namespace CsiMigrationHelper
         private System.Windows.Forms.TableLayoutPanel tblp_TrackingTable;
         private System.Windows.Forms.GroupBox grpbxInstance;
         private System.Windows.Forms.TabPage tabSandBox;
-        private System.Windows.Forms.SplitContainer splitContTrackingTblOuter;
+        private System.Windows.Forms.SplitContainer split_TrackTbl_Outer;
         private System.Windows.Forms.Button btnTrackTblLogin;
-        private System.Windows.Forms.SplitContainer splitContTrackTblDatabase;
+        private System.Windows.Forms.SplitContainer split_TrackTbl_Database;
         private System.Windows.Forms.GroupBox grpbxDatabase;
-        private System.Windows.Forms.SplitContainer splitContTrackTblSchema;
+        private System.Windows.Forms.SplitContainer split_TrackTbl_Schema;
         private System.Windows.Forms.GroupBox grpbxSchema;
-        private System.Windows.Forms.SplitContainer splitContTrackTblTable;
+        private System.Windows.Forms.SplitContainer split_TrackTbl_Table;
         private System.Windows.Forms.GroupBox grpbxTable;
         private System.Windows.Forms.TableLayoutPanel tblp_TabTrackTbl_Instance;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbx_TrackTblInstance;
         private System.Windows.Forms.TableLayoutPanel tblp_TrackTbl_SaveRunBtns;
         private System.Windows.Forms.GroupBox grpbxTrackTblCreateNewUseExisting;
         private System.Windows.Forms.TableLayoutPanel tblp_TrackTbl_UseExistingCreateNew;
@@ -2264,9 +2304,12 @@ namespace CsiMigrationHelper
         private System.Windows.Forms.RadioButton rdbtn_TrackTbl_CreateNew;
         private System.Windows.Forms.Label lblTrackTblUseExisting;
         private System.Windows.Forms.Label lblTrackTblCreateNew;
-        private System.Windows.Forms.Button btnTrackTblRun;
+        private System.Windows.Forms.Button btnTrackTblEdit;
         private System.Windows.Forms.Button btnTrackTblSave;
         private System.Windows.Forms.DataGridView gridTrackingTable;
+        private ComboBoxExt cbxt_TrackTbl_Database;
+        private ComboBoxExt cbxt_TrackTbl_Schema;
+        private ComboBoxExt cbxt_TrackTbl_Table;
     }
 }
 

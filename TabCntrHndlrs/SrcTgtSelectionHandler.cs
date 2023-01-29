@@ -29,7 +29,18 @@ namespace CsiMigrationHelper
                                 instanceNode.Data.Dbu.ChangeConnection(newCbxSelection);
                             }
                             senderNode.SetTreeNodeText(senderNode, newCbxSelection);
-                            PopulateChildNodes(sender, senderNode, newCbxSelection);
+                            //try
+                            //{
+                                PopulateChildNodes(sender, senderNode, newCbxSelection);
+                            //}
+                            //catch (ExceptionEmptyResultSet ex)
+                            //{
+                            //    throw; // needed to re-populate combo-box after user retry decision (in the exception )
+                            //}
+                            //catch (ExceptionDataTypeMismatch ex)
+                            //{
+                            //    throw; // needed to re-populate combo-box after user retry decision (in the exception )
+                            //}
                         }
                     }
                 }
@@ -39,7 +50,18 @@ namespace CsiMigrationHelper
                     if (tb.Text.Length > 0)
                     {
                         senderNode.SetTreeNodeText(senderNode, tb.Text);
-                        PopulateChildNodes(sender, senderNode, tb.Text);
+                        //try
+                        //{
+                            PopulateChildNodes(sender, senderNode, tb.Text);
+                        //}
+                        //catch (ExceptionEmptyResultSet ex)
+                        //{
+                        //    throw; // needed to re-populate combo-box after user retry decision (in the exception )
+                        //}
+                        //catch (ExceptionDataTypeMismatch ex)
+                        //{
+                        //    throw; // needed to re-populate combo-box after user retry decision (in the exception )
+                        //}
                     }
                 }
                 else if (sender is CheckBox)
@@ -61,7 +83,18 @@ namespace CsiMigrationHelper
                         senderNode.Enabled = true;
                         if (senderNode.Enabled && senderNode.Data.Gui.IsTextSet())
                         {
-                            PopulateChildNodes(sender, senderNode, senderNode.Data.ObjectText);
+                            //try
+                            //{
+                                PopulateChildNodes(sender, senderNode, senderNode.Data.ObjectText);
+                            //}
+                            //catch (ExceptionEmptyResultSet ex)
+                            //{
+                            //    throw; // needed to re-populate combo-box after user retry decision (in the exception )
+                            //}
+                            //catch (ExceptionDataTypeMismatch ex)
+                            //{
+                            //    throw; // needed to re-populate combo-box after user retry decision (in the exception )
+                            //}
                         }
                     }
                 }
@@ -88,16 +121,16 @@ namespace CsiMigrationHelper
                         }
                         catch (ExceptionEmptyResultSet ex)
                         {
-                            throw; // do not comment that out otherwise the re-populate of combo-box after user retry decision (in the exception ) will stop working
+                            throw; // needed to re-populate combo-box after user retry decision (in the exception )
                         }
                         catch (ExceptionDataTypeMismatch ex)
                         {
-                            throw; // do not comment that out otherwise the re-populate of combo-box after user retry decision (in the exception ) will stop working
+                            throw; // needed to re-populate combo-box after user retry decision (in the exception )
                         }
 
                         if (childNodeDbo.Gui != null)
                         {
-                            if (childNodeDbo.Gui.GetGuiType() == typeof(ComboBox))
+                            if (childNodeDbo.Gui.GetGuiType() == typeof(ComboBox) || childNodeDbo.Gui.GetGuiType() == typeof(ComboBoxExt))
                             {
                                 childNodeDbo.Gui.PopulateGuiElem(childNodeDbo.Gui, dsfg);
                             }

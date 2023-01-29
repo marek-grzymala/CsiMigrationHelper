@@ -7,38 +7,33 @@ using System.Windows.Forms;
 
 namespace CsiMigrationHelper
 {
-    //public delegate void HandlerSelectedIndexChanged(object sender, EventArgs e);
+
     public class ComboBoxExt : ComboBox
     {
-        //public event HandlerSelectedIndexChanged eventSelectedIndexChanged;
-        public SrcTgtSelectionHandler SrcTgtHdlr { get; set; }
-        public TreeNode<DbObject> Tn { get; set; }
-
-        private GuiElem ParentObject;
+        private SrcTgtSelectionHandler SrcTgtHdlr;
+        private TreeNode<DbObject> Tn;
 
         public ComboBoxExt()
         {
-            //eventSelectedIndexChanged += new HandlerSelectedIndexChanged(OnSelectedIndexChanged);
             this.SelectedIndexChanged += new EventHandler(OnSelectedIndexChanged);
+            this.Resize += new EventHandler(OnResize);
         }
 
-        public GuiElem GetParentObject()
+        public void SetMembers(TreeNode<DbObject> tn, SrcTgtSelectionHandler srcTgtHdlr)
         {
-            return ParentObject;
-        }
-
-        public void SetParentObject(GuiElem parentObject, SrcTgtSelectionHandler srcTgtHdlr)
-        {
-            if (parentObject != null && srcTgtHdlr != null)
+            if (tn != null && srcTgtHdlr != null)
             {
-                Console.WriteLine("Setting ParentObject of ComboBoxExt: "+this.Name);
-                ParentObject = parentObject;
-                Tn = parentObject.GetParentObject().GetParentObject();
+                Tn = tn;
                 SrcTgtHdlr = srcTgtHdlr;
             }
         }
 
-        public void OnSelectedIndexChanged(object sender, EventArgs e)
+        protected virtual void OnResize(object sender, EventArgs e)  // this is to prevent "highlighting" of ComboBox selection when Form is resized
+        {
+            this.SelectionLength = 0;
+        }
+
+        protected virtual void OnSelectedIndexChanged(object sender, EventArgs e)
         {            
             try
             {
@@ -48,7 +43,16 @@ namespace CsiMigrationHelper
             {
                 if (ex.retry)
                 {
-                    SrcTgtHdlr.HandleGuiSelectionChange(Tn.Parent.Data.Gui, Tn.Parent);
+                    //SrcTgtHdlr.HandleGuiSelectionChange(Tn.Parent.Data.Gui.GetGuiObject(), Tn.Parent);
+                    this.DroppedDown = true;
+                }
+            }
+            catch (ExceptionDataTypeMismatch ex)
+            {
+                if (ex.retry)
+                {
+                    //SrcTgtHdlr.HandleGuiSelectionChange(Tn.Parent.Data.Gui.GetGuiObject(), Tn.Parent);
+                    this.DroppedDown = true;
                 }
             }
         }
