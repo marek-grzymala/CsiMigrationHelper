@@ -48,6 +48,10 @@ namespace CsiMigrationHelper
                 case (int)DbObjectBranch.Tgt:
                     BranchName = "Target";
                     break;
+
+                case (int)DbObjectBranch.TrckTbl:
+                    BranchName = "Tracking Table";
+                    break;
             }
                
             ParamMetaData = GetParamMetaByObjectLvl(tn.TreeNodeLevel);

@@ -3,72 +3,9 @@ using System.Windows.Forms;
 
 namespace CsiMigrationHelper
 {
-    public class ComboBoxSelectionHandler
+    public static class CmBxSelectHndlr
     {
-        private TreeNode<DbObject> instanceNode;
-        public void HandleGuiSelectionChange(object sender, TreeNode<DbObject> senderNode)
-        {
-            senderNode.EmptySubtreeText(senderNode);
-            if (senderNode.Enabled)
-            {
-                if (sender is ComboBox)
-                {
-                    ComboBox cb = (ComboBox)sender;
-                    if (cb.SelectedIndex > 0) // populate all childNodes only if the user selects a valid ComboBox item, otherwise empty the Subtree
-                    {
-                        if (senderNode.Data.ObjectLevel == (int)DbObjectLevel.Database)
-                        {
-                            instanceNode = senderNode.TraverseUpUntil(senderNode, (int)DbObjectLevel.Instance);
-                        }
-                        string newCbxSelection = senderNode.Data.Gui.GetCbxSelectionChangeCommited(ParamSelector.GetParamMetaByObjectLvl(senderNode.Data.ObjectLevel).DisplayMember);
-
-                        if (newCbxSelection.Length > 0)
-                        {
-                            if (senderNode.Data.ObjectLevel == (int)DbObjectLevel.Database)
-                            {
-                                instanceNode.Data.Dbu.ChangeConnection(newCbxSelection);
-                            }
-                            senderNode.SetTreeNodeText(senderNode, newCbxSelection);
-                            PopulateChildNodes(sender, senderNode, newCbxSelection);
-                        }
-                    }
-                }
-                else if (sender is TextBox)
-                {
-                    TextBox tb = (TextBox)sender;
-                    if (tb.Text.Length > 0)
-                    {
-                        senderNode.SetTreeNodeText(senderNode, tb.Text);
-                        PopulateChildNodes(sender, senderNode, tb.Text);
-                    }
-                }
-                else if (sender is CheckBox)
-                {
-                    CheckBox cb = (CheckBox)sender;
-                    if (!cb.Checked)
-                    {                        
-                        senderNode.Enabled = false;                        
-                    }
-                }
-            }
-            else
-            {
-                if (sender is CheckBox)
-                {
-                    CheckBox cb = (CheckBox)sender;
-                    if (cb.Checked)
-                    {
-                        senderNode.Enabled = true;
-                        if (senderNode.Enabled && senderNode.Data.Gui.IsTextSet())
-                        {
-                            PopulateChildNodes(sender, senderNode, senderNode.Data.ObjectText);
-                        }
-                    }
-                }
-            }
-        }
-
-        public void PopulateChildNodes(object sender, TreeNode<DbObject> parentNode, string newTxtSelection)
+        public static void PopulateChildNodes(object sender, TreeNode<DbObject> parentNode)
         {
             foreach (TreeNode<DbObject> childNode in parentNode.Children)
             {
@@ -130,7 +67,7 @@ namespace CsiMigrationHelper
                     */
                     else if (childNode.IsDummyNode == true)
                     {
-                        PopulateChildNodes(sender, childNode, null);
+                        PopulateChildNodes(sender, childNode);
                     }
 
                     else if (     childNode.CloneableFromSrc
@@ -148,6 +85,7 @@ namespace CsiMigrationHelper
                             {
                                 if (cousin.Data.ObjectText.Length > 0) // && !childNode.Data.ObjectText.Equals(cousin.Data.ObjectText))
                                 {
+                                    
                                     /*
                                     Console.WriteLine(string.Concat("CLONING FROM Src Branch Cousin: [", cousin.Data.ObjectName,
                                                                     "] detected Text: [", cousin.Data.ObjectText,
@@ -155,13 +93,13 @@ namespace CsiMigrationHelper
                                                                     "] with TreeNodeLevel: [", childNode.TreeNodeLevel,
                                                                     "] whith current Text: [", childNode.Data.ObjectText, "]"));
                                     */
-
+                                    
                                     string indexNameTgt = string.Empty;
                                     string tableNameSuffix = string.Empty;
                                     
                                     switch (childNode.Data.ObjectLevel)
                                     {
-                                        case (int)DbObjectLevel.Table:
+                                        case (int)DbObjectLevel.Table:                                            
                                             tableNameSuffix = Options.GetTableSuffixPerNode(childNode);
                                             // clone cousin's table name from Src into Tgt appending the suffix:
                                             childNode.SetTreeNodeText(childNode, string.Concat(cousin.Data.ObjectText, tableNameSuffix));
@@ -180,7 +118,7 @@ namespace CsiMigrationHelper
                                                                        
                                     try
                                     {
-                                        PopulateChildNodes(sender, childNode, cousin.Data.ObjectText);
+                                        PopulateChildNodes(sender, childNode);
                                     }
                                     catch(ExceptionEmptyResultSet ex)
                                     {
@@ -218,6 +156,12 @@ namespace CsiMigrationHelper
                             }
                             childNodeDbo.Gui.PopulateGuiElem(childNodeDbo.Gui, dsfg);
                         }
+                    }
+
+                    else if (childNode.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl  && childNode.Data.ObjectLevel == (int)DbObjectLevel.Table)
+                    {
+                        string projectsTableDefaultName = Options.projectsTableDefaultName;
+                        childNode.SetTreeNodeText(childNode, projectsTableDefaultName);
                     }
                 }
             }

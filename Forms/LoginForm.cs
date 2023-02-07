@@ -76,7 +76,7 @@ namespace CsiMigrationHelper
             this.DialogResult = DialogResult.Cancel;
         }
 
-        public static bool HandleLoginBtnClick(object sender, TreeNode<DbObject> currentNode, ComboBoxSelectionHandler hdlr)
+        public static bool HandleLoginBtnClick(object sender, TreeNode<DbObject> currentNode)
         {
             DialogResult diagResult;
             using (LoginForm login = new LoginForm())
@@ -86,7 +86,7 @@ namespace CsiMigrationHelper
                 {
                     currentNode.Data.Dbu = login.GetConnection();
                     currentNode.SetTreeNodeText(currentNode, currentNode.Data.Dbu.GetDataSource());
-                    hdlr.PopulateChildNodes(sender, currentNode, currentNode.Data.Dbu.GetDataSource());
+                    CmBxSelectHndlr.PopulateChildNodes(sender, currentNode);
                 }
             }
             return diagResult == DialogResult.OK;

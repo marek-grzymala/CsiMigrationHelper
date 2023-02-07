@@ -13,7 +13,6 @@ namespace CsiMigrationHelper
 {
     public partial class Options : Form
     {
-
         public static string suffixCurrent;
         public static string suffixStaging;
         public static string suffixArchive;
@@ -24,6 +23,8 @@ namespace CsiMigrationHelper
         public static bool makeCSIClustered;
         public static bool renameTgtColumns;
         public static bool autoDropDownComboBoxes;
+        public static string projectsTableDefaultName;
+        public static string suffixTrackingTbl;
 
         public Options()
         {
@@ -38,6 +39,7 @@ namespace CsiMigrationHelper
             chkbxMakeCSIClustered.Checked = makeCSIClustered;
             chkbxRenameTgtColumns.Checked = renameTgtColumns;
             chkbxAutoDropDownComboBoxes.Checked = autoDropDownComboBoxes;
+            tbx_ProjectsTableDefaultName.Text = projectsTableDefaultName;
         }
 
         public static bool HandleOptionsMenuClick()
@@ -58,6 +60,7 @@ namespace CsiMigrationHelper
                     makeCSIClustered = options.chkbxMakeCSIClustered.Checked ? true : false;
                     renameTgtColumns = options.chkbxRenameTgtColumns.Checked ? true : false;
                     autoDropDownComboBoxes = options.chkbxAutoDropDownComboBoxes.Checked ? true : false;
+                    projectsTableDefaultName = options.tbx_ProjectsTableDefaultName.Text;
                 }
             }
             return diagResult == DialogResult.OK;
@@ -78,7 +81,8 @@ namespace CsiMigrationHelper
         public static string GetTableSuffixPerNode(TreeNode<DbObject> t)
         {
             string suffix = string.Empty;
-            if (t.Data.ObjectBranch == (int)DbObjectBranch.Tgt && t.Data.ObjectLevel == (int)DbObjectLevel.Table)
+            if ((t.Data.ObjectBranch == (int)DbObjectBranch.Tgt || t.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl)
+                && t.Data.ObjectLevel == (int)DbObjectLevel.Table)
             {
                 if (t.Data.ObjectName.Contains("Current"))
                 {
@@ -91,6 +95,10 @@ namespace CsiMigrationHelper
                 else if (t.Data.ObjectName.Contains("Archive"))
                 {
                     suffix = suffixArchive;
+                }
+                else if (t.Data.ObjectName.Contains("trckTable"))
+                {
+                    suffix = suffixTrackingTbl;
                 }
             }
             else

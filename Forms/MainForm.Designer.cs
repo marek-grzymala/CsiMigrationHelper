@@ -50,17 +50,14 @@
             this.grpBx_Current = new System.Windows.Forms.GroupBox();
             this.tblp_Current = new System.Windows.Forms.TableLayoutPanel();
             this.chkBxCurrent = new System.Windows.Forms.CheckBox();
-            this.rdbtn_Current_Clone = new System.Windows.Forms.RadioButton();
             this.rdbtn_Current_UseExisting = new System.Windows.Forms.RadioButton();
             this.grpBx_Staging = new System.Windows.Forms.GroupBox();
             this.tblp_Staging = new System.Windows.Forms.TableLayoutPanel();
             this.chkBxStaging = new System.Windows.Forms.CheckBox();
-            this.rdbtn_Staging_Clone = new System.Windows.Forms.RadioButton();
             this.rdbtn_Staging_UseExisting = new System.Windows.Forms.RadioButton();
             this.grpBx_Archive = new System.Windows.Forms.GroupBox();
             this.tblp_Archive = new System.Windows.Forms.TableLayoutPanel();
             this.chkBxArchive = new System.Windows.Forms.CheckBox();
-            this.rdbtn_Archive_Clone = new System.Windows.Forms.RadioButton();
             this.rdbtn_Archive_UseExisting = new System.Windows.Forms.RadioButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tblp_ObjectLablels = new System.Windows.Forms.TableLayoutPanel();
@@ -129,7 +126,6 @@
             this.grpbxTrackTblCreateNewUseExisting = new System.Windows.Forms.GroupBox();
             this.tblp_TrackTbl_UseExistingCreateNew = new System.Windows.Forms.TableLayoutPanel();
             this.rdbtn_TrackTbl_UseExisting = new System.Windows.Forms.RadioButton();
-            this.rdbtn_TrackTbl_CreateNew = new System.Windows.Forms.RadioButton();
             this.gridTrackingTable = new System.Windows.Forms.DataGridView();
             this.tabEventLog = new System.Windows.Forms.TabPage();
             this.rtbxEventLog = new System.Windows.Forms.RichTextBox();
@@ -157,13 +153,17 @@
             this.cbx_dbList_Tgt = new CsiMigrationHelper.ComboBoxExt();
             this.cbx_tbList_Tgt_Current = new CsiMigrationHelper.ComboBoxExt();
             this.cbx_schList_Tgt_Current = new CsiMigrationHelper.ComboBoxExt();
+            this.rdbtn_Current_Clone = new CsiMigrationHelper.RadioButtonExt();
             this.cbx_tbList_Tgt_Staging = new CsiMigrationHelper.ComboBoxExt();
             this.cbx_schList_Tgt_Staging = new CsiMigrationHelper.ComboBoxExt();
+            this.rdbtn_Staging_Clone = new CsiMigrationHelper.RadioButtonExt();
             this.cbx_tbList_Tgt_Archive = new CsiMigrationHelper.ComboBoxExt();
             this.cbx_schList_Tgt_Archive = new CsiMigrationHelper.ComboBoxExt();
+            this.rdbtn_Archive_Clone = new CsiMigrationHelper.RadioButtonExt();
             this.cbxt_TrackTbl_Database = new CsiMigrationHelper.ComboBoxExt();
             this.cbxt_TrackTbl_Schema = new CsiMigrationHelper.ComboBoxExt();
             this.cbxt_TrackTbl_Table = new CsiMigrationHelper.ComboBoxExt();
+            this.rdbtn_TrackTbl_CreateNew = new CsiMigrationHelper.RadioButtonExt();
             this.tabControl.SuspendLayout();
             this.tabSrcTgtSetup.SuspendLayout();
             this.tblp_TabSetupOuter.SuspendLayout();
@@ -580,21 +580,6 @@
             this.chkBxCurrent.UseVisualStyleBackColor = true;
             this.chkBxCurrent.CheckedChanged += new System.EventHandler(this.chkBxCurrent_CheckedChanged);
             // 
-            // rdbtn_Current_Clone
-            // 
-            this.rdbtn_Current_Clone.AutoSize = true;
-            this.rdbtn_Current_Clone.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rdbtn_Current_Clone.Checked = true;
-            this.rdbtn_Current_Clone.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rdbtn_Current_Clone.Location = new System.Drawing.Point(734, 3);
-            this.rdbtn_Current_Clone.Name = "rdbtn_Current_Clone";
-            this.rdbtn_Current_Clone.Size = new System.Drawing.Size(72, 23);
-            this.rdbtn_Current_Clone.TabIndex = 69;
-            this.rdbtn_Current_Clone.TabStop = true;
-            this.rdbtn_Current_Clone.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rdbtn_Current_Clone.UseVisualStyleBackColor = true;
-            this.rdbtn_Current_Clone.CheckedChanged += new System.EventHandler(this.rdbtn_Current_Clone_CheckedChanged);
-            // 
             // rdbtn_Current_UseExisting
             // 
             this.rdbtn_Current_UseExisting.AutoSize = true;
@@ -653,20 +638,6 @@
             this.chkBxStaging.TabIndex = 69;
             this.chkBxStaging.UseVisualStyleBackColor = true;
             this.chkBxStaging.CheckedChanged += new System.EventHandler(this.chkBxStaging_CheckedChanged);
-            // 
-            // rdbtn_Staging_Clone
-            // 
-            this.rdbtn_Staging_Clone.AutoSize = true;
-            this.rdbtn_Staging_Clone.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rdbtn_Staging_Clone.Checked = true;
-            this.rdbtn_Staging_Clone.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rdbtn_Staging_Clone.Location = new System.Drawing.Point(734, 3);
-            this.rdbtn_Staging_Clone.Name = "rdbtn_Staging_Clone";
-            this.rdbtn_Staging_Clone.Size = new System.Drawing.Size(72, 23);
-            this.rdbtn_Staging_Clone.TabIndex = 70;
-            this.rdbtn_Staging_Clone.TabStop = true;
-            this.rdbtn_Staging_Clone.UseVisualStyleBackColor = true;
-            this.rdbtn_Staging_Clone.CheckedChanged += new System.EventHandler(this.rdbtn_Staging_Clone_CheckedChanged);
             // 
             // rdbtn_Staging_UseExisting
             // 
@@ -727,20 +698,6 @@
             this.chkBxArchive.TabIndex = 70;
             this.chkBxArchive.UseVisualStyleBackColor = true;
             this.chkBxArchive.CheckedChanged += new System.EventHandler(this.chkBxArchive_CheckedChanged);
-            // 
-            // rdbtn_Archive_Clone
-            // 
-            this.rdbtn_Archive_Clone.AutoSize = true;
-            this.rdbtn_Archive_Clone.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rdbtn_Archive_Clone.Checked = true;
-            this.rdbtn_Archive_Clone.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rdbtn_Archive_Clone.Location = new System.Drawing.Point(734, 3);
-            this.rdbtn_Archive_Clone.Name = "rdbtn_Archive_Clone";
-            this.rdbtn_Archive_Clone.Size = new System.Drawing.Size(72, 23);
-            this.rdbtn_Archive_Clone.TabIndex = 71;
-            this.rdbtn_Archive_Clone.TabStop = true;
-            this.rdbtn_Archive_Clone.UseVisualStyleBackColor = true;
-            this.rdbtn_Archive_Clone.CheckedChanged += new System.EventHandler(this.rdbtn_Archive_Clone_CheckedChanged);
             // 
             // rdbtn_Archive_UseExisting
             // 
@@ -1695,7 +1652,6 @@
             // 
             this.rdbtn_TrackTbl_UseExisting.AutoSize = true;
             this.rdbtn_TrackTbl_UseExisting.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rdbtn_TrackTbl_UseExisting.Checked = true;
             this.rdbtn_TrackTbl_UseExisting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rdbtn_TrackTbl_UseExisting.Location = new System.Drawing.Point(88, -2);
             this.rdbtn_TrackTbl_UseExisting.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
@@ -1704,18 +1660,6 @@
             this.rdbtn_TrackTbl_UseExisting.TabIndex = 1;
             this.rdbtn_TrackTbl_UseExisting.TabStop = true;
             this.rdbtn_TrackTbl_UseExisting.UseVisualStyleBackColor = true;
-            // 
-            // rdbtn_TrackTbl_CreateNew
-            // 
-            this.rdbtn_TrackTbl_CreateNew.AutoSize = true;
-            this.rdbtn_TrackTbl_CreateNew.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rdbtn_TrackTbl_CreateNew.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rdbtn_TrackTbl_CreateNew.Location = new System.Drawing.Point(0, -2);
-            this.rdbtn_TrackTbl_CreateNew.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
-            this.rdbtn_TrackTbl_CreateNew.Name = "rdbtn_TrackTbl_CreateNew";
-            this.rdbtn_TrackTbl_CreateNew.Size = new System.Drawing.Size(88, 17);
-            this.rdbtn_TrackTbl_CreateNew.TabIndex = 0;
-            this.rdbtn_TrackTbl_CreateNew.UseVisualStyleBackColor = true;
             // 
             // gridTrackingTable
             // 
@@ -1972,6 +1916,19 @@
             this.cbx_schList_Tgt_Current.Size = new System.Drawing.Size(148, 24);
             this.cbx_schList_Tgt_Current.TabIndex = 58;
             // 
+            // rdbtn_Current_Clone
+            // 
+            this.rdbtn_Current_Clone.AutoSize = true;
+            this.rdbtn_Current_Clone.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rdbtn_Current_Clone.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rdbtn_Current_Clone.Location = new System.Drawing.Point(734, 3);
+            this.rdbtn_Current_Clone.Name = "rdbtn_Current_Clone";
+            this.rdbtn_Current_Clone.Size = new System.Drawing.Size(72, 23);
+            this.rdbtn_Current_Clone.TabIndex = 69;
+            this.rdbtn_Current_Clone.TabStop = true;
+            this.rdbtn_Current_Clone.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rdbtn_Current_Clone.UseVisualStyleBackColor = true;
+            // 
             // cbx_tbList_Tgt_Staging
             // 
             this.cbx_tbList_Tgt_Staging.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1990,6 +1947,18 @@
             this.cbx_schList_Tgt_Staging.Size = new System.Drawing.Size(148, 24);
             this.cbx_schList_Tgt_Staging.TabIndex = 59;
             // 
+            // rdbtn_Staging_Clone
+            // 
+            this.rdbtn_Staging_Clone.AutoSize = true;
+            this.rdbtn_Staging_Clone.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rdbtn_Staging_Clone.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rdbtn_Staging_Clone.Location = new System.Drawing.Point(734, 3);
+            this.rdbtn_Staging_Clone.Name = "rdbtn_Staging_Clone";
+            this.rdbtn_Staging_Clone.Size = new System.Drawing.Size(72, 23);
+            this.rdbtn_Staging_Clone.TabIndex = 70;
+            this.rdbtn_Staging_Clone.TabStop = true;
+            this.rdbtn_Staging_Clone.UseVisualStyleBackColor = true;
+            // 
             // cbx_tbList_Tgt_Archive
             // 
             this.cbx_tbList_Tgt_Archive.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -2007,6 +1976,18 @@
             this.cbx_schList_Tgt_Archive.Name = "cbx_schList_Tgt_Archive";
             this.cbx_schList_Tgt_Archive.Size = new System.Drawing.Size(148, 24);
             this.cbx_schList_Tgt_Archive.TabIndex = 60;
+            // 
+            // rdbtn_Archive_Clone
+            // 
+            this.rdbtn_Archive_Clone.AutoSize = true;
+            this.rdbtn_Archive_Clone.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rdbtn_Archive_Clone.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rdbtn_Archive_Clone.Location = new System.Drawing.Point(734, 3);
+            this.rdbtn_Archive_Clone.Name = "rdbtn_Archive_Clone";
+            this.rdbtn_Archive_Clone.Size = new System.Drawing.Size(72, 23);
+            this.rdbtn_Archive_Clone.TabIndex = 71;
+            this.rdbtn_Archive_Clone.TabStop = true;
+            this.rdbtn_Archive_Clone.UseVisualStyleBackColor = true;
             // 
             // cbxt_TrackTbl_Database
             // 
@@ -2034,6 +2015,18 @@
             this.cbxt_TrackTbl_Table.Name = "cbxt_TrackTbl_Table";
             this.cbxt_TrackTbl_Table.Size = new System.Drawing.Size(376, 24);
             this.cbxt_TrackTbl_Table.TabIndex = 2;
+            // 
+            // rdbtn_TrackTbl_CreateNew
+            // 
+            this.rdbtn_TrackTbl_CreateNew.AutoSize = true;
+            this.rdbtn_TrackTbl_CreateNew.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rdbtn_TrackTbl_CreateNew.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rdbtn_TrackTbl_CreateNew.Location = new System.Drawing.Point(0, -2);
+            this.rdbtn_TrackTbl_CreateNew.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.rdbtn_TrackTbl_CreateNew.Name = "rdbtn_TrackTbl_CreateNew";
+            this.rdbtn_TrackTbl_CreateNew.Size = new System.Drawing.Size(88, 17);
+            this.rdbtn_TrackTbl_CreateNew.TabIndex = 0;
+            this.rdbtn_TrackTbl_CreateNew.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -2217,11 +2210,14 @@
         private System.Windows.Forms.Label lbl_Enabled;
         private System.Windows.Forms.Label lbl_UseExisting;
         private System.Windows.Forms.Label lbl_Clone;
-        private System.Windows.Forms.RadioButton rdbtn_Current_Clone;
+        //private System.Windows.Forms.RadioButton rdbtn_Current_Clone;
+        private RadioButtonExt rdbtn_Current_Clone;
         private System.Windows.Forms.RadioButton rdbtn_Current_UseExisting;
-        private System.Windows.Forms.RadioButton rdbtn_Staging_Clone;
+        //private System.Windows.Forms.RadioButton rdbtn_Staging_Clone;
+        private RadioButtonExt rdbtn_Staging_Clone;
         private System.Windows.Forms.RadioButton rdbtn_Staging_UseExisting;
-        private System.Windows.Forms.RadioButton rdbtn_Archive_Clone;
+        //private System.Windows.Forms.RadioButton rdbtn_Archive_Clone;
+        private RadioButtonExt rdbtn_Archive_Clone;
         private System.Windows.Forms.RadioButton rdbtn_Archive_UseExisting;
         private System.Windows.Forms.ToolStripMenuItem optionsStripMenuItem;
         private System.Windows.Forms.TabPage tabTgtMetadata;
@@ -2282,7 +2278,7 @@
         private System.Windows.Forms.GroupBox grpbxTrackTblCreateNewUseExisting;
         private System.Windows.Forms.TableLayoutPanel tblp_TrackTbl_UseExistingCreateNew;
         private System.Windows.Forms.RadioButton rdbtn_TrackTbl_UseExisting;
-        private System.Windows.Forms.RadioButton rdbtn_TrackTbl_CreateNew;
+        private RadioButtonExt rdbtn_TrackTbl_CreateNew;
         private System.Windows.Forms.Label lblTrackTblUseExisting;
         private System.Windows.Forms.Label lblTrackTblCreateNew;
         private System.Windows.Forms.Button btnTrackTblEdit;

@@ -9,10 +9,10 @@ namespace CsiMigrationHelper
 {
     public class ComboBoxExt : ComboBox
     {
-        private ComboBoxSelectionHandler CbxHdlr;
         private TreeNode<DbObject> ParentTreeNode;
         private RadioButton RdButton;
         private Button SaveButton;
+        private TreeNode<DbObject> instanceNode;
 
 
         public ComboBoxExt()
@@ -22,21 +22,19 @@ namespace CsiMigrationHelper
             this.Resize += new EventHandler(OnResize);
         }
 
-        public void SetParentTreeNode(TreeNode<DbObject> tn, ComboBoxSelectionHandler cbxHdlr)
+        public void SetParentTreeNode(TreeNode<DbObject> tn)
         {
-            if (tn != null && cbxHdlr != null)
+            if (tn != null)
             {
                 ParentTreeNode = tn;
-                CbxHdlr = cbxHdlr;
             }
         }
 
-        public void SetParentTreeNode(TreeNode<DbObject> tn, ComboBoxSelectionHandler cbxHdlr, RadioButton rbtn, Button btn)
+        public void SetParentTreeNode(TreeNode<DbObject> tn, RadioButton rbtn, Button btn)
         {
-            if (tn != null && cbxHdlr != null)
+            if (tn != null)
             {
                 ParentTreeNode = tn;
-                CbxHdlr = cbxHdlr;
                 RdButton = rbtn;
                 SaveButton = btn;
             }
@@ -47,11 +45,34 @@ namespace CsiMigrationHelper
             this.SelectionLength = 0;
         }
 
+        public void RunOnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.OnSelectedIndexChanged(sender, e);            
+        }
+        
         protected virtual void OnSelectedIndexChanged(object sender, EventArgs e)
         {            
             try
             {
-                CbxHdlr.HandleGuiSelectionChange(this, ParentTreeNode);
+                ParentTreeNode.EmptySubtreeText(ParentTreeNode);
+                if (ParentTreeNode.Enabled && this.SelectedIndex > 0) // populate all childNodes only if the user selects a valid ComboBox item, otherwise empty the Subtree
+                {
+                    if (ParentTreeNode.Data.ObjectLevel == (int)DbObjectLevel.Database)
+                    {
+                        instanceNode = ParentTreeNode.TraverseUpUntil(ParentTreeNode, (int)DbObjectLevel.Instance);
+                    }
+                    string newCbxSelection = ParentTreeNode.Data.Gui.GetCbxSelectionChangeCommited(ParamSelector.GetParamMetaByObjectLvl(ParentTreeNode.Data.ObjectLevel).DisplayMember);
+
+                    if (newCbxSelection.Length > 0)
+                    {
+                        if (ParentTreeNode.Data.ObjectLevel == (int)DbObjectLevel.Database)
+                        {
+                            instanceNode.Data.Dbu.ChangeConnection(newCbxSelection);
+                        }
+                        ParentTreeNode.SetTreeNodeText(ParentTreeNode, newCbxSelection);
+                        CmBxSelectHndlr.PopulateChildNodes(sender, ParentTreeNode);
+                    }
+                }
             }
             catch (ExceptionEmptyResultSet ex)
             {

@@ -399,17 +399,22 @@ namespace CsiMigrationHelper
                         DbObject dbObject = (DbObject)Convert.ChangeType(node.Data, typeof(DbObject));
                         if (dbObject != null)
                         {
-                            if (dbObject.ObjectText.Length > 0) // we do not want to set an empty text of a node which is already empty because then
-                                                                // we would unnecessarily trigger events OnDbObjectModified
-                                                                // (which would then cause multiple triggers of SetTreeNodeText)
+                            if (dbObject.ObjectText != null)
                             {
-                                dbObject.SetDbObjectText(node, string.Empty);
+                                if (dbObject.ObjectText.Length > 0) // we do not want to set an empty text of a node which is already empty
+                                                                    // because then we would unnecessarily trigger events OnDbObjectModified
+                                                                    // (which would then cause multiple triggers of SetTreeNodeText)
+                                {
+                                    dbObject.SetDbObjectText(node, string.Empty);
+                                }
                             }
                             else
                             {
-                                // instead of emptying an already empty node text we clear its Gui object
-                                // (needed to cleanup remaining child Gui elements in case a parent ComboBox
-                                // is re-selected with SelectedIndex == 0)
+                                /*
+                                instead of emptying an already empty node text we clear its Gui object
+                                (needed to cleanup remaining child Gui elements in case a parent ComboBox
+                                is re - selected with SelectedIndex == 0)
+                                */
                                 if (dbObject.Gui != null)
                                 {
                                     dbObject.Gui.ClearGui();

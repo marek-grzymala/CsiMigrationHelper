@@ -53,7 +53,9 @@ namespace CsiMigrationHelper
 
         public void SetDbObjectText(TreeNode<DbObject> t, string newObjectText)
         {
-            if (!t.Data.ObjectText.Equals(newObjectText))
+            if (t.Data.ObjectText != null)
+            {
+                if (!t.Data.ObjectText.Equals(newObjectText))
             {
                 eventDbObjectTextChanged += new HandlerDbObjectTextChanged(OnDbObjectTextChanged);
 
@@ -89,10 +91,12 @@ namespace CsiMigrationHelper
                             && t.Data.ObjectText.Length > 0
                             )
                         {
-                            //Console.WriteLine(string.Concat("CONING INTO Tgt Branch Cousin: [", cousin.Data.ObjectName,
-                            //                                "] with Text: [", cousin.Data.ObjectText,
-                            //                                "] detected for: [", t.Data.ObjectName,
-                            //                                "] with Text: [", t.Data.ObjectText, "]"));
+                            /*
+                            Console.WriteLine(string.Concat("CONING INTO Tgt Branch Cousin: [", cousin.Data.ObjectName,
+                                                            "] with Text: [", cousin.Data.ObjectText,
+                                                            "] detected for: [", t.Data.ObjectName,
+                                                            "] with Text: [", t.Data.ObjectText, "]"));
+                            */
 
                             string indexNameTgt = string.Empty;
                             string tableNameSuffix = string.Empty;
@@ -140,6 +144,7 @@ namespace CsiMigrationHelper
                     }
                 }
                 eventDbObjectTextChanged -= new HandlerDbObjectTextChanged(OnDbObjectTextChanged);
+            }
             }
         }
 
@@ -197,6 +202,7 @@ namespace CsiMigrationHelper
 
     public enum DbObjectBranch : int
     {        
+        Dummy = -1,
         Root = 0,
         Src = 1,
         Tgt = 2,

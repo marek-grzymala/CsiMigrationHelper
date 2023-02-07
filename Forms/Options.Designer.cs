@@ -43,10 +43,10 @@ namespace CsiMigrationHelper
             this.tbx_TgtColumnNameSuffix = new System.Windows.Forms.TextBox();
             this.lblTgtColumnNameSuffix = new System.Windows.Forms.Label();
             this.tabControlOptions = new System.Windows.Forms.TabControl();
-            this.SrcTgtSetup = new System.Windows.Forms.TabPage();
+            this.Tab_SrcTgtSetup = new System.Windows.Forms.TabPage();
             this.chkbxAutoDropDownComboBoxes = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.TgtMetaDataSetup = new System.Windows.Forms.TabPage();
+            this.lblAutoDropComboBoxes = new System.Windows.Forms.Label();
+            this.Tab_TgtMetaDataSetup = new System.Windows.Forms.TabPage();
             this.chkbxRenameTgtColumns = new System.Windows.Forms.CheckBox();
             this.chkbxMakeCSIClustered = new System.Windows.Forms.CheckBox();
             this.chbxDoNotCreateFKsOnCrossDbTarget = new System.Windows.Forms.CheckBox();
@@ -54,11 +54,15 @@ namespace CsiMigrationHelper
             this.rdbtnTranslateUserDefinedDataTypes = new System.Windows.Forms.RadioButton();
             this.rdbtnUseDataTypesAsDefinedInSrc = new System.Windows.Forms.RadioButton();
             this.pnlButtons = new System.Windows.Forms.Panel();
+            this.Tab_TrackingTable = new System.Windows.Forms.TabPage();
+            this.lblTrackingTableDefaultName = new System.Windows.Forms.Label();
+            this.tbx_ProjectsTableDefaultName = new System.Windows.Forms.TextBox();
             this.tabControlOptions.SuspendLayout();
-            this.SrcTgtSetup.SuspendLayout();
-            this.TgtMetaDataSetup.SuspendLayout();
+            this.Tab_SrcTgtSetup.SuspendLayout();
+            this.Tab_TgtMetaDataSetup.SuspendLayout();
             this.gpbxUserDefDataTypeHndling.SuspendLayout();
             this.pnlButtons.SuspendLayout();
+            this.Tab_TrackingTable.SuspendLayout();
             this.SuspendLayout();
             // 
             // OK
@@ -175,8 +179,9 @@ namespace CsiMigrationHelper
             // 
             // tabControlOptions
             // 
-            this.tabControlOptions.Controls.Add(this.SrcTgtSetup);
-            this.tabControlOptions.Controls.Add(this.TgtMetaDataSetup);
+            this.tabControlOptions.Controls.Add(this.Tab_SrcTgtSetup);
+            this.tabControlOptions.Controls.Add(this.Tab_TgtMetaDataSetup);
+            this.tabControlOptions.Controls.Add(this.Tab_TrackingTable);
             this.tabControlOptions.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControlOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControlOptions.Location = new System.Drawing.Point(0, 0);
@@ -185,25 +190,25 @@ namespace CsiMigrationHelper
             this.tabControlOptions.Size = new System.Drawing.Size(539, 322);
             this.tabControlOptions.TabIndex = 12;
             // 
-            // SrcTgtSetup
+            // Tab_SrcTgtSetup
             // 
-            this.SrcTgtSetup.Controls.Add(this.chkbxAutoDropDownComboBoxes);
-            this.SrcTgtSetup.Controls.Add(this.label1);
-            this.SrcTgtSetup.Controls.Add(this.lblCurrent);
-            this.SrcTgtSetup.Controls.Add(this.tbx_CurrentSuffix);
-            this.SrcTgtSetup.Controls.Add(this.lblStaging);
-            this.SrcTgtSetup.Controls.Add(this.tbx_StagingSuffix);
-            this.SrcTgtSetup.Controls.Add(this.lblArchive);
-            this.SrcTgtSetup.Controls.Add(this.tbx_ArchiveSuffix);
-            this.SrcTgtSetup.Controls.Add(this.lblCSI_Prefix);
-            this.SrcTgtSetup.Controls.Add(this.tbx_CSIprefix);
-            this.SrcTgtSetup.Location = new System.Drawing.Point(4, 27);
-            this.SrcTgtSetup.Name = "SrcTgtSetup";
-            this.SrcTgtSetup.Padding = new System.Windows.Forms.Padding(3);
-            this.SrcTgtSetup.Size = new System.Drawing.Size(531, 291);
-            this.SrcTgtSetup.TabIndex = 0;
-            this.SrcTgtSetup.Text = "Source/Target Setup:";
-            this.SrcTgtSetup.UseVisualStyleBackColor = true;
+            this.Tab_SrcTgtSetup.Controls.Add(this.chkbxAutoDropDownComboBoxes);
+            this.Tab_SrcTgtSetup.Controls.Add(this.lblAutoDropComboBoxes);
+            this.Tab_SrcTgtSetup.Controls.Add(this.lblCurrent);
+            this.Tab_SrcTgtSetup.Controls.Add(this.tbx_CurrentSuffix);
+            this.Tab_SrcTgtSetup.Controls.Add(this.lblStaging);
+            this.Tab_SrcTgtSetup.Controls.Add(this.tbx_StagingSuffix);
+            this.Tab_SrcTgtSetup.Controls.Add(this.lblArchive);
+            this.Tab_SrcTgtSetup.Controls.Add(this.tbx_ArchiveSuffix);
+            this.Tab_SrcTgtSetup.Controls.Add(this.lblCSI_Prefix);
+            this.Tab_SrcTgtSetup.Controls.Add(this.tbx_CSIprefix);
+            this.Tab_SrcTgtSetup.Location = new System.Drawing.Point(4, 27);
+            this.Tab_SrcTgtSetup.Name = "Tab_SrcTgtSetup";
+            this.Tab_SrcTgtSetup.Padding = new System.Windows.Forms.Padding(3);
+            this.Tab_SrcTgtSetup.Size = new System.Drawing.Size(531, 291);
+            this.Tab_SrcTgtSetup.TabIndex = 0;
+            this.Tab_SrcTgtSetup.Text = "Source/Target Setup:";
+            this.Tab_SrcTgtSetup.UseVisualStyleBackColor = true;
             // 
             // chkbxAutoDropDownComboBoxes
             // 
@@ -216,31 +221,31 @@ namespace CsiMigrationHelper
             this.chkbxAutoDropDownComboBoxes.TabIndex = 11;
             this.chkbxAutoDropDownComboBoxes.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // lblAutoDropComboBoxes
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(27, 223);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(223, 18);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Auto Drop-Down Combo Boxes:";
+            this.lblAutoDropComboBoxes.AutoSize = true;
+            this.lblAutoDropComboBoxes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAutoDropComboBoxes.Location = new System.Drawing.Point(27, 223);
+            this.lblAutoDropComboBoxes.Name = "lblAutoDropComboBoxes";
+            this.lblAutoDropComboBoxes.Size = new System.Drawing.Size(223, 18);
+            this.lblAutoDropComboBoxes.TabIndex = 10;
+            this.lblAutoDropComboBoxes.Text = "Auto Drop-Down Combo Boxes:";
             // 
-            // TgtMetaDataSetup
+            // Tab_TgtMetaDataSetup
             // 
-            this.TgtMetaDataSetup.Controls.Add(this.chkbxRenameTgtColumns);
-            this.TgtMetaDataSetup.Controls.Add(this.chkbxMakeCSIClustered);
-            this.TgtMetaDataSetup.Controls.Add(this.chbxDoNotCreateFKsOnCrossDbTarget);
-            this.TgtMetaDataSetup.Controls.Add(this.gpbxUserDefDataTypeHndling);
-            this.TgtMetaDataSetup.Controls.Add(this.tbx_TgtColumnNameSuffix);
-            this.TgtMetaDataSetup.Controls.Add(this.lblTgtColumnNameSuffix);
-            this.TgtMetaDataSetup.Location = new System.Drawing.Point(4, 27);
-            this.TgtMetaDataSetup.Name = "TgtMetaDataSetup";
-            this.TgtMetaDataSetup.Padding = new System.Windows.Forms.Padding(3);
-            this.TgtMetaDataSetup.Size = new System.Drawing.Size(531, 291);
-            this.TgtMetaDataSetup.TabIndex = 1;
-            this.TgtMetaDataSetup.Text = "Target Metadata:";
-            this.TgtMetaDataSetup.UseVisualStyleBackColor = true;
+            this.Tab_TgtMetaDataSetup.Controls.Add(this.chkbxRenameTgtColumns);
+            this.Tab_TgtMetaDataSetup.Controls.Add(this.chkbxMakeCSIClustered);
+            this.Tab_TgtMetaDataSetup.Controls.Add(this.chbxDoNotCreateFKsOnCrossDbTarget);
+            this.Tab_TgtMetaDataSetup.Controls.Add(this.gpbxUserDefDataTypeHndling);
+            this.Tab_TgtMetaDataSetup.Controls.Add(this.tbx_TgtColumnNameSuffix);
+            this.Tab_TgtMetaDataSetup.Controls.Add(this.lblTgtColumnNameSuffix);
+            this.Tab_TgtMetaDataSetup.Location = new System.Drawing.Point(4, 27);
+            this.Tab_TgtMetaDataSetup.Name = "Tab_TgtMetaDataSetup";
+            this.Tab_TgtMetaDataSetup.Padding = new System.Windows.Forms.Padding(3);
+            this.Tab_TgtMetaDataSetup.Size = new System.Drawing.Size(531, 291);
+            this.Tab_TgtMetaDataSetup.TabIndex = 1;
+            this.Tab_TgtMetaDataSetup.Text = "Target Metadata:";
+            this.Tab_TgtMetaDataSetup.UseVisualStyleBackColor = true;
             // 
             // chkbxRenameTgtColumns
             // 
@@ -320,6 +325,36 @@ namespace CsiMigrationHelper
             this.pnlButtons.Size = new System.Drawing.Size(539, 53);
             this.pnlButtons.TabIndex = 13;
             // 
+            // Tab_TrackingTable
+            // 
+            this.Tab_TrackingTable.Controls.Add(this.lblTrackingTableDefaultName);
+            this.Tab_TrackingTable.Controls.Add(this.tbx_ProjectsTableDefaultName);
+            this.Tab_TrackingTable.Location = new System.Drawing.Point(4, 27);
+            this.Tab_TrackingTable.Name = "Tab_TrackingTable";
+            this.Tab_TrackingTable.Padding = new System.Windows.Forms.Padding(3);
+            this.Tab_TrackingTable.Size = new System.Drawing.Size(531, 291);
+            this.Tab_TrackingTable.TabIndex = 2;
+            this.Tab_TrackingTable.Text = "TrackingTable";
+            this.Tab_TrackingTable.UseVisualStyleBackColor = true;
+            // 
+            // lblTrackingTableDefaultName
+            // 
+            this.lblTrackingTableDefaultName.AutoSize = true;
+            this.lblTrackingTableDefaultName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrackingTableDefaultName.Location = new System.Drawing.Point(19, 57);
+            this.lblTrackingTableDefaultName.Name = "lblTrackingTableDefaultName";
+            this.lblTrackingTableDefaultName.Size = new System.Drawing.Size(223, 18);
+            this.lblTrackingTableDefaultName.TabIndex = 4;
+            this.lblTrackingTableDefaultName.Text = "Default Name for Projects Table:";
+            // 
+            // tbx_ProjectsTableDefaultName
+            // 
+            this.tbx_ProjectsTableDefaultName.Location = new System.Drawing.Point(258, 55);
+            this.tbx_ProjectsTableDefaultName.Name = "tbx_ProjectsTableDefaultName";
+            this.tbx_ProjectsTableDefaultName.Size = new System.Drawing.Size(204, 24);
+            this.tbx_ProjectsTableDefaultName.TabIndex = 5;
+            this.tbx_ProjectsTableDefaultName.Text = "CsixMigrationProjects";
+            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -334,13 +369,15 @@ namespace CsiMigrationHelper
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Options";
             this.tabControlOptions.ResumeLayout(false);
-            this.SrcTgtSetup.ResumeLayout(false);
-            this.SrcTgtSetup.PerformLayout();
-            this.TgtMetaDataSetup.ResumeLayout(false);
-            this.TgtMetaDataSetup.PerformLayout();
+            this.Tab_SrcTgtSetup.ResumeLayout(false);
+            this.Tab_SrcTgtSetup.PerformLayout();
+            this.Tab_TgtMetaDataSetup.ResumeLayout(false);
+            this.Tab_TgtMetaDataSetup.PerformLayout();
             this.gpbxUserDefDataTypeHndling.ResumeLayout(false);
             this.gpbxUserDefDataTypeHndling.PerformLayout();
             this.pnlButtons.ResumeLayout(false);
+            this.Tab_TrackingTable.ResumeLayout(false);
+            this.Tab_TrackingTable.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -360,8 +397,8 @@ namespace CsiMigrationHelper
         private System.Windows.Forms.TextBox tbx_TgtColumnNameSuffix;
         private System.Windows.Forms.Label lblTgtColumnNameSuffix;
         private System.Windows.Forms.TabControl tabControlOptions;
-        private System.Windows.Forms.TabPage SrcTgtSetup;
-        private System.Windows.Forms.TabPage TgtMetaDataSetup;
+        private System.Windows.Forms.TabPage Tab_SrcTgtSetup;
+        private System.Windows.Forms.TabPage Tab_TgtMetaDataSetup;
         private System.Windows.Forms.Panel pnlButtons;
         private System.Windows.Forms.GroupBox gpbxUserDefDataTypeHndling;
         private System.Windows.Forms.RadioButton rdbtnTranslateUserDefinedDataTypes;
@@ -370,6 +407,9 @@ namespace CsiMigrationHelper
         private System.Windows.Forms.CheckBox chkbxMakeCSIClustered;
         private System.Windows.Forms.CheckBox chkbxRenameTgtColumns;
         private System.Windows.Forms.CheckBox chkbxAutoDropDownComboBoxes;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblAutoDropComboBoxes;
+        private System.Windows.Forms.TabPage Tab_TrackingTable;
+        private System.Windows.Forms.Label lblTrackingTableDefaultName;
+        private System.Windows.Forms.TextBox tbx_ProjectsTableDefaultName;
     }
 }

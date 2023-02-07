@@ -10,6 +10,7 @@ namespace CsiMigrationHelper
     {
 
         private TreeNode<DbObject> root;
+
         private TreeNode<DbObject> srcInstance;
         private TreeNode<DbObject> srcDatabase;
         private TreeNode<DbObject> srcSchema;
@@ -41,7 +42,6 @@ namespace CsiMigrationHelper
         private DbUtil Tgt = new DbUtil();
         private DbUtil Trck = new DbUtil();
 
-        private ComboBoxSelectionHandler CbxHdlr = new ComboBoxSelectionHandler();
         private TgtTblMetaDataHandler TgtMtdHdlr_Current = new TgtTblMetaDataHandler();
         private TgtTblMetaDataHandler TgtMtdHdlr_Staging = new TgtTblMetaDataHandler();
         private TgtTblMetaDataHandler TgtMtdHdlr_Archive = new TgtTblMetaDataHandler();
@@ -52,32 +52,45 @@ namespace CsiMigrationHelper
         {
             InitializeComponent();
 
-            #region init            
+            #region init
+
+            {
+                Options.suffixCurrent = "_Current";
+                Options.suffixStaging = "_Staging";
+                Options.suffixArchive = "_Archive";
+                Options.prefixCSI = "CSI_";
+                Options.suffixTgtColName = "_";
+                Options.translateUserDefinedDataTypes = true;
+                Options.doNotCreateFKsOnCrossDbTarget = true;
+                Options.makeCSIClustered = true;
+                Options.renameTgtColumns = false;
+                Options.autoDropDownComboBoxes = true;
+                Options.projectsTableDefaultName = "CsixMigrationProjects";
+            }
 
             root = new TreeNode<DbObject>(new DbObject(DbObjectBranch.Root, DbObjectLevel.Root, "Root", "---------------------- Root Node ----------------------", null));
-
             srcInstance = root.AddChild(new DbObject(DbObjectBranch.Src, DbObjectLevel.Instance, "srcInstance", string.Empty, new GuiElem(tbx_InstanceSrc), Src));
             {
                 srcDatabase = srcInstance.AddChild(new DbObject(DbObjectBranch.Src, DbObjectLevel.Database, "srcDatabase", string.Empty, new GuiElem(cbx_dbList_Src)));
-                cbx_dbList_Src.SetParentTreeNode(srcDatabase, CbxHdlr);
+                cbx_dbList_Src.SetParentTreeNode(srcDatabase);
                 {
                     srcSchema = srcDatabase.AddChild(new DbObject(DbObjectBranch.Src, DbObjectLevel.Schema, "srcSchema", string.Empty, new GuiElem(cbx_schList_Src)));
-                    cbx_schList_Src.SetParentTreeNode(srcSchema, CbxHdlr);
+                    cbx_schList_Src.SetParentTreeNode(srcSchema);
                     {
                         srcTable = srcSchema.AddChild(new DbObject(DbObjectBranch.Src, DbObjectLevel.Table, "srcTable", string.Empty, new GuiElem(cbx_tbList_Src)));
-                        cbx_tbList_Src.SetParentTreeNode(srcTable, CbxHdlr);
+                        cbx_tbList_Src.SetParentTreeNode(srcTable);
                         {
                             srcColumn = srcTable.AddChild(new DbObject(DbObjectBranch.Src, DbObjectLevel.Column, "srcColumn", string.Empty, new GuiElem(cbx_colList_Src)));
-                            cbx_colList_Src.SetParentTreeNode(srcColumn, CbxHdlr);
+                            cbx_colList_Src.SetParentTreeNode(srcColumn);
                             {
                                 srcDataType = srcColumn.AddChild(new DbObject(DbObjectBranch.Src, DbObjectLevel.DataType, "srcDataType", string.Empty, new GuiElem(tbx_DataType_Src)));
-                                tbx_DataType_Src.SetParentTreeNode(srcDataType, CbxHdlr, cbx_tbList_Src, srcTable, null, null);
+                                tbx_DataType_Src.SetParentTreeNode(srcDataType, cbx_tbList_Src, srcTable, null, null);
                                 {
                                     srcPartitionScheme = srcDataType.AddChild(new DbObject(DbObjectBranch.Src, DbObjectLevel.PartitionScheme, "srcPartitionScheme", string.Empty, null));
                                     srcPartitionScheme.IsDummyNode = true;
                                     {
                                         srcIndex = srcPartitionScheme.AddChild(new DbObject(DbObjectBranch.Src, DbObjectLevel.Index, "srcIndex", string.Empty, new GuiElem(cbx_idxList_Src)));
-                                        cbx_idxList_Src.SetParentTreeNode(srcIndex, CbxHdlr);
+                                        cbx_idxList_Src.SetParentTreeNode(srcIndex);
                                     }
                                 }
                             }
@@ -89,56 +102,65 @@ namespace CsiMigrationHelper
             tgtInstance = root.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Instance, "tgtInstance", string.Empty, new GuiElem(tbx_InstanceTgt), Tgt));
             {
                 tgtDatabase = tgtInstance.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Database, "tgtDatabase", string.Empty, new GuiElem(cbx_dbList_Tgt)));
-                cbx_dbList_Tgt.SetParentTreeNode(tgtDatabase, CbxHdlr);
+                cbx_dbList_Tgt.SetParentTreeNode(tgtDatabase);
                 {
                     tgtSchema_Current = tgtDatabase.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Schema, "tgtSchema_Current", string.Empty, new GuiElem(cbx_schList_Tgt_Current)));
-                    cbx_schList_Tgt_Current.SetParentTreeNode(tgtSchema_Current, CbxHdlr);
+                    cbx_schList_Tgt_Current.SetParentTreeNode(tgtSchema_Current);
                     {
                         tgtTable_Current = tgtSchema_Current.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Table, "tgtTable_Current", string.Empty, new GuiElem(cbx_tbList_Tgt_Current)));
-                        cbx_tbList_Tgt_Current.SetParentTreeNode(tgtTable_Current, CbxHdlr);
+                        cbx_tbList_Tgt_Current.SetParentTreeNode(tgtTable_Current);
+                        rdbtn_Current_Clone.SetParentTreeNode(tgtTable_Current);
+                        rdbtn_Current_Clone.Checked = true;
+
                         tgtTable_Current.CloneableFromSrc = rdbtn_Current_Clone.Checked ? true : false;
                         tgtTable_Current.AddCousin(srcTable, srcTable.CloneableFromSrc);
                         srcTable.AddCousin(tgtTable_Current, tgtTable_Current.CloneableFromSrc);
                     }
 
                     tgtSchema_Staging = tgtDatabase.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Schema, "tgtSchema_Staging", string.Empty, new GuiElem(cbx_schList_Tgt_Staging)));
-                    cbx_schList_Tgt_Staging.SetParentTreeNode(tgtSchema_Staging, CbxHdlr);
+                    cbx_schList_Tgt_Staging.SetParentTreeNode(tgtSchema_Staging);
                     {
                         tgtTable_Staging = tgtSchema_Staging.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Table, "tgtTable_Staging", string.Empty, new GuiElem(cbx_tbList_Tgt_Staging)));
-                        cbx_tbList_Tgt_Staging.SetParentTreeNode(tgtTable_Staging, CbxHdlr);
+                        cbx_tbList_Tgt_Staging.SetParentTreeNode(tgtTable_Staging);
+                        rdbtn_Staging_Clone.SetParentTreeNode(tgtTable_Staging);
+                        rdbtn_Staging_Clone.Checked = true;
+
                         tgtTable_Staging.CloneableFromSrc = rdbtn_Staging_Clone.Checked ? true : false;
                         tgtTable_Staging.AddCousin(srcTable, srcTable.CloneableFromSrc);
                         srcTable.AddCousin(tgtTable_Staging, tgtTable_Staging.CloneableFromSrc);
                     }
 
                     tgtSchema_Archive = tgtDatabase.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Schema, "tgtSchema_Archive", string.Empty, new GuiElem(cbx_schList_Tgt_Archive)));
-                    cbx_schList_Tgt_Archive.SetParentTreeNode(tgtSchema_Archive, CbxHdlr);
+                    cbx_schList_Tgt_Archive.SetParentTreeNode(tgtSchema_Archive);
                     {
                         tgtTable_Archive = tgtSchema_Archive.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Table, "tgtTable_Archive", string.Empty, new GuiElem(cbx_tbList_Tgt_Archive)));
-                        cbx_tbList_Tgt_Archive.SetParentTreeNode(tgtTable_Archive, CbxHdlr);
+                        cbx_tbList_Tgt_Archive.SetParentTreeNode(tgtTable_Archive);
+                        rdbtn_Archive_Clone.SetParentTreeNode(tgtTable_Archive);
+                        rdbtn_Archive_Clone.Checked = true;
+
                         tgtTable_Archive.CloneableFromSrc = rdbtn_Archive_Clone.Checked ? true : false; // if tgtColumn.CloneableFromSrc is changed to false then this flag has to be to be changed as well
                         tgtTable_Archive.AddCousin(srcTable, srcTable.CloneableFromSrc);
                         srcTable.AddCousin(tgtTable_Archive, tgtTable_Archive.CloneableFromSrc);
                         {
                             tgtColumn = tgtTable_Archive.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Column, "tgtColumn", string.Empty, new GuiElem(cbx_colList_Tgt)));
-                            cbx_colList_Tgt.SetParentTreeNode(tgtColumn, CbxHdlr);
+                            cbx_colList_Tgt.SetParentTreeNode(tgtColumn);
                             tgtColumn.CloneableFromSrc = rdbtn_Archive_Clone.Checked ? true : false; // if this flag gets changed then its parent flag has to be changed as well
                             tgtColumn.AddCousin(srcColumn, srcColumn.CloneableFromSrc);
                             srcColumn.AddCousin(tgtColumn, tgtColumn.CloneableFromSrc);
                             {
                                 tgtDataType = tgtColumn.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.DataType, "tgtDataType", string.Empty, new GuiElem(tbx_DataType_Tgt)));
-                                tbx_DataType_Tgt.SetParentTreeNode(tgtDataType, CbxHdlr, cbx_tbList_Src, srcTable, cbx_tbList_Tgt_Archive, tgtTable_Archive);
+                                tbx_DataType_Tgt.SetParentTreeNode(tgtDataType, cbx_tbList_Src, srcTable, cbx_tbList_Tgt_Archive, tgtTable_Archive);
                                 tgtDataType.CloneableFromSrc = rdbtn_Archive_Clone.Checked ? true : false; // if this flag gets changed then its parent flag has to be changed as well
                                 tgtDataType.AddCousin(srcDataType, srcDataType.CloneableFromSrc);
                                 srcDataType.AddCousin(tgtDataType, tgtDataType.CloneableFromSrc);
                                 {
                                     tgtPartitionScheme = tgtDataType.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.PartitionScheme, "tgtPartitionScheme", string.Empty, new GuiElem(cbx_psList_Tgt)));
-                                    cbx_psList_Tgt.SetParentTreeNode(tgtPartitionScheme, CbxHdlr);
+                                    cbx_psList_Tgt.SetParentTreeNode(tgtPartitionScheme);
                                     tgtPartitionScheme.CloneableFromSrc = true;
                                     //// - srcPartitionScheme.AddCousin(TreeNode<DbObject>.ConvertToDbObject(tgtPartitionScheme), tgtPartitionScheme.CloneableFromSrc); // this is redundant since srcPartitionScheme is "Dummy"
                                     {
                                         tgtIndex = tgtPartitionScheme.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Index, "tgtIndex", string.Empty, new GuiElem(cbx_idxList_Tgt)));
-                                        cbx_idxList_Tgt.SetParentTreeNode(tgtIndex, CbxHdlr);
+                                        cbx_idxList_Tgt.SetParentTreeNode(tgtIndex);
                                         tgtIndex.CloneableFromSrc = rdbtn_Archive_Clone.Checked ? true : false; // if this flag gets changed then its parent flag has to be changed as well
                                         tgtIndex.AddCousin(srcIndex, srcIndex.CloneableFromSrc);
                                         srcIndex.AddCousin(tgtIndex, tgtIndex.CloneableFromSrc);
@@ -154,29 +176,17 @@ namespace CsiMigrationHelper
             trckInstance = root.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.Instance, "trckInstance", string.Empty, new GuiElem(tbx_TrackTblInstance), Trck));
             {
                 trckDatabase = trckInstance.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.Database, "trckDatabase", string.Empty, new GuiElem(cbxt_TrackTbl_Database), Trck));
-                cbxt_TrackTbl_Database.SetParentTreeNode(trckDatabase, CbxHdlr);
+                cbxt_TrackTbl_Database.SetParentTreeNode(trckDatabase);
                 {
                     trckSchema = trckDatabase.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.Schema, "trckSchema", string.Empty, new GuiElem(cbxt_TrackTbl_Schema), Trck));
-                    cbxt_TrackTbl_Schema.SetParentTreeNode(trckSchema, CbxHdlr);
+                    cbxt_TrackTbl_Schema.SetParentTreeNode(trckSchema);
                     {
-                        trckTable = trckSchema.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.Table, "trckTable", string.Empty, new GuiElem(cbxt_TrackTbl_Table), Trck));
-                        cbxt_TrackTbl_Table.SetParentTreeNode(trckTable, CbxHdlr, rdbtn_TrackTbl_CreateNew, btnTrackTblSave);
+                        trckTable = trckSchema.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.Table, "trckTable", string.Empty, new GuiElem(cbxt_TrackTbl_Table), Trck));                        
+                        cbxt_TrackTbl_Table.SetParentTreeNode(trckTable, rdbtn_TrackTbl_CreateNew, btnTrackTblSave);
+                        rdbtn_TrackTbl_CreateNew.SetParentTreeNode(trckTable);
+                        rdbtn_TrackTbl_CreateNew.Checked = true;
                     }
                 }
-            }
-
-
-            {
-                Options.suffixCurrent = "_Current";
-                Options.suffixStaging = "_Staging";
-                Options.suffixArchive = "_Archive";
-                Options.prefixCSI = "CSI_";
-                Options.suffixTgtColName = "_";
-                Options.translateUserDefinedDataTypes = true;
-                Options.doNotCreateFKsOnCrossDbTarget = true;
-                Options.makeCSIClustered = true;
-                Options.renameTgtColumns = false;
-                Options.autoDropDownComboBoxes = true;
             }
 
             gridColList_Current.GetType().GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(gridColList_Current, true, null);
@@ -208,7 +218,7 @@ namespace CsiMigrationHelper
 
         private void buttonLoginSrc_Click(object sender, EventArgs e)
         {
-            LoginForm.HandleLoginBtnClick(sender, srcInstance, CbxHdlr);
+            LoginForm.HandleLoginBtnClick(sender, srcInstance);
         }
 
         //-------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -217,7 +227,7 @@ namespace CsiMigrationHelper
 
         private void buttonLoginTgt_Click(object sender, EventArgs e)
         {
-            LoginForm.HandleLoginBtnClick(sender, tgtInstance, CbxHdlr);
+            LoginForm.HandleLoginBtnClick(sender, tgtInstance);
         }
 
         //-------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -237,63 +247,6 @@ namespace CsiMigrationHelper
         private void chkBxArchive_CheckedChanged(object sender, EventArgs e)
         {
             tgtSchema_Archive.Enabled = chkBxArchive.Checked ? true : false;
-        }
-
-        private void rdbtn_Current_Clone_CheckedChanged(object sender, EventArgs e)
-        {
-            tgtTable_Current.CloneableFromSrc = rdbtn_Current_Clone.Checked ? true : false;
-            if (cbx_schList_Tgt_Current.SelectedIndex > 0)
-            {
-                try
-                {
-                    CbxHdlr.HandleGuiSelectionChange(cbx_schList_Tgt_Current, tgtSchema_Current);
-                }
-                catch (ExceptionEmptyResultSet ex)
-                {
-                    if (ex.retry)
-                    {
-                        CbxHdlr.HandleGuiSelectionChange(cbx_dbList_Tgt, tgtDatabase);
-                    }
-                }
-            }
-        }
-
-        private void rdbtn_Staging_Clone_CheckedChanged(object sender, EventArgs e)
-        {
-            tgtTable_Staging.CloneableFromSrc = rdbtn_Staging_Clone.Checked ? true : false;
-            if (cbx_schList_Tgt_Staging.SelectedIndex > 0)
-            {
-                try
-                {
-                    CbxHdlr.HandleGuiSelectionChange(cbx_schList_Tgt_Staging, tgtSchema_Staging);
-                }
-                catch (ExceptionEmptyResultSet ex)
-                {
-                    if (ex.retry)
-                    {
-                        CbxHdlr.HandleGuiSelectionChange(cbx_dbList_Tgt, tgtDatabase);
-                    }
-                }
-            }
-        }
-
-        private void rdbtn_Archive_Clone_CheckedChanged(object sender, EventArgs e)
-        {
-            tgtTable_Archive.CloneableFromSrc = rdbtn_Archive_Clone.Checked ? true : false;
-            if (cbx_schList_Tgt_Archive.SelectedIndex > 0)
-            {
-                try
-                {
-                    CbxHdlr.HandleGuiSelectionChange(cbx_schList_Tgt_Archive, tgtSchema_Archive);
-                }
-                catch (ExceptionEmptyResultSet ex)
-                {
-                    if (ex.retry)
-                    {
-                        CbxHdlr.HandleGuiSelectionChange(cbx_dbList_Tgt, tgtDatabase);
-                    }
-                }
-            }
         }
 
 
@@ -473,7 +426,7 @@ namespace CsiMigrationHelper
 
         private void btnTrackTblLogin_Click(object sender, EventArgs e)
         {
-            LoginForm.HandleLoginBtnClick(sender, trckInstance, CbxHdlr);
+            LoginForm.HandleLoginBtnClick(sender, trckInstance);
         }
 
 
