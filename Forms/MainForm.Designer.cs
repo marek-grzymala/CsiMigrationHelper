@@ -36,12 +36,12 @@
             this.split_SrcTgtSetup = new System.Windows.Forms.SplitContainer();
             this.gpbxSrc = new System.Windows.Forms.GroupBox();
             this.tblp_TabSetupSrc = new System.Windows.Forms.TableLayoutPanel();
-            this.cbx_idxList_Src = new ComboBoxExt();
-            this.tbx_DataType_Src = new System.Windows.Forms.TextBox();
-            this.cbx_colList_Src = new ComboBoxExt();
-            this.cbx_tbList_Src = new ComboBoxExt();
-            this.cbx_schList_Src = new ComboBoxExt();
-            this.cbx_dbList_Src = new ComboBoxExt();
+            this.cbx_idxList_Src = new CsiMigrationHelper.ComboBoxExt();
+            this.tbx_DataType_Src = new CsiMigrationHelper.TextBoxExt();
+            this.cbx_colList_Src = new CsiMigrationHelper.ComboBoxExt();
+            this.cbx_tbList_Src = new CsiMigrationHelper.ComboBoxExt();
+            this.cbx_schList_Src = new CsiMigrationHelper.ComboBoxExt();
+            this.cbx_dbList_Src = new CsiMigrationHelper.ComboBoxExt();
             this.buttonLoginSrc = new System.Windows.Forms.Button();
             this.tbx_InstanceSrc = new System.Windows.Forms.TextBox();
             this.gpbxTgt = new System.Windows.Forms.GroupBox();
@@ -51,32 +51,32 @@
             this.lbl_Enabled = new System.Windows.Forms.Label();
             this.lbl_TableTgt = new System.Windows.Forms.Label();
             this.lbl_SchemaTgt = new System.Windows.Forms.Label();
-            this.cbx_idxList_Tgt = new ComboBoxExt();
-            this.cbx_psList_Tgt = new ComboBoxExt();
-            this.tbx_DataType_Tgt = new System.Windows.Forms.TextBox();
-            this.cbx_colList_Tgt = new ComboBoxExt();
-            this.cbx_dbList_Tgt = new ComboBoxExt();
+            this.cbx_idxList_Tgt = new CsiMigrationHelper.ComboBoxExt();
+            this.cbx_psList_Tgt = new CsiMigrationHelper.ComboBoxExt();
+            this.tbx_DataType_Tgt = new CsiMigrationHelper.TextBoxExt();
+            this.cbx_colList_Tgt = new CsiMigrationHelper.ComboBoxExt();
+            this.cbx_dbList_Tgt = new CsiMigrationHelper.ComboBoxExt();
             this.buttonLoginTgt = new System.Windows.Forms.Button();
             this.tbx_InstanceTgt = new System.Windows.Forms.TextBox();
             this.grpBx_Current = new System.Windows.Forms.GroupBox();
             this.tblp_Current = new System.Windows.Forms.TableLayoutPanel();
             this.chkBxCurrent = new System.Windows.Forms.CheckBox();
-            this.cbx_tbList_Tgt_Current = new ComboBoxExt();
-            this.cbx_schList_Tgt_Current = new ComboBoxExt();
+            this.cbx_tbList_Tgt_Current = new CsiMigrationHelper.ComboBoxExt();
+            this.cbx_schList_Tgt_Current = new CsiMigrationHelper.ComboBoxExt();
             this.rdbtn_Current_Clone = new System.Windows.Forms.RadioButton();
             this.rdbtn_Current_UseExisting = new System.Windows.Forms.RadioButton();
             this.grpBx_Staging = new System.Windows.Forms.GroupBox();
             this.tblp_Staging = new System.Windows.Forms.TableLayoutPanel();
             this.chkBxStaging = new System.Windows.Forms.CheckBox();
-            this.cbx_tbList_Tgt_Staging = new ComboBoxExt();
-            this.cbx_schList_Tgt_Staging = new ComboBoxExt();
+            this.cbx_tbList_Tgt_Staging = new CsiMigrationHelper.ComboBoxExt();
+            this.cbx_schList_Tgt_Staging = new CsiMigrationHelper.ComboBoxExt();
             this.rdbtn_Staging_Clone = new System.Windows.Forms.RadioButton();
             this.rdbtn_Staging_UseExisting = new System.Windows.Forms.RadioButton();
             this.grpBx_Archive = new System.Windows.Forms.GroupBox();
             this.tblp_Archive = new System.Windows.Forms.TableLayoutPanel();
             this.chkBxArchive = new System.Windows.Forms.CheckBox();
-            this.cbx_tbList_Tgt_Archive = new ComboBoxExt();
-            this.cbx_schList_Tgt_Archive = new ComboBoxExt();
+            this.cbx_tbList_Tgt_Archive = new CsiMigrationHelper.ComboBoxExt();
+            this.cbx_schList_Tgt_Archive = new CsiMigrationHelper.ComboBoxExt();
             this.rdbtn_Archive_Clone = new System.Windows.Forms.RadioButton();
             this.rdbtn_Archive_UseExisting = new System.Windows.Forms.RadioButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -367,7 +367,6 @@
             this.cbx_idxList_Src.Name = "cbx_idxList_Src";
             this.cbx_idxList_Src.Size = new System.Drawing.Size(305, 24);
             this.cbx_idxList_Src.TabIndex = 74;
-            //this.cbx_idxList_Src.SelectedIndexChanged += new System.EventHandler(this.cbx_idxList_Src_SelectedIndexChanged);
             // 
             // tbx_DataType_Src
             // 
@@ -377,7 +376,6 @@
             this.tbx_DataType_Src.Name = "tbx_DataType_Src";
             this.tbx_DataType_Src.Size = new System.Drawing.Size(305, 22);
             this.tbx_DataType_Src.TabIndex = 73;
-            this.tbx_DataType_Src.TextChanged += new System.EventHandler(this.tbx_DataType_Src_TextChanged);
             // 
             // cbx_colList_Src
             // 
@@ -388,7 +386,6 @@
             this.cbx_colList_Src.Name = "cbx_colList_Src";
             this.cbx_colList_Src.Size = new System.Drawing.Size(305, 24);
             this.cbx_colList_Src.TabIndex = 72;
-            //this.cbx_colList_Src.SelectedIndexChanged += new System.EventHandler(this.cbx_colList_Src_SelectedIndexChanged);
             // 
             // cbx_tbList_Src
             // 
@@ -399,7 +396,6 @@
             this.cbx_tbList_Src.Name = "cbx_tbList_Src";
             this.cbx_tbList_Src.Size = new System.Drawing.Size(305, 24);
             this.cbx_tbList_Src.TabIndex = 71;
-            //this.cbx_tbList_Src.SelectedIndexChanged += new System.EventHandler(this.cbx_tbList_Src_SelectedIndexChanged);
             // 
             // cbx_schList_Src
             // 
@@ -410,7 +406,6 @@
             this.cbx_schList_Src.Name = "cbx_schList_Src";
             this.cbx_schList_Src.Size = new System.Drawing.Size(305, 24);
             this.cbx_schList_Src.TabIndex = 70;
-            //this.cbx_schList_Src.SelectedIndexChanged += new System.EventHandler(this.cbx_schList_Src_SelectedIndexChanged);
             // 
             // cbx_dbList_Src
             // 
@@ -421,8 +416,6 @@
             this.cbx_dbList_Src.Name = "cbx_dbList_Src";
             this.cbx_dbList_Src.Size = new System.Drawing.Size(305, 24);
             this.cbx_dbList_Src.TabIndex = 69;
-            //this.cbx_dbList_Src.SelectedIndexChanged += new System.EventHandler(this.cbx_dbList_Src_SelectedIndexChanged);
-            //this.cbx_dbList_Src.Resize += new System.EventHandler(this.cbx_dbList_Src_Resize);
             // 
             // buttonLoginSrc
             // 
@@ -588,7 +581,6 @@
             this.cbx_idxList_Tgt.Name = "cbx_idxList_Tgt";
             this.cbx_idxList_Tgt.Size = new System.Drawing.Size(639, 24);
             this.cbx_idxList_Tgt.TabIndex = 67;
-            //this.cbx_idxList_Tgt.SelectedIndexChanged += new System.EventHandler(this.cbx_idxList_Tgt_SelectedIndexChanged);
             // 
             // cbx_psList_Tgt
             // 
@@ -601,7 +593,6 @@
             this.cbx_psList_Tgt.Name = "cbx_psList_Tgt";
             this.cbx_psList_Tgt.Size = new System.Drawing.Size(639, 24);
             this.cbx_psList_Tgt.TabIndex = 66;
-            //this.cbx_psList_Tgt.SelectedIndexChanged += new System.EventHandler(this.cbx_psList_Tgt_SelectedIndexChanged);
             // 
             // tbx_DataType_Tgt
             // 
@@ -612,7 +603,6 @@
             this.tbx_DataType_Tgt.Name = "tbx_DataType_Tgt";
             this.tbx_DataType_Tgt.Size = new System.Drawing.Size(639, 22);
             this.tbx_DataType_Tgt.TabIndex = 65;
-            this.tbx_DataType_Tgt.TextChanged += new System.EventHandler(this.tbx_DataType_Tgt_TextChanged);
             // 
             // cbx_colList_Tgt
             // 
@@ -625,7 +615,6 @@
             this.cbx_colList_Tgt.Name = "cbx_colList_Tgt";
             this.cbx_colList_Tgt.Size = new System.Drawing.Size(639, 24);
             this.cbx_colList_Tgt.TabIndex = 64;
-            //this.cbx_colList_Tgt.SelectedIndexChanged += new System.EventHandler(this.cbx_colList_Tgt_SelectedIndexChanged);
             // 
             // cbx_dbList_Tgt
             // 
@@ -638,7 +627,6 @@
             this.cbx_dbList_Tgt.Name = "cbx_dbList_Tgt";
             this.cbx_dbList_Tgt.Size = new System.Drawing.Size(639, 24);
             this.cbx_dbList_Tgt.TabIndex = 57;
-            //this.cbx_dbList_Tgt.SelectedIndexChanged += new System.EventHandler(this.cbx_dbList_Tgt_SelectedIndexChanged);
             // 
             // buttonLoginTgt
             // 
@@ -716,7 +704,6 @@
             this.cbx_tbList_Tgt_Current.Name = "cbx_tbList_Tgt_Current";
             this.cbx_tbList_Tgt_Current.Size = new System.Drawing.Size(481, 24);
             this.cbx_tbList_Tgt_Current.TabIndex = 61;
-            //this.cbx_tbList_Tgt_Current.SelectedIndexChanged += new System.EventHandler(this.cbx_tbList_Tgt_Current_SelectedIndexChanged);
             // 
             // cbx_schList_Tgt_Current
             // 
@@ -726,7 +713,6 @@
             this.cbx_schList_Tgt_Current.Name = "cbx_schList_Tgt_Current";
             this.cbx_schList_Tgt_Current.Size = new System.Drawing.Size(148, 24);
             this.cbx_schList_Tgt_Current.TabIndex = 58;
-            //this.cbx_schList_Tgt_Current.SelectedIndexChanged += new System.EventHandler(this.cbx_schList_Tgt_Current_SelectedIndexChanged);
             // 
             // rdbtn_Current_Clone
             // 
@@ -810,7 +796,6 @@
             this.cbx_tbList_Tgt_Staging.Name = "cbx_tbList_Tgt_Staging";
             this.cbx_tbList_Tgt_Staging.Size = new System.Drawing.Size(481, 24);
             this.cbx_tbList_Tgt_Staging.TabIndex = 62;
-            //this.cbx_tbList_Tgt_Staging.SelectedIndexChanged += new System.EventHandler(this.cbx_tbList_Tgt_Staging_SelectedIndexChanged);
             // 
             // cbx_schList_Tgt_Staging
             // 
@@ -820,7 +805,6 @@
             this.cbx_schList_Tgt_Staging.Name = "cbx_schList_Tgt_Staging";
             this.cbx_schList_Tgt_Staging.Size = new System.Drawing.Size(148, 24);
             this.cbx_schList_Tgt_Staging.TabIndex = 59;
-            //this.cbx_schList_Tgt_Staging.SelectedIndexChanged += new System.EventHandler(this.cbx_schList_Tgt_Staging_SelectedIndexChanged);
             // 
             // rdbtn_Staging_Clone
             // 
@@ -904,7 +888,6 @@
             this.cbx_tbList_Tgt_Archive.Name = "cbx_tbList_Tgt_Archive";
             this.cbx_tbList_Tgt_Archive.Size = new System.Drawing.Size(481, 24);
             this.cbx_tbList_Tgt_Archive.TabIndex = 63;
-            //this.cbx_tbList_Tgt_Archive.SelectedIndexChanged += new System.EventHandler(this.cbx_tbList_Tgt_Archive_SelectedIndexChanged);
             // 
             // cbx_schList_Tgt_Archive
             // 
@@ -914,7 +897,6 @@
             this.cbx_schList_Tgt_Archive.Name = "cbx_schList_Tgt_Archive";
             this.cbx_schList_Tgt_Archive.Size = new System.Drawing.Size(148, 24);
             this.cbx_schList_Tgt_Archive.TabIndex = 60;
-            //this.cbx_schList_Tgt_Archive.SelectedIndexChanged += new System.EventHandler(this.cbx_schList_Tgt_Archive_SelectedIndexChanged);
             // 
             // rdbtn_Archive_Clone
             // 
@@ -2190,7 +2172,6 @@
         private ComboBoxExt cbx_schList_Src;
         private ComboBoxExt cbx_tbList_Src;
         private ComboBoxExt cbx_colList_Src;
-        private System.Windows.Forms.TextBox tbx_DataType_Src;
         private ComboBoxExt cbx_idxList_Src;
         private System.Windows.Forms.TableLayoutPanel tblp_TabSetupTgt;
         private System.Windows.Forms.Button buttonLoginTgt;
@@ -2204,7 +2185,6 @@
         private ComboBoxExt cbx_schList_Tgt_Current;
         private ComboBoxExt cbx_idxList_Tgt;
         private ComboBoxExt cbx_psList_Tgt;
-        private System.Windows.Forms.TextBox tbx_DataType_Tgt;
         private ComboBoxExt cbx_colList_Tgt;
         private System.Windows.Forms.CheckBox chkBxArchive;
         private System.Windows.Forms.CheckBox chkBxStaging;
@@ -2310,6 +2290,8 @@
         private ComboBoxExt cbxt_TrackTbl_Database;
         private ComboBoxExt cbxt_TrackTbl_Schema;
         private ComboBoxExt cbxt_TrackTbl_Table;
+        private TextBoxExt tbx_DataType_Src;
+        private TextBoxExt tbx_DataType_Tgt;
     }
 }
 

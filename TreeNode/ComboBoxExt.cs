@@ -7,11 +7,10 @@ using System.Windows.Forms;
 
 namespace CsiMigrationHelper
 {
-
     public class ComboBoxExt : ComboBox
     {
         private SrcTgtSelectionHandler SrcTgtHdlr;
-        private TreeNode<DbObject> Tn;
+        public TreeNode<DbObject> ParentTreeNode;
 
         public ComboBoxExt()
         {
@@ -19,11 +18,11 @@ namespace CsiMigrationHelper
             this.Resize += new EventHandler(OnResize);
         }
 
-        public void SetMembers(TreeNode<DbObject> tn, SrcTgtSelectionHandler srcTgtHdlr)
+        public void SetParentTreeNode(TreeNode<DbObject> tn, SrcTgtSelectionHandler srcTgtHdlr)
         {
             if (tn != null && srcTgtHdlr != null)
             {
-                Tn = tn;
+                ParentTreeNode = tn;
                 SrcTgtHdlr = srcTgtHdlr;
             }
         }
@@ -37,13 +36,12 @@ namespace CsiMigrationHelper
         {            
             try
             {
-                SrcTgtHdlr.HandleGuiSelectionChange(this, Tn);
+                SrcTgtHdlr.HandleGuiSelectionChange(this, ParentTreeNode);
             }
             catch (ExceptionEmptyResultSet ex)
             {
                 if (ex.retry)
                 {
-                    //SrcTgtHdlr.HandleGuiSelectionChange(Tn.Parent.Data.Gui.GetGuiObject(), Tn.Parent);
                     this.DroppedDown = true;
                 }
             }
@@ -51,7 +49,6 @@ namespace CsiMigrationHelper
             {
                 if (ex.retry)
                 {
-                    //SrcTgtHdlr.HandleGuiSelectionChange(Tn.Parent.Data.Gui.GetGuiObject(), Tn.Parent);
                     this.DroppedDown = true;
                 }
             }

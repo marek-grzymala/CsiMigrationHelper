@@ -220,6 +220,9 @@
     <Compile Include="Forms\Options.Designer.cs">
       <DependentUpon>Options.cs</DependentUpon>
     </Compile>
+    <Compile Include="TreeNode\TextBoxExt.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Utils\RegexUtil.cs" />
     <Compile Include="TabCntrHndlrs\SrcTgtSelectionHandler.cs" />
     <Compile Include="Sql\DataSetForGui.cs" />

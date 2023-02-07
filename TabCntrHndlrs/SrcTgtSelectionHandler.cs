@@ -134,7 +134,7 @@ namespace CsiMigrationHelper
                             {
                                 childNodeDbo.Gui.PopulateGuiElem(childNodeDbo.Gui, dsfg);
                             }
-                            else if (childNodeDbo.Gui.GetGuiType() == typeof(TextBox))
+                            else if (childNodeDbo.Gui.GetGuiType() == typeof(TextBox) || (childNodeDbo.Gui.GetGuiType() == typeof(TextBoxExt)))
                             {
                                 if (dsfg.Ds.Tables[0].Rows.Count > 0)
                                 {
