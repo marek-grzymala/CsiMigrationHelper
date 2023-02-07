@@ -76,7 +76,7 @@ namespace CsiMigrationHelper
             this.DialogResult = DialogResult.Cancel;
         }
 
-        public static bool HandleLoginBtnClick(object sender, TreeNode<DbObject> currentNode, SrcTgtSelectionHandler hdlr)
+        public static bool HandleLoginBtnClick(object sender, TreeNode<DbObject> currentNode, ComboBoxSelectionHandler hdlr)
         {
             DialogResult diagResult;
             using (LoginForm login = new LoginForm())

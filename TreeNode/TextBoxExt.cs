@@ -9,7 +9,7 @@ namespace CsiMigrationHelper
 {
     public class TextBoxExt : TextBox
     {
-        private SrcTgtSelectionHandler SrcTgtHdlr;
+        private ComboBoxSelectionHandler SrcTgtHdlr;
         private TreeNode<DbObject> ParentTreeNode;
         private ComboBoxExt Cbx_tbList_Src;
         private TreeNode<DbObject> SrcTable;
@@ -23,7 +23,7 @@ namespace CsiMigrationHelper
 
         public void SetParentTreeNode   (
                                           TreeNode<DbObject> parentNode
-                                        , SrcTgtSelectionHandler srcTgtHdlr
+                                        , ComboBoxSelectionHandler srcTgtHdlr
                                         , ComboBoxExt cbx_tbList_Src
                                         , TreeNode<DbObject> srcTable
                                         , ComboBoxExt cbx_tbList_Tgt

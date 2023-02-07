@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace CsiMigrationHelper
 {
-    public class SrcTgtSelectionHandler
+    public class ComboBoxSelectionHandler
     {
         private TreeNode<DbObject> instanceNode;
         public void HandleGuiSelectionChange(object sender, TreeNode<DbObject> senderNode)
@@ -29,18 +29,7 @@ namespace CsiMigrationHelper
                                 instanceNode.Data.Dbu.ChangeConnection(newCbxSelection);
                             }
                             senderNode.SetTreeNodeText(senderNode, newCbxSelection);
-                            //try
-                            //{
-                                PopulateChildNodes(sender, senderNode, newCbxSelection);
-                            //}
-                            //catch (ExceptionEmptyResultSet ex)
-                            //{
-                            //    throw; // needed to re-populate combo-box after user retry decision (in the exception )
-                            //}
-                            //catch (ExceptionDataTypeMismatch ex)
-                            //{
-                            //    throw; // needed to re-populate combo-box after user retry decision (in the exception )
-                            //}
+                            PopulateChildNodes(sender, senderNode, newCbxSelection);
                         }
                     }
                 }
@@ -50,18 +39,7 @@ namespace CsiMigrationHelper
                     if (tb.Text.Length > 0)
                     {
                         senderNode.SetTreeNodeText(senderNode, tb.Text);
-                        //try
-                        //{
-                            PopulateChildNodes(sender, senderNode, tb.Text);
-                        //}
-                        //catch (ExceptionEmptyResultSet ex)
-                        //{
-                        //    throw; // needed to re-populate combo-box after user retry decision (in the exception )
-                        //}
-                        //catch (ExceptionDataTypeMismatch ex)
-                        //{
-                        //    throw; // needed to re-populate combo-box after user retry decision (in the exception )
-                        //}
+                        PopulateChildNodes(sender, senderNode, tb.Text);
                     }
                 }
                 else if (sender is CheckBox)
@@ -83,18 +61,7 @@ namespace CsiMigrationHelper
                         senderNode.Enabled = true;
                         if (senderNode.Enabled && senderNode.Data.Gui.IsTextSet())
                         {
-                            //try
-                            //{
-                                PopulateChildNodes(sender, senderNode, senderNode.Data.ObjectText);
-                            //}
-                            //catch (ExceptionEmptyResultSet ex)
-                            //{
-                            //    throw; // needed to re-populate combo-box after user retry decision (in the exception )
-                            //}
-                            //catch (ExceptionDataTypeMismatch ex)
-                            //{
-                            //    throw; // needed to re-populate combo-box after user retry decision (in the exception )
-                            //}
+                            PopulateChildNodes(sender, senderNode, senderNode.Data.ObjectText);
                         }
                     }
                 }
@@ -143,22 +110,24 @@ namespace CsiMigrationHelper
                             }
                         }
                     }
-                    // dummy populate; normally we populate only direct childNodes of the currentNode
-                    // unless the currentNode is a [Column] lvl 5 in Branch Src:
+                    /*
+                    dummy populate; normally we populate only direct childNodes of the currentNode
+                    unless the currentNode is a [Column] lvl 5 in Branch Src:
 
-                    // Root             = 0,
-                    // Instance         = 1,
-                    // Database         = 2,
-                    // Schema           = 3,
-                    // Table            = 4,
-                    // Column           = 5,
-                    // DataType         = 6,
-                    // PartitionScheme  = 7,
-                    // Index            = 8,
+                    Root             = 0,
+                    Instance         = 1,
+                    Database         = 2,
+                    Schema           = 3,
+                    Table            = 4,
+                    Column           = 5,
+                    DataType         = 6,
+                    PartitionScheme  = 7,
+                    Index            = 8,
 
-                    // if so: in addition to populating its direct child: [DataType] lvl 6 in regular way (above),
-                    // we also (below) recursively populate its "dummy" Inactive childNode: [PartitionScheme] lvl 7 
-                    // in order to be able to finally populate its Grandchild: [Index] lvl 8
+                    if so: in addition to populating its direct child: [DataType] lvl 6 in regular way (above),
+                    we also (below) recursively populate its "dummy" Inactive childNode: [PartitionScheme] lvl 7 
+                    in order to be able to finally populate its Grandchild: [Index] lvl 8
+                    */
                     else if (childNode.IsDummyNode == true)
                     {
                         PopulateChildNodes(sender, childNode, null);
@@ -179,11 +148,13 @@ namespace CsiMigrationHelper
                             {
                                 if (cousin.Data.ObjectText.Length > 0) // && !childNode.Data.ObjectText.Equals(cousin.Data.ObjectText))
                                 {
-                                    //Console.WriteLine(string.Concat("CLONING FROM Src Branch Cousin: [", cousin.Data.ObjectName,
-                                    //                                "] detected Text: [", cousin.Data.ObjectText,
-                                    //                                "] onto: [", childNode.Data.ObjectName,
-                                    //                                "] with TreeNodeLevel: [", childNode.TreeNodeLevel,
-                                    //                                "] whith current Text: [", childNode.Data.ObjectText, "]"));
+                                    /*
+                                    Console.WriteLine(string.Concat("CLONING FROM Src Branch Cousin: [", cousin.Data.ObjectName,
+                                                                    "] detected Text: [", cousin.Data.ObjectText,
+                                                                    "] onto: [", childNode.Data.ObjectName,
+                                                                    "] with TreeNodeLevel: [", childNode.TreeNodeLevel,
+                                                                    "] whith current Text: [", childNode.Data.ObjectText, "]"));
+                                    */
 
                                     string indexNameTgt = string.Empty;
                                     string tableNameSuffix = string.Empty;
@@ -225,12 +196,14 @@ namespace CsiMigrationHelper
                         if (sender is TextBox) // needed to avoid double error message when no PS found:
                                                // (without this condition 1st error gets triggered by Cbx TgtColumn 2nd by Tbx TgtDataType)
                         {
-                            //TextBox tb = (TextBox)sender;
-                            //Console.WriteLine(string.Concat("RUNNING PopulateGuiElem() of TARGET : [", childNode.Data.ObjectName,
-                            //                                "] with TreeNodeLevel: [", childNode.TreeNodeLevel,
-                            //                                "] whith current Text: [", childNode.Data.ObjectText,
-                            //                                "] SENDER TextBox: [", tb.Name,
-                            //                                "] whith current Text: [", tb.Text, "]"));
+                            /*
+                            TextBox tb = (TextBox)sender;
+                            Console.WriteLine(string.Concat("RUNNING PopulateGuiElem() of TARGET : [", childNode.Data.ObjectName,
+                                                            "] with TreeNodeLevel: [", childNode.TreeNodeLevel,
+                                                            "] whith current Text: [", childNode.Data.ObjectText,
+                                                            "] SENDER TextBox: [", tb.Name,
+                                                            "] whith current Text: [", tb.Text, "]"));
+                            */
                             DbObject childNodeDbo = (DbObject)Convert.ChangeType(childNode.Data, typeof(DbObject));
                             TreeNode<DbObject> instanceNode = parentNode.TraverseUpUntil(parentNode, (int)DbObjectLevel.Instance);
 

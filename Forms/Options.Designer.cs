@@ -44,6 +44,8 @@ namespace CsiMigrationHelper
             this.lblTgtColumnNameSuffix = new System.Windows.Forms.Label();
             this.tabControlOptions = new System.Windows.Forms.TabControl();
             this.SrcTgtSetup = new System.Windows.Forms.TabPage();
+            this.chkbxAutoDropDownComboBoxes = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.TgtMetaDataSetup = new System.Windows.Forms.TabPage();
             this.chkbxRenameTgtColumns = new System.Windows.Forms.CheckBox();
             this.chkbxMakeCSIClustered = new System.Windows.Forms.CheckBox();
@@ -83,7 +85,7 @@ namespace CsiMigrationHelper
             // 
             this.lblCurrent.AutoSize = true;
             this.lblCurrent.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurrent.Location = new System.Drawing.Point(46, 53);
+            this.lblCurrent.Location = new System.Drawing.Point(28, 53);
             this.lblCurrent.Name = "lblCurrent";
             this.lblCurrent.Size = new System.Drawing.Size(141, 18);
             this.lblCurrent.TabIndex = 2;
@@ -91,7 +93,7 @@ namespace CsiMigrationHelper
             // 
             // tbx_CurrentSuffix
             // 
-            this.tbx_CurrentSuffix.Location = new System.Drawing.Point(249, 51);
+            this.tbx_CurrentSuffix.Location = new System.Drawing.Point(267, 51);
             this.tbx_CurrentSuffix.Name = "tbx_CurrentSuffix";
             this.tbx_CurrentSuffix.Size = new System.Drawing.Size(204, 24);
             this.tbx_CurrentSuffix.TabIndex = 3;
@@ -99,7 +101,7 @@ namespace CsiMigrationHelper
             // 
             // tbx_StagingSuffix
             // 
-            this.tbx_StagingSuffix.Location = new System.Drawing.Point(249, 90);
+            this.tbx_StagingSuffix.Location = new System.Drawing.Point(267, 90);
             this.tbx_StagingSuffix.Name = "tbx_StagingSuffix";
             this.tbx_StagingSuffix.Size = new System.Drawing.Size(204, 24);
             this.tbx_StagingSuffix.TabIndex = 5;
@@ -109,7 +111,7 @@ namespace CsiMigrationHelper
             // 
             this.lblStaging.AutoSize = true;
             this.lblStaging.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStaging.Location = new System.Drawing.Point(46, 92);
+            this.lblStaging.Location = new System.Drawing.Point(28, 92);
             this.lblStaging.Name = "lblStaging";
             this.lblStaging.Size = new System.Drawing.Size(141, 18);
             this.lblStaging.TabIndex = 4;
@@ -117,7 +119,7 @@ namespace CsiMigrationHelper
             // 
             // tbx_ArchiveSuffix
             // 
-            this.tbx_ArchiveSuffix.Location = new System.Drawing.Point(249, 134);
+            this.tbx_ArchiveSuffix.Location = new System.Drawing.Point(267, 134);
             this.tbx_ArchiveSuffix.Name = "tbx_ArchiveSuffix";
             this.tbx_ArchiveSuffix.Size = new System.Drawing.Size(204, 24);
             this.tbx_ArchiveSuffix.TabIndex = 7;
@@ -127,7 +129,7 @@ namespace CsiMigrationHelper
             // 
             this.lblArchive.AutoSize = true;
             this.lblArchive.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblArchive.Location = new System.Drawing.Point(46, 136);
+            this.lblArchive.Location = new System.Drawing.Point(28, 136);
             this.lblArchive.Name = "lblArchive";
             this.lblArchive.Size = new System.Drawing.Size(140, 18);
             this.lblArchive.TabIndex = 6;
@@ -135,7 +137,7 @@ namespace CsiMigrationHelper
             // 
             // tbx_CSIprefix
             // 
-            this.tbx_CSIprefix.Location = new System.Drawing.Point(249, 178);
+            this.tbx_CSIprefix.Location = new System.Drawing.Point(267, 178);
             this.tbx_CSIprefix.Name = "tbx_CSIprefix";
             this.tbx_CSIprefix.Size = new System.Drawing.Size(204, 24);
             this.tbx_CSIprefix.TabIndex = 9;
@@ -145,7 +147,7 @@ namespace CsiMigrationHelper
             // 
             this.lblCSI_Prefix.AutoSize = true;
             this.lblCSI_Prefix.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCSI_Prefix.Location = new System.Drawing.Point(46, 180);
+            this.lblCSI_Prefix.Location = new System.Drawing.Point(28, 180);
             this.lblCSI_Prefix.Name = "lblCSI_Prefix";
             this.lblCSI_Prefix.Size = new System.Drawing.Size(156, 18);
             this.lblCSI_Prefix.TabIndex = 8;
@@ -185,6 +187,8 @@ namespace CsiMigrationHelper
             // 
             // SrcTgtSetup
             // 
+            this.SrcTgtSetup.Controls.Add(this.chkbxAutoDropDownComboBoxes);
+            this.SrcTgtSetup.Controls.Add(this.label1);
             this.SrcTgtSetup.Controls.Add(this.lblCurrent);
             this.SrcTgtSetup.Controls.Add(this.tbx_CurrentSuffix);
             this.SrcTgtSetup.Controls.Add(this.lblStaging);
@@ -200,6 +204,27 @@ namespace CsiMigrationHelper
             this.SrcTgtSetup.TabIndex = 0;
             this.SrcTgtSetup.Text = "Source/Target Setup:";
             this.SrcTgtSetup.UseVisualStyleBackColor = true;
+            // 
+            // chkbxAutoDropDownComboBoxes
+            // 
+            this.chkbxAutoDropDownComboBoxes.AutoSize = true;
+            this.chkbxAutoDropDownComboBoxes.Checked = true;
+            this.chkbxAutoDropDownComboBoxes.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkbxAutoDropDownComboBoxes.Location = new System.Drawing.Point(271, 223);
+            this.chkbxAutoDropDownComboBoxes.Name = "chkbxAutoDropDownComboBoxes";
+            this.chkbxAutoDropDownComboBoxes.Size = new System.Drawing.Size(15, 14);
+            this.chkbxAutoDropDownComboBoxes.TabIndex = 11;
+            this.chkbxAutoDropDownComboBoxes.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(27, 223);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(223, 18);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Auto Drop-Down Combo Boxes:";
             // 
             // TgtMetaDataSetup
             // 
@@ -344,5 +369,7 @@ namespace CsiMigrationHelper
         private System.Windows.Forms.CheckBox chbxDoNotCreateFKsOnCrossDbTarget;
         private System.Windows.Forms.CheckBox chkbxMakeCSIClustered;
         private System.Windows.Forms.CheckBox chkbxRenameTgtColumns;
+        private System.Windows.Forms.CheckBox chkbxAutoDropDownComboBoxes;
+        private System.Windows.Forms.Label label1;
     }
 }

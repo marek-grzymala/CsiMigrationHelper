@@ -224,7 +224,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utils\RegexUtil.cs" />
-    <Compile Include="TabCntrHndlrs\SrcTgtSelectionHandler.cs" />
+    <Compile Include="TabCntrHndlrs\ComboBoxSelectionHandler.cs" />
     <Compile Include="Sql\DataSetForGui.cs" />
     <Compile Include="TreeNode\DbObject.cs" />
     <Compile Include="TreeNode\DbUtil.cs" />

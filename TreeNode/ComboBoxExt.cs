@@ -9,21 +9,36 @@ namespace CsiMigrationHelper
 {
     public class ComboBoxExt : ComboBox
     {
-        private SrcTgtSelectionHandler SrcTgtHdlr;
-        public TreeNode<DbObject> ParentTreeNode;
+        private ComboBoxSelectionHandler CbxHdlr;
+        private TreeNode<DbObject> ParentTreeNode;
+        private RadioButton RdButton;
+        private Button SaveButton;
+
 
         public ComboBoxExt()
         {
             this.SelectedIndexChanged += new EventHandler(OnSelectedIndexChanged);
+            this.TextUpdate += new EventHandler(OnTextUpdate);
             this.Resize += new EventHandler(OnResize);
         }
 
-        public void SetParentTreeNode(TreeNode<DbObject> tn, SrcTgtSelectionHandler srcTgtHdlr)
+        public void SetParentTreeNode(TreeNode<DbObject> tn, ComboBoxSelectionHandler cbxHdlr)
         {
-            if (tn != null && srcTgtHdlr != null)
+            if (tn != null && cbxHdlr != null)
             {
                 ParentTreeNode = tn;
-                SrcTgtHdlr = srcTgtHdlr;
+                CbxHdlr = cbxHdlr;
+            }
+        }
+
+        public void SetParentTreeNode(TreeNode<DbObject> tn, ComboBoxSelectionHandler cbxHdlr, RadioButton rbtn, Button btn)
+        {
+            if (tn != null && cbxHdlr != null)
+            {
+                ParentTreeNode = tn;
+                CbxHdlr = cbxHdlr;
+                RdButton = rbtn;
+                SaveButton = btn;
             }
         }
 
@@ -36,7 +51,7 @@ namespace CsiMigrationHelper
         {            
             try
             {
-                SrcTgtHdlr.HandleGuiSelectionChange(this, ParentTreeNode);
+                CbxHdlr.HandleGuiSelectionChange(this, ParentTreeNode);
             }
             catch (ExceptionEmptyResultSet ex)
             {
@@ -51,6 +66,17 @@ namespace CsiMigrationHelper
                 {
                     this.DroppedDown = true;
                 }
+            }
+        }
+
+        protected virtual void OnTextUpdate(object sender, EventArgs e)
+        {
+            if (ParentTreeNode.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl
+                && this.Name.Equals("cbxt_TrackTbl_Table")
+                && RdButton.Checked)
+            {
+                /*enable Save Button: */
+                SaveButton.Enabled = this.Text.Length > 0 ? true : false;
             }
         }
     }

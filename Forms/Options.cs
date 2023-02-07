@@ -23,6 +23,7 @@ namespace CsiMigrationHelper
         public static bool doNotCreateFKsOnCrossDbTarget;
         public static bool makeCSIClustered;
         public static bool renameTgtColumns;
+        public static bool autoDropDownComboBoxes;
 
         public Options()
         {
@@ -36,6 +37,7 @@ namespace CsiMigrationHelper
             chbxDoNotCreateFKsOnCrossDbTarget.Checked = doNotCreateFKsOnCrossDbTarget;
             chkbxMakeCSIClustered.Checked = makeCSIClustered;
             chkbxRenameTgtColumns.Checked = renameTgtColumns;
+            chkbxAutoDropDownComboBoxes.Checked = autoDropDownComboBoxes;
         }
 
         public static bool HandleOptionsMenuClick()
@@ -55,6 +57,7 @@ namespace CsiMigrationHelper
                     doNotCreateFKsOnCrossDbTarget = options.chbxDoNotCreateFKsOnCrossDbTarget.Checked ? true : false;
                     makeCSIClustered = options.chkbxMakeCSIClustered.Checked ? true : false;
                     renameTgtColumns = options.chkbxRenameTgtColumns.Checked ? true : false;
+                    autoDropDownComboBoxes = options.chkbxAutoDropDownComboBoxes.Checked ? true : false;
                 }
             }
             return diagResult == DialogResult.OK;

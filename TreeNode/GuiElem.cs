@@ -364,7 +364,7 @@ namespace CsiMigrationHelper
                         if (Cbx.Items.Count > 1)
                         {
                             gui.Cbx.Enabled = true;
-                            gui.Cbx.DroppedDown = true;
+                            gui.Cbx.DroppedDown = Options.autoDropDownComboBoxes;
                             gui.Cbx.SelectedIndex = 0;
                             //gui.Cbx.Focus();
                         }
@@ -378,7 +378,7 @@ namespace CsiMigrationHelper
                         if (Cbxt.Items.Count > 1)
                         {
                             gui.Cbxt.Enabled = true;
-                            gui.Cbxt.DroppedDown = true;
+                            gui.Cbxt.DroppedDown = Options.autoDropDownComboBoxes;
                             gui.Cbxt.SelectedIndex = 0;
                             //gui.Cbxt.Focus();
                         }
