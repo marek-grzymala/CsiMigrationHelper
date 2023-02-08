@@ -36,7 +36,8 @@ namespace CsiMigrationHelper
         private TreeNode<DbObject> trckInstance;
         private TreeNode<DbObject> trckDatabase;
         private TreeNode<DbObject> trckSchema;
-        private TreeNode<DbObject> trckTable;
+        private TreeNode<DbObject> trckProjectsTable;
+        private TreeNode<DbObject> trckProjectName;
 
         private DbUtil Src = new DbUtil();
         private DbUtil Tgt = new DbUtil();
@@ -181,10 +182,16 @@ namespace CsiMigrationHelper
                     trckSchema = trckDatabase.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.Schema, "trckSchema", string.Empty, new GuiElem(cbxt_TrackTbl_Schema), Trck));
                     cbxt_TrackTbl_Schema.SetParentTreeNode(trckSchema);
                     {
-                        trckTable = trckSchema.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.Table, "trckTable", string.Empty, new GuiElem(cbxt_TrackTbl_Table), Trck));                        
-                        cbxt_TrackTbl_Table.SetParentTreeNode(trckTable, rdbtn_TrackTbl_CreateNew, btnTrackTblSave);
-                        rdbtn_TrackTbl_CreateNew.SetParentTreeNode(trckTable);
-                        rdbtn_TrackTbl_CreateNew.Checked = true;
+                        trckProjectsTable = trckSchema.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.Table, "trckProjectsTable", string.Empty, new GuiElem(cbxt_TrackTbl_ProjectsTable), Trck));                        
+                        cbxt_TrackTbl_ProjectsTable.SetParentTreeNode(trckProjectsTable, rdbtn_TrackTbl_ProjectsCreateNew, btnTrackTbl_ProjectsSave);
+                        rdbtn_TrackTbl_ProjectsCreateNew.SetParentTreeNode(trckProjectsTable);
+                        rdbtn_TrackTbl_ProjectsCreateNew.Checked = true;
+                        {
+                            trckProjectName = trckProjectsTable.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.Column, "trckProjectName", string.Empty, new GuiElem(cbxt_TrackTbl_ProjectName), Trck));                            
+                            cbxt_TrackTbl_ProjectName.SetParentTreeNode(trckProjectName, rdbtn_TrackTbl_ProjectNameCreateNew, btnTrackTbl_ProjectNameSave);
+                            rdbtn_TrackTbl_ProjectNameCreateNew.SetParentTreeNode(trckProjectName);
+                            rdbtn_TrackTbl_ProjectNameCreateNew.Checked = true;
+                        }
                     }
                 }
             }

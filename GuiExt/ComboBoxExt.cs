@@ -92,9 +92,7 @@ namespace CsiMigrationHelper
 
         protected virtual void OnTextUpdate(object sender, EventArgs e)
         {
-            if (ParentTreeNode.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl
-                && this.Name.Equals("cbxt_TrackTbl_Table")
-                && RdButton.Checked)
+            if (ParentTreeNode.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl && RdButton.Checked)
             {
                 /*enable Save Button: */
                 SaveButton.Enabled = this.Text.Length > 0 ? true : false;
