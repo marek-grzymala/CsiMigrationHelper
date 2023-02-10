@@ -89,105 +89,114 @@ namespace CsiMigrationHelper
             switch (branch)
             {
                 case (int)DbObjectBranch.Tgt:
-                /* ############################################################################################################# */
-                if (childNode.HasCousins
-                        && ((childNode.TreeNodeLevel == (int)DbObjectLevel.Table)
-                           || (childNode.TreeNodeLevel == (int)DbObjectLevel.Column)
-                           || (childNode.TreeNodeLevel == (int)DbObjectLevel.DataType)
-                           || (childNode.TreeNodeLevel == (int)DbObjectLevel.Index)
-                           ))
-                {
-                    if (childNode.TraverseUpUntil(childNode, (int)DbObjectLevel.Schema).Enabled
-                        && childNode.TraverseUpUntil(childNode, (int)DbObjectLevel.Schema).Data.Gui.IsTextSet())
+
+                    if (childNode.HasCousins
+                            && ((childNode.TreeNodeLevel == (int)DbObjectLevel.Table)
+                               || (childNode.TreeNodeLevel == (int)DbObjectLevel.Column)
+                               || (childNode.TreeNodeLevel == (int)DbObjectLevel.DataType)
+                               || (childNode.TreeNodeLevel == (int)DbObjectLevel.Index)
+                               ))
                     {
-                        foreach (TreeNode<DbObject> cousin in childNode.Cousins)
+                        if (childNode.TraverseUpUntil(childNode, (int)DbObjectLevel.Schema).Enabled
+                            && childNode.TraverseUpUntil(childNode, (int)DbObjectLevel.Schema).Data.Gui.IsTextSet())
                         {
-                            if (cousin.Data.ObjectText.Length > 0) // && !childNode.Data.ObjectText.Equals(cousin.Data.ObjectText))
+                            foreach (TreeNode<DbObject> cousin in childNode.Cousins)
                             {
-
-                                /*
-                                Console.WriteLine(string.Concat("CLONING FROM Src Branch Cousin: [", cousin.Data.ObjectName,
-                                                                "] detected Text: [", cousin.Data.ObjectText,
-                                                                "] onto: [", childNode.Data.ObjectName,
-                                                                "] with TreeNodeLevel: [", childNode.TreeNodeLevel,
-                                                                "] whith current Text: [", childNode.Data.ObjectText, "]"));
-                                */
-
-                                string indexNameTgt = string.Empty;
-                                string tableNameSuffix = string.Empty;
-
-                                switch (childNode.Data.ObjectLevel)
+                                if (cousin.Data.ObjectText.Length > 0) // && !childNode.Data.ObjectText.Equals(cousin.Data.ObjectText))
                                 {
-                                    case (int)DbObjectLevel.Table:
-                                        tableNameSuffix = Options.GetTableSuffixPerNode(childNode);
-                                        // clone cousin's table name from Src into Tgt appending the suffix:
-                                        childNode.SetTreeNodeText(childNode, string.Concat(cousin.Data.ObjectText, tableNameSuffix));
-                                        break;
 
-                                    case (int)DbObjectLevel.Index:
-                                        // clone cousin's table name from Src with CSI Prefix:
-                                        childNode.SetTreeNodeText(childNode, string.Concat(Options.prefixCSI, cousin.Data.ObjectText));
-                                        break;
+                                    /*
+                                    Console.WriteLine(string.Concat("CLONING FROM Src Branch Cousin: [", cousin.Data.ObjectName,
+                                                                    "] detected Text: [", cousin.Data.ObjectText,
+                                                                    "] onto: [", childNode.Data.ObjectName,
+                                                                    "] with TreeNodeLevel: [", childNode.TreeNodeLevel,
+                                                                    "] whith current Text: [", childNode.Data.ObjectText, "]"));
+                                    */
 
-                                    default:
-                                        // clone cousin's object name from Src into Tgt without any change:
-                                        childNode.SetTreeNodeText(childNode, cousin.Data.ObjectText);
-                                        break;
-                                }
+                                    string indexNameTgt = string.Empty;
+                                    string tableNameSuffix = string.Empty;
 
-                                try
-                                {
-                                    PopulateChildNodes(sender, childNode);
-                                }
-                                catch (ExceptionEmptyResultSet ex)
-                                {
-                                    throw;
+                                    switch (childNode.Data.ObjectLevel)
+                                    {
+                                        case (int)DbObjectLevel.Table:
+                                            tableNameSuffix = Options.GetTableSuffixPerNode(childNode);
+                                            // clone cousin's table name from Src into Tgt appending the suffix:
+                                            childNode.SetTreeNodeText(childNode, string.Concat(cousin.Data.ObjectText, tableNameSuffix));
+                                            break;
+
+                                        case (int)DbObjectLevel.Index:
+                                            // clone cousin's table name from Src with CSI Prefix:
+                                            childNode.SetTreeNodeText(childNode, string.Concat(Options.prefixCSI, cousin.Data.ObjectText));
+                                            break;
+
+                                        default:
+                                            // clone cousin's object name from Src into Tgt without any change:
+                                            childNode.SetTreeNodeText(childNode, cousin.Data.ObjectText);
+                                            break;
+                                    }
+
+                                    try
+                                    {
+                                        PopulateChildNodes(sender, childNode);
+                                    }
+                                    catch (ExceptionEmptyResultSet ex)
+                                    {
+                                        throw;
+                                    }
                                 }
                             }
                         }
                     }
-                }
 
-                else if (childNode.TreeNodeLevel == (int)DbObjectLevel.PartitionScheme)
-                {
-                    if (sender is TextBox) // needed to avoid double error message when no PS found:
-                                           // (without this condition 1st error gets triggered by CbxTgtColumn 2nd by TbxTgtDataType)
+                    else if (childNode.TreeNodeLevel == (int)DbObjectLevel.PartitionScheme)
                     {
-                        DbObject childNodeDbo = (DbObject)Convert.ChangeType(childNode.Data, typeof(DbObject));
-                        TreeNode<DbObject> instanceNode = parentNode.TraverseUpUntil(parentNode, (int)DbObjectLevel.Instance);
-
-                        DataSetForGui dsfg = new DataSetForGui();
-                        try
+                        if (sender is TextBox) // needed to avoid double error message when no PS found:
+                                               // (without this condition 1st error gets triggered by CbxTgtColumn 2nd by TbxTgtDataType)
                         {
-                            // even if PartitionScheme is Cloneable we do not copy the PS from SOURCE (there is none)
-                            // but rather populate it based on Column Data-Type selected:
-                            /*
-                            TextBox tb = (TextBox)sender;
-                            Console.WriteLine(string.Concat("RUNNING PopulateGuiElem() of TARGET : [", childNode.Data.ObjectName,
-                                                            "] with TreeNodeLevel: [", childNode.TreeNodeLevel,
-                                                            "] whith current Text: [", childNode.Data.ObjectText,
-                                                            "] SENDER TextBox: [", tb.Name,
-                                                            "] whith current Text: [", tb.Text, "]"));
+                            DbObject childNodeDbo = (DbObject)Convert.ChangeType(childNode.Data, typeof(DbObject));
+                            TreeNode<DbObject> instanceNode = parentNode.TraverseUpUntil(parentNode, (int)DbObjectLevel.Instance);
 
-                            */
-                            dsfg = instanceNode.Data.Dbu.GetDataSetForGui(instanceNode, childNode, null);
+                            DataSetForGui dsfg = new DataSetForGui();
+                            try
+                            {
+                                // even if PartitionScheme is Cloneable we do not copy the PS from SOURCE (there is none)
+                                // but rather populate it based on Column Data-Type selected:
+                                /*
+                                TextBox tb = (TextBox)sender;
+                                Console.WriteLine(string.Concat("RUNNING PopulateGuiElem() of TARGET : [", childNode.Data.ObjectName,
+                                                                "] with TreeNodeLevel: [", childNode.TreeNodeLevel,
+                                                                "] whith current Text: [", childNode.Data.ObjectText,
+                                                                "] SENDER TextBox: [", tb.Name,
+                                                                "] whith current Text: [", tb.Text, "]"));
+
+                                */
+                                dsfg = instanceNode.Data.Dbu.GetDataSetForGui(instanceNode, childNode, null);
+                            }
+                            catch (ExceptionEmptyResultSet ex)
+                            {
+                                throw;
+                            }
+                            childNodeDbo.Gui.PopulateGuiElem(childNodeDbo.Gui, dsfg);
                         }
-                        catch (ExceptionEmptyResultSet ex)
-                        {
-                            throw;
-                        }
-                        childNodeDbo.Gui.PopulateGuiElem(childNodeDbo.Gui, dsfg);
                     }
-                }
-                /* ############################################################################################################# */
                     break;
-                
-                
+
                 case (int)DbObjectBranch.TrckTbl:
+                    
+                    int objectLevel = childNode.Data.ObjectLevel;
+                    switch (objectLevel)
+                    {
+                        case (int)DbObjectLevel.Table:
+                            childNode.Data.Gui.Cbxt.RunOnRdButtonCheckedChanged(sender, EventArgs.Empty);
+                            PopulateChildNodes(sender, childNode);
+                            break;
+
+                        case (int)DbObjectLevel.Column:
+                            childNode.Data.Gui.Cbxt.RunOnRdButtonCheckedChanged(sender, EventArgs.Empty);
+                            break;
+                    }
                     break;
             }
-            
-
         }// end of PopulateCloneableChildren()
     }
 }

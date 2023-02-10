@@ -10,7 +10,9 @@ namespace CsiMigrationHelper
     public class ComboBoxExt : ComboBox
     {
         private TreeNode<DbObject> TreeNodeOwner;
-        private RadioButton RdButton;
+        private TreeNode<DbObject> TreeNodeOwnerParent;
+        public RadioButton RdButtonCreateNew { get; set; }
+        private RadioButton RdButtonUseExisting;
         private Button SaveButton;
         private TreeNode<DbObject> InstanceNode;
 
@@ -24,20 +26,29 @@ namespace CsiMigrationHelper
 
         public void SetParentTreeNode(TreeNode<DbObject> tn)
         {
-            if (tn != null)
-            {
-                TreeNodeOwner = tn;
-            }
+            TreeNodeOwner = tn != null ? tn : null;
         }
 
-        public void SetParentTreeNode(TreeNode<DbObject> tn, RadioButton rbtn, Button btn)
+        public void SetParentTreeNode(TreeNode<DbObject> tn, RadioButton rbtnNew, RadioButton rbtnExisting, Button btn)
         {
-            if (tn != null && rbtn != null && btn != null)
+            if (tn != null && rbtnNew != null && btn != null)
             {
                 TreeNodeOwner = tn;
-                RdButton = rbtn;
+                RdButtonCreateNew = rbtnNew;
+                RdButtonUseExisting = rbtnExisting;
                 SaveButton = btn;
-                RdButton.CheckedChanged += new EventHandler(OnRdButtonCheckedChanged);
+                RdButtonCreateNew.CheckedChanged += new EventHandler(OnRdButtonCheckedChanged);
+            }
+            if (TreeNodeOwner != null)
+            {
+                if (TreeNodeOwner.Data.ObjectLevel == (int)DbObjectLevel.Column)
+                {
+                    TreeNodeOwnerParent = TreeNodeOwner.Parent;
+                    if (TreeNodeOwnerParent != null)
+                    {
+                        TreeNodeOwnerParent.Data.Gui.Cbxt.RdButtonCreateNew.CheckedChanged += new EventHandler(OnTreeNodeOwnerParentRdButtonCheckedChanged);
+                    }
+                }
             }
         }
 
@@ -50,7 +61,11 @@ namespace CsiMigrationHelper
         {
             this.OnSelectedIndexChanged(sender, e);            
         }
-        
+        public void RunOnRdButtonCheckedChanged(object sender, EventArgs e)
+        {
+            this.OnRdButtonCheckedChanged(sender, e);
+        }
+
         protected virtual void OnSelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -69,6 +84,11 @@ namespace CsiMigrationHelper
                         if (TreeNodeOwner.Data.ObjectLevel == (int)DbObjectLevel.Database)
                         {
                             InstanceNode.Data.Dbu.ChangeConnection(newCbxSelection);
+                        }
+                        if (TreeNodeOwner.Data.ObjectLevel == (int)DbObjectLevel.Table && TreeNodeOwner.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl)
+                        {
+                            //Check if this is a valid ProjectsTable!
+                            Console.WriteLine(string.Concat("Checking if ", newCbxSelection, " is a valid ProjectsTable"));
                         }
                         TreeNodeOwner.SetTreeNodeText(TreeNodeOwner, newCbxSelection);
                         CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner);
@@ -93,9 +113,9 @@ namespace CsiMigrationHelper
 
         protected virtual void OnTextUpdate(object sender, EventArgs e)
         {
-            if (TreeNodeOwner.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl && RdButton != null && SaveButton != null)
+            if (TreeNodeOwner.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl && RdButtonCreateNew != null && SaveButton != null)
             {
-                if (RdButton.Checked)
+                if (RdButtonCreateNew.Checked)
                 {
                     /*enable or disable Save Button depending on Text Length: */
                     SaveButton.Enabled = this.Text.Length > 0 ? true : false;
@@ -105,11 +125,10 @@ namespace CsiMigrationHelper
 
         protected virtual void OnRdButtonCheckedChanged(object sender, EventArgs e)
         {
-            if (TreeNodeOwner.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl && RdButton != null && SaveButton != null)
+            if (TreeNodeOwner.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl && RdButtonCreateNew != null && SaveButton != null)
             {
-               /*enable or disable Save Button depending on RdButton State: */ 
-               if (RdButton.Checked && TreeNodeOwner != null)
-               {
+                if (RdButtonCreateNew.Checked && TreeNodeOwner != null)
+                {
                     if (TreeNodeOwner.Parent.IsTextSet())
                     {
                         int objectLevel = TreeNodeOwner.Data.ObjectLevel;
@@ -118,14 +137,28 @@ namespace CsiMigrationHelper
                             case (int)DbObjectLevel.Table:
                                 TreeNodeOwner.SetTreeNodeText(TreeNodeOwner, Options.projectsTableDefaultName);
                                 break;
-
+                
                             case (int)DbObjectLevel.Column:
                                 TreeNodeOwner.SetTreeNodeText(TreeNodeOwner, Options.newProjectDefaultName);
                                 break;
                         }
                     }
-               }
-               SaveButton.Enabled = (RdButton.Checked && this.Text.Length > 0) ? true : false;
+                }
+                /*enable or disable Save Button depending on RdButton State and Cbx Text Length: */ 
+                SaveButton.Enabled = (RdButtonCreateNew.Checked && this.Text.Length > 0) ? true : false;
+            }
+        }
+
+        protected virtual void OnTreeNodeOwnerParentRdButtonCheckedChanged(object sender, EventArgs e)
+        {
+            if (TreeNodeOwnerParent.Data.Gui.Cbxt.RdButtonCreateNew.Checked)
+            {
+                RdButtonCreateNew.Checked = true;
+                RdButtonUseExisting.Enabled = false;
+            }
+            else
+            {
+                RdButtonUseExisting.Enabled = true;
             }
         }
     }

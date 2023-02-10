@@ -9,7 +9,7 @@ namespace CsiMigrationHelper
 {
     public class RadioButtonExt : RadioButton
     {
-        private TreeNode<DbObject> TreeNodeOwner;
+        private TreeNode<DbObject> TreeNodeOwner;        
 
         public RadioButtonExt()
         {
@@ -27,7 +27,9 @@ namespace CsiMigrationHelper
             {
                 TreeNodeOwner.CloneableFromSrc = this.Checked ? true : false;
                 ComboBoxExt cbxSch = TreeNodeOwner.TraverseUpUntil(TreeNodeOwner, (int)DbObjectLevel.Schema).Data.Gui.Cbxt;
-                if (cbxSch.SelectedIndex > 0 && !TreeNodeOwner.CloneableFromSrc)
+                
+                if ((TreeNodeOwner.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl ? !TreeNodeOwner.CloneableFromSrc : true)                     
+                    && cbxSch.SelectedIndex > 0)
                 {
                     try
                     {                        
@@ -48,7 +50,9 @@ namespace CsiMigrationHelper
             {
                 TreeNodeOwner.CloneableFromSrc = this.Checked ? true : false;
                 ComboBoxExt cbxTbl = TreeNodeOwner.TraverseUpUntil(TreeNodeOwner, (int)DbObjectLevel.Table).Data.Gui.Cbxt;
-                if (cbxTbl.SelectedIndex > 0 && !TreeNodeOwner.CloneableFromSrc)
+                
+                if ((TreeNodeOwner.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl ? !TreeNodeOwner.CloneableFromSrc : true)
+                    && cbxTbl.SelectedIndex > 0)
                 {
                     try
                     {
