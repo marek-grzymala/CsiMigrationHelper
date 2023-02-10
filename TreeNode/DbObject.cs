@@ -56,95 +56,95 @@ namespace CsiMigrationHelper
             if (t.Data.ObjectText != null)
             {
                 if (!t.Data.ObjectText.Equals(newObjectText))
-            {
-                eventDbObjectTextChanged += new HandlerDbObjectTextChanged(OnDbObjectTextChanged);
-
-                ObjectText = newObjectText;                
-                SqlParam = new SqlParameter()
                 {
-                    ParameterName = ParamSelector.GetParamMetaByObjectLvl(ObjectLevel).ParameterName, //DbUtil.GetSqlParameterNameByObjectLevel(ObjectLevel),
-                    SqlDbType = SqlDbType.VarChar,
-                    Size = 4000,
-                    Value = ObjectText
-                };
+                    eventDbObjectTextChanged += new HandlerDbObjectTextChanged(OnDbObjectTextChanged);
 
-                var textChanged = eventDbObjectTextChanged as HandlerDbObjectTextChanged;
-                if (textChanged != null)
-                {
-                    if ((t.Data != null) && (t.Data is DbObject))
+                    ObjectText = newObjectText;                
+                    SqlParam = new SqlParameter()
                     {
-                        if (t != null)
-                        {
-                            textChanged(t, new EventArgsDbObjectChanged(t.Data, newObjectText)); //this line triggers the execution of method(s) specified on t.eventNodeAdded in AddEventHandler()
-                        }
-                    }
-                }
-                if (t.Data.ObjectLevel >= (int)DbObjectLevel.Table && t.HasCousins)
-                {
-                    foreach (TreeNode<DbObject> cousin in t.Cousins)
+                        ParameterName = ParamSelector.GetParamMetaByObjectLvl(ObjectLevel).ParameterName, //DbUtil.GetSqlParameterNameByObjectLevel(ObjectLevel),
+                        SqlDbType = SqlDbType.VarChar,
+                        Size = 4000,
+                        Value = ObjectText
+                    };
+
+                    var textChanged = eventDbObjectTextChanged as HandlerDbObjectTextChanged;
+                    if (textChanged != null)
                     {
-                        if (
-                               cousin.Enabled
-                            && cousin.CloneableFromSrc
-                            && cousin.TraverseUpUntil(cousin, (int)DbObjectLevel.Schema).Enabled
-                            && cousin.TraverseUpUntil(cousin, (int)DbObjectLevel.Schema).Data.Gui.IsTextSet()
-                            && t.Data.ObjectText.Length > 0
-                            )
+                        if ((t.Data != null) && (t.Data is DbObject))
                         {
-                            /*
-                            Console.WriteLine(string.Concat("CONING INTO Tgt Branch Cousin: [", cousin.Data.ObjectName,
-                                                            "] with Text: [", cousin.Data.ObjectText,
-                                                            "] detected for: [", t.Data.ObjectName,
-                                                            "] with Text: [", t.Data.ObjectText, "]"));
-                            */
-
-                            string indexNameTgt = string.Empty;
-                            string tableNameSuffix = string.Empty;
-
-                            switch (cousin.Data.ObjectLevel)
+                            if (t != null)
                             {
-                                case (int)DbObjectLevel.Table:
-                                    tableNameSuffix = Options.GetTableSuffixPerNode(cousin);
-                                    // clone Src table name into Tgt cousin appending the suffix:
-                                    cousin.SetTreeNodeText(cousin, string.Concat(newObjectText, tableNameSuffix));
-                                    break;
-
-                                case (int)DbObjectLevel.Index:
-                                    // clone cousin's index name into Tgt with CSI Prefix:
-                                    cousin.SetTreeNodeText(cousin, string.Concat(Options.prefixCSI, newObjectText));
-                                    break;
-
-                                default:
-                                    // clone Src object name into Tgt cousin without any change:
-                                    cousin.SetTreeNodeText(cousin, newObjectText);
-                                    break;
-                            }                        
-                        }
-                        else if (t.Data.ObjectLevel == (int)DbObjectLevel.DataType
-                                &&  cousin.Enabled
-                                && !cousin.CloneableFromSrc
-                                &&  cousin.TraverseUpUntil(cousin, (int)DbObjectLevel.Schema).Enabled
-                                &&  cousin.TraverseUpUntil(cousin, (int)DbObjectLevel.Schema).Data.Gui.IsTextSet()
-                                &&  cousin.Data.ObjectText.Length > 0
-                                &&  t.Data.ObjectText.Length > 0
-                                && !t.Data.ObjectText.Equals(cousin.Data.ObjectText)
-                                )
-                        {
-
-                            string cBranch = cousin.Data.ObjectBranch == (int)DbObjectBranch.Src ? "Source" : "Target";
-                            string tBranch = t.Data.ObjectBranch == (int)DbObjectBranch.Src ? "Source" : "Target";
-
-                            string errorMsg = string.Concat("DataType mismatch detected between: ", Environment.NewLine, 
-                                                            "Data Types in ", cBranch, ": [", cousin.Data.ObjectText
-                                                            , "] and in ", tBranch, ": [", t.Data.ObjectText, "]", Environment.NewLine);
-                            
-                            eventDbObjectTextChanged -= new HandlerDbObjectTextChanged(OnDbObjectTextChanged);
-                            throw new ExceptionDataTypeMismatch(errorMsg);
+                                textChanged(t, new EventArgsDbObjectChanged(t.Data, newObjectText)); //this line triggers the execution of method(s) specified on t.eventNodeAdded in AddEventHandler()
+                            }
                         }
                     }
+                    if (t.Data.ObjectLevel >= (int)DbObjectLevel.Table && t.HasCousins)
+                    {
+                        foreach (TreeNode<DbObject> cousin in t.Cousins)
+                        {
+                            if (
+                                   cousin.Enabled
+                                && cousin.CloneableFromSrc
+                                && cousin.TraverseUpUntil(cousin, (int)DbObjectLevel.Schema).Enabled
+                                && cousin.TraverseUpUntil(cousin, (int)DbObjectLevel.Schema).Data.Gui.IsTextSet()
+                                && t.Data.ObjectText.Length > 0
+                                )
+                            {
+                                /*
+                                Console.WriteLine(string.Concat("CONING INTO Tgt Branch Cousin: [", cousin.Data.ObjectName,
+                                                                "] with Text: [", cousin.Data.ObjectText,
+                                                                "] detected for: [", t.Data.ObjectName,
+                                                                "] with Text: [", t.Data.ObjectText, "]"));
+                                */
+
+                                string indexNameTgt = string.Empty;
+                                string tableNameSuffix = string.Empty;
+
+                                switch (cousin.Data.ObjectLevel)
+                                {
+                                    case (int)DbObjectLevel.Table:
+                                        tableNameSuffix = Options.GetTableSuffixPerNode(cousin);
+                                        // clone Src table name into Tgt cousin appending the suffix:
+                                        cousin.SetTreeNodeText(cousin, string.Concat(newObjectText, tableNameSuffix));
+                                        break;
+
+                                    case (int)DbObjectLevel.Index:
+                                        // clone cousin's index name into Tgt with CSI Prefix:
+                                        cousin.SetTreeNodeText(cousin, string.Concat(Options.prefixCSI, newObjectText));
+                                        break;
+
+                                    default:
+                                        // clone Src object name into Tgt cousin without any change:
+                                        cousin.SetTreeNodeText(cousin, newObjectText);
+                                        break;
+                                }                        
+                            }
+                            else if (t.Data.ObjectLevel == (int)DbObjectLevel.DataType
+                                    &&  cousin.Enabled
+                                    && !cousin.CloneableFromSrc
+                                    &&  cousin.TraverseUpUntil(cousin, (int)DbObjectLevel.Schema).Enabled
+                                    &&  cousin.TraverseUpUntil(cousin, (int)DbObjectLevel.Schema).Data.Gui.IsTextSet()
+                                    &&  cousin.Data.ObjectText.Length > 0
+                                    &&  t.Data.ObjectText.Length > 0
+                                    && !t.Data.ObjectText.Equals(cousin.Data.ObjectText)
+                                    )
+                            {
+
+                                string cBranch = cousin.Data.ObjectBranch == (int)DbObjectBranch.Src ? "Source" : "Target";
+                                string tBranch = t.Data.ObjectBranch == (int)DbObjectBranch.Src ? "Source" : "Target";
+
+                                string errorMsg = string.Concat("DataType mismatch detected between: ", Environment.NewLine, 
+                                                                "Data Types in ", cBranch, ": [", cousin.Data.ObjectText
+                                                                , "] and in ", tBranch, ": [", t.Data.ObjectText, "]", Environment.NewLine);
+                                
+                                eventDbObjectTextChanged -= new HandlerDbObjectTextChanged(OnDbObjectTextChanged);
+                                throw new ExceptionDataTypeMismatch(errorMsg);
+                            }
+                        }
+                    }
+                    eventDbObjectTextChanged -= new HandlerDbObjectTextChanged(OnDbObjectTextChanged);
                 }
-                eventDbObjectTextChanged -= new HandlerDbObjectTextChanged(OnDbObjectTextChanged);
-            }
             }
         }
 

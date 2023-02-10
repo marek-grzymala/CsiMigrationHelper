@@ -76,7 +76,10 @@ namespace CsiMigrationHelper
                                 DbObject dbObject = (DbObject)Convert.ChangeType(node.Data, typeof(DbObject));
                                 if (dbObject != null)
                                 {
-                                    childNode.CloneableFromSrc = value;
+                                    if (dbObject.ObjectBranch == (int)DbObjectBranch.Tgt)
+                                    {
+                                        childNode.CloneableFromSrc = value;
+                                    }
                                 }
                             }
                         }

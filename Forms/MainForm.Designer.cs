@@ -127,21 +127,27 @@
             this.btnArchiveReload = new System.Windows.Forms.Button();
             this.tabTrackingTbl = new System.Windows.Forms.TabPage();
             this.tblp_TrackingTable = new System.Windows.Forms.TableLayoutPanel();
-            this.split_TrackTbl_TopHeader = new System.Windows.Forms.SplitContainer();
+            this.gridTrackingTable = new System.Windows.Forms.DataGridView();
+            this.split_TrackingTable = new System.Windows.Forms.SplitContainer();
+            this.tblp_TrackingTbl_InstanceDbSchema = new System.Windows.Forms.TableLayoutPanel();
+            this.grpbxSchema = new System.Windows.Forms.GroupBox();
+            this.cbxt_TrackTbl_Schema = new CsiMigrationHelper.ComboBoxExt();
+            this.grpbxDatabase = new System.Windows.Forms.GroupBox();
+            this.cbxt_TrackTbl_Database = new CsiMigrationHelper.ComboBoxExt();
             this.grpbxInstance = new System.Windows.Forms.GroupBox();
             this.tblp_TabTrackTbl_Instance = new System.Windows.Forms.TableLayoutPanel();
             this.tbx_TrackTblInstance = new System.Windows.Forms.TextBox();
             this.btnTrackTblLogin = new System.Windows.Forms.Button();
-            this.split_TrackTbl_Database = new System.Windows.Forms.SplitContainer();
-            this.grpbxDatabase = new System.Windows.Forms.GroupBox();
-            this.cbxt_TrackTbl_Database = new CsiMigrationHelper.ComboBoxExt();
-            this.grpbxSchema = new System.Windows.Forms.GroupBox();
-            this.cbxt_TrackTbl_Schema = new CsiMigrationHelper.ComboBoxExt();
-            this.gridTrackingTable = new System.Windows.Forms.DataGridView();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.grpbxTrackTblProjectsTbl = new System.Windows.Forms.GroupBox();
-            this.cbxt_TrackTbl_ProjectsTable = new CsiMigrationHelper.ComboBoxExt();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.tblp_TrackingTbl_ProjectTables = new System.Windows.Forms.TableLayoutPanel();
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns = new System.Windows.Forms.TableLayoutPanel();
+            this.btnTrackTbl_ProjectNameEdit = new System.Windows.Forms.Button();
+            this.btnTrackTbl_ProjectNameSave = new System.Windows.Forms.Button();
+            this.grpbxTrackTblProjectNameCreateNewUseExisting = new System.Windows.Forms.GroupBox();
+            this.tblp_TrackingTbl_ProjectName = new System.Windows.Forms.TableLayoutPanel();
+            this.rdbtn_TrackTbl_ProjectNameUseExisting = new System.Windows.Forms.RadioButton();
+            this.rdbtn_TrackTbl_ProjectNameCreateNew = new CsiMigrationHelper.RadioButtonExt();
+            this.grpbxTrackTblProjectName = new System.Windows.Forms.GroupBox();
+            this.cbxt_TrackTbl_ProjectName = new CsiMigrationHelper.ComboBoxExt();
             this.tblp_TrackTbl_ProjectsSaveRunBtns = new System.Windows.Forms.TableLayoutPanel();
             this.btnTrackTbl_ProjectsEdit = new System.Windows.Forms.Button();
             this.btnTrackTbl_ProjectsSave = new System.Windows.Forms.Button();
@@ -151,18 +157,8 @@
             this.tblp_TrackTbl_UseExistingCreateNew = new System.Windows.Forms.TableLayoutPanel();
             this.rdbtn_TrackTbl_ProjectsUseExisting = new System.Windows.Forms.RadioButton();
             this.rdbtn_TrackTbl_ProjectsCreateNew = new CsiMigrationHelper.RadioButtonExt();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.grpbxTrackTblProjectName = new System.Windows.Forms.GroupBox();
-            this.cbxt_TrackTbl_ProjectName = new CsiMigrationHelper.ComboBoxExt();
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns = new System.Windows.Forms.TableLayoutPanel();
-            this.btnTrackTbl_ProjectNameEdit = new System.Windows.Forms.Button();
-            this.btnTrackTbl_ProjectNameSave = new System.Windows.Forms.Button();
-            this.lblTrackTbl_ProjectNameUseExisting = new System.Windows.Forms.Label();
-            this.lblTrackTbl_ProjectNameCreateNew = new System.Windows.Forms.Label();
-            this.grpbxTrackTblProjectNameCreateNewUseExisting = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.rdbtn_TrackTbl_ProjectNameUseExisting = new System.Windows.Forms.RadioButton();
-            this.rdbtn_TrackTbl_ProjectNameCreateNew = new CsiMigrationHelper.RadioButtonExt();
+            this.grpbxTrackTblProjectsTbl = new System.Windows.Forms.GroupBox();
+            this.cbxt_TrackTbl_ProjectsTable = new CsiMigrationHelper.ComboBoxExt();
             this.tabEventLog = new System.Windows.Forms.TabPage();
             this.rtbxEventLog = new System.Windows.Forms.RichTextBox();
             this.tabSandBox = new System.Windows.Forms.TabPage();
@@ -235,39 +231,25 @@
             this.tblp_TgtMeta_Btns_Archive.SuspendLayout();
             this.tabTrackingTbl.SuspendLayout();
             this.tblp_TrackingTable.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.split_TrackTbl_TopHeader)).BeginInit();
-            this.split_TrackTbl_TopHeader.Panel1.SuspendLayout();
-            this.split_TrackTbl_TopHeader.Panel2.SuspendLayout();
-            this.split_TrackTbl_TopHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridTrackingTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.split_TrackingTable)).BeginInit();
+            this.split_TrackingTable.Panel1.SuspendLayout();
+            this.split_TrackingTable.Panel2.SuspendLayout();
+            this.split_TrackingTable.SuspendLayout();
+            this.tblp_TrackingTbl_InstanceDbSchema.SuspendLayout();
+            this.grpbxSchema.SuspendLayout();
+            this.grpbxDatabase.SuspendLayout();
             this.grpbxInstance.SuspendLayout();
             this.tblp_TabTrackTbl_Instance.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.split_TrackTbl_Database)).BeginInit();
-            this.split_TrackTbl_Database.Panel1.SuspendLayout();
-            this.split_TrackTbl_Database.Panel2.SuspendLayout();
-            this.split_TrackTbl_Database.SuspendLayout();
-            this.grpbxDatabase.SuspendLayout();
-            this.grpbxSchema.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridTrackingTable)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            this.grpbxTrackTblProjectsTbl.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
+            this.tblp_TrackingTbl_ProjectTables.SuspendLayout();
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.SuspendLayout();
+            this.grpbxTrackTblProjectNameCreateNewUseExisting.SuspendLayout();
+            this.tblp_TrackingTbl_ProjectName.SuspendLayout();
+            this.grpbxTrackTblProjectName.SuspendLayout();
             this.tblp_TrackTbl_ProjectsSaveRunBtns.SuspendLayout();
             this.grpbxTrackTblProjectCreateNewUseExisting.SuspendLayout();
             this.tblp_TrackTbl_UseExistingCreateNew.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
-            this.splitContainer3.Panel1.SuspendLayout();
-            this.splitContainer3.Panel2.SuspendLayout();
-            this.splitContainer3.SuspendLayout();
-            this.grpbxTrackTblProjectName.SuspendLayout();
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.SuspendLayout();
-            this.grpbxTrackTblProjectNameCreateNewUseExisting.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
+            this.grpbxTrackTblProjectsTbl.SuspendLayout();
             this.tabEventLog.SuspendLayout();
             this.tabSandBox.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -1609,43 +1591,112 @@
             // 
             this.tblp_TrackingTable.ColumnCount = 1;
             this.tblp_TrackingTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblp_TrackingTable.Controls.Add(this.split_TrackTbl_TopHeader, 0, 0);
-            this.tblp_TrackingTable.Controls.Add(this.gridTrackingTable, 0, 2);
-            this.tblp_TrackingTable.Controls.Add(this.splitContainer1, 0, 1);
+            this.tblp_TrackingTable.Controls.Add(this.gridTrackingTable, 0, 1);
+            this.tblp_TrackingTable.Controls.Add(this.split_TrackingTable, 0, 0);
             this.tblp_TrackingTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblp_TrackingTable.Location = new System.Drawing.Point(3, 3);
             this.tblp_TrackingTable.Name = "tblp_TrackingTable";
-            this.tblp_TrackingTable.RowCount = 3;
-            this.tblp_TrackingTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tblp_TrackingTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tblp_TrackingTable.RowCount = 2;
+            this.tblp_TrackingTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 180F));
             this.tblp_TrackingTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblp_TrackingTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tblp_TrackingTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tblp_TrackingTable.Size = new System.Drawing.Size(1470, 602);
             this.tblp_TrackingTable.TabIndex = 0;
             // 
-            // split_TrackTbl_TopHeader
+            // gridTrackingTable
             // 
-            this.split_TrackTbl_TopHeader.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.split_TrackTbl_TopHeader.Location = new System.Drawing.Point(3, 3);
-            this.split_TrackTbl_TopHeader.Name = "split_TrackTbl_TopHeader";
+            this.gridTrackingTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridTrackingTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridTrackingTable.Location = new System.Drawing.Point(5, 185);
+            this.gridTrackingTable.Margin = new System.Windows.Forms.Padding(5);
+            this.gridTrackingTable.Name = "gridTrackingTable";
+            this.gridTrackingTable.Size = new System.Drawing.Size(1460, 412);
+            this.gridTrackingTable.TabIndex = 2;
             // 
-            // split_TrackTbl_TopHeader.Panel1
+            // split_TrackingTable
             // 
-            this.split_TrackTbl_TopHeader.Panel1.Controls.Add(this.grpbxInstance);
+            this.split_TrackingTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.split_TrackingTable.Location = new System.Drawing.Point(3, 3);
+            this.split_TrackingTable.Name = "split_TrackingTable";
             // 
-            // split_TrackTbl_TopHeader.Panel2
+            // split_TrackingTable.Panel1
             // 
-            this.split_TrackTbl_TopHeader.Panel2.Controls.Add(this.split_TrackTbl_Database);
-            this.split_TrackTbl_TopHeader.Size = new System.Drawing.Size(1464, 54);
-            this.split_TrackTbl_TopHeader.SplitterDistance = 663;
-            this.split_TrackTbl_TopHeader.TabIndex = 1;
+            this.split_TrackingTable.Panel1.Controls.Add(this.tblp_TrackingTbl_InstanceDbSchema);
+            // 
+            // split_TrackingTable.Panel2
+            // 
+            this.split_TrackingTable.Panel2.Controls.Add(this.tblp_TrackingTbl_ProjectTables);
+            this.split_TrackingTable.Size = new System.Drawing.Size(1464, 174);
+            this.split_TrackingTable.SplitterDistance = 517;
+            this.split_TrackingTable.TabIndex = 4;
+            // 
+            // tblp_TrackingTbl_InstanceDbSchema
+            // 
+            this.tblp_TrackingTbl_InstanceDbSchema.ColumnCount = 1;
+            this.tblp_TrackingTbl_InstanceDbSchema.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblp_TrackingTbl_InstanceDbSchema.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tblp_TrackingTbl_InstanceDbSchema.Controls.Add(this.grpbxSchema, 0, 2);
+            this.tblp_TrackingTbl_InstanceDbSchema.Controls.Add(this.grpbxDatabase, 0, 1);
+            this.tblp_TrackingTbl_InstanceDbSchema.Controls.Add(this.grpbxInstance, 0, 0);
+            this.tblp_TrackingTbl_InstanceDbSchema.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tblp_TrackingTbl_InstanceDbSchema.Location = new System.Drawing.Point(0, 0);
+            this.tblp_TrackingTbl_InstanceDbSchema.Name = "tblp_TrackingTbl_InstanceDbSchema";
+            this.tblp_TrackingTbl_InstanceDbSchema.RowCount = 3;
+            this.tblp_TrackingTbl_InstanceDbSchema.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tblp_TrackingTbl_InstanceDbSchema.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tblp_TrackingTbl_InstanceDbSchema.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tblp_TrackingTbl_InstanceDbSchema.Size = new System.Drawing.Size(517, 174);
+            this.tblp_TrackingTbl_InstanceDbSchema.TabIndex = 0;
+            // 
+            // grpbxSchema
+            // 
+            this.grpbxSchema.Controls.Add(this.cbxt_TrackTbl_Schema);
+            this.grpbxSchema.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpbxSchema.Location = new System.Drawing.Point(3, 119);
+            this.grpbxSchema.Name = "grpbxSchema";
+            this.grpbxSchema.Size = new System.Drawing.Size(511, 52);
+            this.grpbxSchema.TabIndex = 3;
+            this.grpbxSchema.TabStop = false;
+            this.grpbxSchema.Text = "Schema:";
+            // 
+            // cbxt_TrackTbl_Schema
+            // 
+            this.cbxt_TrackTbl_Schema.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.cbxt_TrackTbl_Schema.FormattingEnabled = true;
+            this.cbxt_TrackTbl_Schema.Location = new System.Drawing.Point(3, 25);
+            this.cbxt_TrackTbl_Schema.Name = "cbxt_TrackTbl_Schema";
+            this.cbxt_TrackTbl_Schema.Size = new System.Drawing.Size(505, 24);
+            this.cbxt_TrackTbl_Schema.TabIndex = 1;
+            // 
+            // grpbxDatabase
+            // 
+            this.grpbxDatabase.Controls.Add(this.cbxt_TrackTbl_Database);
+            this.grpbxDatabase.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpbxDatabase.Location = new System.Drawing.Point(3, 61);
+            this.grpbxDatabase.Name = "grpbxDatabase";
+            this.grpbxDatabase.Padding = new System.Windows.Forms.Padding(3, 3, 3, 5);
+            this.grpbxDatabase.Size = new System.Drawing.Size(511, 52);
+            this.grpbxDatabase.TabIndex = 0;
+            this.grpbxDatabase.TabStop = false;
+            this.grpbxDatabase.Text = "Database:";
+            // 
+            // cbxt_TrackTbl_Database
+            // 
+            this.cbxt_TrackTbl_Database.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.cbxt_TrackTbl_Database.FormattingEnabled = true;
+            this.cbxt_TrackTbl_Database.Location = new System.Drawing.Point(3, 23);
+            this.cbxt_TrackTbl_Database.Name = "cbxt_TrackTbl_Database";
+            this.cbxt_TrackTbl_Database.Size = new System.Drawing.Size(505, 24);
+            this.cbxt_TrackTbl_Database.TabIndex = 0;
             // 
             // grpbxInstance
             // 
             this.grpbxInstance.Controls.Add(this.tblp_TabTrackTbl_Instance);
             this.grpbxInstance.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpbxInstance.Location = new System.Drawing.Point(0, 0);
+            this.grpbxInstance.Location = new System.Drawing.Point(3, 3);
             this.grpbxInstance.Name = "grpbxInstance";
-            this.grpbxInstance.Size = new System.Drawing.Size(663, 54);
+            this.grpbxInstance.Size = new System.Drawing.Size(511, 52);
             this.grpbxInstance.TabIndex = 0;
             this.grpbxInstance.TabStop = false;
             this.grpbxInstance.Text = "Instance:";
@@ -1664,8 +1715,8 @@
             this.tblp_TabTrackTbl_Instance.Padding = new System.Windows.Forms.Padding(1);
             this.tblp_TabTrackTbl_Instance.RowCount = 1;
             this.tblp_TabTrackTbl_Instance.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblp_TabTrackTbl_Instance.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            this.tblp_TabTrackTbl_Instance.Size = new System.Drawing.Size(657, 33);
+            this.tblp_TabTrackTbl_Instance.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tblp_TabTrackTbl_Instance.Size = new System.Drawing.Size(505, 31);
             this.tblp_TabTrackTbl_Instance.TabIndex = 72;
             // 
             // tbx_TrackTblInstance
@@ -1675,175 +1726,203 @@
             this.tbx_TrackTblInstance.Location = new System.Drawing.Point(4, 6);
             this.tbx_TrackTblInstance.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.tbx_TrackTblInstance.Name = "tbx_TrackTblInstance";
-            this.tbx_TrackTblInstance.Size = new System.Drawing.Size(559, 22);
+            this.tbx_TrackTblInstance.Size = new System.Drawing.Size(407, 22);
             this.tbx_TrackTblInstance.TabIndex = 70;
             // 
             // btnTrackTblLogin
             // 
             this.btnTrackTblLogin.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnTrackTblLogin.Location = new System.Drawing.Point(570, 3);
+            this.btnTrackTblLogin.Location = new System.Drawing.Point(418, 3);
             this.btnTrackTblLogin.Margin = new System.Windows.Forms.Padding(2);
             this.btnTrackTblLogin.Name = "btnTrackTblLogin";
-            this.btnTrackTblLogin.Padding = new System.Windows.Forms.Padding(1);
-            this.btnTrackTblLogin.Size = new System.Drawing.Size(84, 27);
+            this.btnTrackTblLogin.Size = new System.Drawing.Size(84, 25);
             this.btnTrackTblLogin.TabIndex = 69;
             this.btnTrackTblLogin.Text = "Login";
             this.btnTrackTblLogin.UseVisualStyleBackColor = true;
             this.btnTrackTblLogin.Click += new System.EventHandler(this.btnTrackTblLogin_Click);
             // 
-            // split_TrackTbl_Database
+            // tblp_TrackingTbl_ProjectTables
             // 
-            this.split_TrackTbl_Database.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.split_TrackTbl_Database.Location = new System.Drawing.Point(0, 0);
-            this.split_TrackTbl_Database.Name = "split_TrackTbl_Database";
+            this.tblp_TrackingTbl_ProjectTables.ColumnCount = 5;
+            this.tblp_TrackingTbl_ProjectTables.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblp_TrackingTbl_ProjectTables.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tblp_TrackingTbl_ProjectTables.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tblp_TrackingTbl_ProjectTables.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 92F));
+            this.tblp_TrackingTbl_ProjectTables.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 92F));
+            this.tblp_TrackingTbl_ProjectTables.Controls.Add(this.tblp_TrackTbl_ProjectNameSaveRunBtns, 1, 1);
+            this.tblp_TrackingTbl_ProjectTables.Controls.Add(this.grpbxTrackTblProjectName, 0, 1);
+            this.tblp_TrackingTbl_ProjectTables.Controls.Add(this.tblp_TrackTbl_ProjectsSaveRunBtns, 1, 0);
+            this.tblp_TrackingTbl_ProjectTables.Controls.Add(this.grpbxTrackTblProjectsTbl, 0, 0);
+            this.tblp_TrackingTbl_ProjectTables.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tblp_TrackingTbl_ProjectTables.Location = new System.Drawing.Point(0, 0);
+            this.tblp_TrackingTbl_ProjectTables.Name = "tblp_TrackingTbl_ProjectTables";
+            this.tblp_TrackingTbl_ProjectTables.RowCount = 3;
+            this.tblp_TrackingTbl_ProjectTables.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tblp_TrackingTbl_ProjectTables.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tblp_TrackingTbl_ProjectTables.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tblp_TrackingTbl_ProjectTables.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tblp_TrackingTbl_ProjectTables.Size = new System.Drawing.Size(943, 174);
+            this.tblp_TrackingTbl_ProjectTables.TabIndex = 0;
             // 
-            // split_TrackTbl_Database.Panel1
+            // tblp_TrackTbl_ProjectNameSaveRunBtns
             // 
-            this.split_TrackTbl_Database.Panel1.Controls.Add(this.grpbxDatabase);
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.ColumnCount = 4;
+            this.tblp_TrackingTbl_ProjectTables.SetColumnSpan(this.tblp_TrackTbl_ProjectNameSaveRunBtns, 4);
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 92F));
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 94F));
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.Controls.Add(this.btnTrackTbl_ProjectNameEdit, 0, 1);
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.Controls.Add(this.btnTrackTbl_ProjectNameSave, 0, 1);
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.Controls.Add(this.grpbxTrackTblProjectNameCreateNewUseExisting, 0, 1);
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.Location = new System.Drawing.Point(619, 58);
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.Margin = new System.Windows.Forms.Padding(0);
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.Name = "tblp_TrackTbl_ProjectNameSaveRunBtns";
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.RowCount = 3;
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.Size = new System.Drawing.Size(324, 58);
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.TabIndex = 73;
             // 
-            // split_TrackTbl_Database.Panel2
+            // btnTrackTbl_ProjectNameEdit
             // 
-            this.split_TrackTbl_Database.Panel2.Controls.Add(this.grpbxSchema);
-            this.split_TrackTbl_Database.Size = new System.Drawing.Size(797, 54);
-            this.split_TrackTbl_Database.SplitterDistance = 459;
-            this.split_TrackTbl_Database.TabIndex = 0;
+            this.btnTrackTbl_ProjectNameEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnTrackTbl_ProjectNameEdit.Enabled = false;
+            this.btnTrackTbl_ProjectNameEdit.Location = new System.Drawing.Point(232, 18);
+            this.btnTrackTbl_ProjectNameEdit.Margin = new System.Windows.Forms.Padding(2, 3, 5, 3);
+            this.btnTrackTbl_ProjectNameEdit.Name = "btnTrackTbl_ProjectNameEdit";
+            this.btnTrackTbl_ProjectNameEdit.Padding = new System.Windows.Forms.Padding(1);
+            this.btnTrackTbl_ProjectNameEdit.Size = new System.Drawing.Size(87, 32);
+            this.btnTrackTbl_ProjectNameEdit.TabIndex = 71;
+            this.btnTrackTbl_ProjectNameEdit.Text = "Edit";
+            this.btnTrackTbl_ProjectNameEdit.UseVisualStyleBackColor = true;
             // 
-            // grpbxDatabase
+            // btnTrackTbl_ProjectNameSave
             // 
-            this.grpbxDatabase.Controls.Add(this.cbxt_TrackTbl_Database);
-            this.grpbxDatabase.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpbxDatabase.Location = new System.Drawing.Point(0, 0);
-            this.grpbxDatabase.Name = "grpbxDatabase";
-            this.grpbxDatabase.Padding = new System.Windows.Forms.Padding(3, 3, 3, 5);
-            this.grpbxDatabase.Size = new System.Drawing.Size(459, 54);
-            this.grpbxDatabase.TabIndex = 0;
-            this.grpbxDatabase.TabStop = false;
-            this.grpbxDatabase.Text = "Database:";
+            this.btnTrackTbl_ProjectNameSave.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnTrackTbl_ProjectNameSave.Enabled = false;
+            this.btnTrackTbl_ProjectNameSave.Location = new System.Drawing.Point(143, 18);
+            this.btnTrackTbl_ProjectNameSave.Margin = new System.Windows.Forms.Padding(5, 3, 2, 3);
+            this.btnTrackTbl_ProjectNameSave.Name = "btnTrackTbl_ProjectNameSave";
+            this.btnTrackTbl_ProjectNameSave.Padding = new System.Windows.Forms.Padding(1);
+            this.btnTrackTbl_ProjectNameSave.Size = new System.Drawing.Size(85, 32);
+            this.btnTrackTbl_ProjectNameSave.TabIndex = 70;
+            this.btnTrackTbl_ProjectNameSave.Text = "Save";
+            this.btnTrackTbl_ProjectNameSave.UseVisualStyleBackColor = true;
+            this.btnTrackTbl_ProjectNameSave.Click += new System.EventHandler(this.btnTrackTbl_ProjectNameSave_Click);
             // 
-            // cbxt_TrackTbl_Database
+            // grpbxTrackTblProjectNameCreateNewUseExisting
             // 
-            this.cbxt_TrackTbl_Database.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.cbxt_TrackTbl_Database.FormattingEnabled = true;
-            this.cbxt_TrackTbl_Database.Location = new System.Drawing.Point(3, 25);
-            this.cbxt_TrackTbl_Database.Name = "cbxt_TrackTbl_Database";
-            this.cbxt_TrackTbl_Database.Size = new System.Drawing.Size(453, 24);
-            this.cbxt_TrackTbl_Database.TabIndex = 0;
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.SetColumnSpan(this.grpbxTrackTblProjectNameCreateNewUseExisting, 2);
+            this.grpbxTrackTblProjectNameCreateNewUseExisting.Controls.Add(this.tblp_TrackingTbl_ProjectName);
+            this.grpbxTrackTblProjectNameCreateNewUseExisting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpbxTrackTblProjectNameCreateNewUseExisting.Location = new System.Drawing.Point(0, 15);
+            this.grpbxTrackTblProjectNameCreateNewUseExisting.Margin = new System.Windows.Forms.Padding(0, 0, 0, 1);
+            this.grpbxTrackTblProjectNameCreateNewUseExisting.Name = "grpbxTrackTblProjectNameCreateNewUseExisting";
+            this.grpbxTrackTblProjectNameCreateNewUseExisting.Padding = new System.Windows.Forms.Padding(0);
+            this.grpbxTrackTblProjectNameCreateNewUseExisting.Size = new System.Drawing.Size(138, 37);
+            this.grpbxTrackTblProjectNameCreateNewUseExisting.TabIndex = 2;
+            this.grpbxTrackTblProjectNameCreateNewUseExisting.TabStop = false;
             // 
-            // grpbxSchema
+            // tblp_TrackingTbl_ProjectName
             // 
-            this.grpbxSchema.Controls.Add(this.cbxt_TrackTbl_Schema);
-            this.grpbxSchema.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpbxSchema.Location = new System.Drawing.Point(0, 0);
-            this.grpbxSchema.Name = "grpbxSchema";
-            this.grpbxSchema.Size = new System.Drawing.Size(334, 54);
-            this.grpbxSchema.TabIndex = 3;
-            this.grpbxSchema.TabStop = false;
-            this.grpbxSchema.Text = "Schema:";
+            this.tblp_TrackingTbl_ProjectName.ColumnCount = 2;
+            this.tblp_TrackingTbl_ProjectName.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblp_TrackingTbl_ProjectName.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblp_TrackingTbl_ProjectName.Controls.Add(this.rdbtn_TrackTbl_ProjectNameUseExisting, 1, 1);
+            this.tblp_TrackingTbl_ProjectName.Controls.Add(this.rdbtn_TrackTbl_ProjectNameCreateNew, 0, 1);
+            this.tblp_TrackingTbl_ProjectName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tblp_TrackingTbl_ProjectName.Location = new System.Drawing.Point(0, 15);
+            this.tblp_TrackingTbl_ProjectName.Margin = new System.Windows.Forms.Padding(0);
+            this.tblp_TrackingTbl_ProjectName.Name = "tblp_TrackingTbl_ProjectName";
+            this.tblp_TrackingTbl_ProjectName.RowCount = 2;
+            this.tblp_TrackingTbl_ProjectName.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblp_TrackingTbl_ProjectName.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tblp_TrackingTbl_ProjectName.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tblp_TrackingTbl_ProjectName.Size = new System.Drawing.Size(138, 22);
+            this.tblp_TrackingTbl_ProjectName.TabIndex = 0;
             // 
-            // cbxt_TrackTbl_Schema
+            // rdbtn_TrackTbl_ProjectNameUseExisting
             // 
-            this.cbxt_TrackTbl_Schema.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.cbxt_TrackTbl_Schema.FormattingEnabled = true;
-            this.cbxt_TrackTbl_Schema.Location = new System.Drawing.Point(3, 27);
-            this.cbxt_TrackTbl_Schema.Name = "cbxt_TrackTbl_Schema";
-            this.cbxt_TrackTbl_Schema.Size = new System.Drawing.Size(328, 24);
-            this.cbxt_TrackTbl_Schema.TabIndex = 1;
+            this.rdbtn_TrackTbl_ProjectNameUseExisting.AutoSize = true;
+            this.rdbtn_TrackTbl_ProjectNameUseExisting.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rdbtn_TrackTbl_ProjectNameUseExisting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rdbtn_TrackTbl_ProjectNameUseExisting.Location = new System.Drawing.Point(69, 2);
+            this.rdbtn_TrackTbl_ProjectNameUseExisting.Margin = new System.Windows.Forms.Padding(0, 0, 0, 7);
+            this.rdbtn_TrackTbl_ProjectNameUseExisting.Name = "rdbtn_TrackTbl_ProjectNameUseExisting";
+            this.rdbtn_TrackTbl_ProjectNameUseExisting.Size = new System.Drawing.Size(69, 13);
+            this.rdbtn_TrackTbl_ProjectNameUseExisting.TabIndex = 1;
+            this.rdbtn_TrackTbl_ProjectNameUseExisting.TabStop = true;
+            this.rdbtn_TrackTbl_ProjectNameUseExisting.UseVisualStyleBackColor = true;
             // 
-            // gridTrackingTable
+            // rdbtn_TrackTbl_ProjectNameCreateNew
             // 
-            this.gridTrackingTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridTrackingTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridTrackingTable.Location = new System.Drawing.Point(5, 125);
-            this.gridTrackingTable.Margin = new System.Windows.Forms.Padding(5);
-            this.gridTrackingTable.Name = "gridTrackingTable";
-            this.gridTrackingTable.Size = new System.Drawing.Size(1460, 472);
-            this.gridTrackingTable.TabIndex = 2;
+            this.rdbtn_TrackTbl_ProjectNameCreateNew.AutoSize = true;
+            this.rdbtn_TrackTbl_ProjectNameCreateNew.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rdbtn_TrackTbl_ProjectNameCreateNew.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rdbtn_TrackTbl_ProjectNameCreateNew.Location = new System.Drawing.Point(0, 2);
+            this.rdbtn_TrackTbl_ProjectNameCreateNew.Margin = new System.Windows.Forms.Padding(0, 0, 0, 7);
+            this.rdbtn_TrackTbl_ProjectNameCreateNew.Name = "rdbtn_TrackTbl_ProjectNameCreateNew";
+            this.rdbtn_TrackTbl_ProjectNameCreateNew.Size = new System.Drawing.Size(69, 13);
+            this.rdbtn_TrackTbl_ProjectNameCreateNew.TabIndex = 0;
+            this.rdbtn_TrackTbl_ProjectNameCreateNew.UseVisualStyleBackColor = true;
             // 
-            // splitContainer1
+            // grpbxTrackTblProjectName
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 63);
-            this.splitContainer1.Name = "splitContainer1";
+            this.grpbxTrackTblProjectName.Controls.Add(this.cbxt_TrackTbl_ProjectName);
+            this.grpbxTrackTblProjectName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpbxTrackTblProjectName.Location = new System.Drawing.Point(3, 61);
+            this.grpbxTrackTblProjectName.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
+            this.grpbxTrackTblProjectName.Name = "grpbxTrackTblProjectName";
+            this.grpbxTrackTblProjectName.Size = new System.Drawing.Size(611, 52);
+            this.grpbxTrackTblProjectName.TabIndex = 7;
+            this.grpbxTrackTblProjectName.TabStop = false;
+            this.grpbxTrackTblProjectName.Text = "Project Name:";
             // 
-            // splitContainer1.Panel1
+            // cbxt_TrackTbl_ProjectName
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.grpbxTrackTblProjectsTbl);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(1464, 54);
-            this.splitContainer1.SplitterDistance = 352;
-            this.splitContainer1.TabIndex = 3;
-            // 
-            // grpbxTrackTblProjectsTbl
-            // 
-            this.grpbxTrackTblProjectsTbl.Controls.Add(this.cbxt_TrackTbl_ProjectsTable);
-            this.grpbxTrackTblProjectsTbl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpbxTrackTblProjectsTbl.Location = new System.Drawing.Point(0, 0);
-            this.grpbxTrackTblProjectsTbl.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
-            this.grpbxTrackTblProjectsTbl.Name = "grpbxTrackTblProjectsTbl";
-            this.grpbxTrackTblProjectsTbl.Size = new System.Drawing.Size(352, 54);
-            this.grpbxTrackTblProjectsTbl.TabIndex = 6;
-            this.grpbxTrackTblProjectsTbl.TabStop = false;
-            this.grpbxTrackTblProjectsTbl.Text = "Projects Table:";
-            // 
-            // cbxt_TrackTbl_ProjectsTable
-            // 
-            this.cbxt_TrackTbl_ProjectsTable.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.cbxt_TrackTbl_ProjectsTable.FormattingEnabled = true;
-            this.cbxt_TrackTbl_ProjectsTable.Location = new System.Drawing.Point(3, 27);
-            this.cbxt_TrackTbl_ProjectsTable.Name = "cbxt_TrackTbl_ProjectsTable";
-            this.cbxt_TrackTbl_ProjectsTable.Size = new System.Drawing.Size(346, 24);
-            this.cbxt_TrackTbl_ProjectsTable.TabIndex = 2;
-            // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.tblp_TrackTbl_ProjectsSaveRunBtns);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(1108, 54);
-            this.splitContainer2.SplitterDistance = 307;
-            this.splitContainer2.TabIndex = 0;
+            this.cbxt_TrackTbl_ProjectName.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.cbxt_TrackTbl_ProjectName.FormattingEnabled = true;
+            this.cbxt_TrackTbl_ProjectName.Location = new System.Drawing.Point(3, 25);
+            this.cbxt_TrackTbl_ProjectName.Name = "cbxt_TrackTbl_ProjectName";
+            this.cbxt_TrackTbl_ProjectName.Size = new System.Drawing.Size(605, 24);
+            this.cbxt_TrackTbl_ProjectName.TabIndex = 2;
             // 
             // tblp_TrackTbl_ProjectsSaveRunBtns
             // 
             this.tblp_TrackTbl_ProjectsSaveRunBtns.ColumnCount = 4;
+            this.tblp_TrackingTbl_ProjectTables.SetColumnSpan(this.tblp_TrackTbl_ProjectsSaveRunBtns, 4);
             this.tblp_TrackTbl_ProjectsSaveRunBtns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tblp_TrackTbl_ProjectsSaveRunBtns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tblp_TrackTbl_ProjectsSaveRunBtns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 92F));
-            this.tblp_TrackTbl_ProjectsSaveRunBtns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 93F));
+            this.tblp_TrackTbl_ProjectsSaveRunBtns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 94F));
             this.tblp_TrackTbl_ProjectsSaveRunBtns.Controls.Add(this.btnTrackTbl_ProjectsEdit, 0, 1);
             this.tblp_TrackTbl_ProjectsSaveRunBtns.Controls.Add(this.btnTrackTbl_ProjectsSave, 0, 1);
             this.tblp_TrackTbl_ProjectsSaveRunBtns.Controls.Add(this.lblTrackTbl_ProjectsUseExisting, 1, 0);
             this.tblp_TrackTbl_ProjectsSaveRunBtns.Controls.Add(this.lblTrackTbl_ProjectsCreateNew, 0, 0);
             this.tblp_TrackTbl_ProjectsSaveRunBtns.Controls.Add(this.grpbxTrackTblProjectCreateNewUseExisting, 0, 1);
             this.tblp_TrackTbl_ProjectsSaveRunBtns.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblp_TrackTbl_ProjectsSaveRunBtns.Location = new System.Drawing.Point(0, 0);
+            this.tblp_TrackTbl_ProjectsSaveRunBtns.Location = new System.Drawing.Point(619, 0);
             this.tblp_TrackTbl_ProjectsSaveRunBtns.Margin = new System.Windows.Forms.Padding(0);
             this.tblp_TrackTbl_ProjectsSaveRunBtns.Name = "tblp_TrackTbl_ProjectsSaveRunBtns";
             this.tblp_TrackTbl_ProjectsSaveRunBtns.RowCount = 2;
             this.tblp_TrackTbl_ProjectsSaveRunBtns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tblp_TrackTbl_ProjectsSaveRunBtns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblp_TrackTbl_ProjectsSaveRunBtns.Size = new System.Drawing.Size(307, 54);
+            this.tblp_TrackTbl_ProjectsSaveRunBtns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tblp_TrackTbl_ProjectsSaveRunBtns.Size = new System.Drawing.Size(324, 58);
             this.tblp_TrackTbl_ProjectsSaveRunBtns.TabIndex = 72;
             // 
             // btnTrackTbl_ProjectsEdit
             // 
             this.btnTrackTbl_ProjectsEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnTrackTbl_ProjectsEdit.Location = new System.Drawing.Point(216, 23);
+            this.btnTrackTbl_ProjectsEdit.Enabled = false;
+            this.btnTrackTbl_ProjectsEdit.Location = new System.Drawing.Point(232, 23);
             this.btnTrackTbl_ProjectsEdit.Margin = new System.Windows.Forms.Padding(2, 3, 5, 3);
             this.btnTrackTbl_ProjectsEdit.Name = "btnTrackTbl_ProjectsEdit";
             this.btnTrackTbl_ProjectsEdit.Padding = new System.Windows.Forms.Padding(1);
-            this.btnTrackTbl_ProjectsEdit.Size = new System.Drawing.Size(86, 28);
+            this.btnTrackTbl_ProjectsEdit.Size = new System.Drawing.Size(87, 32);
             this.btnTrackTbl_ProjectsEdit.TabIndex = 71;
             this.btnTrackTbl_ProjectsEdit.Text = "Edit";
             this.btnTrackTbl_ProjectsEdit.UseVisualStyleBackColor = true;
@@ -1852,11 +1931,11 @@
             // 
             this.btnTrackTbl_ProjectsSave.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnTrackTbl_ProjectsSave.Enabled = false;
-            this.btnTrackTbl_ProjectsSave.Location = new System.Drawing.Point(127, 23);
+            this.btnTrackTbl_ProjectsSave.Location = new System.Drawing.Point(143, 23);
             this.btnTrackTbl_ProjectsSave.Margin = new System.Windows.Forms.Padding(5, 3, 2, 3);
             this.btnTrackTbl_ProjectsSave.Name = "btnTrackTbl_ProjectsSave";
             this.btnTrackTbl_ProjectsSave.Padding = new System.Windows.Forms.Padding(1);
-            this.btnTrackTbl_ProjectsSave.Size = new System.Drawing.Size(85, 28);
+            this.btnTrackTbl_ProjectsSave.Size = new System.Drawing.Size(85, 32);
             this.btnTrackTbl_ProjectsSave.TabIndex = 70;
             this.btnTrackTbl_ProjectsSave.Text = "Save";
             this.btnTrackTbl_ProjectsSave.UseVisualStyleBackColor = true;
@@ -1865,9 +1944,9 @@
             // 
             this.lblTrackTbl_ProjectsUseExisting.AutoSize = true;
             this.lblTrackTbl_ProjectsUseExisting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTrackTbl_ProjectsUseExisting.Location = new System.Drawing.Point(64, 0);
+            this.lblTrackTbl_ProjectsUseExisting.Location = new System.Drawing.Point(72, 0);
             this.lblTrackTbl_ProjectsUseExisting.Name = "lblTrackTbl_ProjectsUseExisting";
-            this.lblTrackTbl_ProjectsUseExisting.Size = new System.Drawing.Size(55, 20);
+            this.lblTrackTbl_ProjectsUseExisting.Size = new System.Drawing.Size(63, 20);
             this.lblTrackTbl_ProjectsUseExisting.TabIndex = 4;
             this.lblTrackTbl_ProjectsUseExisting.Text = "Existing:";
             this.lblTrackTbl_ProjectsUseExisting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1878,7 +1957,7 @@
             this.lblTrackTbl_ProjectsCreateNew.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTrackTbl_ProjectsCreateNew.Location = new System.Drawing.Point(3, 0);
             this.lblTrackTbl_ProjectsCreateNew.Name = "lblTrackTbl_ProjectsCreateNew";
-            this.lblTrackTbl_ProjectsCreateNew.Size = new System.Drawing.Size(55, 20);
+            this.lblTrackTbl_ProjectsCreateNew.Size = new System.Drawing.Size(63, 20);
             this.lblTrackTbl_ProjectsCreateNew.TabIndex = 3;
             this.lblTrackTbl_ProjectsCreateNew.Text = "New:";
             this.lblTrackTbl_ProjectsCreateNew.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1892,7 +1971,7 @@
             this.grpbxTrackTblProjectCreateNewUseExisting.Margin = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.grpbxTrackTblProjectCreateNewUseExisting.Name = "grpbxTrackTblProjectCreateNewUseExisting";
             this.grpbxTrackTblProjectCreateNewUseExisting.Padding = new System.Windows.Forms.Padding(0);
-            this.grpbxTrackTblProjectCreateNewUseExisting.Size = new System.Drawing.Size(122, 33);
+            this.grpbxTrackTblProjectCreateNewUseExisting.Size = new System.Drawing.Size(138, 37);
             this.grpbxTrackTblProjectCreateNewUseExisting.TabIndex = 2;
             this.grpbxTrackTblProjectCreateNewUseExisting.TabStop = false;
             // 
@@ -1909,9 +1988,8 @@
             this.tblp_TrackTbl_UseExistingCreateNew.Name = "tblp_TrackTbl_UseExistingCreateNew";
             this.tblp_TrackTbl_UseExistingCreateNew.RowCount = 2;
             this.tblp_TrackTbl_UseExistingCreateNew.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblp_TrackTbl_UseExistingCreateNew.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tblp_TrackTbl_UseExistingCreateNew.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tblp_TrackTbl_UseExistingCreateNew.Size = new System.Drawing.Size(122, 18);
+            this.tblp_TrackTbl_UseExistingCreateNew.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tblp_TrackTbl_UseExistingCreateNew.Size = new System.Drawing.Size(138, 22);
             this.tblp_TrackTbl_UseExistingCreateNew.TabIndex = 0;
             // 
             // rdbtn_TrackTbl_ProjectsUseExisting
@@ -1919,10 +1997,10 @@
             this.rdbtn_TrackTbl_ProjectsUseExisting.AutoSize = true;
             this.rdbtn_TrackTbl_ProjectsUseExisting.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rdbtn_TrackTbl_ProjectsUseExisting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rdbtn_TrackTbl_ProjectsUseExisting.Location = new System.Drawing.Point(61, -2);
-            this.rdbtn_TrackTbl_ProjectsUseExisting.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.rdbtn_TrackTbl_ProjectsUseExisting.Location = new System.Drawing.Point(69, -8);
+            this.rdbtn_TrackTbl_ProjectsUseExisting.Margin = new System.Windows.Forms.Padding(0);
             this.rdbtn_TrackTbl_ProjectsUseExisting.Name = "rdbtn_TrackTbl_ProjectsUseExisting";
-            this.rdbtn_TrackTbl_ProjectsUseExisting.Size = new System.Drawing.Size(61, 17);
+            this.rdbtn_TrackTbl_ProjectsUseExisting.Size = new System.Drawing.Size(69, 30);
             this.rdbtn_TrackTbl_ProjectsUseExisting.TabIndex = 1;
             this.rdbtn_TrackTbl_ProjectsUseExisting.TabStop = true;
             this.rdbtn_TrackTbl_ProjectsUseExisting.UseVisualStyleBackColor = true;
@@ -1932,175 +2010,33 @@
             this.rdbtn_TrackTbl_ProjectsCreateNew.AutoSize = true;
             this.rdbtn_TrackTbl_ProjectsCreateNew.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rdbtn_TrackTbl_ProjectsCreateNew.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rdbtn_TrackTbl_ProjectsCreateNew.Location = new System.Drawing.Point(0, -2);
-            this.rdbtn_TrackTbl_ProjectsCreateNew.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.rdbtn_TrackTbl_ProjectsCreateNew.Location = new System.Drawing.Point(0, -8);
+            this.rdbtn_TrackTbl_ProjectsCreateNew.Margin = new System.Windows.Forms.Padding(0);
             this.rdbtn_TrackTbl_ProjectsCreateNew.Name = "rdbtn_TrackTbl_ProjectsCreateNew";
-            this.rdbtn_TrackTbl_ProjectsCreateNew.Size = new System.Drawing.Size(61, 17);
+            this.rdbtn_TrackTbl_ProjectsCreateNew.Size = new System.Drawing.Size(69, 30);
             this.rdbtn_TrackTbl_ProjectsCreateNew.TabIndex = 0;
             this.rdbtn_TrackTbl_ProjectsCreateNew.UseVisualStyleBackColor = true;
             // 
-            // splitContainer3
+            // grpbxTrackTblProjectsTbl
             // 
-            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Name = "splitContainer3";
+            this.grpbxTrackTblProjectsTbl.Controls.Add(this.cbxt_TrackTbl_ProjectsTable);
+            this.grpbxTrackTblProjectsTbl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpbxTrackTblProjectsTbl.Location = new System.Drawing.Point(3, 3);
+            this.grpbxTrackTblProjectsTbl.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
+            this.grpbxTrackTblProjectsTbl.Name = "grpbxTrackTblProjectsTbl";
+            this.grpbxTrackTblProjectsTbl.Size = new System.Drawing.Size(611, 52);
+            this.grpbxTrackTblProjectsTbl.TabIndex = 6;
+            this.grpbxTrackTblProjectsTbl.TabStop = false;
+            this.grpbxTrackTblProjectsTbl.Text = "Projects Table:";
             // 
-            // splitContainer3.Panel1
+            // cbxt_TrackTbl_ProjectsTable
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.grpbxTrackTblProjectName);
-            // 
-            // splitContainer3.Panel2
-            // 
-            this.splitContainer3.Panel2.Controls.Add(this.tblp_TrackTbl_ProjectNameSaveRunBtns);
-            this.splitContainer3.Size = new System.Drawing.Size(797, 54);
-            this.splitContainer3.SplitterDistance = 458;
-            this.splitContainer3.TabIndex = 0;
-            // 
-            // grpbxTrackTblProjectName
-            // 
-            this.grpbxTrackTblProjectName.Controls.Add(this.cbxt_TrackTbl_ProjectName);
-            this.grpbxTrackTblProjectName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpbxTrackTblProjectName.Location = new System.Drawing.Point(0, 0);
-            this.grpbxTrackTblProjectName.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
-            this.grpbxTrackTblProjectName.Name = "grpbxTrackTblProjectName";
-            this.grpbxTrackTblProjectName.Size = new System.Drawing.Size(458, 54);
-            this.grpbxTrackTblProjectName.TabIndex = 7;
-            this.grpbxTrackTblProjectName.TabStop = false;
-            this.grpbxTrackTblProjectName.Text = "Project Name:";
-            // 
-            // cbxt_TrackTbl_ProjectName
-            // 
-            this.cbxt_TrackTbl_ProjectName.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.cbxt_TrackTbl_ProjectName.FormattingEnabled = true;
-            this.cbxt_TrackTbl_ProjectName.Location = new System.Drawing.Point(3, 27);
-            this.cbxt_TrackTbl_ProjectName.Name = "cbxt_TrackTbl_ProjectName";
-            this.cbxt_TrackTbl_ProjectName.Size = new System.Drawing.Size(452, 24);
-            this.cbxt_TrackTbl_ProjectName.TabIndex = 2;
-            // 
-            // tblp_TrackTbl_ProjectNameSaveRunBtns
-            // 
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.ColumnCount = 4;
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 92F));
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 92F));
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.Controls.Add(this.btnTrackTbl_ProjectNameEdit, 0, 1);
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.Controls.Add(this.btnTrackTbl_ProjectNameSave, 0, 1);
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.Controls.Add(this.lblTrackTbl_ProjectNameUseExisting, 1, 0);
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.Controls.Add(this.lblTrackTbl_ProjectNameCreateNew, 0, 0);
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.Controls.Add(this.grpbxTrackTblProjectNameCreateNewUseExisting, 0, 1);
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.Location = new System.Drawing.Point(0, 0);
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.Margin = new System.Windows.Forms.Padding(0);
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.Name = "tblp_TrackTbl_ProjectNameSaveRunBtns";
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.RowCount = 2;
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.Size = new System.Drawing.Size(335, 54);
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.TabIndex = 73;
-            // 
-            // btnTrackTbl_ProjectNameEdit
-            // 
-            this.btnTrackTbl_ProjectNameEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnTrackTbl_ProjectNameEdit.Location = new System.Drawing.Point(244, 23);
-            this.btnTrackTbl_ProjectNameEdit.Margin = new System.Windows.Forms.Padding(2, 3, 5, 3);
-            this.btnTrackTbl_ProjectNameEdit.Name = "btnTrackTbl_ProjectNameEdit";
-            this.btnTrackTbl_ProjectNameEdit.Padding = new System.Windows.Forms.Padding(1);
-            this.btnTrackTbl_ProjectNameEdit.Size = new System.Drawing.Size(86, 28);
-            this.btnTrackTbl_ProjectNameEdit.TabIndex = 71;
-            this.btnTrackTbl_ProjectNameEdit.Text = "Edit";
-            this.btnTrackTbl_ProjectNameEdit.UseVisualStyleBackColor = true;
-            // 
-            // btnTrackTbl_ProjectNameSave
-            // 
-            this.btnTrackTbl_ProjectNameSave.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnTrackTbl_ProjectNameSave.Enabled = false;
-            this.btnTrackTbl_ProjectNameSave.Location = new System.Drawing.Point(155, 23);
-            this.btnTrackTbl_ProjectNameSave.Margin = new System.Windows.Forms.Padding(5, 3, 2, 3);
-            this.btnTrackTbl_ProjectNameSave.Name = "btnTrackTbl_ProjectNameSave";
-            this.btnTrackTbl_ProjectNameSave.Padding = new System.Windows.Forms.Padding(1);
-            this.btnTrackTbl_ProjectNameSave.Size = new System.Drawing.Size(85, 28);
-            this.btnTrackTbl_ProjectNameSave.TabIndex = 70;
-            this.btnTrackTbl_ProjectNameSave.Text = "Save";
-            this.btnTrackTbl_ProjectNameSave.UseVisualStyleBackColor = true;
-            // 
-            // lblTrackTbl_ProjectNameUseExisting
-            // 
-            this.lblTrackTbl_ProjectNameUseExisting.AutoSize = true;
-            this.lblTrackTbl_ProjectNameUseExisting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTrackTbl_ProjectNameUseExisting.Location = new System.Drawing.Point(78, 0);
-            this.lblTrackTbl_ProjectNameUseExisting.Name = "lblTrackTbl_ProjectNameUseExisting";
-            this.lblTrackTbl_ProjectNameUseExisting.Size = new System.Drawing.Size(69, 20);
-            this.lblTrackTbl_ProjectNameUseExisting.TabIndex = 4;
-            this.lblTrackTbl_ProjectNameUseExisting.Text = "Existing:";
-            this.lblTrackTbl_ProjectNameUseExisting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblTrackTbl_ProjectNameCreateNew
-            // 
-            this.lblTrackTbl_ProjectNameCreateNew.AutoSize = true;
-            this.lblTrackTbl_ProjectNameCreateNew.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTrackTbl_ProjectNameCreateNew.Location = new System.Drawing.Point(3, 0);
-            this.lblTrackTbl_ProjectNameCreateNew.Name = "lblTrackTbl_ProjectNameCreateNew";
-            this.lblTrackTbl_ProjectNameCreateNew.Size = new System.Drawing.Size(69, 20);
-            this.lblTrackTbl_ProjectNameCreateNew.TabIndex = 3;
-            this.lblTrackTbl_ProjectNameCreateNew.Text = "New:";
-            this.lblTrackTbl_ProjectNameCreateNew.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // grpbxTrackTblProjectNameCreateNewUseExisting
-            // 
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.SetColumnSpan(this.grpbxTrackTblProjectNameCreateNewUseExisting, 2);
-            this.grpbxTrackTblProjectNameCreateNewUseExisting.Controls.Add(this.tableLayoutPanel2);
-            this.grpbxTrackTblProjectNameCreateNewUseExisting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpbxTrackTblProjectNameCreateNewUseExisting.Location = new System.Drawing.Point(0, 20);
-            this.grpbxTrackTblProjectNameCreateNewUseExisting.Margin = new System.Windows.Forms.Padding(0, 0, 0, 1);
-            this.grpbxTrackTblProjectNameCreateNewUseExisting.Name = "grpbxTrackTblProjectNameCreateNewUseExisting";
-            this.grpbxTrackTblProjectNameCreateNewUseExisting.Padding = new System.Windows.Forms.Padding(0);
-            this.grpbxTrackTblProjectNameCreateNewUseExisting.Size = new System.Drawing.Size(150, 33);
-            this.grpbxTrackTblProjectNameCreateNewUseExisting.TabIndex = 2;
-            this.grpbxTrackTblProjectNameCreateNewUseExisting.TabStop = false;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.rdbtn_TrackTbl_ProjectNameUseExisting, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.rdbtn_TrackTbl_ProjectNameCreateNew, 0, 1);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 15);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(150, 18);
-            this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // rdbtn_TrackTbl_ProjectNameUseExisting
-            // 
-            this.rdbtn_TrackTbl_ProjectNameUseExisting.AutoSize = true;
-            this.rdbtn_TrackTbl_ProjectNameUseExisting.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rdbtn_TrackTbl_ProjectNameUseExisting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rdbtn_TrackTbl_ProjectNameUseExisting.Location = new System.Drawing.Point(75, -2);
-            this.rdbtn_TrackTbl_ProjectNameUseExisting.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
-            this.rdbtn_TrackTbl_ProjectNameUseExisting.Name = "rdbtn_TrackTbl_ProjectNameUseExisting";
-            this.rdbtn_TrackTbl_ProjectNameUseExisting.Size = new System.Drawing.Size(75, 17);
-            this.rdbtn_TrackTbl_ProjectNameUseExisting.TabIndex = 1;
-            this.rdbtn_TrackTbl_ProjectNameUseExisting.TabStop = true;
-            this.rdbtn_TrackTbl_ProjectNameUseExisting.UseVisualStyleBackColor = true;
-            // 
-            // rdbtn_TrackTbl_ProjectNameCreateNew
-            // 
-            this.rdbtn_TrackTbl_ProjectNameCreateNew.AutoSize = true;
-            this.rdbtn_TrackTbl_ProjectNameCreateNew.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rdbtn_TrackTbl_ProjectNameCreateNew.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rdbtn_TrackTbl_ProjectNameCreateNew.Location = new System.Drawing.Point(0, -2);
-            this.rdbtn_TrackTbl_ProjectNameCreateNew.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
-            this.rdbtn_TrackTbl_ProjectNameCreateNew.Name = "rdbtn_TrackTbl_ProjectNameCreateNew";
-            this.rdbtn_TrackTbl_ProjectNameCreateNew.Size = new System.Drawing.Size(75, 17);
-            this.rdbtn_TrackTbl_ProjectNameCreateNew.TabIndex = 0;
-            this.rdbtn_TrackTbl_ProjectNameCreateNew.UseVisualStyleBackColor = true;
+            this.cbxt_TrackTbl_ProjectsTable.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.cbxt_TrackTbl_ProjectsTable.FormattingEnabled = true;
+            this.cbxt_TrackTbl_ProjectsTable.Location = new System.Drawing.Point(3, 25);
+            this.cbxt_TrackTbl_ProjectsTable.Name = "cbxt_TrackTbl_ProjectsTable";
+            this.cbxt_TrackTbl_ProjectsTable.Size = new System.Drawing.Size(605, 24);
+            this.cbxt_TrackTbl_ProjectsTable.TabIndex = 2;
             // 
             // tabEventLog
             // 
@@ -2298,44 +2234,29 @@
             this.tblp_TgtMeta_Btns_Archive.PerformLayout();
             this.tabTrackingTbl.ResumeLayout(false);
             this.tblp_TrackingTable.ResumeLayout(false);
-            this.split_TrackTbl_TopHeader.Panel1.ResumeLayout(false);
-            this.split_TrackTbl_TopHeader.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.split_TrackTbl_TopHeader)).EndInit();
-            this.split_TrackTbl_TopHeader.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridTrackingTable)).EndInit();
+            this.split_TrackingTable.Panel1.ResumeLayout(false);
+            this.split_TrackingTable.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.split_TrackingTable)).EndInit();
+            this.split_TrackingTable.ResumeLayout(false);
+            this.tblp_TrackingTbl_InstanceDbSchema.ResumeLayout(false);
+            this.grpbxSchema.ResumeLayout(false);
+            this.grpbxDatabase.ResumeLayout(false);
             this.grpbxInstance.ResumeLayout(false);
             this.tblp_TabTrackTbl_Instance.ResumeLayout(false);
             this.tblp_TabTrackTbl_Instance.PerformLayout();
-            this.split_TrackTbl_Database.Panel1.ResumeLayout(false);
-            this.split_TrackTbl_Database.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.split_TrackTbl_Database)).EndInit();
-            this.split_TrackTbl_Database.ResumeLayout(false);
-            this.grpbxDatabase.ResumeLayout(false);
-            this.grpbxSchema.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridTrackingTable)).EndInit();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.grpbxTrackTblProjectsTbl.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
+            this.tblp_TrackingTbl_ProjectTables.ResumeLayout(false);
+            this.tblp_TrackTbl_ProjectNameSaveRunBtns.ResumeLayout(false);
+            this.grpbxTrackTblProjectNameCreateNewUseExisting.ResumeLayout(false);
+            this.tblp_TrackingTbl_ProjectName.ResumeLayout(false);
+            this.tblp_TrackingTbl_ProjectName.PerformLayout();
+            this.grpbxTrackTblProjectName.ResumeLayout(false);
             this.tblp_TrackTbl_ProjectsSaveRunBtns.ResumeLayout(false);
             this.tblp_TrackTbl_ProjectsSaveRunBtns.PerformLayout();
             this.grpbxTrackTblProjectCreateNewUseExisting.ResumeLayout(false);
             this.tblp_TrackTbl_UseExistingCreateNew.ResumeLayout(false);
             this.tblp_TrackTbl_UseExistingCreateNew.PerformLayout();
-            this.splitContainer3.Panel1.ResumeLayout(false);
-            this.splitContainer3.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
-            this.splitContainer3.ResumeLayout(false);
-            this.grpbxTrackTblProjectName.ResumeLayout(false);
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.ResumeLayout(false);
-            this.tblp_TrackTbl_ProjectNameSaveRunBtns.PerformLayout();
-            this.grpbxTrackTblProjectNameCreateNewUseExisting.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
+            this.grpbxTrackTblProjectsTbl.ResumeLayout(false);
             this.tabEventLog.ResumeLayout(false);
             this.tabSandBox.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
@@ -2459,9 +2380,7 @@
         private System.Windows.Forms.TableLayoutPanel tblp_TrackingTable;
         private System.Windows.Forms.GroupBox grpbxInstance;
         private System.Windows.Forms.TabPage tabSandBox;
-        private System.Windows.Forms.SplitContainer split_TrackTbl_TopHeader;
         private System.Windows.Forms.Button btnTrackTblLogin;
-        private System.Windows.Forms.SplitContainer split_TrackTbl_Database;
         private System.Windows.Forms.GroupBox grpbxDatabase;
         private System.Windows.Forms.GroupBox grpbxSchema;
         private System.Windows.Forms.GroupBox grpbxTrackTblProjectsTbl;
@@ -2482,20 +2401,18 @@
         private ComboBoxExt cbxt_TrackTbl_ProjectsTable;
         private TextBoxExt tbx_DataType_Src;
         private TextBoxExt tbx_DataType_Tgt;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.GroupBox grpbxTrackTblProjectName;
         private ComboBoxExt cbxt_TrackTbl_ProjectName;
         private System.Windows.Forms.TableLayoutPanel tblp_TrackTbl_ProjectNameSaveRunBtns;
         private System.Windows.Forms.Button btnTrackTbl_ProjectNameEdit;
         private System.Windows.Forms.Button btnTrackTbl_ProjectNameSave;
-        private System.Windows.Forms.Label lblTrackTbl_ProjectNameUseExisting;
-        private System.Windows.Forms.Label lblTrackTbl_ProjectNameCreateNew;
         private System.Windows.Forms.GroupBox grpbxTrackTblProjectNameCreateNewUseExisting;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TableLayoutPanel tblp_TrackingTbl_ProjectName;
         private System.Windows.Forms.RadioButton rdbtn_TrackTbl_ProjectNameUseExisting;
         private RadioButtonExt rdbtn_TrackTbl_ProjectNameCreateNew;
+        private System.Windows.Forms.SplitContainer split_TrackingTable;
+        private System.Windows.Forms.TableLayoutPanel tblp_TrackingTbl_InstanceDbSchema;
+        private System.Windows.Forms.TableLayoutPanel tblp_TrackingTbl_ProjectTables;
     }
 }
 

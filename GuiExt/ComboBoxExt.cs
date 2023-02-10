@@ -9,34 +9,35 @@ namespace CsiMigrationHelper
 {
     public class ComboBoxExt : ComboBox
     {
-        private TreeNode<DbObject> ParentTreeNode;
+        private TreeNode<DbObject> TreeNodeOwner;
         private RadioButton RdButton;
         private Button SaveButton;
-        private TreeNode<DbObject> instanceNode;
+        private TreeNode<DbObject> InstanceNode;
 
 
         public ComboBoxExt()
         {
+            //this.TextChanged += new EventHandler(OnTextUpdate);
             this.SelectedIndexChanged += new EventHandler(OnSelectedIndexChanged);
-            this.TextUpdate += new EventHandler(OnTextUpdate);
-            this.Resize += new EventHandler(OnResize);
+            this.Resize += new EventHandler(OnResize);                      
         }
 
         public void SetParentTreeNode(TreeNode<DbObject> tn)
         {
             if (tn != null)
             {
-                ParentTreeNode = tn;
+                TreeNodeOwner = tn;
             }
         }
 
         public void SetParentTreeNode(TreeNode<DbObject> tn, RadioButton rbtn, Button btn)
         {
-            if (tn != null)
+            if (tn != null && rbtn != null && btn != null)
             {
-                ParentTreeNode = tn;
+                TreeNodeOwner = tn;
                 RdButton = rbtn;
                 SaveButton = btn;
+                RdButton.CheckedChanged += new EventHandler(OnRdButtonCheckedChanged);
             }
         }
 
@@ -51,26 +52,26 @@ namespace CsiMigrationHelper
         }
         
         protected virtual void OnSelectedIndexChanged(object sender, EventArgs e)
-        {            
+        {
             try
             {
-                ParentTreeNode.EmptySubtreeText(ParentTreeNode);
-                if (ParentTreeNode.Enabled && this.SelectedIndex > 0) // populate all childNodes only if the user selects a valid ComboBox item, otherwise empty the Subtree
+                TreeNodeOwner.EmptySubtreeText(TreeNodeOwner);
+                if (TreeNodeOwner.Enabled && this.SelectedIndex > 0) // populate all childNodes only if the user selects a valid ComboBox item, otherwise empty the Subtree
                 {
-                    if (ParentTreeNode.Data.ObjectLevel == (int)DbObjectLevel.Database)
+                    if (TreeNodeOwner.Data.ObjectLevel == (int)DbObjectLevel.Database)
                     {
-                        instanceNode = ParentTreeNode.TraverseUpUntil(ParentTreeNode, (int)DbObjectLevel.Instance);
+                        InstanceNode = TreeNodeOwner.TraverseUpUntil(TreeNodeOwner, (int)DbObjectLevel.Instance);
                     }
-                    string newCbxSelection = ParentTreeNode.Data.Gui.GetCbxSelectionChangeCommited(ParamSelector.GetParamMetaByObjectLvl(ParentTreeNode.Data.ObjectLevel).DisplayMember);
+                    string newCbxSelection = TreeNodeOwner.Data.Gui.GetCbxSelectionChangeCommited(ParamSelector.GetParamMetaByObjectLvl(TreeNodeOwner.Data.ObjectLevel).DisplayMember);
 
                     if (newCbxSelection.Length > 0)
                     {
-                        if (ParentTreeNode.Data.ObjectLevel == (int)DbObjectLevel.Database)
+                        if (TreeNodeOwner.Data.ObjectLevel == (int)DbObjectLevel.Database)
                         {
-                            instanceNode.Data.Dbu.ChangeConnection(newCbxSelection);
+                            InstanceNode.Data.Dbu.ChangeConnection(newCbxSelection);
                         }
-                        ParentTreeNode.SetTreeNodeText(ParentTreeNode, newCbxSelection);
-                        CmBxSelectHndlr.PopulateChildNodes(sender, ParentTreeNode);
+                        TreeNodeOwner.SetTreeNodeText(TreeNodeOwner, newCbxSelection);
+                        CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner);
                     }
                 }
             }
@@ -92,10 +93,39 @@ namespace CsiMigrationHelper
 
         protected virtual void OnTextUpdate(object sender, EventArgs e)
         {
-            if (ParentTreeNode.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl && RdButton.Checked)
+            if (TreeNodeOwner.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl && RdButton != null && SaveButton != null)
             {
-                /*enable Save Button: */
-                SaveButton.Enabled = this.Text.Length > 0 ? true : false;
+                if (RdButton.Checked)
+                {
+                    /*enable or disable Save Button depending on Text Length: */
+                    SaveButton.Enabled = this.Text.Length > 0 ? true : false;
+                }
+            }
+        }
+
+        protected virtual void OnRdButtonCheckedChanged(object sender, EventArgs e)
+        {
+            if (TreeNodeOwner.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl && RdButton != null && SaveButton != null)
+            {
+               /*enable or disable Save Button depending on RdButton State: */ 
+               if (RdButton.Checked && TreeNodeOwner != null)
+               {
+                    if (TreeNodeOwner.Parent.IsTextSet())
+                    {
+                        int objectLevel = TreeNodeOwner.Data.ObjectLevel;
+                        switch (objectLevel)
+                        {
+                            case (int)DbObjectLevel.Table:
+                                TreeNodeOwner.SetTreeNodeText(TreeNodeOwner, Options.projectsTableDefaultName);
+                                break;
+
+                            case (int)DbObjectLevel.Column:
+                                TreeNodeOwner.SetTreeNodeText(TreeNodeOwner, Options.newProjectDefaultName);
+                                break;
+                        }
+                    }
+               }
+               SaveButton.Enabled = (RdButton.Checked && this.Text.Length > 0) ? true : false;
             }
         }
     }

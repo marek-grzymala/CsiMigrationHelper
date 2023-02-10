@@ -24,6 +24,7 @@ namespace CsiMigrationHelper
         public static bool renameTgtColumns;
         public static bool autoDropDownComboBoxes;
         public static string projectsTableDefaultName;
+        public static string newProjectDefaultName;
         public static string suffixTrackingTbl;
 
         public Options()
@@ -40,6 +41,7 @@ namespace CsiMigrationHelper
             chkbxRenameTgtColumns.Checked = renameTgtColumns;
             chkbxAutoDropDownComboBoxes.Checked = autoDropDownComboBoxes;
             tbx_ProjectsTableDefaultName.Text = projectsTableDefaultName;
+            tbx_NewProjectDefaultName.Text = newProjectDefaultName;
         }
 
         public static bool HandleOptionsMenuClick()
@@ -61,6 +63,7 @@ namespace CsiMigrationHelper
                     renameTgtColumns = options.chkbxRenameTgtColumns.Checked ? true : false;
                     autoDropDownComboBoxes = options.chkbxAutoDropDownComboBoxes.Checked ? true : false;
                     projectsTableDefaultName = options.tbx_ProjectsTableDefaultName.Text;
+                    newProjectDefaultName = options.tbx_NewProjectDefaultName.Text;
                 }
             }
             return diagResult == DialogResult.OK;

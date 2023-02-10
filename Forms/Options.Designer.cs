@@ -53,16 +53,18 @@ namespace CsiMigrationHelper
             this.gpbxUserDefDataTypeHndling = new System.Windows.Forms.GroupBox();
             this.rdbtnTranslateUserDefinedDataTypes = new System.Windows.Forms.RadioButton();
             this.rdbtnUseDataTypesAsDefinedInSrc = new System.Windows.Forms.RadioButton();
-            this.pnlButtons = new System.Windows.Forms.Panel();
             this.Tab_TrackingTable = new System.Windows.Forms.TabPage();
             this.lblTrackingTableDefaultName = new System.Windows.Forms.Label();
             this.tbx_ProjectsTableDefaultName = new System.Windows.Forms.TextBox();
+            this.pnlButtons = new System.Windows.Forms.Panel();
+            this.lblNewProjectsDefaultName = new System.Windows.Forms.Label();
+            this.tbx_NewProjectDefaultName = new System.Windows.Forms.TextBox();
             this.tabControlOptions.SuspendLayout();
             this.Tab_SrcTgtSetup.SuspendLayout();
             this.Tab_TgtMetaDataSetup.SuspendLayout();
             this.gpbxUserDefDataTypeHndling.SuspendLayout();
-            this.pnlButtons.SuspendLayout();
             this.Tab_TrackingTable.SuspendLayout();
+            this.pnlButtons.SuspendLayout();
             this.SuspendLayout();
             // 
             // OK
@@ -315,18 +317,10 @@ namespace CsiMigrationHelper
             this.rdbtnUseDataTypesAsDefinedInSrc.Text = "Use Data-Types as defined in Source";
             this.rdbtnUseDataTypesAsDefinedInSrc.UseVisualStyleBackColor = true;
             // 
-            // pnlButtons
-            // 
-            this.pnlButtons.Controls.Add(this.Cancel);
-            this.pnlButtons.Controls.Add(this.OK);
-            this.pnlButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlButtons.Location = new System.Drawing.Point(0, 328);
-            this.pnlButtons.Name = "pnlButtons";
-            this.pnlButtons.Size = new System.Drawing.Size(539, 53);
-            this.pnlButtons.TabIndex = 13;
-            // 
             // Tab_TrackingTable
             // 
+            this.Tab_TrackingTable.Controls.Add(this.lblNewProjectsDefaultName);
+            this.Tab_TrackingTable.Controls.Add(this.tbx_NewProjectDefaultName);
             this.Tab_TrackingTable.Controls.Add(this.lblTrackingTableDefaultName);
             this.Tab_TrackingTable.Controls.Add(this.tbx_ProjectsTableDefaultName);
             this.Tab_TrackingTable.Location = new System.Drawing.Point(4, 27);
@@ -355,6 +349,34 @@ namespace CsiMigrationHelper
             this.tbx_ProjectsTableDefaultName.TabIndex = 5;
             this.tbx_ProjectsTableDefaultName.Text = "CsixMigrationProjects";
             // 
+            // pnlButtons
+            // 
+            this.pnlButtons.Controls.Add(this.Cancel);
+            this.pnlButtons.Controls.Add(this.OK);
+            this.pnlButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlButtons.Location = new System.Drawing.Point(0, 328);
+            this.pnlButtons.Name = "pnlButtons";
+            this.pnlButtons.Size = new System.Drawing.Size(539, 53);
+            this.pnlButtons.TabIndex = 13;
+            // 
+            // lblNewProjectsDefaultName
+            // 
+            this.lblNewProjectsDefaultName.AutoSize = true;
+            this.lblNewProjectsDefaultName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNewProjectsDefaultName.Location = new System.Drawing.Point(19, 107);
+            this.lblNewProjectsDefaultName.Name = "lblNewProjectsDefaultName";
+            this.lblNewProjectsDefaultName.Size = new System.Drawing.Size(223, 18);
+            this.lblNewProjectsDefaultName.TabIndex = 6;
+            this.lblNewProjectsDefaultName.Text = "Default Name for Projects Table:";
+            // 
+            // tbx_NewProjectDefaultName
+            // 
+            this.tbx_NewProjectDefaultName.Location = new System.Drawing.Point(258, 105);
+            this.tbx_NewProjectDefaultName.Name = "tbx_NewProjectDefaultName";
+            this.tbx_NewProjectDefaultName.Size = new System.Drawing.Size(204, 24);
+            this.tbx_NewProjectDefaultName.TabIndex = 7;
+            this.tbx_NewProjectDefaultName.Text = "Csix Migration Project";
+            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -375,9 +397,9 @@ namespace CsiMigrationHelper
             this.Tab_TgtMetaDataSetup.PerformLayout();
             this.gpbxUserDefDataTypeHndling.ResumeLayout(false);
             this.gpbxUserDefDataTypeHndling.PerformLayout();
-            this.pnlButtons.ResumeLayout(false);
             this.Tab_TrackingTable.ResumeLayout(false);
             this.Tab_TrackingTable.PerformLayout();
+            this.pnlButtons.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -411,5 +433,7 @@ namespace CsiMigrationHelper
         private System.Windows.Forms.TabPage Tab_TrackingTable;
         private System.Windows.Forms.Label lblTrackingTableDefaultName;
         private System.Windows.Forms.TextBox tbx_ProjectsTableDefaultName;
+        private System.Windows.Forms.Label lblNewProjectsDefaultName;
+        private System.Windows.Forms.TextBox tbx_NewProjectDefaultName;
     }
 }

@@ -9,7 +9,7 @@ namespace CsiMigrationHelper
 {
     public class RadioButtonExt : RadioButton
     {
-        private TreeNode<DbObject> ParentTreeNode;
+        private TreeNode<DbObject> TreeNodeOwner;
 
         public RadioButtonExt()
         {
@@ -18,16 +18,16 @@ namespace CsiMigrationHelper
 
         public void SetParentTreeNode(TreeNode<DbObject> parentNode)
         {
-            ParentTreeNode = parentNode != null ? parentNode : null;
+            TreeNodeOwner = parentNode != null ? parentNode : null;
         }
 
         protected virtual void OnCheckedChanged(object sender, EventArgs e)
         {
-            if (ParentTreeNode.Data.ObjectLevel == (int)DbObjectLevel.Table)
+            if (TreeNodeOwner.Data.ObjectLevel == (int)DbObjectLevel.Table)
             {
-                ParentTreeNode.CloneableFromSrc = this.Checked ? true : false;
-                ComboBoxExt cbxSch = ParentTreeNode.TraverseUpUntil(ParentTreeNode, (int)DbObjectLevel.Schema).Data.Gui.Cbxt;
-                if (cbxSch.SelectedIndex > 0)
+                TreeNodeOwner.CloneableFromSrc = this.Checked ? true : false;
+                ComboBoxExt cbxSch = TreeNodeOwner.TraverseUpUntil(TreeNodeOwner, (int)DbObjectLevel.Schema).Data.Gui.Cbxt;
+                if (cbxSch.SelectedIndex > 0 && !TreeNodeOwner.CloneableFromSrc)
                 {
                     try
                     {                        
@@ -37,8 +37,29 @@ namespace CsiMigrationHelper
                     {
                         if (ex.retry)
                         {                            
-                            ComboBoxExt cbxDb = ParentTreeNode.TraverseUpUntil(ParentTreeNode, (int)DbObjectLevel.Database).Data.Gui.Cbxt;
+                            ComboBoxExt cbxDb = TreeNodeOwner.TraverseUpUntil(TreeNodeOwner, (int)DbObjectLevel.Database).Data.Gui.Cbxt;
                             cbxDb.RunOnSelectedIndexChanged(cbxDb, EventArgs.Empty);
+                        }
+                    }
+                }
+            }
+
+            if (TreeNodeOwner.Data.ObjectLevel == (int)DbObjectLevel.Column)
+            {
+                TreeNodeOwner.CloneableFromSrc = this.Checked ? true : false;
+                ComboBoxExt cbxTbl = TreeNodeOwner.TraverseUpUntil(TreeNodeOwner, (int)DbObjectLevel.Table).Data.Gui.Cbxt;
+                if (cbxTbl.SelectedIndex > 0 && !TreeNodeOwner.CloneableFromSrc)
+                {
+                    try
+                    {
+                        cbxTbl.RunOnSelectedIndexChanged(cbxTbl, EventArgs.Empty);
+                    }
+                    catch (ExceptionEmptyResultSet ex)
+                    {
+                        if (ex.retry)
+                        {
+                            ComboBoxExt cbxSch = TreeNodeOwner.TraverseUpUntil(TreeNodeOwner, (int)DbObjectLevel.Schema).Data.Gui.Cbxt;
+                            cbxSch.RunOnSelectedIndexChanged(cbxSch, EventArgs.Empty);
                         }
                     }
                 }

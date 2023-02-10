@@ -67,6 +67,7 @@ namespace CsiMigrationHelper
                 Options.renameTgtColumns = false;
                 Options.autoDropDownComboBoxes = true;
                 Options.projectsTableDefaultName = "CsixMigrationProjects";
+                Options.newProjectDefaultName = "My New Csix Migration Project";
             }
 
             root = new TreeNode<DbObject>(new DbObject(DbObjectBranch.Root, DbObjectLevel.Root, "Root", "---------------------- Root Node ----------------------", null));
@@ -448,6 +449,12 @@ namespace CsiMigrationHelper
         private void btnPrintTree_Click(object sender, EventArgs e)
         {
             TreeNode<DbObject>.PrintNodeTree(root);
+        }
+
+        private void btnTrackTbl_ProjectNameSave_Click(object sender, EventArgs e)
+        {
+            trckProjectName.Data.ObjectText = string.Empty;
+            cbxt_TrackTbl_ProjectName.Text = "";
         }
     }
 }

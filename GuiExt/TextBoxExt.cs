@@ -9,7 +9,7 @@ namespace CsiMigrationHelper
 {
     public class TextBoxExt : TextBox
     {
-        private TreeNode<DbObject> ParentTreeNode;
+        private TreeNode<DbObject> TreeNodeOwner;
         private ComboBoxExt Cbx_tbList_Src;
         private TreeNode<DbObject> SrcTable;
         private ComboBoxExt Cbx_tbList_Tgt;
@@ -28,7 +28,7 @@ namespace CsiMigrationHelper
                                         , TreeNode<DbObject> tgtTable
                                         )
         {
-            ParentTreeNode = parentNode     != null ? parentNode     : null;
+            TreeNodeOwner = parentNode     != null ? parentNode     : null;
             Cbx_tbList_Src = cbx_tbList_Src != null ? cbx_tbList_Src : null;
             SrcTable       = srcTable       != null ? srcTable       : null;
             Cbx_tbList_Tgt = cbx_tbList_Tgt != null ? cbx_tbList_Tgt : null;
@@ -42,15 +42,15 @@ namespace CsiMigrationHelper
                 //SrcTgtHdlr.HandleGuiSelectionChange(sender, ParentTreeNode);
                 if (this.Text.Length > 0)
                 {
-                    ParentTreeNode.SetTreeNodeText(ParentTreeNode, this.Text);
-                    CmBxSelectHndlr.PopulateChildNodes(sender, ParentTreeNode);
+                    TreeNodeOwner.SetTreeNodeText(TreeNodeOwner, this.Text);
+                    CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner);
                 }
             }
             catch (ExceptionEmptyResultSet ex)
             {
                 if (ex.retry)
                 {
-                    switch (ParentTreeNode.Data.ObjectBranch)
+                    switch (TreeNodeOwner.Data.ObjectBranch)
                     {
                         case (int)DbObjectBranch.Src:
                             
@@ -63,7 +63,7 @@ namespace CsiMigrationHelper
 
                         case (int)DbObjectBranch.Tgt:
                             
-                            if (ParentTreeNode.CloneableFromSrc)
+                            if (TreeNodeOwner.CloneableFromSrc)
                             {
                                 if (Cbx_tbList_Src != null && SrcTable != null)
                                 {
@@ -87,7 +87,7 @@ namespace CsiMigrationHelper
             {
                 if (ex.retry)
                 {
-                    switch (ParentTreeNode.Data.ObjectBranch)
+                    switch (TreeNodeOwner.Data.ObjectBranch)
                     {
                         case (int)DbObjectBranch.Src:
                             
@@ -100,7 +100,7 @@ namespace CsiMigrationHelper
 
                         case (int)DbObjectBranch.Tgt:
                             
-                            if (ParentTreeNode.CloneableFromSrc)
+                            if (TreeNodeOwner.CloneableFromSrc)
                             {
                                 if (Cbx_tbList_Tgt != null && TgtTable != null)
                                 {
