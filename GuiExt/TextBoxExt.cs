@@ -42,7 +42,7 @@ namespace CsiMigrationHelper
                 //SrcTgtHdlr.HandleGuiSelectionChange(sender, ParentTreeNode);
                 if (this.Text.Length > 0)
                 {
-                    TreeNodeOwner.SetTreeNodeText(TreeNodeOwner, this.Text);
+                    TreeNodeOwner.SetTreeNodeText(TreeNodeOwner, this.Text, true);
                     CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner);
                 }
             }

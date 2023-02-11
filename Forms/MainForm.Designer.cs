@@ -147,7 +147,7 @@
             this.rdbtn_TrackTbl_ProjectNameUseExisting = new System.Windows.Forms.RadioButton();
             this.rdbtn_TrackTbl_ProjectNameCreateNew = new CsiMigrationHelper.RadioButtonExt();
             this.grpbxTrackTblProjectName = new System.Windows.Forms.GroupBox();
-            this.cbxt_TrackTbl_ProjectName = new CsiMigrationHelper.ComboBoxExt();
+            this.cbxt_TrackTbl_ProjectName = new CsiMigrationHelper.ComboBoxExtTrackTbl();
             this.tblp_TrackTbl_ProjectsSaveRunBtns = new System.Windows.Forms.TableLayoutPanel();
             this.btnTrackTbl_ProjectsEdit = new System.Windows.Forms.Button();
             this.btnTrackTbl_ProjectsSave = new System.Windows.Forms.Button();
@@ -158,7 +158,7 @@
             this.rdbtn_TrackTbl_ProjectsUseExisting = new System.Windows.Forms.RadioButton();
             this.rdbtn_TrackTbl_ProjectsCreateNew = new CsiMigrationHelper.RadioButtonExt();
             this.grpbxTrackTblProjectsTbl = new System.Windows.Forms.GroupBox();
-            this.cbxt_TrackTbl_ProjectsTable = new CsiMigrationHelper.ComboBoxExt();
+            this.cbxt_TrackTbl_ProjectsTable = new CsiMigrationHelper.ComboBoxExtTrackTbl();
             this.tabEventLog = new System.Windows.Forms.TabPage();
             this.rtbxEventLog = new System.Windows.Forms.RichTextBox();
             this.tabSandBox = new System.Windows.Forms.TabPage();
@@ -1849,6 +1849,7 @@
             this.rdbtn_TrackTbl_ProjectNameUseExisting.AutoSize = true;
             this.rdbtn_TrackTbl_ProjectNameUseExisting.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rdbtn_TrackTbl_ProjectNameUseExisting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rdbtn_TrackTbl_ProjectNameUseExisting.Enabled = false;
             this.rdbtn_TrackTbl_ProjectNameUseExisting.Location = new System.Drawing.Point(69, 2);
             this.rdbtn_TrackTbl_ProjectNameUseExisting.Margin = new System.Windows.Forms.Padding(0, 0, 0, 7);
             this.rdbtn_TrackTbl_ProjectNameUseExisting.Name = "rdbtn_TrackTbl_ProjectNameUseExisting";
@@ -2398,11 +2399,9 @@
         private System.Windows.Forms.DataGridView gridTrackingTable;
         private ComboBoxExt cbxt_TrackTbl_Database;
         private ComboBoxExt cbxt_TrackTbl_Schema;
-        private ComboBoxExt cbxt_TrackTbl_ProjectsTable;
         private TextBoxExt tbx_DataType_Src;
         private TextBoxExt tbx_DataType_Tgt;
         private System.Windows.Forms.GroupBox grpbxTrackTblProjectName;
-        private ComboBoxExt cbxt_TrackTbl_ProjectName;
         private System.Windows.Forms.TableLayoutPanel tblp_TrackTbl_ProjectNameSaveRunBtns;
         private System.Windows.Forms.Button btnTrackTbl_ProjectNameEdit;
         private System.Windows.Forms.Button btnTrackTbl_ProjectNameSave;
@@ -2413,6 +2412,8 @@
         private System.Windows.Forms.SplitContainer split_TrackingTable;
         private System.Windows.Forms.TableLayoutPanel tblp_TrackingTbl_InstanceDbSchema;
         private System.Windows.Forms.TableLayoutPanel tblp_TrackingTbl_ProjectTables;
+        private ComboBoxExtTrackTbl cbxt_TrackTbl_ProjectsTable;
+        private ComboBoxExtTrackTbl cbxt_TrackTbl_ProjectName;
     }
 }
 

@@ -46,6 +46,7 @@ namespace CsiMigrationHelper
         private TgtTblMetaDataHandler TgtMtdHdlr_Current = new TgtTblMetaDataHandler();
         private TgtTblMetaDataHandler TgtMtdHdlr_Staging = new TgtTblMetaDataHandler();
         private TgtTblMetaDataHandler TgtMtdHdlr_Archive = new TgtTblMetaDataHandler();
+        private TrackingTblHndlr TrckTblHndlr;
 
         private EventLog elg;
 
@@ -54,20 +55,19 @@ namespace CsiMigrationHelper
             InitializeComponent();
 
             #region init
-
             {
                 Options.suffixCurrent = "_Current";
                 Options.suffixStaging = "_Staging";
                 Options.suffixArchive = "_Archive";
+                Options.autoDropDownComboBoxes = true;
                 Options.prefixCSI = "CSI_";
                 Options.suffixTgtColName = "_";
                 Options.translateUserDefinedDataTypes = true;
                 Options.doNotCreateFKsOnCrossDbTarget = true;
                 Options.makeCSIClustered = true;
                 Options.renameTgtColumns = false;
-                Options.autoDropDownComboBoxes = true;
-                Options.projectsTableDefaultName = "CsixMigrationProjectsTable";
-                Options.newProjectDefaultName = "My New Csix Migration Project";
+                Options.projectsTableDefaultName = "CsiMigrationProjectsTable";
+                Options.newProjectDefaultName = "My New Csi Migration Project";
             }
 
             root = new TreeNode<DbObject>(new DbObject(DbObjectBranch.Root, DbObjectLevel.Root, "Root", "---------------------- Root Node ----------------------", null));
@@ -184,14 +184,26 @@ namespace CsiMigrationHelper
                     cbxt_TrackTbl_Schema.SetParentTreeNode(trckSchema);
                     {
                         trckProjectsTable = trckSchema.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.Table, "trckProjectsTable", string.Empty, new GuiElem(cbxt_TrackTbl_ProjectsTable), Trck));                        
-                        cbxt_TrackTbl_ProjectsTable.SetParentTreeNode(trckProjectsTable, rdbtn_TrackTbl_ProjectsCreateNew, rdbtn_TrackTbl_ProjectNameUseExisting, btnTrackTbl_ProjectsSave);
+                        cbxt_TrackTbl_ProjectsTable.SetParentTreeNode(
+                                                                      trckProjectsTable
+                                                                    , rdbtn_TrackTbl_ProjectsCreateNew
+                                                                    , rdbtn_TrackTbl_ProjectNameUseExisting
+                                                                    , btnTrackTbl_ProjectsSave
+                                                                    , btnTrackTbl_ProjectsEdit);
                         rdbtn_TrackTbl_ProjectsCreateNew.SetParentTreeNode(trckProjectsTable);
                         rdbtn_TrackTbl_ProjectsCreateNew.Checked = true;
                         {
                             trckProjectName = trckProjectsTable.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.Column, "trckProjectName", string.Empty, new GuiElem(cbxt_TrackTbl_ProjectName), Trck));                            
-                            cbxt_TrackTbl_ProjectName.SetParentTreeNode(trckProjectName, rdbtn_TrackTbl_ProjectNameCreateNew, rdbtn_TrackTbl_ProjectNameUseExisting, btnTrackTbl_ProjectNameSave);
+                            cbxt_TrackTbl_ProjectName.SetParentTreeNode(
+                                                                        trckProjectName
+                                                                      , rdbtn_TrackTbl_ProjectNameCreateNew
+                                                                      , rdbtn_TrackTbl_ProjectNameUseExisting
+                                                                      , btnTrackTbl_ProjectNameSave
+                                                                      , btnTrackTbl_ProjectNameEdit
+                                                                      );
                             rdbtn_TrackTbl_ProjectNameCreateNew.SetParentTreeNode(trckProjectName);
                             rdbtn_TrackTbl_ProjectNameCreateNew.Checked = true;
+                            TrckTblHndlr = new TrackingTblHndlr(cbxt_TrackTbl_ProjectsTable, cbxt_TrackTbl_ProjectName);
                         }
                     }
                 }
@@ -220,27 +232,18 @@ namespace CsiMigrationHelper
         }
 
         //-------------------------------------------------------------------------------------------------------------------------------------------------------
-        //-------------------------------------------------------------------- SOURCE: --------------------------------------------------------------------------
+        //-------------------------------------------------------------------- SOURCE/TARGET: --------------------------------------------------------------------------
         //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
+        #region SrcTgt
         private void buttonLoginSrc_Click(object sender, EventArgs e)
         {
             LoginForm.HandleLoginBtnClick(sender, srcInstance);
         }
-
-        //-------------------------------------------------------------------------------------------------------------------------------------------------------
-        //-------------------------------------------------------------------- TARGET: --------------------------------------------------------------------------
-        //-------------------------------------------------------------------------------------------------------------------------------------------------------
-
         private void buttonLoginTgt_Click(object sender, EventArgs e)
         {
             LoginForm.HandleLoginBtnClick(sender, tgtInstance);
         }
-
-        //-------------------------------------------------------------------------------------------------------------------------------------------------------
-        //-------------------------------------------------------------------- CHCKBX & RDBTNS: -----------------------------------------------------------------
-        //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
         private void chkBxCurrent_CheckedChanged(object sender, EventArgs e)
         {
@@ -256,12 +259,13 @@ namespace CsiMigrationHelper
         {
             tgtSchema_Archive.Enabled = chkBxArchive.Checked ? true : false;
         }
-
+        #endregion
 
         //-------------------------------------------------------------------------------------------------------------------------------------------------------
         //-------------------------------------------------------------------- TGT METADATA: --------------------------------------------------------------------
         //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        #region TgtMetaData
         private void btnCurrentReload_Click(object sender, EventArgs e)
         {
             TgtMtdHdlr_Current.e = new EventArgsTgtTblMetadata(
@@ -426,17 +430,18 @@ namespace CsiMigrationHelper
                 btnArchiveExecute.Image = imageList1.Images[1];
             }
         }
-
+        #endregion
 
         //-------------------------------------------------------------------------------------------------------------------------------------------------------
         //-------------------------------------------------------------------- MIGRATION TRACKING TBL: ----------------------------------------------------------
         //-------------------------------------------------------------------------------------------------------------------------------------------------------
 
+        #region MigrationTrcTbl
         private void btnTrackTblLogin_Click(object sender, EventArgs e)
         {
             LoginForm.HandleLoginBtnClick(sender, trckInstance);
         }
-
+        #endregion
 
         //-------------------------------------------------------------------------------------------------------------------------------------------------------
         //-------------------------------------------------------------------- SANDBOX: -------------------------------------------------------------------------

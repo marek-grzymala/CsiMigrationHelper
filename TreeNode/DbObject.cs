@@ -51,11 +51,11 @@ namespace CsiMigrationHelper
             eventDbObjectTextChanged -= new HandlerDbObjectTextChanged(OnDbObjectTextChanged);
         }
 
-        public void SetDbObjectText(TreeNode<DbObject> t, string newObjectText)
+        public void SetDbObjectText(TreeNode<DbObject> t, string newObjectText, bool checkIfNewTextDiffers)
         {
             if (t.Data.ObjectText != null)
             {
-                if (!t.Data.ObjectText.Equals(newObjectText))
+                if (checkIfNewTextDiffers ? !t.Data.ObjectText.Equals(newObjectText) : true)
                 {
                     eventDbObjectTextChanged += new HandlerDbObjectTextChanged(OnDbObjectTextChanged);
 
@@ -106,17 +106,17 @@ namespace CsiMigrationHelper
                                     case (int)DbObjectLevel.Table:
                                         tableNameSuffix = Options.GetTableSuffixPerNode(cousin);
                                         // clone Src table name into Tgt cousin appending the suffix:
-                                        cousin.SetTreeNodeText(cousin, string.Concat(newObjectText, tableNameSuffix));
+                                        cousin.SetTreeNodeText(cousin, string.Concat(newObjectText, tableNameSuffix), true);
                                         break;
 
                                     case (int)DbObjectLevel.Index:
                                         // clone cousin's index name into Tgt with CSI Prefix:
-                                        cousin.SetTreeNodeText(cousin, string.Concat(Options.prefixCSI, newObjectText));
+                                        cousin.SetTreeNodeText(cousin, string.Concat(Options.prefixCSI, newObjectText), true);
                                         break;
 
                                     default:
                                         // clone Src object name into Tgt cousin without any change:
-                                        cousin.SetTreeNodeText(cousin, newObjectText);
+                                        cousin.SetTreeNodeText(cousin, newObjectText, true);
                                         break;
                                 }                        
                             }
@@ -153,13 +153,13 @@ namespace CsiMigrationHelper
             return ObjectText != null ? ObjectText : "[DbObject is null]";
         }
 
-        public static int GetIndexOfObjectLevel(DbObjectLevel ol)
+        private static int GetIndexOfObjectLevel(DbObjectLevel ol)
         {
             var enumValues = Enum.GetValues(typeof(DbObjectLevel)).Cast<DbObjectLevel>().ToList();
             return enumValues.IndexOf(ol);
         }
 
-        public static int GetIndexOfObjectBranch(DbObjectBranch ob)
+        private static int GetIndexOfObjectBranch(DbObjectBranch ob)
         {
             var enumValues = Enum.GetValues(typeof(DbObjectBranch)).Cast<DbObjectBranch>().ToList();
             return enumValues.IndexOf(ob);

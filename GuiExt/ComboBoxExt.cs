@@ -7,19 +7,15 @@ using System.Windows.Forms;
 
 namespace CsiMigrationHelper
 {
+    public delegate void HandlerCmbxProjectsTableSelectedIndexChanged(object sender, EventArgs e);
     public class ComboBoxExt : ComboBox
     {
-        private TreeNode<DbObject> TreeNodeOwner;
-        private TreeNode<DbObject> TreeNodeOwnerParent;
-        public RadioButton RdButtonCreateNew { get; set; }
-        private RadioButton RdButtonUseExisting;
-        private Button SaveButton;
+        public event HandlerCmbxProjectsTableSelectedIndexChanged eventCmbxProjectsTableSelectedIndexChanged;
+        public TreeNode<DbObject> TreeNodeOwner;
         private TreeNode<DbObject> InstanceNode;
-
 
         public ComboBoxExt()
         {
-            //this.TextChanged += new EventHandler(OnTextUpdate);
             this.SelectedIndexChanged += new EventHandler(OnSelectedIndexChanged);
             this.Resize += new EventHandler(OnResize);                      
         }
@@ -29,29 +25,6 @@ namespace CsiMigrationHelper
             TreeNodeOwner = tn != null ? tn : null;
         }
 
-        public void SetParentTreeNode(TreeNode<DbObject> tn, RadioButton rbtnNew, RadioButton rbtnExisting, Button btn)
-        {
-            if (tn != null && rbtnNew != null && btn != null)
-            {
-                TreeNodeOwner = tn;
-                RdButtonCreateNew = rbtnNew;
-                RdButtonUseExisting = rbtnExisting;
-                SaveButton = btn;
-                RdButtonCreateNew.CheckedChanged += new EventHandler(OnRdButtonCheckedChanged);
-            }
-            if (TreeNodeOwner != null)
-            {
-                if (TreeNodeOwner.Data.ObjectLevel == (int)DbObjectLevel.Column)
-                {
-                    TreeNodeOwnerParent = TreeNodeOwner.Parent;
-                    if (TreeNodeOwnerParent != null)
-                    {
-                        TreeNodeOwnerParent.Data.Gui.Cbxt.RdButtonCreateNew.CheckedChanged += new EventHandler(OnTreeNodeOwnerParentRdButtonCheckedChanged);
-                    }
-                }
-            }
-        }
-
         protected virtual void OnResize(object sender, EventArgs e)  // this is to prevent "highlighting" of ComboBox selection when Form is resized
         {
             this.SelectionLength = 0;
@@ -59,11 +32,7 @@ namespace CsiMigrationHelper
 
         public void RunOnSelectedIndexChanged(object sender, EventArgs e)
         {
-            this.OnSelectedIndexChanged(sender, e);            
-        }
-        public void RunOnRdButtonCheckedChanged(object sender, EventArgs e)
-        {
-            this.OnRdButtonCheckedChanged(sender, e);
+            this.OnSelectedIndexChanged(sender, e);
         }
 
         protected virtual void OnSelectedIndexChanged(object sender, EventArgs e)
@@ -85,12 +54,15 @@ namespace CsiMigrationHelper
                         {
                             InstanceNode.Data.Dbu.ChangeConnection(newCbxSelection);
                         }
-                        if (TreeNodeOwner.Data.ObjectLevel == (int)DbObjectLevel.Table && TreeNodeOwner.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl)
+                        if (TreeNodeOwner.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl && TreeNodeOwner.Data.ObjectLevel == (int)DbObjectLevel.Table)
                         {
-                            //Check if this is a valid ProjectsTable!
-                            Console.WriteLine(string.Concat("Checking if ", newCbxSelection, " is a valid ProjectsTable"));
+                            var deleg = eventCmbxProjectsTableSelectedIndexChanged as HandlerCmbxProjectsTableSelectedIndexChanged;
+                            if (deleg != null)
+                            {
+                                deleg(this, EventArgs.Empty); //this line triggers the execution of OnCmbxProjectsTableSelectedIndexChange() in TrackingTblHndlr
+                            }                            
                         }
-                        TreeNodeOwner.SetTreeNodeText(TreeNodeOwner, newCbxSelection);
+                        TreeNodeOwner.SetTreeNodeText(TreeNodeOwner, newCbxSelection, true);                        
                         CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner);
                     }
                 }
@@ -108,57 +80,6 @@ namespace CsiMigrationHelper
                 {
                     this.DroppedDown = true;
                 }
-            }
-        }
-
-        protected virtual void OnTextUpdate(object sender, EventArgs e)
-        {
-            if (TreeNodeOwner.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl && RdButtonCreateNew != null && SaveButton != null)
-            {
-                if (RdButtonCreateNew.Checked)
-                {
-                    /*enable or disable Save Button depending on Text Length: */
-                    SaveButton.Enabled = this.Text.Length > 0 ? true : false;
-                }
-            }
-        }
-
-        protected virtual void OnRdButtonCheckedChanged(object sender, EventArgs e)
-        {
-            if (TreeNodeOwner.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl && RdButtonCreateNew != null && SaveButton != null)
-            {
-                if (RdButtonCreateNew.Checked && TreeNodeOwner != null)
-                {
-                    if (TreeNodeOwner.Parent.IsTextSet())
-                    {
-                        int objectLevel = TreeNodeOwner.Data.ObjectLevel;
-                        switch (objectLevel)
-                        {
-                            case (int)DbObjectLevel.Table:
-                                TreeNodeOwner.SetTreeNodeText(TreeNodeOwner, Options.projectsTableDefaultName);
-                                break;
-                
-                            case (int)DbObjectLevel.Column:
-                                TreeNodeOwner.SetTreeNodeText(TreeNodeOwner, Options.newProjectDefaultName);
-                                break;
-                        }
-                    }
-                }
-                /*enable or disable Save Button depending on RdButton State and Cbx Text Length: */ 
-                SaveButton.Enabled = (RdButtonCreateNew.Checked && this.Text.Length > 0) ? true : false;
-            }
-        }
-
-        protected virtual void OnTreeNodeOwnerParentRdButtonCheckedChanged(object sender, EventArgs e)
-        {
-            if (TreeNodeOwnerParent.Data.Gui.Cbxt.RdButtonCreateNew.Checked)
-            {
-                RdButtonCreateNew.Checked = true;
-                RdButtonUseExisting.Enabled = false;
-            }
-            else
-            {
-                RdButtonUseExisting.Enabled = true;
             }
         }
     }

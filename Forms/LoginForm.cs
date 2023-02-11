@@ -85,7 +85,7 @@ namespace CsiMigrationHelper
                 if (diagResult == DialogResult.OK)
                 {
                     currentNode.Data.Dbu = login.GetConnection();
-                    currentNode.SetTreeNodeText(currentNode, currentNode.Data.Dbu.GetDataSource());
+                    currentNode.SetTreeNodeText(currentNode, currentNode.Data.Dbu.GetDataSource(), false);
                     CmBxSelectHndlr.PopulateChildNodes(sender, currentNode);
                 }
             }

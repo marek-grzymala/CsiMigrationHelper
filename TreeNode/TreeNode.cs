@@ -408,7 +408,7 @@ namespace CsiMigrationHelper
                                                                     // because then we would unnecessarily trigger events OnDbObjectModified
                                                                     // (which would then cause multiple triggers of SetTreeNodeText)
                                 {
-                                    dbObject.SetDbObjectText(node, string.Empty);
+                                    dbObject.SetDbObjectText(node, string.Empty, false);
                                 }
                             }
                             else
@@ -429,7 +429,7 @@ namespace CsiMigrationHelper
             }
         }
 
-        public void SetTreeNodeText(TreeNode<DbObject> node, string newText)
+        public void SetTreeNodeText(TreeNode<DbObject> node, string newText, bool checkIfNewTextDiffers)
         {
             if (node != null)
             {
@@ -437,7 +437,7 @@ namespace CsiMigrationHelper
                 DbObject dbObject = TreeNode<DbObject>.ConvertToDbObject(node);
                 if (dbObject != null)
                 {
-                    dbObject.SetDbObjectText(node, newText);
+                    dbObject.SetDbObjectText(node, newText, checkIfNewTextDiffers);
                 }
             }
         }
@@ -453,7 +453,7 @@ namespace CsiMigrationHelper
                         DbObject dbObject = (DbObject)Convert.ChangeType(node.Data, typeof(DbObject));
                         if (dbObject != null)
                         {
-                            dbObject.SetDbObjectText(ConvertToTreeNodeDbObject(node), newText);
+                            dbObject.SetDbObjectText(ConvertToTreeNodeDbObject(node), newText, true);
                         }
                     }
                 }

@@ -46,7 +46,7 @@ namespace CsiMigrationHelper
 
                 if (childNodeDbo.Gui != null)
                 {
-                    if (childNodeDbo.Gui.GetGuiType() == typeof(ComboBox) || childNodeDbo.Gui.GetGuiType() == typeof(ComboBoxExt))
+                    if (childNodeDbo.Gui.GetGuiType() == typeof(ComboBox) || childNodeDbo.Gui.GetGuiType() == typeof(ComboBoxExt) || childNodeDbo.Gui.GetGuiType() == typeof(ComboBoxExtTrackTbl))
                     {
                         childNodeDbo.Gui.PopulateGuiElem(childNodeDbo.Gui, dsfg);
                     }
@@ -54,7 +54,7 @@ namespace CsiMigrationHelper
                     {
                         if (dsfg.Ds.Tables[0].Rows.Count > 0)
                         {
-                            childNode.SetTreeNodeText(childNode, dsfg.Ds.Tables[0].Rows[1][dsfg.ParamSelect.ParamMetaData.DisplayMember].ToString());
+                            childNode.SetTreeNodeText(childNode, dsfg.Ds.Tables[0].Rows[1][dsfg.ParamSelect.ParamMetaData.DisplayMember].ToString(), true);
                         }
                     }
                 }
@@ -121,17 +121,17 @@ namespace CsiMigrationHelper
                                         case (int)DbObjectLevel.Table:
                                             tableNameSuffix = Options.GetTableSuffixPerNode(childNode);
                                             // clone cousin's table name from Src into Tgt appending the suffix:
-                                            childNode.SetTreeNodeText(childNode, string.Concat(cousin.Data.ObjectText, tableNameSuffix));
+                                            childNode.SetTreeNodeText(childNode, string.Concat(cousin.Data.ObjectText, tableNameSuffix), true);
                                             break;
 
                                         case (int)DbObjectLevel.Index:
                                             // clone cousin's table name from Src with CSI Prefix:
-                                            childNode.SetTreeNodeText(childNode, string.Concat(Options.prefixCSI, cousin.Data.ObjectText));
+                                            childNode.SetTreeNodeText(childNode, string.Concat(Options.prefixCSI, cousin.Data.ObjectText), true);
                                             break;
 
                                         default:
                                             // clone cousin's object name from Src into Tgt without any change:
-                                            childNode.SetTreeNodeText(childNode, cousin.Data.ObjectText);
+                                            childNode.SetTreeNodeText(childNode, cousin.Data.ObjectText, true);
                                             break;
                                     }
 
@@ -187,12 +187,12 @@ namespace CsiMigrationHelper
                     switch (objectLevel)
                     {
                         case (int)DbObjectLevel.Table:
-                            childNode.Data.Gui.Cbxt.RunOnRdButtonCheckedChanged(sender, EventArgs.Empty);
+                            childNode.Data.Gui.Cbxtr.RunOnRdButtonCheckedChanged(sender, EventArgs.Empty);
                             PopulateChildNodes(sender, childNode);
                             break;
 
                         case (int)DbObjectLevel.Column:
-                            childNode.Data.Gui.Cbxt.RunOnRdButtonCheckedChanged(sender, EventArgs.Empty);
+                            childNode.Data.Gui.Cbxtr.RunOnRdButtonCheckedChanged(sender, EventArgs.Empty);
                             break;
                     }
                     break;
