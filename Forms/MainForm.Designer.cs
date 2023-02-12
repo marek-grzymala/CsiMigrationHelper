@@ -1811,7 +1811,6 @@
             this.btnTrackTbl_ProjectNameSave.TabIndex = 70;
             this.btnTrackTbl_ProjectNameSave.Text = "Save";
             this.btnTrackTbl_ProjectNameSave.UseVisualStyleBackColor = true;
-            this.btnTrackTbl_ProjectNameSave.Click += new System.EventHandler(this.btnTrackTbl_ProjectNameSave_Click);
             // 
             // grpbxTrackTblProjectNameCreateNewUseExisting
             // 

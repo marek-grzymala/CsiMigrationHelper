@@ -455,12 +455,6 @@ namespace CsiMigrationHelper
         {
             TreeNode<DbObject>.PrintNodeTree(root);
         }
-
-        private void btnTrackTbl_ProjectNameSave_Click(object sender, EventArgs e)
-        {
-            trckProjectName.Data.ObjectText = string.Empty;
-            cbxt_TrackTbl_ProjectName.Text = "";
-        }
     }
 }
 

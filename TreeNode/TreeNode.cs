@@ -442,6 +442,19 @@ namespace CsiMigrationHelper
             }
         }
 
+        public void SetTreeNodeTextNoSubtreeClearing(TreeNode<DbObject> node, string newText, bool checkIfNewTextDiffers)
+        {
+            if (node != null)
+            {
+                //node.EmptySubtreeText(node);
+                DbObject dbObject = TreeNode<DbObject>.ConvertToDbObject(node);
+                if (dbObject != null)
+                {
+                    dbObject.SetDbObjectText(node, newText, checkIfNewTextDiffers);
+                }
+            }
+        }
+
         public void SetTextOfDirectChildren(TreeNode<T> startingNode, string newText)
         {
             foreach (TreeNode<T> childNode in startingNode.Children)

@@ -561,6 +561,14 @@
             return SqlTableDefTranslatedUserTypesByTableName;
         }
 
+        public static string GetSqlTableDefinitionProjectsTable(string schemaName, string tableName)
+        {
+            return string.Concat( "CREATE TABLE [", schemaName, "].[", tableName, "]("
+                                 , "[ProjectID] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY CLUSTERED,"
+                                 , "[ProjectName] NVARCHAR(256) NOT NULL,"
+                                 , "[ProjectCreateDate] DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP);");
+        }
+
         public static string GetSqlObjectListByNodeLevel(TreeNode<DbObject> tn) //(int lvl)
         {
             /*

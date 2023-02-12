@@ -30,24 +30,25 @@ namespace CsiMigrationHelper
             {
                 RdButtonCreateNew.CheckedChanged += new EventHandler(OnRdButtonCheckedChanged);
             }
-            this.TextChanged += new EventHandler(OnTextUpdate);
+            this.TextChanged += new EventHandler(OnTextChanged);
+        }
+        protected virtual void OnTextChanged(object sender, EventArgs e)
+        {
+            if (this.Text.Length > 0 && this.RdButtonCreateNew.Checked)
+            {
+                this.TreeNodeOwner.SetTreeNodeTextNoSubtreeClearing(TreeNodeOwner, Text, false);
+                /*enable or disable Save Button depending on Text Length: */
+                this.SaveButton.Enabled = this.Text.Length > 0 ? true : false;
+            }
+            else
+            {
+                this.SaveButton.Enabled = false;
+            }
         }
 
         public void RunOnRdButtonCheckedChanged(object sender, EventArgs e)
         {
             this.OnRdButtonCheckedChanged(sender, e);
-        }
-
-        protected virtual void OnTextUpdate(object sender, EventArgs e)
-        {
-            if (TreeNodeOwner.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl && RdButtonCreateNew != null && SaveButton != null)
-            {
-                if (RdButtonCreateNew.Checked)
-                {
-                    /*enable or disable Save Button depending on Text Length: */
-                    SaveButton.Enabled = this.Text.Length > 0 ? true : false;
-                }
-            }
         }
 
         protected virtual void OnRdButtonCheckedChanged(object sender, EventArgs e)
@@ -72,7 +73,7 @@ namespace CsiMigrationHelper
                     }
                 }
                 /*enable or disable Save Button depending on RdButton State and Cbx Text Length: */
-                SaveButton.Enabled = (RdButtonCreateNew.Checked && this.Text.Length > 0) ? true : false;                
+                SaveButton.Enabled = (RdButtonCreateNew.Checked && this.Text.Length > 0) ? true : false;
             }
         }
     }

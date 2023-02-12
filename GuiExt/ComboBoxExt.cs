@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace CsiMigrationHelper
 {
-    public delegate void HandlerCmbxProjectsTableSelectedIndexChanged(object sender, EventArgs e);
+    public delegate void HandlerCmbxProjectsTableSelectedIndexChanged(object sender, EventArgsTableData e);
     public class ComboBoxExt : ComboBox
     {
         public event HandlerCmbxProjectsTableSelectedIndexChanged eventCmbxProjectsTableSelectedIndexChanged;
@@ -54,15 +54,17 @@ namespace CsiMigrationHelper
                         {
                             InstanceNode.Data.Dbu.ChangeConnection(newCbxSelection);
                         }
+                        TreeNodeOwner.SetTreeNodeText(TreeNodeOwner, newCbxSelection, true);
+
+                        // raise an event for TrackingTblHndlr to check if this is a valid ProjectsTable:
                         if (TreeNodeOwner.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl && TreeNodeOwner.Data.ObjectLevel == (int)DbObjectLevel.Table)
                         {
                             var deleg = eventCmbxProjectsTableSelectedIndexChanged as HandlerCmbxProjectsTableSelectedIndexChanged;
                             if (deleg != null)
                             {
-                                deleg(this, EventArgs.Empty); //this line triggers the execution of OnCmbxProjectsTableSelectedIndexChange() in TrackingTblHndlr
-                            }                            
+                                deleg(this, new EventArgsTableData(InstanceNode, TreeNodeOwner.Parent.Data.ObjectText, TreeNodeOwner.Data.ObjectText)); //this line triggers the execution of OnCmbxProjectsTableSelectedIndexChange() in TrackingTblHndlr class
+                            }
                         }
-                        TreeNodeOwner.SetTreeNodeText(TreeNodeOwner, newCbxSelection, true);                        
                         CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner);
                     }
                 }
