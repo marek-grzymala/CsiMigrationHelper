@@ -62,7 +62,7 @@ namespace CsiMigrationHelper
                     ObjectText = newObjectText;                
                     SqlParam = new SqlParameter()
                     {
-                        ParameterName = ParamSelector.GetParamMetaByObjectLvl(ObjectLevel).ParameterName, //DbUtil.GetSqlParameterNameByObjectLevel(ObjectLevel),
+                        ParameterName = ParamSelector.GetParamMetaByObjectLvl(ObjectLevel, ObjectBranch).ParameterName, //DbUtil.GetSqlParameterNameByObjectLevel(ObjectLevel),
                         SqlDbType = SqlDbType.VarChar,
                         Size = 4000,
                         Value = ObjectText

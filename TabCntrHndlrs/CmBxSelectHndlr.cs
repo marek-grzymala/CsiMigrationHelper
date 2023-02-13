@@ -33,7 +33,8 @@ namespace CsiMigrationHelper
                 DataSetForGui dsfg = new DataSetForGui();
                 try
                 {
-                    dsfg = instanceNode.Data.Dbu.GetDataSetForGui(instanceNode, childNode, null);
+                    string dsOptions = null;
+                    dsfg = instanceNode.Data.Dbu.GetDataSetForGui(instanceNode, childNode, dsOptions);
                 }
                 catch (ExceptionEmptyResultSet ex)
                 {
@@ -46,11 +47,14 @@ namespace CsiMigrationHelper
 
                 if (childNodeDbo.Gui != null)
                 {
-                    if (childNodeDbo.Gui.GetGuiType() == typeof(ComboBox) || childNodeDbo.Gui.GetGuiType() == typeof(ComboBoxExt) || childNodeDbo.Gui.GetGuiType() == typeof(ComboBoxExtTrackTbl))
+                    if (childNodeDbo.Gui.GetGuiType() == typeof(ComboBox) 
+                        || childNodeDbo.Gui.GetGuiType() == typeof(ComboBoxExt) 
+                        || childNodeDbo.Gui.GetGuiType() == typeof(ComboBoxExtTrackTbl))
                     {
                         childNodeDbo.Gui.PopulateGuiElem(childNodeDbo.Gui, dsfg);
                     }
-                    else if (childNodeDbo.Gui.GetGuiType() == typeof(TextBox) || (childNodeDbo.Gui.GetGuiType() == typeof(TextBoxExt)))
+                    else if (childNodeDbo.Gui.GetGuiType() == typeof(TextBox) 
+                        || (childNodeDbo.Gui.GetGuiType() == typeof(TextBoxExt)))
                     {
                         if (dsfg.Ds.Tables[0].Rows.Count > 0)
                         {
@@ -191,7 +195,7 @@ namespace CsiMigrationHelper
                             PopulateChildNodes(sender, childNode);
                             break;
 
-                        case (int)DbObjectLevel.Column:
+                        case (int)DbObjectLevel.Column:                            
                             childNode.Data.Gui.Cbxtr.RunOnRdButtonCheckedChanged(sender, EventArgs.Empty);
                             break;
                     }

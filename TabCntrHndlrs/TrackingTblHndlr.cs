@@ -11,12 +11,14 @@ namespace CsiMigrationHelper
     {
         private ComboBoxExtTrackTbl ProjectsTable;
         private ComboBoxExtTrackTbl ProjectName;
+        private TextBox ProjectDescription;
         private ImageList ImageList1;
 
-        public TrackingTblHndlr(ComboBoxExtTrackTbl projectsTable, ComboBoxExtTrackTbl projectName, ImageList imageList1)
+        public TrackingTblHndlr(ComboBoxExtTrackTbl projectsTable, ComboBoxExtTrackTbl projectName, TextBox projectDescription, ImageList imageList1)
         {
             ProjectsTable = projectsTable;
             ProjectName   = projectName;
+            ProjectDescription = projectDescription;
             ProjectsTable.RdButtonCreateNew.CheckedChanged += new EventHandler(OnRdButtonProjectsTableCheckedChanged);
             ProjectsTable.eventCmbxProjectsTableSelectedIndexChanged += new HandlerCmbxProjectsTableSelectedIndexChanged(OnCmbxProjectsTableSelectedIndexChange);
             ProjectsTable.SaveButton.Click += new EventHandler(OnProjectsTableSaveButtonClick);
@@ -24,7 +26,7 @@ namespace CsiMigrationHelper
             ImageList1 = imageList1;
         }
 
-        // if Create New ProjectTable option chosen allow only creating new Projects (there is no existing Projects in a New ProjectTable):
+        // if Create New ProjectTable option chosen allow only creating new Projects in it (there is no existing Projects in a New ProjectTable):
         protected virtual void OnRdButtonProjectsTableCheckedChanged(object sender, EventArgs e)
         {            
             if (ProjectsTable.RdButtonCreateNew.Checked)
@@ -39,7 +41,7 @@ namespace CsiMigrationHelper
             }
         }
 
-        protected virtual void OnCmbxProjectsTableSelectedIndexChange(object sender, EventArgsTableData e)
+        protected virtual void OnCmbxProjectsTableSelectedIndexChange(object sender, EventArgsTableName e)
         {
             if (VerifyTableName(e))
             {
@@ -49,46 +51,48 @@ namespace CsiMigrationHelper
 
         protected virtual void OnProjectsTableSaveButtonClick(object sender, EventArgs ea)
         {
-            EventArgsTableData e = new EventArgsTableData(
-                                      ProjectsTable.TreeNodeOwner.TraverseUpUntil(ProjectsTable.TreeNodeOwner, (int)DbObjectLevel.Instance)
-                                    , ProjectsTable.TreeNodeOwner.Parent.Data.ObjectText
-                                    , ProjectsTable.TreeNodeOwner.Data.ObjectText);
-            if (CreateProjectsTable(e))
+            if (ProjectsTable.RdButtonCreateNew.Checked && ProjectsTable.Text.Length > 0)
             {
-                Console.WriteLine(string.Concat("Created Projects Table: [", e.SchemaName, "].[", e.TableName, "] on Instance: ", e.InstanceNode.Data.ObjectText));
-                //ProjectsTable.RenameButton.Enabled = true;
-                ProjectsTable.LockGuiControls();
-                ProjectsTable.SaveButton.Image = ImageList1.Images[0];
-            }
-            else
-            {
-                ProjectsTable.RenameButton.Enabled = false;
-                ProjectsTable.SaveButton.Image = ImageList1.Images[1];
+                EventArgsTableName e = new EventArgsTableName(
+                                          ProjectsTable.TreeNodeOwner.TraverseUpUntil(ProjectsTable.TreeNodeOwner, (int)DbObjectLevel.Instance)
+                                        , ProjectsTable.TreeNodeOwner.Parent.Data.ObjectText
+                                        , ProjectsTable.TreeNodeOwner.Data.ObjectText);
+                if (CreateProjectsTable(e))
+                {
+                    Console.WriteLine(string.Concat("Created Projects Table: [", e.SchemaName, "].[", e.TableName, "] on Instance: ", e.InstanceNode.Data.ObjectText));
+                    ProjectsTable.LockGuiControls();
+                    ProjectsTable.SaveButton.Image = ImageList1.Images[0];
+                }
+                else
+                {
+                    ProjectsTable.SaveButton.Image = ImageList1.Images[1];
+                }
             }
         }
 
         protected virtual void OnProjectNameSaveButtonClick(object sender, EventArgs ea)
         {
-            EventArgsTableData e = new EventArgsTableData(
+            if (ProjectName.RdButtonCreateNew.Checked && ProjectName.Text.Length > 0)
+            {
+                EventArgsTableName e = new EventArgsTableName(
                                       ProjectsTable.TreeNodeOwner.TraverseUpUntil(ProjectsTable.TreeNodeOwner, (int)DbObjectLevel.Instance)
                                     , ProjectsTable.TreeNodeOwner.Parent.Data.ObjectText
                                     , ProjectsTable.TreeNodeOwner.Data.ObjectText);
 
-            if (CreateProject(e, ProjectName.TreeNodeOwner.Data.ObjectText))
-            {
-                Console.WriteLine(string.Concat("Created Project: [", ProjectName.TreeNodeOwner.Data.ObjectText, "] in table: [", e.SchemaName, "].[", e.TableName, "] on Instance: ", e.InstanceNode.Data.ObjectText));
-                //ProjectName.RenameButton.Enabled = true;
-                ProjectName.LockGuiControls();
-                ProjectName.SaveButton.Image = ImageList1.Images[0];
-            }
-            else
-            {
-                ProjectName.RenameButton.Enabled = false;
-                ProjectName.SaveButton.Image = ImageList1.Images[1];
+                if (CreateProject(e, ProjectName.TreeNodeOwner.Data.ObjectText, ProjectDescription.Text))
+                {
+                    //Console.WriteLine(string.Concat("Created Project: [", ProjectName.TreeNodeOwner.Data.ObjectText, "] in table: [", e.SchemaName, "].[", e.TableName, "] on Instance: ", e.InstanceNode.Data.ObjectText));
+                    ProjectName.LockGuiControls();
+                    ProjectName.SaveButton.Image = ImageList1.Images[0];
+                }
+                else
+                {
+                    ProjectName.SaveButton.Image = ImageList1.Images[1];
+                }
             }
         }
 
-        private bool VerifyTableName(EventArgsTableData e)
+        private bool VerifyTableName(EventArgsTableName e)
         {
             bool result = false;
             try
@@ -104,7 +108,7 @@ namespace CsiMigrationHelper
             return result;
         }
 
-        private bool CreateProjectsTable(EventArgsTableData e)
+        private bool CreateProjectsTable(EventArgsTableName e)
         {
             try
             {
@@ -119,12 +123,12 @@ namespace CsiMigrationHelper
             }
         }
 
-        private bool CreateProject(EventArgsTableData e, string projectName)
+        private bool CreateProject(EventArgsTableName e, string projectName, string projectDescription)
         {
             try
             {
                 return e.InstanceNode.Data.Dbu.ExecuteSql(e.InstanceNode
-                    , SqlText.GetSqlProjectNameInsert(e.SchemaName, e.TableName, projectName)
+                    , SqlText.GetSqlProjectNameInsert(e.SchemaName, e.TableName, projectName, projectDescription)
                     , "Error creating Project: ["+ projectName + "]");
             }
             catch (ExceptionSqlExecError ex)

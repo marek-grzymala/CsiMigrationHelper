@@ -38,6 +38,7 @@ namespace CsiMigrationHelper
         private TreeNode<DbObject> trckSchema;
         private TreeNode<DbObject> trckProjectsTable;
         private TreeNode<DbObject> trckProjectName;
+        private TreeNode<DbObject> trckProjectDescription;
 
         private DbUtil Src = new DbUtil();
         private DbUtil Tgt = new DbUtil();
@@ -68,6 +69,7 @@ namespace CsiMigrationHelper
                 Options.renameTgtColumns = false;
                 Options.projectsTableDefaultName = "CsiMigrationProjectsTable";
                 Options.newProjectDefaultName = "My New Csi Migration Project";
+                Options.newProjectDefaultDescription = "Project description";
             }
 
             root = new TreeNode<DbObject>(new DbObject(DbObjectBranch.Root, DbObjectLevel.Root, "Root", "---------------------- Root Node ----------------------", null));
@@ -175,7 +177,7 @@ namespace CsiMigrationHelper
             }
 
 
-            trckInstance = root.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.Instance, "trckInstance", string.Empty, new GuiElem(tbx_TrackTblInstance), Trck));
+            trckInstance = root.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.Instance, "trckInstance", string.Empty, new GuiElem(tbx_TrackTbl_Instance), Trck));
             {
                 trckDatabase = trckInstance.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.Database, "trckDatabase", string.Empty, new GuiElem(cbxt_TrackTbl_Database), Trck));
                 cbxt_TrackTbl_Database.SetParentTreeNode(trckDatabase);
@@ -185,27 +187,29 @@ namespace CsiMigrationHelper
                     {
                         trckProjectsTable = trckSchema.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.Table, "trckProjectsTable", string.Empty, new GuiElem(cbxt_TrackTbl_ProjectsTable), Trck));                        
                         cbxt_TrackTbl_ProjectsTable.SetParentTreeNode(
-                                                                      trckProjectsTable
-                                                                    , rdbtn_TrackTbl_ProjectsCreateNew
-                                                                    , rdbtn_TrackTbl_ProjectNameUseExisting
-                                                                    , grpbxTrackTbl_ProjectsTableCreateNewUseExisting
-                                                                    , btnTrackTbl_ProjectsSave
-                                                                    , btnTrackTbl_ProjectsEdit);
+                                                                       trckProjectsTable
+                                                                     , rdbtn_TrackTbl_ProjectsCreateNew
+                                                                     , rdbtn_TrackTbl_ProjectNameUseExisting
+                                                                     , grpBx_TrackTbl_ProjectsTableCreateNewUseExisting
+                                                                     , btnTrackTbl_ProjectsSave
+                                                                     , btnTrackTbl_ProjectsEdit);
                         rdbtn_TrackTbl_ProjectsCreateNew.SetParentTreeNode(trckProjectsTable);
                         rdbtn_TrackTbl_ProjectsCreateNew.Checked = true;
                         {
-                            trckProjectName = trckProjectsTable.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.Column, "trckProjectName", string.Empty, new GuiElem(cbxt_TrackTbl_ProjectName), Trck));                            
+                            trckProjectName = trckProjectsTable.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.Column, "trckProjectName", string.Empty, new GuiElem(cbxt_TrackTbl_ProjectName), Trck));
                             cbxt_TrackTbl_ProjectName.SetParentTreeNode(
-                                                                        trckProjectName
-                                                                      , rdbtn_TrackTbl_ProjectNameCreateNew
-                                                                      , rdbtn_TrackTbl_ProjectNameUseExisting
-                                                                      , grpbxTrackTbl_ProjectNameCreateNewUseExisting
-                                                                      , btnTrackTbl_ProjectNameSave
-                                                                      , btnTrackTbl_ProjectNameEdit
-                                                                      );
+                                                                         trckProjectName
+                                                                       , rdbtn_TrackTbl_ProjectNameCreateNew
+                                                                       , rdbtn_TrackTbl_ProjectNameUseExisting
+                                                                       , grpBx_TrackTbl_ProjectNameCreateNewUseExisting
+                                                                       , btnTrackTbl_ProjectNameSave
+                                                                       , btnTrackTbl_ProjectNameEdit);
                             rdbtn_TrackTbl_ProjectNameCreateNew.SetParentTreeNode(trckProjectName);
                             rdbtn_TrackTbl_ProjectNameCreateNew.Checked = true;
-                            TrckTblHndlr = new TrackingTblHndlr(cbxt_TrackTbl_ProjectsTable, cbxt_TrackTbl_ProjectName, imageList1);
+                            TrckTblHndlr = new TrackingTblHndlr(cbxt_TrackTbl_ProjectsTable, cbxt_TrackTbl_ProjectName, tbx_TrackTbl_ProjectDescription, imageList1);
+                            {
+                                trckProjectDescription = trckProjectName.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.DataType, "trckProjectDescription", string.Empty, new GuiElem(tbx_TrackTbl_ProjectDescription)));
+                            }
                         }
                     }
                 }

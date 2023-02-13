@@ -54,11 +54,13 @@ namespace CsiMigrationHelper
             this.rdbtnTranslateUserDefinedDataTypes = new System.Windows.Forms.RadioButton();
             this.rdbtnUseDataTypesAsDefinedInSrc = new System.Windows.Forms.RadioButton();
             this.Tab_TrackingTable = new System.Windows.Forms.TabPage();
+            this.lblNewProjectsDefaultName = new System.Windows.Forms.Label();
+            this.tbx_NewProjectDefaultName = new System.Windows.Forms.TextBox();
             this.lblTrackingTableDefaultName = new System.Windows.Forms.Label();
             this.tbx_ProjectsTableDefaultName = new System.Windows.Forms.TextBox();
             this.pnlButtons = new System.Windows.Forms.Panel();
-            this.lblNewProjectsDefaultName = new System.Windows.Forms.Label();
-            this.tbx_NewProjectDefaultName = new System.Windows.Forms.TextBox();
+            this.lblNewProjectsDefaultDescription = new System.Windows.Forms.Label();
+            this.tbx_NewProjectDefaultDescription = new System.Windows.Forms.TextBox();
             this.tabControlOptions.SuspendLayout();
             this.Tab_SrcTgtSetup.SuspendLayout();
             this.Tab_TgtMetaDataSetup.SuspendLayout();
@@ -319,6 +321,8 @@ namespace CsiMigrationHelper
             // 
             // Tab_TrackingTable
             // 
+            this.Tab_TrackingTable.Controls.Add(this.lblNewProjectsDefaultDescription);
+            this.Tab_TrackingTable.Controls.Add(this.tbx_NewProjectDefaultDescription);
             this.Tab_TrackingTable.Controls.Add(this.lblNewProjectsDefaultName);
             this.Tab_TrackingTable.Controls.Add(this.tbx_NewProjectDefaultName);
             this.Tab_TrackingTable.Controls.Add(this.lblTrackingTableDefaultName);
@@ -330,6 +334,24 @@ namespace CsiMigrationHelper
             this.Tab_TrackingTable.TabIndex = 2;
             this.Tab_TrackingTable.Text = "TrackingTable";
             this.Tab_TrackingTable.UseVisualStyleBackColor = true;
+            // 
+            // lblNewProjectsDefaultName
+            // 
+            this.lblNewProjectsDefaultName.AutoSize = true;
+            this.lblNewProjectsDefaultName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNewProjectsDefaultName.Location = new System.Drawing.Point(19, 107);
+            this.lblNewProjectsDefaultName.Name = "lblNewProjectsDefaultName";
+            this.lblNewProjectsDefaultName.Size = new System.Drawing.Size(223, 18);
+            this.lblNewProjectsDefaultName.TabIndex = 6;
+            this.lblNewProjectsDefaultName.Text = "Default Name for Projects Table:";
+            // 
+            // tbx_NewProjectDefaultName
+            // 
+            this.tbx_NewProjectDefaultName.Location = new System.Drawing.Point(258, 105);
+            this.tbx_NewProjectDefaultName.Name = "tbx_NewProjectDefaultName";
+            this.tbx_NewProjectDefaultName.Size = new System.Drawing.Size(204, 24);
+            this.tbx_NewProjectDefaultName.TabIndex = 7;
+            this.tbx_NewProjectDefaultName.Text = "Csix Migration Project";
             // 
             // lblTrackingTableDefaultName
             // 
@@ -359,23 +381,23 @@ namespace CsiMigrationHelper
             this.pnlButtons.Size = new System.Drawing.Size(539, 53);
             this.pnlButtons.TabIndex = 13;
             // 
-            // lblNewProjectsDefaultName
+            // lblNewProjectsDefaultDescription
             // 
-            this.lblNewProjectsDefaultName.AutoSize = true;
-            this.lblNewProjectsDefaultName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNewProjectsDefaultName.Location = new System.Drawing.Point(19, 107);
-            this.lblNewProjectsDefaultName.Name = "lblNewProjectsDefaultName";
-            this.lblNewProjectsDefaultName.Size = new System.Drawing.Size(223, 18);
-            this.lblNewProjectsDefaultName.TabIndex = 6;
-            this.lblNewProjectsDefaultName.Text = "Default Name for Projects Table:";
+            this.lblNewProjectsDefaultDescription.AutoSize = true;
+            this.lblNewProjectsDefaultDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNewProjectsDefaultDescription.Location = new System.Drawing.Point(19, 162);
+            this.lblNewProjectsDefaultDescription.Name = "lblNewProjectsDefaultDescription";
+            this.lblNewProjectsDefaultDescription.Size = new System.Drawing.Size(223, 18);
+            this.lblNewProjectsDefaultDescription.TabIndex = 8;
+            this.lblNewProjectsDefaultDescription.Text = "Default Name for Projects Table:";
             // 
-            // tbx_NewProjectDefaultName
+            // tbx_NewProjectDefaultDescription
             // 
-            this.tbx_NewProjectDefaultName.Location = new System.Drawing.Point(258, 105);
-            this.tbx_NewProjectDefaultName.Name = "tbx_NewProjectDefaultName";
-            this.tbx_NewProjectDefaultName.Size = new System.Drawing.Size(204, 24);
-            this.tbx_NewProjectDefaultName.TabIndex = 7;
-            this.tbx_NewProjectDefaultName.Text = "Csix Migration Project";
+            this.tbx_NewProjectDefaultDescription.Location = new System.Drawing.Point(258, 160);
+            this.tbx_NewProjectDefaultDescription.Name = "tbx_NewProjectDefaultDescription";
+            this.tbx_NewProjectDefaultDescription.Size = new System.Drawing.Size(204, 24);
+            this.tbx_NewProjectDefaultDescription.TabIndex = 9;
+            this.tbx_NewProjectDefaultDescription.Text = "Csix Migration Project Description";
             // 
             // Options
             // 
@@ -435,5 +457,7 @@ namespace CsiMigrationHelper
         private System.Windows.Forms.TextBox tbx_ProjectsTableDefaultName;
         private System.Windows.Forms.Label lblNewProjectsDefaultName;
         private System.Windows.Forms.TextBox tbx_NewProjectDefaultName;
+        private System.Windows.Forms.Label lblNewProjectsDefaultDescription;
+        private System.Windows.Forms.TextBox tbx_NewProjectDefaultDescription;
     }
 }

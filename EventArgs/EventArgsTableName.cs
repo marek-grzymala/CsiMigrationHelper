@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace CsiMigrationHelper
 {
-    public class EventArgsTableData : EventArgs
+    public class EventArgsTableName : EventArgs
     {
         public TreeNode<DbObject> InstanceNode;
         public string SchemaName;
         public string TableName;
 
-        public EventArgsTableData(TreeNode<DbObject> instanceNode, string schemaName, string tableName)
+        public EventArgsTableName(TreeNode<DbObject> instanceNode, string schemaName, string tableName)
         {
             InstanceNode = instanceNode;
             SchemaName = schemaName;

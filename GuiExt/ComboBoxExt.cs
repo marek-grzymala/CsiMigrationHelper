@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace CsiMigrationHelper
 {
-    public delegate void HandlerCmbxProjectsTableSelectedIndexChanged(object sender, EventArgsTableData e);
+    public delegate void HandlerCmbxProjectsTableSelectedIndexChanged(object sender, EventArgsTableName e);
     public class ComboBoxExt : ComboBox
     {
         public event HandlerCmbxProjectsTableSelectedIndexChanged eventCmbxProjectsTableSelectedIndexChanged;
@@ -46,7 +46,7 @@ namespace CsiMigrationHelper
                     {
                         InstanceNode = TreeNodeOwner.TraverseUpUntil(TreeNodeOwner, (int)DbObjectLevel.Instance);
                     }
-                    string newCbxSelection = TreeNodeOwner.Data.Gui.GetCbxSelectionChangeCommited(ParamSelector.GetParamMetaByObjectLvl(TreeNodeOwner.Data.ObjectLevel).DisplayMember);
+                    string newCbxSelection = TreeNodeOwner.Data.Gui.GetCbxSelectionChangeCommited(ParamSelector.GetParamMetaByObjectLvl(TreeNodeOwner.Data.ObjectLevel, TreeNodeOwner.Data.ObjectBranch).DisplayMember);
 
                     if (newCbxSelection.Length > 0)
                     {
@@ -63,7 +63,7 @@ namespace CsiMigrationHelper
                             if (deleg != null)
                             {
                                 InstanceNode = TreeNodeOwner.TraverseUpUntil(TreeNodeOwner, (int)DbObjectLevel.Instance);
-                                deleg(this, new EventArgsTableData(InstanceNode, TreeNodeOwner.Parent.Data.ObjectText, TreeNodeOwner.Data.ObjectText)); //this line triggers the execution of OnCmbxProjectsTableSelectedIndexChange() in TrackingTblHndlr class
+                                deleg(this, new EventArgsTableName(InstanceNode, TreeNodeOwner.Parent.Data.ObjectText, TreeNodeOwner.Data.ObjectText)); //this line triggers the execution of OnCmbxProjectsTableSelectedIndexChange() in TrackingTblHndlr class
                             }
                         }
                         CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner);

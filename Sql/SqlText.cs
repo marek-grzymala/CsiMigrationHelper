@@ -1,4 +1,5 @@
-﻿namespace CsiMigrationHelper
+﻿using System;
+namespace CsiMigrationHelper
 {
     public static class SqlText
     {
@@ -564,26 +565,49 @@
         public static string GetSqlTableDefinitionProjectsTable(string schemaName, string tableName)
         {
             return string.Concat( "CREATE TABLE [", schemaName, "].[", tableName, "]("
-                                 , "[ProjectID] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY CLUSTERED,"
+                                 , "[ProjectID] INT IDENTITY(1,1) NOT NULL PRIMARY KEY CLUSTERED,"  //UNIQUEIDENTIFIER
                                  , "[ProjectName] NVARCHAR(256) UNIQUE NOT NULL,"
+                                 , "[ProjectDescription] NVARCHAR(256) NULL,"
                                  , "[ProjectCreateDate] DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP);");
         }
 
         public static string GetSqlTableVerificationProjectsTable(string schemaName, string tableName)
         {
-            return string.Concat("SELECT [ProjectID]"
-                                ,"      ,[ProjectName]"
-                                ,"      ,[ProjectCreateDate]"
-                                ,"FROM   [", schemaName, "].[", tableName, "]"
+            return string.Concat("SELECT  [ProjectID]"
+                                , "      ,[ProjectName]"
+                                , "      ,[ProjectDescription]"
+                                , "      ,[ProjectCreateDate]"
+                                , "FROM   [", schemaName, "].[", tableName, "]"
                                 ,"WHERE  1 = 0");
         }
 
-        public static string GetSqlProjectNameInsert(string schemaName, string tableName, string projectName)
+        public static string GetSqlProjectNameInsert(string schemaName, string tableName, string projectName, string projectDescription)
         {
+            //return string.Concat(
+            //      "INSERT INTO [", schemaName, "].[", tableName, "] "
+            //    , "           ([ProjectID], [ProjectName])		    "
+            //    , "VALUES	  (NEWID(), '", projectName, "');	    "
+            //    );
             return string.Concat(
                   "INSERT INTO [", schemaName, "].[", tableName, "] "
-                , "           ([ProjectID], [ProjectName])		    "
-                , "VALUES	  (NEWID(), '", projectName, "');	    "
+                , "           ([ProjectName], [ProjectDescription])		    "
+                , "VALUES	  ('", projectName, "', '", projectDescription, "');	    "
+                );
+        }
+
+        public static string GetSqlProjectListFromProjectTable(string schemaName, string tableName)
+        {
+            return string.Concat("SELECT [ProjectID] AS [project_id] "
+                    , "      ,[ProjectName] AS [ProjectName] "
+                    , "FROM   [", schemaName, "].[", tableName, "];");
+        }
+
+        public static string GetSqlProjectDescriptionByProjectName(string schemaName, string tableName, string projectName)
+        {
+            return string.Concat(
+                      "SELECT [ProjectDescription]				"
+                    , "FROM   [", schemaName, "].[", tableName, "]"
+                    , "WHERE  [ProjectName] = '", projectName, "'; " //'My New Csi Migration Project';		"
                 );
         }
 
@@ -616,11 +640,26 @@
                     break;
 
                 case (int)DbObjectLevel.Column:
-                    result = SqlColList;
+                    if (tn.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl)
+                    {                        
+                        result = GetSqlProjectListFromProjectTable(tn.TraverseUpUntil(tn, (int)DbObjectLevel.Schema).Data.ObjectText, tn.TraverseUpUntil(tn, (int)DbObjectLevel.Table).Data.ObjectText);
+                    }
+                    else
+                    {
+                        result = SqlColList;
+                    }
                     break;
 
                 case (int)DbObjectLevel.DataType:
-                    result = SqlDataTypeByColName;
+                    if (tn.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl)
+                    {
+                        result = GetSqlProjectDescriptionByProjectName(tn.TraverseUpUntil(tn, (int)DbObjectLevel.Schema).Data.ObjectText, tn.TraverseUpUntil(tn, (int)DbObjectLevel.Table).Data.ObjectText, tn.TraverseUpUntil(tn, (int)DbObjectLevel.Column).Data.ObjectText);
+                        Console.WriteLine(string.Concat("????????????????????  ", result));                                                
+                    }
+                    else
+                    {
+                        result = SqlDataTypeByColName;
+                    }                    
                     break;
 
                 case (int)DbObjectLevel.PartitionScheme:
