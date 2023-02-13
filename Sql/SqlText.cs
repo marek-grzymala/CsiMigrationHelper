@@ -565,8 +565,26 @@
         {
             return string.Concat( "CREATE TABLE [", schemaName, "].[", tableName, "]("
                                  , "[ProjectID] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY CLUSTERED,"
-                                 , "[ProjectName] NVARCHAR(256) NOT NULL,"
+                                 , "[ProjectName] NVARCHAR(256) UNIQUE NOT NULL,"
                                  , "[ProjectCreateDate] DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP);");
+        }
+
+        public static string GetSqlTableVerificationProjectsTable(string schemaName, string tableName)
+        {
+            return string.Concat("SELECT [ProjectID]"
+                                ,"      ,[ProjectName]"
+                                ,"      ,[ProjectCreateDate]"
+                                ,"FROM   [", schemaName, "].[", tableName, "]"
+                                ,"WHERE  1 = 0");
+        }
+
+        public static string GetSqlProjectNameInsert(string schemaName, string tableName, string projectName)
+        {
+            return string.Concat(
+                  "INSERT INTO [", schemaName, "].[", tableName, "] "
+                , "           ([ProjectID], [ProjectName])		    "
+                , "VALUES	  (NEWID(), '", projectName, "');	    "
+                );
         }
 
         public static string GetSqlObjectListByNodeLevel(TreeNode<DbObject> tn) //(int lvl)

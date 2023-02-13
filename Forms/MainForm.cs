@@ -188,6 +188,7 @@ namespace CsiMigrationHelper
                                                                       trckProjectsTable
                                                                     , rdbtn_TrackTbl_ProjectsCreateNew
                                                                     , rdbtn_TrackTbl_ProjectNameUseExisting
+                                                                    , grpbxTrackTbl_ProjectsTableCreateNewUseExisting
                                                                     , btnTrackTbl_ProjectsSave
                                                                     , btnTrackTbl_ProjectsEdit);
                         rdbtn_TrackTbl_ProjectsCreateNew.SetParentTreeNode(trckProjectsTable);
@@ -198,12 +199,13 @@ namespace CsiMigrationHelper
                                                                         trckProjectName
                                                                       , rdbtn_TrackTbl_ProjectNameCreateNew
                                                                       , rdbtn_TrackTbl_ProjectNameUseExisting
+                                                                      , grpbxTrackTbl_ProjectNameCreateNewUseExisting
                                                                       , btnTrackTbl_ProjectNameSave
                                                                       , btnTrackTbl_ProjectNameEdit
                                                                       );
                             rdbtn_TrackTbl_ProjectNameCreateNew.SetParentTreeNode(trckProjectName);
                             rdbtn_TrackTbl_ProjectNameCreateNew.Checked = true;
-                            TrckTblHndlr = new TrackingTblHndlr(cbxt_TrackTbl_ProjectsTable, cbxt_TrackTbl_ProjectName);
+                            TrckTblHndlr = new TrackingTblHndlr(cbxt_TrackTbl_ProjectsTable, cbxt_TrackTbl_ProjectName, imageList1);
                         }
                     }
                 }

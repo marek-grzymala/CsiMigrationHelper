@@ -62,6 +62,7 @@ namespace CsiMigrationHelper
                             var deleg = eventCmbxProjectsTableSelectedIndexChanged as HandlerCmbxProjectsTableSelectedIndexChanged;
                             if (deleg != null)
                             {
+                                InstanceNode = TreeNodeOwner.TraverseUpUntil(TreeNodeOwner, (int)DbObjectLevel.Instance);
                                 deleg(this, new EventArgsTableData(InstanceNode, TreeNodeOwner.Parent.Data.ObjectText, TreeNodeOwner.Data.ObjectText)); //this line triggers the execution of OnCmbxProjectsTableSelectedIndexChange() in TrackingTblHndlr class
                             }
                         }

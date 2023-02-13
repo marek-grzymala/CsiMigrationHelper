@@ -15,18 +15,27 @@ namespace CsiMigrationHelper
         {
         }
 
-        public ExceptionSqlExecError(string message)
+        public ExceptionSqlExecError(string message, string customMsgOnError)
             : base(message)
         {
-            if (MessageBox.Show(string.Concat(message, Environment.NewLine
-                , "Do you want to retry?"), "Confirm Selection"
-                , MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+
+            if (message.Contains("Invalid column name"))
             {
-                retry = false;
+                MessageBox.Show(customMsgOnError + Environment.NewLine + string.Concat(message), customMsgOnError, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                retry = true;
+
+                if (MessageBox.Show(string.Concat(customMsgOnError + Environment.NewLine + message, Environment.NewLine
+                    , "Do you want to retry?"), "Confirm Selection"
+                    , MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    retry = false;
+                }
+                else
+                {
+                    retry = true;
+                }
             }
         }
 

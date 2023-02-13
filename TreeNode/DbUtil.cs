@@ -85,7 +85,7 @@ namespace CsiMigrationHelper
             return true;
         }
 
-        public bool ExecuteSql(TreeNode<DbObject> instanceNode, string sql)
+        public bool ExecuteSql(TreeNode<DbObject> instanceNode, string sql, string customMsgOnError)
         {
             using (instanceNode.Data.Dbu)
             {
@@ -103,7 +103,7 @@ namespace CsiMigrationHelper
                     {
                         instanceNode.Data.Dbu.CloseConnection();
                         cmd.Dispose();
-                        throw new ExceptionSqlExecError(ex.Message);
+                        throw new ExceptionSqlExecError(ex.Message, customMsgOnError);
                     }
                     finally
                     {

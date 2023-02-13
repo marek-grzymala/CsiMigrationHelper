@@ -274,7 +274,9 @@ namespace CsiMigrationHelper
         {
             try
             {
-                return e.TgtInstance.Data.Dbu.ExecuteSql(e.TgtInstance, string.Concat(CreateTable, Environment.NewLine, CreateConstraints));
+                return e.TgtInstance.Data.Dbu.ExecuteSql(e.TgtInstance
+                    , string.Concat(CreateTable, Environment.NewLine, CreateConstraints)
+                    , "Error Creating Table");
             }
             catch (ExceptionSqlExecError ex)
             {
