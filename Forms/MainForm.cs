@@ -70,6 +70,7 @@ namespace CsiMigrationHelper
                 Options.projectsTableDefaultName = "CsiMigrationProjectsTable";
                 Options.newProjectDefaultName = "My New Csi Migration Project";
                 Options.newProjectDefaultDescription = "Project description";
+                Options.migrationTrackingTblSuffix = "_MigrationTracking";
             }
 
             root = new TreeNode<DbObject>(new DbObject(DbObjectBranch.Root, DbObjectLevel.Root, "Root", "---------------------- Root Node ----------------------", null));
@@ -226,8 +227,42 @@ namespace CsiMigrationHelper
             gridConstraintList_Archive.GetType().GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(gridConstraintList_Archive, true, null);
 
             elg = new EventLog(rtbxEventLog);
-            #endregion
 
+
+            TgtMtdHdlr_Current = new TgtTblMetaDataHandler(new EventArgsTgtTblMetadata(
+                                                                root,
+                                                                tgtTable_Current,
+                                                                tbx_TgtMetadataTableName_Current,
+                                                                gridColList_Current,
+                                                                gridConstraintList_Current,
+                                                                btnCurrentReload,
+                                                                btnCurrentSyntax,
+                                                                btnCurrentExecute,
+                                                                imageList1
+                                                              ));
+            TgtMtdHdlr_Staging = new TgtTblMetaDataHandler(new EventArgsTgtTblMetadata(
+                                                                root,
+                                                                tgtTable_Staging,
+                                                                tbx_TgtMetadataTableName_Staging,
+                                                                gridColList_Staging,
+                                                                gridConstraintList_Staging,
+                                                                btnStagingReload,
+                                                                btnStagingSyntax,
+                                                                btnStagingExecute,
+                                                                imageList1
+                                                              ));
+            TgtMtdHdlr_Archive = new TgtTblMetaDataHandler(new EventArgsTgtTblMetadata(
+                                                                root,
+                                                                tgtTable_Archive,
+                                                                tbx_TgtMetaDataTableName_Archive,
+                                                                gridColList_Archive,
+                                                                gridConstraintList_Archive,
+                                                                btnArchiveReload,
+                                                                btnArchiveSyntax,
+                                                                btnArchiveExecute,
+                                                                imageList1
+                                                              ));
+            #endregion
         }
 
         //-------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -266,177 +301,6 @@ namespace CsiMigrationHelper
         private void chkBxArchive_CheckedChanged(object sender, EventArgs e)
         {
             tgtSchema_Archive.Enabled = chkBxArchive.Checked ? true : false;
-        }
-        #endregion
-
-        //-------------------------------------------------------------------------------------------------------------------------------------------------------
-        //-------------------------------------------------------------------- TGT METADATA: --------------------------------------------------------------------
-        //-------------------------------------------------------------------------------------------------------------------------------------------------------
-
-        #region TgtMetaData
-        private void btnCurrentReload_Click(object sender, EventArgs e)
-        {
-            TgtMtdHdlr_Current.e = new EventArgsTgtTblMetadata(
-                root,
-                tgtTable_Current,
-                tbx_TgtMetadataTableName_Current,
-                gridColList_Current,
-                gridConstraintList_Current,
-                btnCurrentSyntax,
-                btnCurrentExecute
-                );
-            if (TgtMtdHdlr_Current.LoadGrids())            
-            {
-                btnCurrentReload.Image = imageList1.Images[0];
-            }
-            else 
-            {
-                btnCurrentReload.Image = imageList1.Images[1];
-            }
-        }
-
-        private void btnCurrentSyntax_Click(object sender, EventArgs e)
-        {
-            if (TgtMtdHdlr_Current.CheckSqlSyntax())
-            {
-                btnCurrentSyntax.Image = imageList1.Images[0];
-            }
-            else
-            {
-                btnCurrentSyntax.Image = imageList1.Images[1];
-            }
-        }
-        private void btnStagingReload_Click(object sender, EventArgs e)
-        {
-            TgtMtdHdlr_Staging.e = new EventArgsTgtTblMetadata(
-                root,
-                tgtTable_Staging,
-                tbx_TgtMetadataTableName_Staging,
-                gridColList_Staging,
-                gridConstraintList_Staging,
-                btnStagingSyntax,
-                btnStagingExecute
-                );
-            
-            if (TgtMtdHdlr_Staging.LoadGrids())
-            {
-                btnStagingReload.Image = imageList1.Images[0];
-            }
-            else
-            {
-                btnStagingReload.Image = imageList1.Images[1];
-            }
-        }
-
-        private void btnStagingSyntax_Click(object sender, EventArgs e)
-        {
-            if (TgtMtdHdlr_Staging.CheckSqlSyntax())
-            {
-                btnStagingSyntax.Image = imageList1.Images[0];
-            }
-            else
-            {
-                btnStagingSyntax.Image = imageList1.Images[1];
-            }
-        }
-
-        private void btnArchiveReload_Click(object sender, EventArgs e)
-        {
-            TgtMtdHdlr_Archive.e = new EventArgsTgtTblMetadata(
-                root,
-                tgtTable_Archive,
-                tbx_TgtMetaDataTableName_Archive,
-                gridColList_Archive,
-                gridConstraintList_Archive,
-                btnArchiveSyntax,
-                btnArchiveExecute
-                );
-            
-            if (TgtMtdHdlr_Archive.LoadGrids())
-            {
-                btnArchiveReload.Image = imageList1.Images[0];
-            }
-            else
-            {
-                btnArchiveReload.Image = imageList1.Images[1];
-            }
-        }
-
-        private void btnArchiveSyntax_Click(object sender, EventArgs e)
-        {
-            if (TgtMtdHdlr_Archive.CheckSqlSyntax())
-            {
-                btnArchiveSyntax.Image = imageList1.Images[0];
-            }
-            else
-            {
-                btnArchiveSyntax.Image = imageList1.Images[1];
-            }
-        }
-        private void gridColList_Current_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            btnCurrentExecute.Enabled = false;
-        }
-
-        private void gridConstraintList_Current_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            btnCurrentExecute.Enabled = false;
-        }
-
-        private void gridColList_Staging_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            btnStagingExecute.Enabled = false;
-        }
-
-        private void gridConstraintList_Staging_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            btnStagingExecute.Enabled = false;
-        }
-
-        private void gridColList_Archive_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            btnArchiveExecute.Enabled = false;
-        }
-
-        private void gridConstraintList_Archive_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            btnArchiveExecute.Enabled = false;
-        }
-
-        private void btnCurrentExecute_Click(object sender, EventArgs e)
-        {
-            if (TgtMtdHdlr_Current.ExecuteCreateTbl())
-            {
-                btnCurrentExecute.Image = imageList1.Images[0];
-            }
-            else
-            {
-                btnCurrentExecute.Image = imageList1.Images[1];
-            }
-        }
-
-        private void btnStagingExecute_Click(object sender, EventArgs e)
-        {
-            if (TgtMtdHdlr_Staging.ExecuteCreateTbl())
-            {
-                btnStagingExecute.Image = imageList1.Images[0];
-            }
-            else
-            {
-                btnStagingExecute.Image = imageList1.Images[1];
-            }
-        }
-
-        private void btnArchiveExecute_Click(object sender, EventArgs e)
-        {
-            if (TgtMtdHdlr_Archive.ExecuteCreateTbl())
-            {
-                btnArchiveExecute.Image = imageList1.Images[0];
-            }
-            else
-            {
-                btnArchiveExecute.Image = imageList1.Images[1];
-            }
         }
         #endregion
 

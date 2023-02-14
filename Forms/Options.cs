@@ -26,7 +26,7 @@ namespace CsiMigrationHelper
         public static string projectsTableDefaultName;
         public static string newProjectDefaultName;
         public static string newProjectDefaultDescription;
-        public static string suffixTrackingTbl;
+        public static string migrationTrackingTblSuffix;
 
         public Options()
         {
@@ -44,6 +44,7 @@ namespace CsiMigrationHelper
             tbx_ProjectsTableDefaultName.Text = projectsTableDefaultName;
             tbx_NewProjectDefaultName.Text = newProjectDefaultName;
             tbx_NewProjectDefaultDescription.Text = newProjectDefaultDescription;
+            tbx_MIgrationTrackingTblSuffix.Text = migrationTrackingTblSuffix;
         }
 
         public static bool HandleOptionsMenuClick()
@@ -67,6 +68,7 @@ namespace CsiMigrationHelper
                     projectsTableDefaultName = options.tbx_ProjectsTableDefaultName.Text;
                     newProjectDefaultName = options.tbx_NewProjectDefaultName.Text;
                     newProjectDefaultDescription = options.tbx_NewProjectDefaultDescription.Text;
+                    migrationTrackingTblSuffix = options.tbx_MIgrationTrackingTblSuffix.Text;
                 }
             }
             return diagResult == DialogResult.OK;
@@ -101,10 +103,6 @@ namespace CsiMigrationHelper
                 else if (t.Data.ObjectName.Contains("Archive"))
                 {
                     suffix = suffixArchive;
-                }
-                else if (t.Data.ObjectName.Contains("trckTable"))
-                {
-                    suffix = suffixTrackingTbl;
                 }
             }
             else

@@ -21,6 +21,52 @@ namespace CsiMigrationHelper
         public TgtTblMetaDataHandler(EventArgsTgtTblMetadata _e)
         {
             e = _e;
+            e.BtnReload.Click += new EventHandler(OnBtnReloadClick);
+            e.BtnCheckSyntax.Click += new EventHandler(OnBtnCheckSyntaxClick);
+            e.BtnExecute.Click += new EventHandler(OnBtnExecuteClick);
+            e.GridColList.CellValueChanged += new DataGridViewCellEventHandler(OnGridCurrentCellValueChanged);
+            e.GridConstraintList.CellValueChanged += new DataGridViewCellEventHandler(OnGridCurrentCellValueChanged);
+        }
+
+        protected virtual void OnBtnReloadClick(object sender, EventArgs ea)
+        {
+            if (LoadGrids())
+            {
+                e.BtnReload.Image = e.ImageList1.Images[0];
+            }
+            else
+            {
+                e.BtnReload.Image = e.ImageList1.Images[1];
+            }
+        }
+
+        protected virtual void OnBtnCheckSyntaxClick(object sender, EventArgs ea)
+        {
+            if (CheckSqlSyntax())
+            {
+                e.BtnCheckSyntax.Image = e.ImageList1.Images[0];
+            }
+            else
+            {
+                e.BtnCheckSyntax.Image = e.ImageList1.Images[1];
+            }
+        }
+
+        protected virtual void OnBtnExecuteClick(object sender, EventArgs ea)
+        {
+            if (ExecuteCreateTbl())
+            {
+                e.BtnExecute.Image = e.ImageList1.Images[0];
+            }
+            else
+            {
+                e.BtnExecute.Image = e.ImageList1.Images[1];
+            }
+        }
+
+        protected virtual void OnGridCurrentCellValueChanged(object sender, DataGridViewCellEventArgs ea)
+        {
+            e.BtnExecute.Enabled = false;
         }
 
         public bool LoadGrids()
@@ -104,11 +150,11 @@ namespace CsiMigrationHelper
                             e.GridColList.Update();
                             e.GridConstraintList.Update();
 
-                            e.CheckSyntaxButton.Image = null;
-                            e.CheckSyntaxButton.Enabled = true;
+                            e.BtnCheckSyntax.Image = null;
+                            e.BtnCheckSyntax.Enabled = true;
 
-                            e.ExecButton.Image = null;
-                            e.ExecButton.Enabled = false;
+                            e.BtnExecute.Image = null;
+                            e.BtnExecute.Enabled = false;
                             result = true;
                         }
                     }
@@ -126,10 +172,10 @@ namespace CsiMigrationHelper
             {
                 e.GridColList.DataSource = null;
                 e.GridConstraintList.DataSource = null;                
-                e.CheckSyntaxButton.Image = null;
-                e.CheckSyntaxButton.Enabled = false;
-                e.ExecButton.Image = null;
-                e.ExecButton.Enabled = false;                
+                e.BtnCheckSyntax.Image = null;
+                e.BtnCheckSyntax.Enabled = false;
+                e.BtnExecute.Image = null;
+                e.BtnExecute.Enabled = false;                
             }
             return result;
         }
@@ -256,15 +302,15 @@ namespace CsiMigrationHelper
             {
                 if (e.TgtInstance.Data.Dbu.ParseSql(e.TgtInstance, string.Concat(CreateTable, Environment.NewLine, CreateConstraints)))
                 {
-                    e.ExecButton.Image = null;
-                    e.ExecButton.Enabled = true;
+                    e.BtnExecute.Image = null;
+                    e.BtnExecute.Enabled = true;
                     result = true;
                 }
             }
             catch (ExceptionSqlParseError ex)
             {
-                e.ExecButton.Image = null;
-                e.ExecButton.Enabled = false;
+                e.BtnExecute.Image = null;
+                e.BtnExecute.Enabled = false;
                 result = false;
             }
             return result;

@@ -54,13 +54,15 @@ namespace CsiMigrationHelper
             this.rdbtnTranslateUserDefinedDataTypes = new System.Windows.Forms.RadioButton();
             this.rdbtnUseDataTypesAsDefinedInSrc = new System.Windows.Forms.RadioButton();
             this.Tab_TrackingTable = new System.Windows.Forms.TabPage();
+            this.lblNewProjectsDefaultDescription = new System.Windows.Forms.Label();
+            this.tbx_NewProjectDefaultDescription = new System.Windows.Forms.TextBox();
             this.lblNewProjectsDefaultName = new System.Windows.Forms.Label();
             this.tbx_NewProjectDefaultName = new System.Windows.Forms.TextBox();
             this.lblTrackingTableDefaultName = new System.Windows.Forms.Label();
             this.tbx_ProjectsTableDefaultName = new System.Windows.Forms.TextBox();
             this.pnlButtons = new System.Windows.Forms.Panel();
-            this.lblNewProjectsDefaultDescription = new System.Windows.Forms.Label();
-            this.tbx_NewProjectDefaultDescription = new System.Windows.Forms.TextBox();
+            this.lblMigrationTrackingTblSuffix = new System.Windows.Forms.Label();
+            this.tbx_MIgrationTrackingTblSuffix = new System.Windows.Forms.TextBox();
             this.tabControlOptions.SuspendLayout();
             this.Tab_SrcTgtSetup.SuspendLayout();
             this.Tab_TgtMetaDataSetup.SuspendLayout();
@@ -321,6 +323,8 @@ namespace CsiMigrationHelper
             // 
             // Tab_TrackingTable
             // 
+            this.Tab_TrackingTable.Controls.Add(this.lblMigrationTrackingTblSuffix);
+            this.Tab_TrackingTable.Controls.Add(this.tbx_MIgrationTrackingTblSuffix);
             this.Tab_TrackingTable.Controls.Add(this.lblNewProjectsDefaultDescription);
             this.Tab_TrackingTable.Controls.Add(this.tbx_NewProjectDefaultDescription);
             this.Tab_TrackingTable.Controls.Add(this.lblNewProjectsDefaultName);
@@ -335,11 +339,29 @@ namespace CsiMigrationHelper
             this.Tab_TrackingTable.Text = "TrackingTable";
             this.Tab_TrackingTable.UseVisualStyleBackColor = true;
             // 
+            // lblNewProjectsDefaultDescription
+            // 
+            this.lblNewProjectsDefaultDescription.AutoSize = true;
+            this.lblNewProjectsDefaultDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNewProjectsDefaultDescription.Location = new System.Drawing.Point(43, 147);
+            this.lblNewProjectsDefaultDescription.Name = "lblNewProjectsDefaultDescription";
+            this.lblNewProjectsDefaultDescription.Size = new System.Drawing.Size(188, 18);
+            this.lblNewProjectsDefaultDescription.TabIndex = 8;
+            this.lblNewProjectsDefaultDescription.Text = "Default Project Description:";
+            // 
+            // tbx_NewProjectDefaultDescription
+            // 
+            this.tbx_NewProjectDefaultDescription.Location = new System.Drawing.Point(273, 145);
+            this.tbx_NewProjectDefaultDescription.Name = "tbx_NewProjectDefaultDescription";
+            this.tbx_NewProjectDefaultDescription.Size = new System.Drawing.Size(204, 24);
+            this.tbx_NewProjectDefaultDescription.TabIndex = 9;
+            this.tbx_NewProjectDefaultDescription.Text = "Csix Migration Project Description";
+            // 
             // lblNewProjectsDefaultName
             // 
             this.lblNewProjectsDefaultName.AutoSize = true;
             this.lblNewProjectsDefaultName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNewProjectsDefaultName.Location = new System.Drawing.Point(19, 107);
+            this.lblNewProjectsDefaultName.Location = new System.Drawing.Point(43, 102);
             this.lblNewProjectsDefaultName.Name = "lblNewProjectsDefaultName";
             this.lblNewProjectsDefaultName.Size = new System.Drawing.Size(223, 18);
             this.lblNewProjectsDefaultName.TabIndex = 6;
@@ -347,7 +369,7 @@ namespace CsiMigrationHelper
             // 
             // tbx_NewProjectDefaultName
             // 
-            this.tbx_NewProjectDefaultName.Location = new System.Drawing.Point(258, 105);
+            this.tbx_NewProjectDefaultName.Location = new System.Drawing.Point(273, 100);
             this.tbx_NewProjectDefaultName.Name = "tbx_NewProjectDefaultName";
             this.tbx_NewProjectDefaultName.Size = new System.Drawing.Size(204, 24);
             this.tbx_NewProjectDefaultName.TabIndex = 7;
@@ -357,7 +379,7 @@ namespace CsiMigrationHelper
             // 
             this.lblTrackingTableDefaultName.AutoSize = true;
             this.lblTrackingTableDefaultName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTrackingTableDefaultName.Location = new System.Drawing.Point(19, 57);
+            this.lblTrackingTableDefaultName.Location = new System.Drawing.Point(43, 57);
             this.lblTrackingTableDefaultName.Name = "lblTrackingTableDefaultName";
             this.lblTrackingTableDefaultName.Size = new System.Drawing.Size(223, 18);
             this.lblTrackingTableDefaultName.TabIndex = 4;
@@ -365,7 +387,7 @@ namespace CsiMigrationHelper
             // 
             // tbx_ProjectsTableDefaultName
             // 
-            this.tbx_ProjectsTableDefaultName.Location = new System.Drawing.Point(258, 55);
+            this.tbx_ProjectsTableDefaultName.Location = new System.Drawing.Point(273, 55);
             this.tbx_ProjectsTableDefaultName.Name = "tbx_ProjectsTableDefaultName";
             this.tbx_ProjectsTableDefaultName.Size = new System.Drawing.Size(204, 24);
             this.tbx_ProjectsTableDefaultName.TabIndex = 5;
@@ -381,23 +403,23 @@ namespace CsiMigrationHelper
             this.pnlButtons.Size = new System.Drawing.Size(539, 53);
             this.pnlButtons.TabIndex = 13;
             // 
-            // lblNewProjectsDefaultDescription
+            // lblMigrationTrackingTblSuffix
             // 
-            this.lblNewProjectsDefaultDescription.AutoSize = true;
-            this.lblNewProjectsDefaultDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNewProjectsDefaultDescription.Location = new System.Drawing.Point(19, 162);
-            this.lblNewProjectsDefaultDescription.Name = "lblNewProjectsDefaultDescription";
-            this.lblNewProjectsDefaultDescription.Size = new System.Drawing.Size(223, 18);
-            this.lblNewProjectsDefaultDescription.TabIndex = 8;
-            this.lblNewProjectsDefaultDescription.Text = "Default Name for Projects Table:";
+            this.lblMigrationTrackingTblSuffix.AutoSize = true;
+            this.lblMigrationTrackingTblSuffix.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMigrationTrackingTblSuffix.Location = new System.Drawing.Point(43, 192);
+            this.lblMigrationTrackingTblSuffix.Name = "lblMigrationTrackingTblSuffix";
+            this.lblMigrationTrackingTblSuffix.Size = new System.Drawing.Size(214, 18);
+            this.lblMigrationTrackingTblSuffix.TabIndex = 10;
+            this.lblMigrationTrackingTblSuffix.Text = "Migration Tracking Table Suffix:";
             // 
-            // tbx_NewProjectDefaultDescription
+            // tbx_MIgrationTrackingTblSuffix
             // 
-            this.tbx_NewProjectDefaultDescription.Location = new System.Drawing.Point(258, 160);
-            this.tbx_NewProjectDefaultDescription.Name = "tbx_NewProjectDefaultDescription";
-            this.tbx_NewProjectDefaultDescription.Size = new System.Drawing.Size(204, 24);
-            this.tbx_NewProjectDefaultDescription.TabIndex = 9;
-            this.tbx_NewProjectDefaultDescription.Text = "Csix Migration Project Description";
+            this.tbx_MIgrationTrackingTblSuffix.Location = new System.Drawing.Point(273, 190);
+            this.tbx_MIgrationTrackingTblSuffix.Name = "tbx_MIgrationTrackingTblSuffix";
+            this.tbx_MIgrationTrackingTblSuffix.Size = new System.Drawing.Size(204, 24);
+            this.tbx_MIgrationTrackingTblSuffix.TabIndex = 11;
+            this.tbx_MIgrationTrackingTblSuffix.Text = "_MigrationTracking";
             // 
             // Options
             // 
@@ -459,5 +481,7 @@ namespace CsiMigrationHelper
         private System.Windows.Forms.TextBox tbx_NewProjectDefaultName;
         private System.Windows.Forms.Label lblNewProjectsDefaultDescription;
         private System.Windows.Forms.TextBox tbx_NewProjectDefaultDescription;
+        private System.Windows.Forms.Label lblMigrationTrackingTblSuffix;
+        private System.Windows.Forms.TextBox tbx_MIgrationTrackingTblSuffix;
     }
 }

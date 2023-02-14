@@ -8,11 +8,19 @@ namespace CsiMigrationHelper
     {
 
         private DbUtil con;
-        public LoginForm()
+        public LoginForm(object sender)
         {
             InitializeComponent();
+            Button bt = sender as Button;
+            if (bt.Name.Contains("Src"))
+            {
+                serverNmTxtb.Text = ConfigurationManager.AppSettings["ServerNameSrc"];
+            }
+            else if (bt.Name.Contains("Tgt"))
+            {
+                serverNmTxtb.Text = ConfigurationManager.AppSettings["ServerNameTgt"];
+            }
             authenticationCmb.Text = ConfigurationManager.AppSettings["Authentication"];
-            serverNmTxtb.Text = ConfigurationManager.AppSettings["ServerName"];
             userNmTxtb.Text = ConfigurationManager.AppSettings["UserName"];
             passwordTxtb.Text = ConfigurationManager.AppSettings["Password"];
             this.con = new DbUtil();
@@ -79,7 +87,7 @@ namespace CsiMigrationHelper
         public static bool HandleLoginBtnClick(object sender, TreeNode<DbObject> currentNode)
         {
             DialogResult diagResult;
-            using (LoginForm login = new LoginForm())
+            using (LoginForm login = new LoginForm(sender))
             {
                 diagResult = login.ShowDialog();
                 if (diagResult == DialogResult.OK)

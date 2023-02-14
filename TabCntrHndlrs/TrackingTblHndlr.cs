@@ -11,7 +11,6 @@ namespace CsiMigrationHelper
     {
         private ComboBoxExtTrackTbl ProjectsTable;
         private ComboBoxExtTrackTbl ProjectName;
-        private TextBox ProjectDescription;
         private ImageList ImageList1;
 
         public TrackingTblHndlr(ComboBoxExtTrackTbl projectsTable, ComboBoxExtTrackTbl projectName, ImageList imageList1)
@@ -80,8 +79,7 @@ namespace CsiMigrationHelper
                                     , ProjectsTable.TreeNodeOwner.Data.ObjectText);
 
                 if (CreateProject(e, ProjectName.TreeNodeOwner.Data.ObjectText, ProjectName.ProjectDescription.Text))
-                {
-                    //Console.WriteLine(string.Concat("Created Project: [", ProjectName.TreeNodeOwner.Data.ObjectText, "] in table: [", e.SchemaName, "].[", e.TableName, "] on Instance: ", e.InstanceNode.Data.ObjectText));
+                {                    
                     ProjectName.LockGuiControls();
                     ProjectName.SaveButton.Image = ImageList1.Images[0];
                 }

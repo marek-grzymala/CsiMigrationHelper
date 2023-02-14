@@ -22,10 +22,20 @@ namespace CsiMigrationHelper
         public TextBox TbxTgtTableName;
         public DataGridView GridColList;
         public DataGridView GridConstraintList;
-        public Button CheckSyntaxButton;
-        public Button ExecButton;
+        public Button BtnReload;
+        public Button BtnCheckSyntax;
+        public Button BtnExecute;
+        public ImageList ImageList1;
 
-        public EventArgsTgtTblMetadata(TreeNode<DbObject> root, TreeNode<DbObject> tgtTable, TextBox tbxTgtTableName, DataGridView gridColList, DataGridView gridConstraintList, Button checkSyntaxButton, Button execButton)
+        public EventArgsTgtTblMetadata(TreeNode<DbObject> root
+                                     , TreeNode<DbObject> tgtTable
+                                     , TextBox tbxTgtTableName
+                                     , DataGridView gridColList
+                                     , DataGridView gridConstraintList
+                                     , Button btnReload
+                                     , Button btnCheckSyntax
+                                     , Button btnExecute
+                                     , ImageList imageList1)
         {
             SrcInstance = root.FindTreeNode(node => node.Data != null && node.Data.ObjectName.Equals("srcInstance"));
             SrcDatabase = root.FindTreeNode(node => node.Data != null && node.Data.ObjectName.Equals("srcDatabase"));
@@ -40,8 +50,10 @@ namespace CsiMigrationHelper
             TbxTgtTableName = tbxTgtTableName;
             GridColList = gridColList;
             GridConstraintList = gridConstraintList;
-            CheckSyntaxButton = checkSyntaxButton;
-            ExecButton = execButton;
+            BtnReload = btnReload;
+            BtnCheckSyntax = btnCheckSyntax;
+            BtnExecute = btnExecute;
+            ImageList1 = imageList1;
         }
     }
 }
