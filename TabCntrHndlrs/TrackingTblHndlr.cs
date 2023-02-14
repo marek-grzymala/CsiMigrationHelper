@@ -14,11 +14,11 @@ namespace CsiMigrationHelper
         private TextBox ProjectDescription;
         private ImageList ImageList1;
 
-        public TrackingTblHndlr(ComboBoxExtTrackTbl projectsTable, ComboBoxExtTrackTbl projectName, TextBox projectDescription, ImageList imageList1)
+        public TrackingTblHndlr(ComboBoxExtTrackTbl projectsTable, ComboBoxExtTrackTbl projectName, ImageList imageList1)
         {
             ProjectsTable = projectsTable;
             ProjectName   = projectName;
-            ProjectDescription = projectDescription;
+            //ProjectDescription = projectDescription;
             ProjectsTable.RdButtonCreateNew.CheckedChanged += new EventHandler(OnRdButtonProjectsTableCheckedChanged);
             ProjectsTable.eventCmbxProjectsTableSelectedIndexChanged += new HandlerCmbxProjectsTableSelectedIndexChanged(OnCmbxProjectsTableSelectedIndexChange);
             ProjectsTable.SaveButton.Click += new EventHandler(OnProjectsTableSaveButtonClick);
@@ -79,7 +79,7 @@ namespace CsiMigrationHelper
                                     , ProjectsTable.TreeNodeOwner.Parent.Data.ObjectText
                                     , ProjectsTable.TreeNodeOwner.Data.ObjectText);
 
-                if (CreateProject(e, ProjectName.TreeNodeOwner.Data.ObjectText, ProjectDescription.Text))
+                if (CreateProject(e, ProjectName.TreeNodeOwner.Data.ObjectText, ProjectName.ProjectDescription.Text))
                 {
                     //Console.WriteLine(string.Concat("Created Project: [", ProjectName.TreeNodeOwner.Data.ObjectText, "] in table: [", e.SchemaName, "].[", e.TableName, "] on Instance: ", e.InstanceNode.Data.ObjectText));
                     ProjectName.LockGuiControls();

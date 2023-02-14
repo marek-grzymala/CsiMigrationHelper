@@ -14,6 +14,7 @@ namespace CsiMigrationHelper
         public GroupBox    RdButtonsGroupBox;
         public Button      SaveButton;
         public Button      EditButton;
+        public TextBox     ProjectDescription;
 
         public ComboBoxExtTrackTbl()
         {
@@ -25,7 +26,8 @@ namespace CsiMigrationHelper
                                     , RadioButton rbtnExisting
                                     , GroupBox rdButtonsGroupBox
                                     , Button saveButton
-                                    , Button renameButton)
+                                    , Button renameButton
+                                    , TextBox projectDescription)
         {
             TreeNodeOwner       = tn                    != null ? tn : null;
             RdButtonCreateNew   = rbtnNew               != null ? rbtnNew: null;
@@ -33,6 +35,7 @@ namespace CsiMigrationHelper
             RdButtonsGroupBox   = rdButtonsGroupBox     != null ? rdButtonsGroupBox : null;
             SaveButton          = saveButton            != null ? saveButton : null;
             EditButton          = renameButton          != null ? renameButton : null;
+            ProjectDescription  = projectDescription    != null ? projectDescription : null;
             if (RdButtonCreateNew != null)
             {
                 RdButtonCreateNew.CheckedChanged += new EventHandler(OnRdButtonCheckedChanged);
@@ -98,8 +101,12 @@ namespace CsiMigrationHelper
         {
             this.Enabled                = false;
             RdButtonsGroupBox.Enabled   = false;
-            SaveButton.Enabled          = false;              
+            SaveButton.Enabled          = false;
             EditButton.Enabled          = true;
+            if (ProjectDescription != null)
+            {
+                ProjectDescription.Enabled = false;
+            }
         }
 
         public void UnLockGuiControls(object sender, EventArgs e)
@@ -108,6 +115,10 @@ namespace CsiMigrationHelper
             RdButtonsGroupBox.Enabled   = true;
             SaveButton.Enabled          = true;
             EditButton.Enabled          = false;
+            if (ProjectDescription != null)
+            {
+                ProjectDescription.Enabled = true;
+            }
         }
     }
 }

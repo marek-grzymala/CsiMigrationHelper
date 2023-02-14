@@ -565,7 +565,8 @@ namespace CsiMigrationHelper
         public static string GetSqlTableDefinitionProjectsTable(string schemaName, string tableName)
         {
             return string.Concat( "CREATE TABLE [", schemaName, "].[", tableName, "]("
-                                 , "[ProjectID] INT IDENTITY(1,1) NOT NULL PRIMARY KEY CLUSTERED,"  //UNIQUEIDENTIFIER
+                                 , "[ProjectID] INT IDENTITY(1,1) NOT NULL,"
+                                 , "[ProjectGUID] UNIQUEIDENTIFIER PRIMARY KEY CLUSTERED,"
                                  , "[ProjectName] NVARCHAR(256) UNIQUE NOT NULL,"
                                  , "[ProjectDescription] NVARCHAR(256) NULL,"
                                  , "[ProjectCreateDate] DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP);");
@@ -574,6 +575,7 @@ namespace CsiMigrationHelper
         public static string GetSqlTableVerificationProjectsTable(string schemaName, string tableName)
         {
             return string.Concat("SELECT  [ProjectID]"
+                                , "      ,[ProjectGUID]"
                                 , "      ,[ProjectName]"
                                 , "      ,[ProjectDescription]"
                                 , "      ,[ProjectCreateDate]"
@@ -590,8 +592,8 @@ namespace CsiMigrationHelper
             //    );
             return string.Concat(
                   "INSERT INTO [", schemaName, "].[", tableName, "] "
-                , "           ([ProjectName], [ProjectDescription])		    "
-                , "VALUES	  ('", projectName, "', '", projectDescription, "');	    "
+                , "           ([ProjectName], [ProjectGUID], [ProjectDescription])		    "
+                , "VALUES	  ('", projectName, "', NEWID(), '", projectDescription, "');	    "
                 );
         }
 
@@ -653,8 +655,7 @@ namespace CsiMigrationHelper
                 case (int)DbObjectLevel.DataType:
                     if (tn.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl)
                     {
-                        result = GetSqlProjectDescriptionByProjectName(tn.TraverseUpUntil(tn, (int)DbObjectLevel.Schema).Data.ObjectText, tn.TraverseUpUntil(tn, (int)DbObjectLevel.Table).Data.ObjectText, tn.TraverseUpUntil(tn, (int)DbObjectLevel.Column).Data.ObjectText);
-                        Console.WriteLine(string.Concat("????????????????????  ", result));                                                
+                        result = GetSqlProjectDescriptionByProjectName(tn.TraverseUpUntil(tn, (int)DbObjectLevel.Schema).Data.ObjectText, tn.TraverseUpUntil(tn, (int)DbObjectLevel.Table).Data.ObjectText, tn.TraverseUpUntil(tn, (int)DbObjectLevel.Column).Data.ObjectText);                                             
                     }
                     else
                     {
