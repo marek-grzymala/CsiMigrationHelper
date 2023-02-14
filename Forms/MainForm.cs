@@ -44,6 +44,8 @@ namespace CsiMigrationHelper
         private DbUtil Tgt = new DbUtil();
         private DbUtil Trck = new DbUtil();
 
+        private PartitionSetup ps = new PartitionSetup();
+
         private TgtTblMetaDataHandler TgtMtdHdlr_Current = new TgtTblMetaDataHandler();
         private TgtTblMetaDataHandler TgtMtdHdlr_Staging = new TgtTblMetaDataHandler();
         private TgtTblMetaDataHandler TgtMtdHdlr_Archive = new TgtTblMetaDataHandler();
@@ -71,6 +73,11 @@ namespace CsiMigrationHelper
                 Options.newProjectDefaultName = "My New Csi Migration Project";
                 Options.newProjectDefaultDescription = "Project description";
                 Options.migrationTrackingTblSuffix = "_MigrationTracking";
+                Options.partition_FG_Prefix = "FG_";
+                Options.partition_FI_Prefix = "FI_";
+                Options.partition_PF_Name = "pf_monthly_date";
+                Options.partition_PS_Name = "ps_monthly_date";
+                Options.partitionInterval = "monthly";
             }
 
             root = new TreeNode<DbObject>(new DbObject(DbObjectBranch.Root, DbObjectLevel.Root, "Root", "---------------------- Root Node ----------------------", null));
@@ -218,6 +225,10 @@ namespace CsiMigrationHelper
                 }
             }
 
+            gridFileGroups.GetType().GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(gridFileGroups, true, null);
+            gridPartitionFunction.GetType().GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(gridPartitionFunction, true, null);
+            gridPartitionScheme.GetType().GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(gridPartitionScheme, true, null);
+
             gridColList_Current.GetType().GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(gridColList_Current, true, null);
             gridColList_Staging.GetType().GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(gridColList_Staging, true, null);
             gridColList_Archive.GetType().GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(gridColList_Archive, true, null);
@@ -226,8 +237,30 @@ namespace CsiMigrationHelper
             gridConstraintList_Staging.GetType().GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(gridConstraintList_Staging, true, null);
             gridConstraintList_Archive.GetType().GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(gridConstraintList_Archive, true, null);
 
-            elg = new EventLog(rtbxEventLog);
-
+            ps = new PartitionSetup(new EventArgsPartitionSetup(
+                                   tgtDatabase,
+                                   dtm_FileGroup_Start,
+                                   dtm_FileGroup_End,
+                                   dtm_PartitionFunction_Start,
+                                   dtm_PartitionFunction_End,
+                                   dtm_PartitionScheme_Start,
+                                   dtm_PartitionScheme_End,
+                                   tbx_FileGroupPrefix,
+                                   tbx_FileNamePrefix,
+                                   tbx_PartitionFunctionName,
+                                   tbx_PartitionSchemeName,
+                                   rdbtn_PF_BoundaryOnRight,
+                                   gridFileGroups,
+                                   btn_FileGroup_Reload,
+                                   btn_PartitionFunction_Reload,
+                                   btn_PartitionScheme_Reload,
+                                   btn_FileGroup_CheckSyntax,
+                                   btn_PartitionFunction_CheckSyntax,
+                                   btn_PartitionScheme_CheckSyntax,
+                                   btn_FileGroup_Execute,
+                                   btn_PartitionFunction_Execute,
+                                   btn_PartitionScheme_Execute
+                                   ));
 
             TgtMtdHdlr_Current = new TgtTblMetaDataHandler(new EventArgsTgtTblMetadata(
                                                                 root,
@@ -262,6 +295,7 @@ namespace CsiMigrationHelper
                                                                 btnArchiveExecute,
                                                                 imageList1
                                                               ));
+            elg = new EventLog(rtbxEventLog);
             #endregion
         }
 

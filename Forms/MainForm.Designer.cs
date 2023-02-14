@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -73,36 +72,53 @@
             this.tabPartition = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tblp_Partition_FileGroups = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.tbx_FileGroupPrefix = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.tbx_FileNamePrefix = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dtm_FileGroup_End = new System.Windows.Forms.DateTimePicker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dtm_FileGroup_Start = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.gridFileGroups = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btn_FileGroup_Execute = new System.Windows.Forms.Button();
+            this.btn_FileGroup_CheckSyntax = new System.Windows.Forms.Button();
+            this.btn_FileGroup_Reload = new System.Windows.Forms.Button();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.grpBx_PartitionFunctionName = new System.Windows.Forms.GroupBox();
+            this.tbx_PartitionFunctionName = new System.Windows.Forms.TextBox();
+            this.grpBx_PartitionFunction_Boundary = new System.Windows.Forms.GroupBox();
+            this.rdbtn_PF_BoundaryOnRight = new System.Windows.Forms.RadioButton();
+            this.rdbtn_PF_BoundaryOnLeft = new System.Windows.Forms.RadioButton();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.dtm_PartitionFunction_End = new System.Windows.Forms.DateTimePicker();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.dtm_PartitionFunction_Start = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.dataGridView4 = new System.Windows.Forms.DataGridView();
+            this.gridPartitionFunction = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btn_PartitionFunction_Execute = new System.Windows.Forms.Button();
+            this.btn_PartitionFunction_CheckSyntax = new System.Windows.Forms.Button();
+            this.btn_PartitionFunction_Reload = new System.Windows.Forms.Button();
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
-            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.grpBx_PartitionSchemeName = new System.Windows.Forms.GroupBox();
+            this.tbx_PartitionSchemeName = new System.Windows.Forms.TextBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.dtm_PartitionScheme_End = new System.Windows.Forms.DateTimePicker();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.dtm_PartitionScheme_Start = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
-            this.dataGridView6 = new System.Windows.Forms.DataGridView();
+            this.gridPartitionScheme = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
+            this.btn_PartitionScheme_Execute = new System.Windows.Forms.Button();
+            this.btn_PartitionScheme_CheckSyntax = new System.Windows.Forms.Button();
+            this.btn_PartitionScheme_Reload = new System.Windows.Forms.Button();
             this.tabTgtMetadata = new System.Windows.Forms.TabPage();
             this.split_TgtMetadata = new System.Windows.Forms.SplitContainer();
             this.split_TgtMeta_Current = new System.Windows.Forms.SplitContainer();
@@ -184,8 +200,6 @@
             this.optionsStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dtm_FileGroup_End = new System.Windows.Forms.DateTimePicker();
             this.cbx_idxList_Src = new CsiMigrationHelper.ComboBoxExt();
             this.tbx_DataType_Src = new CsiMigrationHelper.TextBoxExt();
             this.cbx_colList_Src = new CsiMigrationHelper.ComboBoxExt();
@@ -212,10 +226,6 @@
             this.cbxt_TrackTbl_ProjectName = new CsiMigrationHelper.ComboBoxExtTrackTbl();
             this.rdbtn_TrackTbl_ProjectsCreateNew = new CsiMigrationHelper.RadioButtonExt();
             this.cbxt_TrackTbl_ProjectsTable = new CsiMigrationHelper.ComboBoxExtTrackTbl();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.tbx_FileNamePrefix = new System.Windows.Forms.TextBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.tbx_FileGroupPrefix = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabSrcTgtSetup.SuspendLayout();
             this.tblp_TabSetupOuter.SuspendLayout();
@@ -243,10 +253,13 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.tblp_Partition_FileGroups.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridFileGroups)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
@@ -256,19 +269,24 @@
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.grpBx_PartitionFunctionName.SuspendLayout();
+            this.grpBx_PartitionFunction_Boundary.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridPartitionFunction)).BeginInit();
             this.tableLayoutPanel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
             this.splitContainer5.Panel1.SuspendLayout();
             this.splitContainer5.Panel2.SuspendLayout();
             this.splitContainer5.SuspendLayout();
-            this.tableLayoutPanel7.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            this.grpBx_PartitionSchemeName.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridPartitionScheme)).BeginInit();
             this.tableLayoutPanel9.SuspendLayout();
             this.tabTgtMetadata.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.split_TgtMetadata)).BeginInit();
@@ -334,9 +352,6 @@
             this.tabEventLog.SuspendLayout();
             this.tabSandBox.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -999,7 +1014,7 @@
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.tableLayoutPanel1);
+            this.splitContainer2.Panel1.Controls.Add(this.tblp_Partition_FileGroups);
             this.splitContainer2.Panel1.Padding = new System.Windows.Forms.Padding(3);
             // 
             // splitContainer2.Panel2
@@ -1010,23 +1025,84 @@
             this.splitContainer2.SplitterDistance = 129;
             this.splitContainer2.TabIndex = 1;
             // 
-            // tableLayoutPanel1
+            // tblp_Partition_FileGroups
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.groupBox4, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox3, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox2, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(450, 123);
-            this.tableLayoutPanel1.TabIndex = 0;
+            this.tblp_Partition_FileGroups.ColumnCount = 2;
+            this.tblp_Partition_FileGroups.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblp_Partition_FileGroups.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblp_Partition_FileGroups.Controls.Add(this.groupBox4, 0, 1);
+            this.tblp_Partition_FileGroups.Controls.Add(this.groupBox3, 0, 1);
+            this.tblp_Partition_FileGroups.Controls.Add(this.groupBox2, 1, 0);
+            this.tblp_Partition_FileGroups.Controls.Add(this.groupBox1, 0, 0);
+            this.tblp_Partition_FileGroups.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tblp_Partition_FileGroups.Location = new System.Drawing.Point(3, 3);
+            this.tblp_Partition_FileGroups.Name = "tblp_Partition_FileGroups";
+            this.tblp_Partition_FileGroups.RowCount = 2;
+            this.tblp_Partition_FileGroups.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblp_Partition_FileGroups.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblp_Partition_FileGroups.Size = new System.Drawing.Size(450, 123);
+            this.tblp_Partition_FileGroups.TabIndex = 0;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.tbx_FileGroupPrefix);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox4.Location = new System.Drawing.Point(3, 64);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupBox4.Size = new System.Drawing.Size(219, 56);
+            this.groupBox4.TabIndex = 3;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "File Group Prefix:";
+            // 
+            // tbx_FileGroupPrefix
+            // 
+            this.tbx_FileGroupPrefix.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbx_FileGroupPrefix.Location = new System.Drawing.Point(3, 25);
+            this.tbx_FileGroupPrefix.Name = "tbx_FileGroupPrefix";
+            this.tbx_FileGroupPrefix.Size = new System.Drawing.Size(213, 22);
+            this.tbx_FileGroupPrefix.TabIndex = 0;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.tbx_FileNamePrefix);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Location = new System.Drawing.Point(228, 64);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupBox3.Size = new System.Drawing.Size(219, 56);
+            this.groupBox3.TabIndex = 2;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "File Name Prefix:";
+            // 
+            // tbx_FileNamePrefix
+            // 
+            this.tbx_FileNamePrefix.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbx_FileNamePrefix.Location = new System.Drawing.Point(3, 25);
+            this.tbx_FileNamePrefix.Name = "tbx_FileNamePrefix";
+            this.tbx_FileNamePrefix.Size = new System.Drawing.Size(213, 22);
+            this.tbx_FileNamePrefix.TabIndex = 0;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.dtm_FileGroup_End);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(228, 3);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupBox2.Size = new System.Drawing.Size(219, 55);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "End Date:";
+            // 
+            // dtm_FileGroup_End
+            // 
+            this.dtm_FileGroup_End.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtm_FileGroup_End.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtm_FileGroup_End.Location = new System.Drawing.Point(3, 25);
+            this.dtm_FileGroup_End.Name = "dtm_FileGroup_End";
+            this.dtm_FileGroup_End.Size = new System.Drawing.Size(213, 22);
+            this.dtm_FileGroup_End.TabIndex = 3;
             // 
             // groupBox1
             // 
@@ -1053,7 +1129,7 @@
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.dataGridView2, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.gridFileGroups, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
@@ -1065,14 +1141,14 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(450, 467);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
-            // dataGridView2
+            // gridFileGroups
             // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView2.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(444, 421);
-            this.dataGridView2.TabIndex = 5;
+            this.gridFileGroups.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridFileGroups.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridFileGroups.Location = new System.Drawing.Point(3, 3);
+            this.gridFileGroups.Name = "gridFileGroups";
+            this.gridFileGroups.Size = new System.Drawing.Size(444, 421);
+            this.gridFileGroups.TabIndex = 5;
             // 
             // tableLayoutPanel3
             // 
@@ -1080,9 +1156,9 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel3.Controls.Add(this.button1, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.button2, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.button3, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.btn_FileGroup_Execute, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.btn_FileGroup_CheckSyntax, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.btn_FileGroup_Reload, 0, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 430);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -1092,41 +1168,41 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(444, 34);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
-            // button1
+            // btn_FileGroup_Execute
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Enabled = false;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.Location = new System.Drawing.Point(299, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(142, 28);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Execute";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_FileGroup_Execute.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_FileGroup_Execute.Enabled = false;
+            this.btn_FileGroup_Execute.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_FileGroup_Execute.Location = new System.Drawing.Point(299, 3);
+            this.btn_FileGroup_Execute.Name = "btn_FileGroup_Execute";
+            this.btn_FileGroup_Execute.Size = new System.Drawing.Size(142, 28);
+            this.btn_FileGroup_Execute.TabIndex = 1;
+            this.btn_FileGroup_Execute.Text = "Execute";
+            this.btn_FileGroup_Execute.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btn_FileGroup_CheckSyntax
             // 
-            this.button2.AutoSize = true;
-            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.Enabled = false;
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button2.Location = new System.Drawing.Point(151, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(142, 28);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Check Syntax";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btn_FileGroup_CheckSyntax.AutoSize = true;
+            this.btn_FileGroup_CheckSyntax.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_FileGroup_CheckSyntax.Enabled = false;
+            this.btn_FileGroup_CheckSyntax.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_FileGroup_CheckSyntax.Location = new System.Drawing.Point(151, 3);
+            this.btn_FileGroup_CheckSyntax.Name = "btn_FileGroup_CheckSyntax";
+            this.btn_FileGroup_CheckSyntax.Size = new System.Drawing.Size(142, 28);
+            this.btn_FileGroup_CheckSyntax.TabIndex = 2;
+            this.btn_FileGroup_CheckSyntax.Text = "Check Syntax";
+            this.btn_FileGroup_CheckSyntax.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btn_FileGroup_Reload
             // 
-            this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button3.Location = new System.Drawing.Point(3, 3);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(142, 28);
-            this.button3.TabIndex = 0;
-            this.button3.Text = "Reload";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btn_FileGroup_Reload.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_FileGroup_Reload.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_FileGroup_Reload.Location = new System.Drawing.Point(3, 3);
+            this.btn_FileGroup_Reload.Name = "btn_FileGroup_Reload";
+            this.btn_FileGroup_Reload.Size = new System.Drawing.Size(142, 28);
+            this.btn_FileGroup_Reload.TabIndex = 0;
+            this.btn_FileGroup_Reload.Text = "Reload";
+            this.btn_FileGroup_Reload.UseVisualStyleBackColor = true;
             // 
             // splitContainer3
             // 
@@ -1161,7 +1237,7 @@
             // 
             // splitContainer4.Panel1
             // 
-            this.splitContainer4.Panel1.Controls.Add(this.tableLayoutPanel4);
+            this.splitContainer4.Panel1.Controls.Add(this.tableLayoutPanel1);
             this.splitContainer4.Panel1.Padding = new System.Windows.Forms.Padding(3);
             // 
             // splitContainer4.Panel2
@@ -1169,46 +1245,129 @@
             this.splitContainer4.Panel2.Controls.Add(this.tableLayoutPanel5);
             this.splitContainer4.Panel2.Padding = new System.Windows.Forms.Padding(3);
             this.splitContainer4.Size = new System.Drawing.Size(479, 606);
-            this.splitContainer4.SplitterDistance = 365;
+            this.splitContainer4.SplitterDistance = 126;
             this.splitContainer4.TabIndex = 2;
             // 
-            // tableLayoutPanel4
+            // tableLayoutPanel1
             // 
-            this.tableLayoutPanel4.ColumnCount = 1;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Controls.Add(this.panel2, 0, 0);
-            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 2;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(473, 359);
-            this.tableLayoutPanel4.TabIndex = 1;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.grpBx_PartitionFunctionName, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.grpBx_PartitionFunction_Boundary, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox7, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox8, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.16667F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.83333F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(473, 120);
+            this.tableLayoutPanel1.TabIndex = 1;
             // 
-            // panel2
+            // grpBx_PartitionFunctionName
             // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.textBox2);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(467, 24);
-            this.panel2.TabIndex = 3;
+            this.grpBx_PartitionFunctionName.Controls.Add(this.tbx_PartitionFunctionName);
+            this.grpBx_PartitionFunctionName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpBx_PartitionFunctionName.Location = new System.Drawing.Point(3, 62);
+            this.grpBx_PartitionFunctionName.Name = "grpBx_PartitionFunctionName";
+            this.grpBx_PartitionFunctionName.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.grpBx_PartitionFunctionName.Size = new System.Drawing.Size(230, 55);
+            this.grpBx_PartitionFunctionName.TabIndex = 3;
+            this.grpBx_PartitionFunctionName.TabStop = false;
+            this.grpBx_PartitionFunctionName.Text = "Partition Function Name:";
             // 
-            // textBox2
+            // tbx_PartitionFunctionName
             // 
-            this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox2.Location = new System.Drawing.Point(0, 0);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(465, 22);
-            this.textBox2.TabIndex = 0;
+            this.tbx_PartitionFunctionName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbx_PartitionFunctionName.Location = new System.Drawing.Point(3, 25);
+            this.tbx_PartitionFunctionName.Name = "tbx_PartitionFunctionName";
+            this.tbx_PartitionFunctionName.Size = new System.Drawing.Size(224, 22);
+            this.tbx_PartitionFunctionName.TabIndex = 0;
+            // 
+            // grpBx_PartitionFunction_Boundary
+            // 
+            this.grpBx_PartitionFunction_Boundary.Controls.Add(this.rdbtn_PF_BoundaryOnRight);
+            this.grpBx_PartitionFunction_Boundary.Controls.Add(this.rdbtn_PF_BoundaryOnLeft);
+            this.grpBx_PartitionFunction_Boundary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpBx_PartitionFunction_Boundary.Location = new System.Drawing.Point(239, 62);
+            this.grpBx_PartitionFunction_Boundary.Name = "grpBx_PartitionFunction_Boundary";
+            this.grpBx_PartitionFunction_Boundary.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.grpBx_PartitionFunction_Boundary.Size = new System.Drawing.Size(231, 55);
+            this.grpBx_PartitionFunction_Boundary.TabIndex = 2;
+            this.grpBx_PartitionFunction_Boundary.TabStop = false;
+            this.grpBx_PartitionFunction_Boundary.Text = "Boundary on :";
+            // 
+            // rdbtn_PF_BoundaryOnRight
+            // 
+            this.rdbtn_PF_BoundaryOnRight.AutoSize = true;
+            this.rdbtn_PF_BoundaryOnRight.Location = new System.Drawing.Point(141, 25);
+            this.rdbtn_PF_BoundaryOnRight.Name = "rdbtn_PF_BoundaryOnRight";
+            this.rdbtn_PF_BoundaryOnRight.Size = new System.Drawing.Size(57, 20);
+            this.rdbtn_PF_BoundaryOnRight.TabIndex = 1;
+            this.rdbtn_PF_BoundaryOnRight.TabStop = true;
+            this.rdbtn_PF_BoundaryOnRight.Text = "Right";
+            this.rdbtn_PF_BoundaryOnRight.UseVisualStyleBackColor = true;
+            // 
+            // rdbtn_PF_BoundaryOnLeft
+            // 
+            this.rdbtn_PF_BoundaryOnLeft.AutoSize = true;
+            this.rdbtn_PF_BoundaryOnLeft.Location = new System.Drawing.Point(33, 25);
+            this.rdbtn_PF_BoundaryOnLeft.Name = "rdbtn_PF_BoundaryOnLeft";
+            this.rdbtn_PF_BoundaryOnLeft.Size = new System.Drawing.Size(47, 20);
+            this.rdbtn_PF_BoundaryOnLeft.TabIndex = 0;
+            this.rdbtn_PF_BoundaryOnLeft.TabStop = true;
+            this.rdbtn_PF_BoundaryOnLeft.Text = "Left";
+            this.rdbtn_PF_BoundaryOnLeft.UseVisualStyleBackColor = true;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.dtm_PartitionFunction_End);
+            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox7.Location = new System.Drawing.Point(239, 3);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupBox7.Size = new System.Drawing.Size(231, 53);
+            this.groupBox7.TabIndex = 1;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "End Date:";
+            // 
+            // dtm_PartitionFunction_End
+            // 
+            this.dtm_PartitionFunction_End.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtm_PartitionFunction_End.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtm_PartitionFunction_End.Location = new System.Drawing.Point(3, 25);
+            this.dtm_PartitionFunction_End.Name = "dtm_PartitionFunction_End";
+            this.dtm_PartitionFunction_End.Size = new System.Drawing.Size(225, 22);
+            this.dtm_PartitionFunction_End.TabIndex = 3;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.dtm_PartitionFunction_Start);
+            this.groupBox8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox8.Location = new System.Drawing.Point(3, 3);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupBox8.Size = new System.Drawing.Size(230, 53);
+            this.groupBox8.TabIndex = 0;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Start Date:";
+            // 
+            // dtm_PartitionFunction_Start
+            // 
+            this.dtm_PartitionFunction_Start.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtm_PartitionFunction_Start.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtm_PartitionFunction_Start.Location = new System.Drawing.Point(3, 25);
+            this.dtm_PartitionFunction_Start.Name = "dtm_PartitionFunction_Start";
+            this.dtm_PartitionFunction_Start.Size = new System.Drawing.Size(224, 22);
+            this.dtm_PartitionFunction_Start.TabIndex = 3;
             // 
             // tableLayoutPanel5
             // 
             this.tableLayoutPanel5.ColumnCount = 1;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Controls.Add(this.dataGridView4, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.gridPartitionFunction, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.tableLayoutPanel6, 0, 1);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 3);
@@ -1217,17 +1376,17 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(473, 231);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(473, 470);
             this.tableLayoutPanel5.TabIndex = 2;
             // 
-            // dataGridView4
+            // gridPartitionFunction
             // 
-            this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView4.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView4.Name = "dataGridView4";
-            this.dataGridView4.Size = new System.Drawing.Size(467, 185);
-            this.dataGridView4.TabIndex = 5;
+            this.gridPartitionFunction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridPartitionFunction.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridPartitionFunction.Location = new System.Drawing.Point(3, 3);
+            this.gridPartitionFunction.Name = "gridPartitionFunction";
+            this.gridPartitionFunction.Size = new System.Drawing.Size(467, 424);
+            this.gridPartitionFunction.TabIndex = 5;
             // 
             // tableLayoutPanel6
             // 
@@ -1235,11 +1394,11 @@
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel6.Controls.Add(this.button4, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.button5, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.button6, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.btn_PartitionFunction_Execute, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.btn_PartitionFunction_CheckSyntax, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.btn_PartitionFunction_Reload, 0, 0);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 194);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 433);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -1247,41 +1406,41 @@
             this.tableLayoutPanel6.Size = new System.Drawing.Size(467, 34);
             this.tableLayoutPanel6.TabIndex = 0;
             // 
-            // button4
+            // btn_PartitionFunction_Execute
             // 
-            this.button4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button4.Enabled = false;
-            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button4.Location = new System.Drawing.Point(313, 3);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(151, 28);
-            this.button4.TabIndex = 1;
-            this.button4.Text = "Execute";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btn_PartitionFunction_Execute.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_PartitionFunction_Execute.Enabled = false;
+            this.btn_PartitionFunction_Execute.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_PartitionFunction_Execute.Location = new System.Drawing.Point(313, 3);
+            this.btn_PartitionFunction_Execute.Name = "btn_PartitionFunction_Execute";
+            this.btn_PartitionFunction_Execute.Size = new System.Drawing.Size(151, 28);
+            this.btn_PartitionFunction_Execute.TabIndex = 1;
+            this.btn_PartitionFunction_Execute.Text = "Execute";
+            this.btn_PartitionFunction_Execute.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // btn_PartitionFunction_CheckSyntax
             // 
-            this.button5.AutoSize = true;
-            this.button5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button5.Enabled = false;
-            this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button5.Location = new System.Drawing.Point(158, 3);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(149, 28);
-            this.button5.TabIndex = 2;
-            this.button5.Text = "Check Syntax";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btn_PartitionFunction_CheckSyntax.AutoSize = true;
+            this.btn_PartitionFunction_CheckSyntax.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_PartitionFunction_CheckSyntax.Enabled = false;
+            this.btn_PartitionFunction_CheckSyntax.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_PartitionFunction_CheckSyntax.Location = new System.Drawing.Point(158, 3);
+            this.btn_PartitionFunction_CheckSyntax.Name = "btn_PartitionFunction_CheckSyntax";
+            this.btn_PartitionFunction_CheckSyntax.Size = new System.Drawing.Size(149, 28);
+            this.btn_PartitionFunction_CheckSyntax.TabIndex = 2;
+            this.btn_PartitionFunction_CheckSyntax.Text = "Check Syntax";
+            this.btn_PartitionFunction_CheckSyntax.UseVisualStyleBackColor = true;
             // 
-            // button6
+            // btn_PartitionFunction_Reload
             // 
-            this.button6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button6.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button6.Location = new System.Drawing.Point(3, 3);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(149, 28);
-            this.button6.TabIndex = 0;
-            this.button6.Text = "Reload";
-            this.button6.UseVisualStyleBackColor = true;
+            this.btn_PartitionFunction_Reload.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_PartitionFunction_Reload.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_PartitionFunction_Reload.Location = new System.Drawing.Point(3, 3);
+            this.btn_PartitionFunction_Reload.Name = "btn_PartitionFunction_Reload";
+            this.btn_PartitionFunction_Reload.Size = new System.Drawing.Size(149, 28);
+            this.btn_PartitionFunction_Reload.TabIndex = 0;
+            this.btn_PartitionFunction_Reload.Text = "Reload";
+            this.btn_PartitionFunction_Reload.UseVisualStyleBackColor = true;
             // 
             // splitContainer5
             // 
@@ -1293,7 +1452,7 @@
             // 
             // splitContainer5.Panel1
             // 
-            this.splitContainer5.Panel1.Controls.Add(this.tableLayoutPanel7);
+            this.splitContainer5.Panel1.Controls.Add(this.tableLayoutPanel4);
             this.splitContainer5.Panel1.Padding = new System.Windows.Forms.Padding(3);
             // 
             // splitContainer5.Panel2
@@ -1301,46 +1460,94 @@
             this.splitContainer5.Panel2.Controls.Add(this.tableLayoutPanel8);
             this.splitContainer5.Panel2.Padding = new System.Windows.Forms.Padding(3);
             this.splitContainer5.Size = new System.Drawing.Size(525, 606);
-            this.splitContainer5.SplitterDistance = 365;
+            this.splitContainer5.SplitterDistance = 125;
             this.splitContainer5.TabIndex = 2;
             // 
-            // tableLayoutPanel7
+            // tableLayoutPanel4
             // 
-            this.tableLayoutPanel7.ColumnCount = 1;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Controls.Add(this.panel3, 0, 0);
-            this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
-            this.tableLayoutPanel7.RowCount = 2;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(519, 359);
-            this.tableLayoutPanel7.TabIndex = 2;
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Controls.Add(this.grpBx_PartitionSchemeName, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.groupBox9, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.groupBox10, 0, 0);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 2;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.16667F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.83333F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(519, 119);
+            this.tableLayoutPanel4.TabIndex = 2;
             // 
-            // panel3
+            // grpBx_PartitionSchemeName
             // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.textBox3);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(3, 3);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(513, 24);
-            this.panel3.TabIndex = 3;
+            this.tableLayoutPanel4.SetColumnSpan(this.grpBx_PartitionSchemeName, 2);
+            this.grpBx_PartitionSchemeName.Controls.Add(this.tbx_PartitionSchemeName);
+            this.grpBx_PartitionSchemeName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpBx_PartitionSchemeName.Location = new System.Drawing.Point(3, 61);
+            this.grpBx_PartitionSchemeName.Name = "grpBx_PartitionSchemeName";
+            this.grpBx_PartitionSchemeName.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.grpBx_PartitionSchemeName.Size = new System.Drawing.Size(513, 55);
+            this.grpBx_PartitionSchemeName.TabIndex = 3;
+            this.grpBx_PartitionSchemeName.TabStop = false;
+            this.grpBx_PartitionSchemeName.Text = "Partition Function Name:";
             // 
-            // textBox3
+            // tbx_PartitionSchemeName
             // 
-            this.textBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox3.Location = new System.Drawing.Point(0, 0);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(511, 22);
-            this.textBox3.TabIndex = 0;
+            this.tbx_PartitionSchemeName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbx_PartitionSchemeName.Location = new System.Drawing.Point(3, 25);
+            this.tbx_PartitionSchemeName.Name = "tbx_PartitionSchemeName";
+            this.tbx_PartitionSchemeName.Size = new System.Drawing.Size(507, 22);
+            this.tbx_PartitionSchemeName.TabIndex = 0;
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.dtm_PartitionScheme_End);
+            this.groupBox9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox9.Location = new System.Drawing.Point(262, 3);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupBox9.Size = new System.Drawing.Size(254, 52);
+            this.groupBox9.TabIndex = 1;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "End Date:";
+            // 
+            // dtm_PartitionScheme_End
+            // 
+            this.dtm_PartitionScheme_End.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtm_PartitionScheme_End.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtm_PartitionScheme_End.Location = new System.Drawing.Point(3, 25);
+            this.dtm_PartitionScheme_End.Name = "dtm_PartitionScheme_End";
+            this.dtm_PartitionScheme_End.Size = new System.Drawing.Size(248, 22);
+            this.dtm_PartitionScheme_End.TabIndex = 3;
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.dtm_PartitionScheme_Start);
+            this.groupBox10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox10.Location = new System.Drawing.Point(3, 3);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.groupBox10.Size = new System.Drawing.Size(253, 52);
+            this.groupBox10.TabIndex = 0;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Start Date:";
+            // 
+            // dtm_PartitionScheme_Start
+            // 
+            this.dtm_PartitionScheme_Start.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtm_PartitionScheme_Start.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtm_PartitionScheme_Start.Location = new System.Drawing.Point(3, 25);
+            this.dtm_PartitionScheme_Start.Name = "dtm_PartitionScheme_Start";
+            this.dtm_PartitionScheme_Start.Size = new System.Drawing.Size(247, 22);
+            this.dtm_PartitionScheme_Start.TabIndex = 3;
             // 
             // tableLayoutPanel8
             // 
             this.tableLayoutPanel8.ColumnCount = 1;
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel8.Controls.Add(this.dataGridView6, 0, 0);
+            this.tableLayoutPanel8.Controls.Add(this.gridPartitionScheme, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.tableLayoutPanel9, 0, 1);
             this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 3);
@@ -1349,17 +1556,17 @@
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(519, 231);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(519, 471);
             this.tableLayoutPanel8.TabIndex = 3;
             // 
-            // dataGridView6
+            // gridPartitionScheme
             // 
-            this.dataGridView6.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView6.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView6.Name = "dataGridView6";
-            this.dataGridView6.Size = new System.Drawing.Size(513, 185);
-            this.dataGridView6.TabIndex = 5;
+            this.gridPartitionScheme.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridPartitionScheme.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridPartitionScheme.Location = new System.Drawing.Point(3, 3);
+            this.gridPartitionScheme.Name = "gridPartitionScheme";
+            this.gridPartitionScheme.Size = new System.Drawing.Size(513, 425);
+            this.gridPartitionScheme.TabIndex = 5;
             // 
             // tableLayoutPanel9
             // 
@@ -1367,11 +1574,11 @@
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel9.Controls.Add(this.button7, 0, 0);
-            this.tableLayoutPanel9.Controls.Add(this.button8, 0, 0);
-            this.tableLayoutPanel9.Controls.Add(this.button9, 0, 0);
+            this.tableLayoutPanel9.Controls.Add(this.btn_PartitionScheme_Execute, 0, 0);
+            this.tableLayoutPanel9.Controls.Add(this.btn_PartitionScheme_CheckSyntax, 0, 0);
+            this.tableLayoutPanel9.Controls.Add(this.btn_PartitionScheme_Reload, 0, 0);
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel9.Location = new System.Drawing.Point(3, 194);
+            this.tableLayoutPanel9.Location = new System.Drawing.Point(3, 434);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
             this.tableLayoutPanel9.RowCount = 1;
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -1379,41 +1586,41 @@
             this.tableLayoutPanel9.Size = new System.Drawing.Size(513, 34);
             this.tableLayoutPanel9.TabIndex = 0;
             // 
-            // button7
+            // btn_PartitionScheme_Execute
             // 
-            this.button7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button7.Enabled = false;
-            this.button7.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button7.Location = new System.Drawing.Point(345, 3);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(165, 28);
-            this.button7.TabIndex = 1;
-            this.button7.Text = "Execute";
-            this.button7.UseVisualStyleBackColor = true;
+            this.btn_PartitionScheme_Execute.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_PartitionScheme_Execute.Enabled = false;
+            this.btn_PartitionScheme_Execute.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_PartitionScheme_Execute.Location = new System.Drawing.Point(345, 3);
+            this.btn_PartitionScheme_Execute.Name = "btn_PartitionScheme_Execute";
+            this.btn_PartitionScheme_Execute.Size = new System.Drawing.Size(165, 28);
+            this.btn_PartitionScheme_Execute.TabIndex = 1;
+            this.btn_PartitionScheme_Execute.Text = "Execute";
+            this.btn_PartitionScheme_Execute.UseVisualStyleBackColor = true;
             // 
-            // button8
+            // btn_PartitionScheme_CheckSyntax
             // 
-            this.button8.AutoSize = true;
-            this.button8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button8.Enabled = false;
-            this.button8.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button8.Location = new System.Drawing.Point(174, 3);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(165, 28);
-            this.button8.TabIndex = 2;
-            this.button8.Text = "Check Syntax";
-            this.button8.UseVisualStyleBackColor = true;
+            this.btn_PartitionScheme_CheckSyntax.AutoSize = true;
+            this.btn_PartitionScheme_CheckSyntax.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_PartitionScheme_CheckSyntax.Enabled = false;
+            this.btn_PartitionScheme_CheckSyntax.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_PartitionScheme_CheckSyntax.Location = new System.Drawing.Point(174, 3);
+            this.btn_PartitionScheme_CheckSyntax.Name = "btn_PartitionScheme_CheckSyntax";
+            this.btn_PartitionScheme_CheckSyntax.Size = new System.Drawing.Size(165, 28);
+            this.btn_PartitionScheme_CheckSyntax.TabIndex = 2;
+            this.btn_PartitionScheme_CheckSyntax.Text = "Check Syntax";
+            this.btn_PartitionScheme_CheckSyntax.UseVisualStyleBackColor = true;
             // 
-            // button9
+            // btn_PartitionScheme_Reload
             // 
-            this.button9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button9.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button9.Location = new System.Drawing.Point(3, 3);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(165, 28);
-            this.button9.TabIndex = 0;
-            this.button9.Text = "Reload";
-            this.button9.UseVisualStyleBackColor = true;
+            this.btn_PartitionScheme_Reload.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_PartitionScheme_Reload.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btn_PartitionScheme_Reload.Location = new System.Drawing.Point(3, 3);
+            this.btn_PartitionScheme_Reload.Name = "btn_PartitionScheme_Reload";
+            this.btn_PartitionScheme_Reload.Size = new System.Drawing.Size(165, 28);
+            this.btn_PartitionScheme_Reload.TabIndex = 0;
+            this.btn_PartitionScheme_Reload.Text = "Reload";
+            this.btn_PartitionScheme_Reload.UseVisualStyleBackColor = true;
             // 
             // tabTgtMetadata
             // 
@@ -1490,7 +1697,6 @@
             this.gridColList_Current.Name = "gridColList_Current";
             this.gridColList_Current.Size = new System.Drawing.Size(443, 320);
             this.gridColList_Current.TabIndex = 4;
-            //this.gridColList_Current.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridColList_Current_CellValueChanged);
             // 
             // pnlTgtTableName_Current
             // 
@@ -1534,7 +1740,6 @@
             this.gridConstraintList_Current.Name = "gridConstraintList_Current";
             this.gridConstraintList_Current.Size = new System.Drawing.Size(443, 182);
             this.gridConstraintList_Current.TabIndex = 5;
-            //this.gridConstraintList_Current.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridConstraintList_Current_CellValueChanged);
             // 
             // tblp_TgtMeta_Btns_Current
             // 
@@ -1565,7 +1770,6 @@
             this.btnCurrentExecute.TabIndex = 1;
             this.btnCurrentExecute.Text = "Execute";
             this.btnCurrentExecute.UseVisualStyleBackColor = true;
-            //this.btnCurrentExecute.Click += new System.EventHandler(this.btnCurrentExecute_Click);
             // 
             // btnCurrentSyntax
             // 
@@ -1579,7 +1783,6 @@
             this.btnCurrentSyntax.TabIndex = 2;
             this.btnCurrentSyntax.Text = "Check Syntax";
             this.btnCurrentSyntax.UseVisualStyleBackColor = true;
-            //this.btnCurrentSyntax.Click += new System.EventHandler(this.btnCurrentSyntax_Click);
             // 
             // btnCurrentReload
             // 
@@ -1591,7 +1794,6 @@
             this.btnCurrentReload.TabIndex = 0;
             this.btnCurrentReload.Text = "Reload";
             this.btnCurrentReload.UseVisualStyleBackColor = true;
-            //this.btnCurrentReload.Click += new System.EventHandler(this.btnCurrentReload_Click);
             // 
             // split_TgtMeta_StagingArchive
             // 
@@ -1660,7 +1862,6 @@
             this.gridColList_Staging.Name = "gridColList_Staging";
             this.gridColList_Staging.Size = new System.Drawing.Size(465, 320);
             this.gridColList_Staging.TabIndex = 4;
-            //this.gridColList_Staging.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridColList_Staging_CellValueChanged);
             // 
             // pnlTgtTableName_Staging
             // 
@@ -1704,7 +1905,6 @@
             this.gridConstraintList_Staging.Name = "gridConstraintList_Staging";
             this.gridConstraintList_Staging.Size = new System.Drawing.Size(465, 182);
             this.gridConstraintList_Staging.TabIndex = 5;
-            //this.gridConstraintList_Staging.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridConstraintList_Staging_CellValueChanged);
             // 
             // tblp_TgtMeta_Btns_Staging
             // 
@@ -1735,7 +1935,6 @@
             this.btnStagingExecute.TabIndex = 1;
             this.btnStagingExecute.Text = "Execute";
             this.btnStagingExecute.UseVisualStyleBackColor = true;
-            //this.btnStagingExecute.Click += new System.EventHandler(this.btnStagingExecute_Click);
             // 
             // btnStagingSyntax
             // 
@@ -1749,7 +1948,6 @@
             this.btnStagingSyntax.TabIndex = 2;
             this.btnStagingSyntax.Text = "Check Syntax";
             this.btnStagingSyntax.UseVisualStyleBackColor = true;
-            //this.btnStagingSyntax.Click += new System.EventHandler(this.btnStagingSyntax_Click);
             // 
             // btnStagingReload
             // 
@@ -1761,7 +1959,6 @@
             this.btnStagingReload.TabIndex = 0;
             this.btnStagingReload.Text = "Reload";
             this.btnStagingReload.UseVisualStyleBackColor = true;
-            //this.btnStagingReload.Click += new System.EventHandler(this.btnStagingReload_Click);
             // 
             // split_TgtMeta_Archive
             // 
@@ -1807,7 +2004,6 @@
             this.gridColList_Archive.Name = "gridColList_Archive";
             this.gridColList_Archive.Size = new System.Drawing.Size(510, 320);
             this.gridColList_Archive.TabIndex = 4;
-            //this.gridColList_Archive.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridColList_Archive_CellValueChanged);
             // 
             // pnlTgtTableName_Archive
             // 
@@ -1851,7 +2047,6 @@
             this.gridConstraintList_Archive.Name = "gridConstraintList_Archive";
             this.gridConstraintList_Archive.Size = new System.Drawing.Size(510, 182);
             this.gridConstraintList_Archive.TabIndex = 5;
-            //this.gridConstraintList_Archive.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridConstraintList_Archive_CellValueChanged);
             // 
             // tblp_TgtMeta_Btns_Archive
             // 
@@ -1882,7 +2077,6 @@
             this.btnArchiveExecute.TabIndex = 1;
             this.btnArchiveExecute.Text = "Execute";
             this.btnArchiveExecute.UseVisualStyleBackColor = true;
-            //this.btnArchiveExecute.Click += new System.EventHandler(this.btnArchiveExecute_Click);
             // 
             // btnArchiveSyntax
             // 
@@ -1896,7 +2090,6 @@
             this.btnArchiveSyntax.TabIndex = 2;
             this.btnArchiveSyntax.Text = "Check Syntax";
             this.btnArchiveSyntax.UseVisualStyleBackColor = true;
-            //this.btnArchiveSyntax.Click += new System.EventHandler(this.btnArchiveSyntax_Click);
             // 
             // btnArchiveReload
             // 
@@ -1908,7 +2101,6 @@
             this.btnArchiveReload.TabIndex = 0;
             this.btnArchiveReload.Text = "Reload";
             this.btnArchiveReload.UseVisualStyleBackColor = true;
-            //this.btnArchiveReload.Click += new System.EventHandler(this.btnArchiveReload_Click);
             // 
             // tabTrackingTbl
             // 
@@ -2464,27 +2656,6 @@
             this.imageList1.Images.SetKeyName(0, "GreenChkMrk.png");
             this.imageList1.Images.SetKeyName(1, "FailIcon.png");
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.dtm_FileGroup_End);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(228, 3);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox2.Size = new System.Drawing.Size(219, 55);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "End Date:";
-            // 
-            // dtm_FileGroup_End
-            // 
-            this.dtm_FileGroup_End.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dtm_FileGroup_End.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtm_FileGroup_End.Location = new System.Drawing.Point(3, 25);
-            this.dtm_FileGroup_End.Name = "dtm_FileGroup_End";
-            this.dtm_FileGroup_End.Size = new System.Drawing.Size(213, 22);
-            this.dtm_FileGroup_End.TabIndex = 3;
-            // 
             // cbx_idxList_Src
             // 
             this.cbx_idxList_Src.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -2752,46 +2923,6 @@
             this.cbxt_TrackTbl_ProjectsTable.Size = new System.Drawing.Size(605, 24);
             this.cbxt_TrackTbl_ProjectsTable.TabIndex = 2;
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.tbx_FileNamePrefix);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(228, 64);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox3.Size = new System.Drawing.Size(219, 56);
-            this.groupBox3.TabIndex = 2;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "File Name Prefix:";
-            // 
-            // tbx_FileNamePrefix
-            // 
-            this.tbx_FileNamePrefix.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbx_FileNamePrefix.Location = new System.Drawing.Point(3, 25);
-            this.tbx_FileNamePrefix.Name = "tbx_FileNamePrefix";
-            this.tbx_FileNamePrefix.Size = new System.Drawing.Size(213, 22);
-            this.tbx_FileNamePrefix.TabIndex = 0;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.tbx_FileGroupPrefix);
-            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(3, 64);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.groupBox4.Size = new System.Drawing.Size(219, 56);
-            this.groupBox4.TabIndex = 3;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "File Group Prefix:";
-            // 
-            // tbx_FileGroupPrefix
-            // 
-            this.tbx_FileGroupPrefix.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbx_FileGroupPrefix.Location = new System.Drawing.Point(3, 25);
-            this.tbx_FileGroupPrefix.Name = "tbx_FileGroupPrefix";
-            this.tbx_FileGroupPrefix.Size = new System.Drawing.Size(213, 22);
-            this.tbx_FileGroupPrefix.TabIndex = 0;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2839,10 +2970,15 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tblp_Partition_FileGroups.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridFileGroups)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.splitContainer3.Panel1.ResumeLayout(false);
@@ -2853,22 +2989,28 @@
             this.splitContainer4.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.grpBx_PartitionFunctionName.ResumeLayout(false);
+            this.grpBx_PartitionFunctionName.PerformLayout();
+            this.grpBx_PartitionFunction_Boundary.ResumeLayout(false);
+            this.grpBx_PartitionFunction_Boundary.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridPartitionFunction)).EndInit();
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
             this.splitContainer5.Panel1.ResumeLayout(false);
             this.splitContainer5.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
             this.splitContainer5.ResumeLayout(false);
-            this.tableLayoutPanel7.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.grpBx_PartitionSchemeName.ResumeLayout(false);
+            this.grpBx_PartitionSchemeName.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox10.ResumeLayout(false);
             this.tableLayoutPanel8.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridPartitionScheme)).EndInit();
             this.tableLayoutPanel9.ResumeLayout(false);
             this.tableLayoutPanel9.PerformLayout();
             this.tabTgtMetadata.ResumeLayout(false);
@@ -2947,11 +3089,6 @@
             this.tabSandBox.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3111,42 +3248,53 @@
         private System.Windows.Forms.TabPage tabPartition;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tblp_Partition_FileGroups;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DateTimePicker dtm_FileGroup_Start;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridView gridFileGroups;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btn_FileGroup_Execute;
+        private System.Windows.Forms.Button btn_FileGroup_CheckSyntax;
+        private System.Windows.Forms.Button btn_FileGroup_Reload;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.SplitContainer splitContainer4;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-        private System.Windows.Forms.DataGridView dataGridView4;
+        private System.Windows.Forms.DataGridView gridPartitionFunction;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btn_PartitionFunction_Execute;
+        private System.Windows.Forms.Button btn_PartitionFunction_CheckSyntax;
+        private System.Windows.Forms.Button btn_PartitionFunction_Reload;
         private System.Windows.Forms.SplitContainer splitContainer5;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
-        private System.Windows.Forms.DataGridView dataGridView6;
+        private System.Windows.Forms.DataGridView gridPartitionScheme;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button btn_PartitionScheme_Execute;
+        private System.Windows.Forms.Button btn_PartitionScheme_CheckSyntax;
+        private System.Windows.Forms.Button btn_PartitionScheme_Reload;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DateTimePicker dtm_FileGroup_End;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.TextBox tbx_FileGroupPrefix;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox tbx_FileNamePrefix;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.GroupBox grpBx_PartitionFunctionName;
+        private System.Windows.Forms.TextBox tbx_PartitionFunctionName;
+        private System.Windows.Forms.GroupBox grpBx_PartitionFunction_Boundary;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.DateTimePicker dtm_PartitionFunction_End;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.DateTimePicker dtm_PartitionFunction_Start;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.GroupBox grpBx_PartitionSchemeName;
+        private System.Windows.Forms.TextBox tbx_PartitionSchemeName;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.DateTimePicker dtm_PartitionScheme_End;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.DateTimePicker dtm_PartitionScheme_Start;
+        private System.Windows.Forms.RadioButton rdbtn_PF_BoundaryOnRight;
+        private System.Windows.Forms.RadioButton rdbtn_PF_BoundaryOnLeft;
     }
 }
 

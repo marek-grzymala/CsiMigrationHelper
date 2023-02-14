@@ -17,12 +17,20 @@ namespace CsiMigrationHelper
         public static string suffixStaging;
         public static string suffixArchive;
         public static string prefixCSI;
-        public static string suffixTgtColName;
+
+        public static string partition_FG_Prefix;
+        public static string partition_FI_Prefix;
+        public static string partition_PF_Name;
+        public static string partition_PS_Name;
+        public static string partitionInterval;
+
+        public static bool autoDropDownComboBoxes;
         public static bool translateUserDefinedDataTypes;
         public static bool doNotCreateFKsOnCrossDbTarget;
         public static bool makeCSIClustered;
         public static bool renameTgtColumns;
-        public static bool autoDropDownComboBoxes;
+        public static string suffixTgtColName;
+
         public static string projectsTableDefaultName;
         public static string newProjectDefaultName;
         public static string newProjectDefaultDescription;
@@ -35,12 +43,20 @@ namespace CsiMigrationHelper
             tbx_StagingSuffix.Text = suffixStaging;
             tbx_ArchiveSuffix.Text = suffixArchive;
             tbx_CSIprefix.Text = prefixCSI;
-            tbx_TgtColumnNameSuffix.Text = suffixTgtColName;
+
+            tbx_Partition_FG_Prefix.Text        = partition_FG_Prefix;
+            tbx_Partition_FI_Prefix.Text        = partition_FI_Prefix;
+            tbx_Partition_PF.Text               = partition_PF_Name;
+            tbx_Partition_PS.Text               = partition_PS_Name;
+            cmbx_PartitionInterval.SelectedItem = partitionInterval;
+
+            chkbxAutoDropDownComboBoxes.Checked = autoDropDownComboBoxes;
             rdbtnTranslateUserDefinedDataTypes.Checked = translateUserDefinedDataTypes;
             chbxDoNotCreateFKsOnCrossDbTarget.Checked = doNotCreateFKsOnCrossDbTarget;
             chkbxMakeCSIClustered.Checked = makeCSIClustered;
             chkbxRenameTgtColumns.Checked = renameTgtColumns;
-            chkbxAutoDropDownComboBoxes.Checked = autoDropDownComboBoxes;
+            tbx_TgtColumnNameSuffix.Text = suffixTgtColName;
+
             tbx_ProjectsTableDefaultName.Text = projectsTableDefaultName;
             tbx_NewProjectDefaultName.Text = newProjectDefaultName;
             tbx_NewProjectDefaultDescription.Text = newProjectDefaultDescription;
@@ -59,12 +75,20 @@ namespace CsiMigrationHelper
                     suffixStaging = options.tbx_StagingSuffix.Text;
                     suffixArchive = options.tbx_ArchiveSuffix.Text;
                     prefixCSI = options.tbx_CSIprefix.Text;
-                    suffixTgtColName = options.tbx_TgtColumnNameSuffix.Text;
+
+                    partition_FG_Prefix = options.tbx_Partition_FG_Prefix.Text;
+                    partition_FI_Prefix = options.tbx_Partition_FI_Prefix.Text;       
+                    partition_PF_Name   = options.tbx_Partition_PF.Text;
+                    partition_PS_Name   = options.tbx_Partition_PS.Text;
+                    partitionInterval   = options.cmbx_PartitionInterval.SelectedText;
+
+                    autoDropDownComboBoxes = options.chkbxAutoDropDownComboBoxes.Checked ? true : false;
                     translateUserDefinedDataTypes = options.rdbtnTranslateUserDefinedDataTypes.Checked ? true : false;
                     doNotCreateFKsOnCrossDbTarget = options.chbxDoNotCreateFKsOnCrossDbTarget.Checked ? true : false;
                     makeCSIClustered = options.chkbxMakeCSIClustered.Checked ? true : false;
                     renameTgtColumns = options.chkbxRenameTgtColumns.Checked ? true : false;
-                    autoDropDownComboBoxes = options.chkbxAutoDropDownComboBoxes.Checked ? true : false;
+                    suffixTgtColName = options.tbx_TgtColumnNameSuffix.Text;
+                    
                     projectsTableDefaultName = options.tbx_ProjectsTableDefaultName.Text;
                     newProjectDefaultName = options.tbx_NewProjectDefaultName.Text;
                     newProjectDefaultDescription = options.tbx_NewProjectDefaultDescription.Text;
