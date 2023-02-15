@@ -15,11 +15,10 @@ namespace CsiMigrationHelper
         public DateTimePicker EndFG           ;
         public DateTimePicker StartPF         ;
         public DateTimePicker EndPF           ;
-        public DateTimePicker StartPS         ;
-        public DateTimePicker EndPS           ;
         public TextBox        PrefixFG        ;
         public TextBox        PrefixFN        ;
         public TextBox        NamePF          ;
+        public ComboBox       NamePFcbx       ;          
         public TextBox        NamePS          ;
         public RadioButton    BoundaryOnRight ;
         public DataGridView   GridFileGroups  ;
@@ -43,11 +42,10 @@ namespace CsiMigrationHelper
                                       , DateTimePicker endFG
                                       , DateTimePicker startPF
                                       , DateTimePicker endPF
-                                      , DateTimePicker startPS
-                                      , DateTimePicker endPS
                                       , TextBox prefixFG
                                       , TextBox prefixFN
                                       , TextBox namePF
+                                      , ComboBox namePFcbx
                                       , TextBox namePS
                                       , RadioButton boundaryOnRight
                                       , DataGridView gridFileGroups
@@ -71,12 +69,11 @@ namespace CsiMigrationHelper
             EndFG           = endFG          ;
             StartPF         = startPF        ;
             EndPF           = endPF          ;
-            StartPS         = startPS        ;
-            EndPS           = endPS          ;
             PrefixFG        = prefixFG       ;
             PrefixFN        = prefixFN       ;
-            NamePS          = namePS         ;
             NamePF          = namePF         ;
+            NamePFcbx       = namePFcbx      ;
+            NamePS          = namePS         ;
             BoundaryOnRight = boundaryOnRight;
             GridFileGroups  = gridFileGroups;
             GridPF          = gridPartitionFunction;
@@ -90,7 +87,23 @@ namespace CsiMigrationHelper
             BtnExecuteFG      = btnExecuteFG        ;
             BtnExecutePF      = btnExecutePF        ;
             BtnExecutePS      = btnExecutePS        ;
-            ImageList1        = imageList1;
+            ImageList1        = imageList1          ;
+
+            NamePF.TextChanged += new EventHandler(OnNamePFTextChanged);
+            NamePS.TextChanged += new EventHandler(OnNamePSTextChanged);
+            NamePFcbx.TextChanged += new EventHandler(OnNamePSTextChanged);
+        }
+
+        protected virtual void OnNamePFTextChanged(object sender, EventArgs ea)
+        {
+            BtnExecutePF.Enabled = false;
+            BtnReloadPF.Enabled = string.IsNullOrEmpty(NamePF.Text) ? false : true;
+        }
+
+        protected virtual void OnNamePSTextChanged(object sender, EventArgs ea)
+        {
+            BtnExecutePS.Enabled = false;
+            BtnReloadPS.Enabled = string.IsNullOrEmpty(NamePS.Text) || NamePFcbx.Items.Count < 1 ? false : true;
         }
     }
 }

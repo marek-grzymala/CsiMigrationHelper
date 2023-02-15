@@ -13,8 +13,6 @@ namespace CsiMigrationHelper
         private DateTime endFG  ;
         private DateTime startPF;
         private DateTime endPF  ;
-        private DateTime startPS;
-        private DateTime endPS  ;
         private string prefixFG;
         private string prefixFN;
 
@@ -41,7 +39,6 @@ namespace CsiMigrationHelper
             e.BtnExecutePF.Click += new EventHandler(OnBtnExecutePFClick);
             e.BtnExecutePS.Click += new EventHandler(OnBtnExecutePSClick);
 
-
             e.PrefixFG.Text = Options.partition_FG_Prefix;
             e.PrefixFN.Text = Options.partition_FI_Prefix;
             e.NamePF.Text = Options.partition_PF_Name;
@@ -56,8 +53,6 @@ namespace CsiMigrationHelper
             e.EndFG.Value = defaultEnd;
             e.StartPF.Value = defaultStart;
             e.EndPF.Value = defaultEnd;
-            e.StartPS.Value = defaultStart;
-            e.EndPS.Value = defaultEnd;
 
             startFG = e.StartFG.Value;
             endFG   = e.EndFG.Value;
@@ -65,8 +60,6 @@ namespace CsiMigrationHelper
             prefixFN = e.PrefixFN.Text;
             startPF = e.StartPF.Value;
             endPF = e.EndPF.Value;
-            startPS = e.StartPS.Value;
-            endPS = e.EndPS.Value;
         }
 
         protected virtual void OnBtnReloadFGClick(object sender, EventArgs ea)
@@ -99,6 +92,9 @@ namespace CsiMigrationHelper
                 e.BtnCheckSyntaxPF.Image = null;
                 e.BtnExecutePF.Enabled = false;
                 e.BtnExecutePF.Image = null;
+                //e.NamePFcbx.Items.Clear();
+                e.NamePFcbx.Items.Insert(0, e.NamePF.Text);
+                e.NamePFcbx.SelectedIndex = 0;
 
             }
             else
@@ -108,6 +104,7 @@ namespace CsiMigrationHelper
                 e.BtnCheckSyntaxPF.Image = null;
                 e.BtnExecutePF.Enabled = false;
                 e.BtnExecutePF.Image = null;
+                e.NamePFcbx.Items.Clear();
             }
         }
 
@@ -310,28 +307,24 @@ namespace CsiMigrationHelper
 
         private bool LoadGridPS()
         {
-            if (e.GridFileGroups.RowCount < 1)
+            if (e.GridFileGroups.RowCount < 1 || e.GridPF.RowCount < 1)
             {
-                MessageBox.Show("Load FileGroups First", "Load FileGroups First", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Load FileGroups and Partition Function First", "Load FileGroups and Partition Function First", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             else
             {
-                startPS = e.StartPS.Value;
-                endPS = e.EndPS.Value;
 
                 DataTable dt = new DataTable();
                 dt.Columns.Add("Rn");
                 dt.Columns.Add("FileGroupMapped");
                 int i = 0;
-                while (i < e.GridFileGroups.RowCount - 1)
+                while (i < e.GridFileGroups.RowCount - 1 && i < e.GridPF.RowCount)
                 {
                     DataRow dr = dt.NewRow();
                     dr["Rn"] = i + 1;
                     dr["FileGroupMapped"] = string.Concat("'", e.GridFileGroups.Rows[i].Cells[1].Value, "'");
                     dt.Rows.Add(dr);
-                    startPS = startPS.AddMonths(1);
-                    Console.WriteLine(string.Concat("i: ", e.GridFileGroups.Rows[i].Cells[1].Value));
                     i++;
                 }
                 e.GridPS.DataSource = dt;
@@ -419,7 +412,7 @@ namespace CsiMigrationHelper
             
             bool result = false;
             StringBuilder sql = new StringBuilder();
-            sql.Append(string.Concat("CREATE PARTITION SCHEME [", e.NamePS.Text, "] AS PARTITION [", e.NamePF.Text
+            sql.Append(string.Concat("CREATE PARTITION SCHEME [", e.NamePS.Text, "] AS PARTITION [", e.NamePFcbx.SelectedItem
                                     , "] TO (", Environment.NewLine));
             foreach (DataGridViewRow row in e.GridPS.Rows)
             {
