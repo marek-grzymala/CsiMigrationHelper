@@ -17,7 +17,7 @@ namespace CsiMigrationHelper
         {
             ProjectsTable = projectsTable;
             ProjectName   = projectName;
-            //ProjectDescription = projectDescription;
+
             ProjectsTable.RdButtonCreateNew.CheckedChanged += new EventHandler(OnRdButtonProjectsTableCheckedChanged);
             ProjectsTable.eventCmbxProjectsTableSelectedIndexChanged += new HandlerCmbxProjectsTableSelectedIndexChanged(OnCmbxProjectsTableSelectedIndexChange);
             ProjectsTable.SaveButton.Click += new EventHandler(OnProjectsTableSaveButtonClick);
@@ -82,6 +82,8 @@ namespace CsiMigrationHelper
                 {                    
                     ProjectName.LockGuiControls();
                     ProjectName.SaveButton.Image = ImageList1.Images[0];
+                    // load Migration Tracking Table:
+                    
                 }
                 else
                 {
@@ -111,8 +113,9 @@ namespace CsiMigrationHelper
             try
             {
                 return e.InstanceNode.Data.Dbu.ExecuteSql(e.InstanceNode
-                    , SqlText.GetSqlTableDefinitionProjectsTable(e.SchemaName, e.TableName)
-                    , "Error creating Project Table: [" + e.SchemaName +"].["+ e.TableName +"]");                
+                    , SqlText.GetSqlTableDefinitionProjectTable(e.SchemaName, e.TableName)
+                    , "Error creating Project Table: [" + e.SchemaName +"].["+ e.TableName +"]");
+                
             }
             catch (ExceptionSqlExecError ex)
             {

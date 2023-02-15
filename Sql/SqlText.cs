@@ -562,14 +562,30 @@ namespace CsiMigrationHelper
             return SqlTableDefTranslatedUserTypesByTableName;
         }
 
-        public static string GetSqlTableDefinitionProjectsTable(string schemaName, string tableName)
+        public static string GetSqlTableDefinitionProjectTable(string schemaName, string tableName)
         {
-            return string.Concat( "CREATE TABLE [", schemaName, "].[", tableName, "]("
-                                 , "[ProjectID] INT IDENTITY(1,1) NOT NULL,"
-                                 , "[ProjectGUID] UNIQUEIDENTIFIER PRIMARY KEY CLUSTERED,"
-                                 , "[ProjectName] NVARCHAR(256) UNIQUE NOT NULL,"
-                                 , "[ProjectDescription] NVARCHAR(256) NULL,"
-                                 , "[ProjectCreateDate] DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP);");
+            return string.Concat(  "CREATE TABLE [", schemaName, "].[", tableName, "]("
+                                 , "  [ProjectID] INT IDENTITY(1,1) NOT NULL"
+                                 , ", [ProjectGUID] UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID() PRIMARY KEY CLUSTERED"
+                                 , ", [ProjectName] NVARCHAR(256) UNIQUE NOT NULL"
+                                 , ", [ProjectDescription] NVARCHAR(256) NULL"
+                                 , ", [ProjectCreateDate] DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP);", Environment.NewLine
+                                 , "CREATE TABLE [", schemaName, "].[", tableName, Options.migrationTrackingTblSuffix, "]("
+                                 , "  [ProjectGUID] UNIQUEIDENTIFIER NOT NULL"
+                                 , ", [EntryCreateDate] DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP"
+                                 , ", [PartitionId] INT NOT NULL"
+                                 , ", [RowNumSrc] BIGINT NULL"
+                                 , ", [RowNumTgt] BIGINT NOT NULL"
+                                 , ", [TotalMB] DECIMAL(10,2) NOT NULL"
+                                 , ", [UsedMB]  DECIMAL(10,2) NOT NULL"
+                                 , ", [FilegroupName] NVARCHAR(256) NOT NULL"
+                                 , ", [LowerPartitionBoundary] DATETIME NULL"
+                                 , ", [UpperPartitionBoundary] DATETIME NULL"
+                                 , ", [migrated] BIT NOT NULL"
+                                 , ");", Environment.NewLine
+                                 , "ALTER TABLE [", schemaName, "].[", tableName, Options.migrationTrackingTblSuffix, "] ADD CONSTRAINT [FK_ProjectGUID] "
+                                 , "FOREIGN KEY ([ProjectGUID]) REFERENCES [", schemaName, "].[", tableName, "]([ProjectGUID]);"
+                                 );
         }
 
         public static string GetSqlTableVerificationProjectsTable(string schemaName, string tableName)
@@ -586,9 +602,9 @@ namespace CsiMigrationHelper
         public static string GetSqlProjectNameInsert(string schemaName, string tableName, string projectName, string projectDescription)
         {
             return string.Concat(
-                  "INSERT INTO [", schemaName, "].[", tableName, "] "
-                , "           ([ProjectName], [ProjectGUID], [ProjectDescription])		    "
-                , "VALUES	  ('", projectName, "', NEWID(), '", projectDescription, "');	    "
+                  "INSERT INTO [", schemaName, "].[", tableName, "]"
+                , "           ([ProjectName], [ProjectGUID], [ProjectDescription]) ", Environment.NewLine
+                , "VALUES	  ('", projectName, "', NEWID(), '", projectDescription, "');"
                 );
         }
 

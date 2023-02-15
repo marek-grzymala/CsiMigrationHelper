@@ -69,10 +69,10 @@ namespace CsiMigrationHelper
                 Options.doNotCreateFKsOnCrossDbTarget = true;
                 Options.makeCSIClustered = true;
                 Options.renameTgtColumns = false;
-                Options.projectsTableDefaultName = "CsiMigrationProjectsTable";
+                Options.projectsTableDefaultName = "CsiMigrationProjects";
                 Options.newProjectDefaultName = "My New Csi Migration Project";
                 Options.newProjectDefaultDescription = "Project description";
-                Options.migrationTrackingTblSuffix = "_MigrationTracking";
+                Options.migrationTrackingTblSuffix = "_TrackingTbl";
                 Options.partition_FG_Prefix = "FG_";
                 Options.partition_FI_Prefix = "FI_";
                 Options.partition_PF_Name = "pf_monthly_date";
@@ -196,6 +196,10 @@ namespace CsiMigrationHelper
                         trckProjectsTable = trckSchema.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.Table, "trckProjectsTable", string.Empty, new GuiElem(cbxt_TrackTbl_ProjectsTable), Trck));                        
                         cbxt_TrackTbl_ProjectsTable.SetParentTreeNode(
                                                                        trckProjectsTable
+                                                                     , btnLoginTrackTbl
+                                                                     , tbx_TrackTbl_Instance
+                                                                     , cbxt_TrackTbl_Database
+                                                                     , cbxt_TrackTbl_Schema
                                                                      , rdbtn_TrackTbl_ProjectsCreateNew
                                                                      , rdbtn_TrackTbl_ProjectNameUseExisting
                                                                      , grpBx_TrackTbl_ProjectsTableCreateNewUseExisting
@@ -208,6 +212,10 @@ namespace CsiMigrationHelper
                             trckProjectName = trckProjectsTable.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.Column, "trckProjectName", string.Empty, new GuiElem(cbxt_TrackTbl_ProjectName), Trck));
                             cbxt_TrackTbl_ProjectName.SetParentTreeNode(
                                                                          trckProjectName
+                                                                       , btnLoginTrackTbl
+                                                                       , tbx_TrackTbl_Instance
+                                                                       , cbxt_TrackTbl_Database
+                                                                       , cbxt_TrackTbl_Schema
                                                                        , rdbtn_TrackTbl_ProjectNameCreateNew
                                                                        , rdbtn_TrackTbl_ProjectNameUseExisting
                                                                        , grpBx_TrackTbl_ProjectNameCreateNewUseExisting

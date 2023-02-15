@@ -9,6 +9,11 @@ namespace CsiMigrationHelper
 {
     public class ComboBoxExtTrackTbl : ComboBoxExt
     {
+
+        public Button      BtnLoginTrackTbl;
+        public TextBox     Tbx_TrackTbl_Instance;
+        public ComboBoxExt Cbxt_TrackTbl_Database;
+        public ComboBoxExt Cbxt_TrackTbl_Schema;
         public RadioButton RdButtonCreateNew;
         public RadioButton RdButtonUseExisting;
         public GroupBox    RdButtonsGroupBox;
@@ -22,6 +27,10 @@ namespace CsiMigrationHelper
         }
 
         public void SetParentTreeNode(TreeNode<DbObject> tn
+                                    , Button        btnLoginTrackTbl
+                                    , TextBox       tbx_TrackTbl_Instance
+                                    , ComboBoxExt   cbxt_TrackTbl_Database
+                                    , ComboBoxExt   cbxt_TrackTbl_Schema
                                     , RadioButton rbtnNew
                                     , RadioButton rbtnExisting
                                     , GroupBox rdButtonsGroupBox
@@ -30,7 +39,12 @@ namespace CsiMigrationHelper
                                     , TextBox projectDescription)
         {
             TreeNodeOwner       = tn                    != null ? tn : null;
-            RdButtonCreateNew   = rbtnNew               != null ? rbtnNew: null;
+            BtnLoginTrackTbl        = btnLoginTrackTbl       != null ? btnLoginTrackTbl       : null;
+            Tbx_TrackTbl_Instance   = tbx_TrackTbl_Instance  != null ? tbx_TrackTbl_Instance  : null;
+            Cbxt_TrackTbl_Database  = cbxt_TrackTbl_Database != null ? cbxt_TrackTbl_Database : null;
+            Cbxt_TrackTbl_Schema = cbxt_TrackTbl_Schema != null ? cbxt_TrackTbl_Schema : null;
+
+            RdButtonCreateNew   = rbtnNew               != null ? rbtnNew : null;
             RdButtonUseExisting = rbtnExisting          != null ? rbtnExisting : null;
             RdButtonsGroupBox   = rdButtonsGroupBox     != null ? rdButtonsGroupBox : null;
             SaveButton          = saveButton            != null ? saveButton : null;
@@ -100,6 +114,11 @@ namespace CsiMigrationHelper
         public void LockGuiControls()
         {
             this.Enabled                = false;
+            BtnLoginTrackTbl.Enabled    = false;
+            Tbx_TrackTbl_Instance.Enabled       = false;
+            Cbxt_TrackTbl_Database.Enabled      = false;
+            Cbxt_TrackTbl_Schema.Enabled        = false;
+
             RdButtonsGroupBox.Enabled   = false;
             SaveButton.Enabled          = false;
             EditButton.Enabled          = true;
@@ -112,6 +131,11 @@ namespace CsiMigrationHelper
         public void UnLockGuiControls(object sender, EventArgs e)
         {
             this.Enabled                = true;
+            BtnLoginTrackTbl.Enabled = true;
+            Tbx_TrackTbl_Instance.Enabled = true;
+            Cbxt_TrackTbl_Database.Enabled = true;
+            Cbxt_TrackTbl_Schema.Enabled = true;
+
             RdButtonsGroupBox.Enabled   = true;
             SaveButton.Enabled          = true;
             EditButton.Enabled          = false;

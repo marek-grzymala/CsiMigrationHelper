@@ -129,6 +129,8 @@
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.grpBx_PartitionSchemeName = new System.Windows.Forms.GroupBox();
             this.tbx_PartitionSchemeName = new System.Windows.Forms.TextBox();
+            this.grpBx_PartitionFunctionSelect = new System.Windows.Forms.GroupBox();
+            this.cbx_PartitionFunctionSelect = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.gridPartitionScheme = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
@@ -183,7 +185,7 @@
             this.grpBx_TrackTbl_Instance = new System.Windows.Forms.GroupBox();
             this.tblp_TabTrackTbl_Instance = new System.Windows.Forms.TableLayoutPanel();
             this.tbx_TrackTbl_Instance = new System.Windows.Forms.TextBox();
-            this.btnTrackTblLogin = new System.Windows.Forms.Button();
+            this.btnLoginTrackTbl = new System.Windows.Forms.Button();
             this.tblp_TrackingTbl_ProjectTables = new System.Windows.Forms.TableLayoutPanel();
             this.tblp_TrackTbl_ProjectNameSaveRunBtns = new System.Windows.Forms.TableLayoutPanel();
             this.btnTrackTbl_ProjectNameEdit = new System.Windows.Forms.Button();
@@ -222,8 +224,6 @@
             this.optionsStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.grpBx_PartitionFunctionSelect = new System.Windows.Forms.GroupBox();
-            this.cbx_PartitionFunctionSelect = new System.Windows.Forms.ComboBox();
             this.tabControl.SuspendLayout();
             this.tabSrcTgtSetup.SuspendLayout();
             this.tblp_TabSetupOuter.SuspendLayout();
@@ -281,6 +281,7 @@
             this.splitContainer5.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.grpBx_PartitionSchemeName.SuspendLayout();
+            this.grpBx_PartitionFunctionSelect.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPartitionScheme)).BeginInit();
             this.tableLayoutPanel9.SuspendLayout();
@@ -348,7 +349,6 @@
             this.tabEventLog.SuspendLayout();
             this.tabSandBox.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.grpBx_PartitionFunctionSelect.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -1703,6 +1703,27 @@
             this.tbx_PartitionSchemeName.Size = new System.Drawing.Size(365, 22);
             this.tbx_PartitionSchemeName.TabIndex = 0;
             // 
+            // grpBx_PartitionFunctionSelect
+            // 
+            this.grpBx_PartitionFunctionSelect.Controls.Add(this.cbx_PartitionFunctionSelect);
+            this.grpBx_PartitionFunctionSelect.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpBx_PartitionFunctionSelect.Location = new System.Drawing.Point(3, 61);
+            this.grpBx_PartitionFunctionSelect.Name = "grpBx_PartitionFunctionSelect";
+            this.grpBx_PartitionFunctionSelect.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.grpBx_PartitionFunctionSelect.Size = new System.Drawing.Size(371, 55);
+            this.grpBx_PartitionFunctionSelect.TabIndex = 4;
+            this.grpBx_PartitionFunctionSelect.TabStop = false;
+            this.grpBx_PartitionFunctionSelect.Text = "Select Partition Function:";
+            // 
+            // cbx_PartitionFunctionSelect
+            // 
+            this.cbx_PartitionFunctionSelect.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbx_PartitionFunctionSelect.FormattingEnabled = true;
+            this.cbx_PartitionFunctionSelect.Location = new System.Drawing.Point(3, 25);
+            this.cbx_PartitionFunctionSelect.Name = "cbx_PartitionFunctionSelect";
+            this.cbx_PartitionFunctionSelect.Size = new System.Drawing.Size(365, 24);
+            this.cbx_PartitionFunctionSelect.TabIndex = 0;
+            // 
             // tableLayoutPanel8
             // 
             this.tableLayoutPanel8.ColumnCount = 1;
@@ -2393,7 +2414,7 @@
             this.tblp_TabTrackTbl_Instance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblp_TabTrackTbl_Instance.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
             this.tblp_TabTrackTbl_Instance.Controls.Add(this.tbx_TrackTbl_Instance, 0, 0);
-            this.tblp_TabTrackTbl_Instance.Controls.Add(this.btnTrackTblLogin, 1, 0);
+            this.tblp_TabTrackTbl_Instance.Controls.Add(this.btnLoginTrackTbl, 1, 0);
             this.tblp_TabTrackTbl_Instance.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblp_TabTrackTbl_Instance.Location = new System.Drawing.Point(3, 18);
             this.tblp_TabTrackTbl_Instance.Margin = new System.Windows.Forms.Padding(1);
@@ -2415,17 +2436,17 @@
             this.tbx_TrackTbl_Instance.Size = new System.Drawing.Size(407, 22);
             this.tbx_TrackTbl_Instance.TabIndex = 70;
             // 
-            // btnTrackTblLogin
+            // btnLoginTrackTbl
             // 
-            this.btnTrackTblLogin.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnTrackTblLogin.Location = new System.Drawing.Point(418, 3);
-            this.btnTrackTblLogin.Margin = new System.Windows.Forms.Padding(2);
-            this.btnTrackTblLogin.Name = "btnTrackTblLogin";
-            this.btnTrackTblLogin.Size = new System.Drawing.Size(84, 25);
-            this.btnTrackTblLogin.TabIndex = 69;
-            this.btnTrackTblLogin.Text = "Login";
-            this.btnTrackTblLogin.UseVisualStyleBackColor = true;
-            this.btnTrackTblLogin.Click += new System.EventHandler(this.btnTrackTblLogin_Click);
+            this.btnLoginTrackTbl.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnLoginTrackTbl.Location = new System.Drawing.Point(418, 3);
+            this.btnLoginTrackTbl.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLoginTrackTbl.Name = "btnLoginTrackTbl";
+            this.btnLoginTrackTbl.Size = new System.Drawing.Size(84, 25);
+            this.btnLoginTrackTbl.TabIndex = 69;
+            this.btnLoginTrackTbl.Text = "Login";
+            this.btnLoginTrackTbl.UseVisualStyleBackColor = true;
+            this.btnLoginTrackTbl.Click += new System.EventHandler(this.btnTrackTblLogin_Click);
             // 
             // tblp_TrackingTbl_ProjectTables
             // 
@@ -2876,27 +2897,6 @@
             this.imageList1.Images.SetKeyName(0, "GreenChkMrk.png");
             this.imageList1.Images.SetKeyName(1, "FailIcon.png");
             // 
-            // grpBx_PartitionFunctionSelect
-            // 
-            this.grpBx_PartitionFunctionSelect.Controls.Add(this.cbx_PartitionFunctionSelect);
-            this.grpBx_PartitionFunctionSelect.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpBx_PartitionFunctionSelect.Location = new System.Drawing.Point(3, 61);
-            this.grpBx_PartitionFunctionSelect.Name = "grpBx_PartitionFunctionSelect";
-            this.grpBx_PartitionFunctionSelect.Padding = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.grpBx_PartitionFunctionSelect.Size = new System.Drawing.Size(371, 55);
-            this.grpBx_PartitionFunctionSelect.TabIndex = 4;
-            this.grpBx_PartitionFunctionSelect.TabStop = false;
-            this.grpBx_PartitionFunctionSelect.Text = "Select Partition Function:";
-            // 
-            // cbx_PartitionFunctionSelect
-            // 
-            this.cbx_PartitionFunctionSelect.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cbx_PartitionFunctionSelect.FormattingEnabled = true;
-            this.cbx_PartitionFunctionSelect.Location = new System.Drawing.Point(3, 25);
-            this.cbx_PartitionFunctionSelect.Name = "cbx_PartitionFunctionSelect";
-            this.cbx_PartitionFunctionSelect.Size = new System.Drawing.Size(365, 24);
-            this.cbx_PartitionFunctionSelect.TabIndex = 0;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2981,6 +2981,7 @@
             this.tableLayoutPanel4.ResumeLayout(false);
             this.grpBx_PartitionSchemeName.ResumeLayout(false);
             this.grpBx_PartitionSchemeName.PerformLayout();
+            this.grpBx_PartitionFunctionSelect.ResumeLayout(false);
             this.tableLayoutPanel8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridPartitionScheme)).EndInit();
             this.tableLayoutPanel9.ResumeLayout(false);
@@ -3061,7 +3062,6 @@
             this.tabSandBox.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.grpBx_PartitionFunctionSelect.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3181,7 +3181,7 @@
         private System.Windows.Forms.TableLayoutPanel tblp_TrackingTable;
         private System.Windows.Forms.GroupBox grpBx_TrackTbl_Instance;
         private System.Windows.Forms.TabPage tabSandBox;
-        private System.Windows.Forms.Button btnTrackTblLogin;
+        private System.Windows.Forms.Button btnLoginTrackTbl;
         private System.Windows.Forms.GroupBox grpBx_TrackTbl_Database;
         private System.Windows.Forms.GroupBox grpBx_TrackTbl_Schema;
         private System.Windows.Forms.GroupBox grpBx_TrackTbl_ProjectsTbl;

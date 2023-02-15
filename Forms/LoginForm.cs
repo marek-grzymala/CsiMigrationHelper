@@ -20,6 +20,10 @@ namespace CsiMigrationHelper
             {
                 serverNmTxtb.Text = ConfigurationManager.AppSettings["ServerNameTgt"];
             }
+            else if (bt.Name.Contains("Track"))
+            {
+                serverNmTxtb.Text = ConfigurationManager.AppSettings["ServerNameTrack"];
+            }
             authenticationCmb.Text = ConfigurationManager.AppSettings["Authentication"];
             userNmTxtb.Text = ConfigurationManager.AppSettings["UserName"];
             passwordTxtb.Text = ConfigurationManager.AppSettings["Password"];
