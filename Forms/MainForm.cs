@@ -238,6 +238,7 @@ namespace CsiMigrationHelper
             gridConstraintList_Archive.GetType().GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(gridConstraintList_Archive, true, null);
 
             ps = new PartitionSetup(new EventArgsPartitionSetup(
+                                   tgtInstance,
                                    tgtDatabase,
                                    dtm_FileGroup_Start,
                                    dtm_FileGroup_End,
@@ -251,6 +252,8 @@ namespace CsiMigrationHelper
                                    tbx_PartitionSchemeName,
                                    rdbtn_PF_BoundaryOnRight,
                                    gridFileGroups,
+                                   gridPartitionFunction,
+                                   gridPartitionScheme,
                                    btn_FileGroup_Reload,
                                    btn_PartitionFunction_Reload,
                                    btn_PartitionScheme_Reload,
@@ -259,7 +262,8 @@ namespace CsiMigrationHelper
                                    btn_PartitionScheme_CheckSyntax,
                                    btn_FileGroup_Execute,
                                    btn_PartitionFunction_Execute,
-                                   btn_PartitionScheme_Execute
+                                   btn_PartitionScheme_Execute,
+                                   imageList1
                                    ));
 
             TgtMtdHdlr_Current = new TgtTblMetaDataHandler(new EventArgsTgtTblMetadata(

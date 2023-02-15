@@ -25,8 +25,11 @@ namespace CsiMigrationHelper
         {
             TreeNodeOwner.CloneableFromSrc = this.Checked ? true : false;
             int branch = TreeNodeOwner.Data.ObjectBranch;
-            switch (branch)
+            try
             {
+            switch (branch)
+                {
+
                 case (int)DbObjectBranch.Tgt:
                     CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner.Parent);
                     break;
@@ -37,25 +40,22 @@ namespace CsiMigrationHelper
                         TreeNodeOwner.Data.Gui.Cbxtr.RunOnRdButtonCheckedChanged(sender, EventArgs.Empty);
                     }
                     else
-                    {
-                        try
-                        {
-                            CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner.Parent);
-                        }
-                        catch (ExceptionEmptyResultSet ex)
-                        {
-                            if (ex.retry)
-                            {
-                                ComboBox cb = TreeNodeOwner.Parent.Data.Gui.GetGuiObject() as ComboBox;
-                                if (cb != null)
-                                {
-                                    cb.DroppedDown = true;
-                                }
-                            }
-                        }
+                    {    
+                        CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner.Parent);
                     }
                     break;
-
+                }
+            }
+            catch (ExceptionEmptyResultSet ex)
+            {
+                if (ex.retry)
+                {
+                    ComboBox cb = TreeNodeOwner.Parent.Data.Gui.GetGuiObject() as ComboBox;
+                    if (cb != null)
+                    {
+                        cb.DroppedDown = true;
+                    }
+                }
             }
         }
     }

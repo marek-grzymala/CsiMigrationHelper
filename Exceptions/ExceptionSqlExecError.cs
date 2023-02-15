@@ -30,11 +30,11 @@ namespace CsiMigrationHelper
                     , "Do you want to retry?"), "Confirm Selection"
                     , MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-                    retry = false;
+                    retry = true;
                 }
                 else
                 {
-                    retry = true;
+                    retry = false;
                 }
             }
         }

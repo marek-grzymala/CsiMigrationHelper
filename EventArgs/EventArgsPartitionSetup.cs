@@ -9,7 +9,8 @@ namespace CsiMigrationHelper
 {
     public class EventArgsPartitionSetup : EventArgs
     {
-        public TreeNode<DbObject> TnTgtDatabase;
+        public TreeNode<DbObject> TgtInstance;
+        public TreeNode<DbObject> TgtDatabase;
         public DateTimePicker StartFG         ;
         public DateTimePicker EndFG           ;
         public DateTimePicker StartPF         ;
@@ -22,6 +23,8 @@ namespace CsiMigrationHelper
         public TextBox        NamePS          ;
         public RadioButton    BoundaryOnRight ;
         public DataGridView   GridFileGroups  ;
+        public DataGridView   GridPF          ;
+        public DataGridView   GridPS          ;
         public Button         BtnReloadFG     ;
         public Button         BtnReloadPF     ;
         public Button         BtnReloadPS     ;
@@ -31,9 +34,11 @@ namespace CsiMigrationHelper
         public Button         BtnExecuteFG    ;
         public Button         BtnExecutePF    ;
         public Button         BtnExecutePS    ;
+        public ImageList      ImageList1;
 
         public EventArgsPartitionSetup(
-                                        TreeNode<DbObject> tnTgtDatabase
+                                        TreeNode<DbObject> tnTgtInstance
+                                      , TreeNode<DbObject> tnTgtDatabase
                                       , DateTimePicker startFG
                                       , DateTimePicker endFG
                                       , DateTimePicker startPF
@@ -46,6 +51,8 @@ namespace CsiMigrationHelper
                                       , TextBox namePS
                                       , RadioButton boundaryOnRight
                                       , DataGridView gridFileGroups
+                                      , DataGridView gridPartitionFunction
+                                      , DataGridView gridPartitionScheme
                                       , Button btnReloadFG
                                       , Button btnReloadPF
                                       , Button btnReloadPS
@@ -55,9 +62,11 @@ namespace CsiMigrationHelper
                                       , Button btnExecuteFG
                                       , Button btnExecutePF
                                       , Button btnExecutePS
+                                      , ImageList imageList1
                                       )
         {
-            TnTgtDatabase      = tnTgtDatabase     ;
+            TgtInstance   = tnTgtInstance  ;
+            TgtDatabase   = tnTgtDatabase  ;
             StartFG         = startFG        ;
             EndFG           = endFG          ;
             StartPF         = startPF        ;
@@ -70,6 +79,8 @@ namespace CsiMigrationHelper
             NamePF          = namePF         ;
             BoundaryOnRight = boundaryOnRight;
             GridFileGroups  = gridFileGroups;
+            GridPF          = gridPartitionFunction;
+            GridPS          = gridPartitionScheme;
             BtnReloadFG       = btnReloadFG         ;
             BtnReloadPF       = btnReloadPF         ;
             BtnReloadPS       = btnReloadPS         ;
@@ -79,6 +90,7 @@ namespace CsiMigrationHelper
             BtnExecuteFG      = btnExecuteFG        ;
             BtnExecutePF      = btnExecutePF        ;
             BtnExecutePS      = btnExecutePS        ;
+            ImageList1        = imageList1;
         }
     }
 }
