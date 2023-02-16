@@ -7,10 +7,14 @@ using System.Windows.Forms;
 
 namespace CsiMigrationHelper
 {
-    public delegate void HandlerCmbxProjectsTableSelectedIndexChanged(object sender, EventArgsTableName e);
+    public delegate void HandlerCmbxProjectTblSelectedIndexChanged(object sender, EventArgsTableName e);
+    public delegate void HandlerCmbxProjectSelectedIndexChanged(object sender, EventArgsTableName e);
+
     public class ComboBoxExt : ComboBox
     {
-        public event HandlerCmbxProjectsTableSelectedIndexChanged eventCmbxProjectsTableSelectedIndexChanged;
+        public event HandlerCmbxProjectTblSelectedIndexChanged eventCmbxTrackTblSelectedIndexChanged;
+        public event HandlerCmbxProjectSelectedIndexChanged eventCmbxProjectNameSelectedINdexChanged;
+
         public TreeNode<DbObject> TreeNodeOwner;
         private TreeNode<DbObject> InstanceNode;
 
@@ -56,14 +60,28 @@ namespace CsiMigrationHelper
                         }
                         TreeNodeOwner.SetTreeNodeText(TreeNodeOwner, newCbxSelection, true);
 
-                        // raise an event for TrackingTblHndlr to check if this is a valid ProjectsTable:
-                        if (TreeNodeOwner.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl && TreeNodeOwner.Data.ObjectLevel == (int)DbObjectLevel.Table)
+                        if (TreeNodeOwner.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl)
                         {
-                            var deleg = eventCmbxProjectsTableSelectedIndexChanged as HandlerCmbxProjectsTableSelectedIndexChanged;
-                            if (deleg != null)
+                            InstanceNode = TreeNodeOwner.TraverseUpUntil(TreeNodeOwner, (int)DbObjectLevel.Instance);
+                            int objectLevel = TreeNodeOwner.Data.ObjectLevel;
+                            switch (objectLevel)
                             {
-                                InstanceNode = TreeNodeOwner.TraverseUpUntil(TreeNodeOwner, (int)DbObjectLevel.Instance);
-                                deleg(this, new EventArgsTableName(InstanceNode, TreeNodeOwner.Parent.Data.ObjectText, TreeNodeOwner.Data.ObjectText)); //this line triggers the execution of OnCmbxProjectsTableSelectedIndexChange() in TrackingTblHndlr class
+                                case (int)DbObjectLevel.Table:
+                                    //raise an event for TrackingTblHndlr to check if this is a valid ProjectsTable:
+                                    var delegProjectTbl = eventCmbxTrackTblSelectedIndexChanged as HandlerCmbxProjectTblSelectedIndexChanged;
+                                    if (delegProjectTbl != null)
+                                    {
+                                        delegProjectTbl(this, new EventArgsTableName(InstanceNode, TreeNodeOwner, TreeNodeOwner.Parent.Data.ObjectText, TreeNodeOwner.Data.ObjectText)); //this line triggers the execution of OnCmbxProjectsTableSelectedIndexChange() in TrackingTblHndlr class
+                                    }
+                                    break;
+
+                                case (int)DbObjectLevel.Column:
+                                    var delegProjectName = eventCmbxProjectNameSelectedINdexChanged as HandlerCmbxProjectSelectedIndexChanged;
+                                    if (delegProjectName != null)
+                                    {
+                                        delegProjectName(this, new EventArgsTableName(InstanceNode, TreeNodeOwner, TreeNodeOwner.Parent.Data.ObjectText, TreeNodeOwner.Data.ObjectText));
+                                    }
+                                    break;
                             }
                         }
                         CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner);

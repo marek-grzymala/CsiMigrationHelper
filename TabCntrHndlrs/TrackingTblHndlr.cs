@@ -19,7 +19,9 @@ namespace CsiMigrationHelper
             ProjectName   = projectName;
 
             ProjectsTable.RdButtonCreateNew.CheckedChanged += new EventHandler(OnRdButtonProjectsTableCheckedChanged);
-            ProjectsTable.eventCmbxProjectsTableSelectedIndexChanged += new HandlerCmbxProjectsTableSelectedIndexChanged(OnCmbxProjectsTableSelectedIndexChange);
+            ProjectsTable.eventCmbxTrackTblSelectedIndexChanged += new HandlerCmbxProjectTblSelectedIndexChanged(OnCmbxProjectsTableSelectedIndexChange);
+            ProjectName.eventCmbxProjectNameSelectedINdexChanged += new HandlerCmbxProjectSelectedIndexChanged(OnCmbxProjectSelectedIndexChange);
+
             ProjectsTable.SaveButton.Click += new EventHandler(OnProjectsTableSaveButtonClick);
             ProjectName.SaveButton.Click += new EventHandler(OnProjectNameSaveButtonClick);
             ImageList1 = imageList1;
@@ -48,12 +50,23 @@ namespace CsiMigrationHelper
             }
         }
 
+        protected virtual void OnCmbxProjectSelectedIndexChange(object sender, EventArgsTableName e)
+        {
+            Console.WriteLine(string.Concat("Selected Project: [", e.TreeNodeOwner.Data.ObjectText, "] on Instance: ", e.InstanceNode.Data.ObjectText));
+        }
+
+        protected virtual void OnCmbxProjectNameSelectedIndexChange(object sender, EventArgsTableName e)
+        {
+            Console.WriteLine("(int)DbObjectBranch.TrckTbl -> (int)DbObjectLevel.Column");
+        }
+
         protected virtual void OnProjectsTableSaveButtonClick(object sender, EventArgs ea)
         {
             if (ProjectsTable.RdButtonCreateNew.Checked && ProjectsTable.Text.Length > 0)
             {
                 EventArgsTableName e = new EventArgsTableName(
                                           ProjectsTable.TreeNodeOwner.TraverseUpUntil(ProjectsTable.TreeNodeOwner, (int)DbObjectLevel.Instance)
+                                        , ProjectsTable.TreeNodeOwner
                                         , ProjectsTable.TreeNodeOwner.Parent.Data.ObjectText
                                         , ProjectsTable.TreeNodeOwner.Data.ObjectText);
                 if (CreateProjectsTable(e))
@@ -75,6 +88,7 @@ namespace CsiMigrationHelper
             {
                 EventArgsTableName e = new EventArgsTableName(
                                       ProjectsTable.TreeNodeOwner.TraverseUpUntil(ProjectsTable.TreeNodeOwner, (int)DbObjectLevel.Instance)
+                                    , ProjectsTable.TreeNodeOwner
                                     , ProjectsTable.TreeNodeOwner.Parent.Data.ObjectText
                                     , ProjectsTable.TreeNodeOwner.Data.ObjectText);
 

@@ -9,12 +9,15 @@ namespace CsiMigrationHelper
     public class EventArgsTableName : EventArgs
     {
         public TreeNode<DbObject> InstanceNode;
+        public TreeNode<DbObject> TreeNodeOwner;
+
         public string SchemaName;
         public string TableName;
 
-        public EventArgsTableName(TreeNode<DbObject> instanceNode, string schemaName, string tableName)
+        public EventArgsTableName(TreeNode<DbObject> instanceNode, TreeNode<DbObject> treeNodeOwner, string schemaName, string tableName)
         {
             InstanceNode = instanceNode;
+            TreeNodeOwner = treeNodeOwner;
             SchemaName = schemaName;
             TableName = tableName;
         }
