@@ -29,6 +29,9 @@ namespace CsiMigrationHelper
                     case "ConstraintDefinition":
                         SqlQueryText = SqlText.GetSqlConstraintDefinitionByTableName();
                         break;
+                    case "MigrationTrackingTable":
+                        SqlQueryText = SqlText.GetSqlMigrationTrackingByProjectName(tn);
+                        break;
                 }
             }
             else

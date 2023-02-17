@@ -279,7 +279,7 @@ namespace CsiMigrationHelper
                 dt.Columns.Add("Rn");
                 dt.Columns.Add("Condition");
                 dt.Columns.Add("DateBoudary");
-                string condition = e.BoundaryOnRight.Checked ? "before" : "after";
+                string condition = e.BoundaryOnRight.Checked ? "before" : "before or equal to";
                 int counter = 1;
                 while (startPF < endPF && counter < e.GridFileGroups.RowCount - 1)
                 {

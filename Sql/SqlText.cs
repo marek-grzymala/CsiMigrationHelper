@@ -569,7 +569,13 @@ namespace CsiMigrationHelper
                                  , ", [ProjectGUID] UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID() PRIMARY KEY CLUSTERED"
                                  , ", [ProjectName] NVARCHAR(256) UNIQUE NOT NULL"
                                  , ", [ProjectDescription] NVARCHAR(256) NULL"
-                                 , ", [ProjectCreateDate] DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP);", Environment.NewLine
+                                 , ", [ProjectCreateDate] DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP"
+                                 , ", [TgtInstance] NVARCHAR(256) NOT NULL"
+                                 , ", [TgtDatabase] NVARCHAR(256) NOT NULL"
+                                 , ", [TgtArchiveTableSchema] NVARCHAR(256) NOT NULL"
+                                 , ", [TgtArchiveTableName] NVARCHAR(256) NOT NULL"
+                                 , ", [TgtArchiveTableCSIndex] NVARCHAR(256) NOT NULL"
+                                 , ");", Environment.NewLine
                                  , "CREATE TABLE [", schemaName, "].[", tableName, Options.migrationTrackingTblSuffix, "]("
                                  , "  [ProjectGUID] UNIQUEIDENTIFIER NOT NULL"
                                  , ", [EntryCreateDate] DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP"
@@ -599,12 +605,29 @@ namespace CsiMigrationHelper
                                 ,"WHERE  1 = 0");
         }
 
-        public static string GetSqlProjectNameInsert(string schemaName, string tableName, string projectName, string projectDescription)
+        public static string GetSqlProjectNameInsert(string schemaName, string tableName, string projectName, string projectDescription, EventArgsProjectFields e)
         {
             return string.Concat(
                   "INSERT INTO [", schemaName, "].[", tableName, "]"
-                , "           ([ProjectName], [ProjectGUID], [ProjectDescription]) ", Environment.NewLine
-                , "VALUES	  ('", projectName, "', NEWID(), '", projectDescription, "');"
+                , "           ([ProjectName]"
+                , "           ,[ProjectGUID]"
+                , "           ,[ProjectDescription]"
+                , "           ,[TgtInstance]"
+                , "           ,[TgtDatabase]"
+                , "           ,[TgtArchiveTableSchema]"
+                , "           ,[TgtArchiveTableName]"
+                , "           ,[TgtArchiveTableCSIndex]"
+                , ")" , Environment.NewLine
+                , "VALUES	  ('"
+                , projectName
+                , "', NEWID()"
+                , " , '", projectDescription
+                , "', '", e.TgtInstance.Data.ObjectText
+                , "', '", e.TgtDatabase.Data.ObjectText
+                , "', '", e.TgtArchiveTableSchema.Data.ObjectText
+                , "', '", e.TgtArchiveTableName.Data.ObjectText
+                , "', '", e.TgtArchiveTableCSIndex.Data.ObjectText
+                , "');"
                 );
         }
 
@@ -622,6 +645,37 @@ namespace CsiMigrationHelper
                     , "FROM   [", schemaName, "].[", tableName, "]"
                     , "WHERE  [ProjectName] = '", projectName, "'; "
                 );
+        }
+
+        public static string GetSqlMigrationTrackingByProjectName(TreeNode<DbObject> tn)
+        {
+            string schema = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Schema).Data.ObjectText;
+            string migrationProjectsTbl = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Table).Data.ObjectText;
+            string migrationTrackingTbl = string.Concat(migrationProjectsTbl, Options.migrationTrackingTblSuffix);
+            string migrationProjectName = tn.Data.ObjectText;
+
+            return string.Concat(
+                  "SELECT														 ", Environment.NewLine
+                , "			     mt.[PartitionId]								 ", Environment.NewLine
+                , "			   , mt.[RowNumSrc]									 ", Environment.NewLine
+                , "			   , mt.[RowNumTgt]									 ", Environment.NewLine
+                , "			   , mt.[TotalMB]									 ", Environment.NewLine
+                , "			   , mt.[UsedMB]									 ", Environment.NewLine
+                , "			   , mt.[FilegroupName]								 ", Environment.NewLine
+                , "			   , mt.[LowerPartitionBoundary]					 ", Environment.NewLine
+                , "			   , mt.[UpperPartitionBoundary]					 ", Environment.NewLine
+                , "			   , mt.[migrated]									 ", Environment.NewLine
+                , "FROM        [", schema, "].[", migrationProjectsTbl, "] AS mp ", Environment.NewLine
+                , "INNER JOIN  [", schema, "].[", migrationTrackingTbl, "] AS mt ", Environment.NewLine
+                , "ON mp.[ProjectGUID] = mt.[ProjectGUID]                        ", Environment.NewLine
+                , "WHERE		mp.[ProjectName] = '", migrationProjectName, "'  ", Environment.NewLine
+                , "ORDER BY mt.[PartitionId];"
+                );
+        }
+
+        public static string GetSqlPreloadMigrationTracking(string projectTable, string projectName, EventArgsProjectFields eTgt)
+        {
+            return "";
         }
 
         public static string GetSqlObjectListByNodeLevel(TreeNode<DbObject> tn)

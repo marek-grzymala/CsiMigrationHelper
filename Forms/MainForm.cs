@@ -50,6 +50,7 @@ namespace CsiMigrationHelper
         private TgtTblMetaDataHandler TgtMtdHdlr_Staging = new TgtTblMetaDataHandler();
         private TgtTblMetaDataHandler TgtMtdHdlr_Archive = new TgtTblMetaDataHandler();
         private TrackingTblHndlr TrckTblHndlr;
+        private EventArgsProjectFields eaProjectFields;
 
         private EventLog elg;
 
@@ -184,6 +185,14 @@ namespace CsiMigrationHelper
                 }
             }
 
+            eaProjectFields = new EventArgsProjectFields(
+                                     tgtInstance
+                                   , tgtDatabase
+                                   , tgtSchema_Archive
+                                   , tgtTable_Archive
+                                   , tgtIndex
+                                   );
+
 
             trckInstance = root.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.Instance, "trckInstance", string.Empty, new GuiElem(tbx_TrackTbl_Instance), Trck));
             {
@@ -224,7 +233,11 @@ namespace CsiMigrationHelper
                                                                        , tbx_TrackTbl_ProjectDescription);
                             rdbtn_TrackTbl_ProjectNameCreateNew.SetParentTreeNode(trckProjectName);
                             rdbtn_TrackTbl_ProjectNameCreateNew.Checked = true;
-                            TrckTblHndlr = new TrackingTblHndlr(cbxt_TrackTbl_ProjectsTable, cbxt_TrackTbl_ProjectName, imageList1);
+                            TrckTblHndlr = new TrackingTblHndlr(cbxt_TrackTbl_ProjectsTable
+                                                              , cbxt_TrackTbl_ProjectName
+                                                              , gridTrackingTable
+                                                              , eaProjectFields
+                                                              , imageList1);
                             {
                                 trckProjectDescription = trckProjectName.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.DataType, "trckProjectDescription", string.Empty, new GuiElem(tbx_TrackTbl_ProjectDescription)));
                             }
@@ -306,6 +319,7 @@ namespace CsiMigrationHelper
                                                                 btnArchiveExecute,
                                                                 imageList1
                                                               ));
+
             elg = new EventLog(rtbxEventLog);
             #endregion
         }

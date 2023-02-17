@@ -7,8 +7,14 @@ using System.Windows.Forms;
 
 namespace CsiMigrationHelper
 {
+    public delegate void HandlerCmbxProjectTblSelectedIndexChanged(object sender, EventArgsMigrationTracking e);
+    public delegate void HandlerCmbxProjectSelectedIndexChanged(object sender, EventArgsMigrationTracking e);
+    public delegate void HandlerCmbxProjectSelectionEmpty(object sender, EventArgsMigrationTracking e);
     public class ComboBoxExtTrackTbl : ComboBoxExt
     {
+        public event HandlerCmbxProjectTblSelectedIndexChanged eventCmbxTrackTblSelectedIndexChanged;
+        public event HandlerCmbxProjectSelectedIndexChanged eventCmbxProjectNameSelectedIndexChanged;
+        public event HandlerCmbxProjectSelectionEmpty eventCmbxProjectSelectionEmpty;
 
         public Button      BtnLoginTrackTbl;
         public TextBox     Tbx_TrackTbl_Instance;
@@ -21,9 +27,11 @@ namespace CsiMigrationHelper
         public Button      EditButton;
         public TextBox     ProjectDescription;
 
+        private TreeNode<DbObject> InstanceNode;
+
         public ComboBoxExtTrackTbl()
         {
-
+            this.SelectedIndexChanged += new EventHandler(OnCmbxtrSelectedIndexChanged);
         }
 
         public void SetParentTreeNode(TreeNode<DbObject> tn
@@ -64,7 +72,7 @@ namespace CsiMigrationHelper
                 this.TreeNodeOwner.SetTreeNodeTextNoSubtreeClearing(TreeNodeOwner, Text, false);
                 /* enable or disable Save Button depending on Text Length: */
                 this.SaveButton.Enabled = true;
-                this.SaveButton.Image = null;
+                this.SaveButton.Image = null;                
             }
             else
             {
@@ -107,6 +115,82 @@ namespace CsiMigrationHelper
                 else
                 {
                     SaveButton.Enabled = false;
+                }
+            }
+        }
+
+
+        protected virtual void OnCmbxtrSelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (SelectedIndex > 0)
+                {
+                    string newCbxSelection = TreeNodeOwner.Data.Gui.GetCbxSelectionChangeCommited(ParamSelector.GetParamMetaByObjectLvl(TreeNodeOwner.Data.ObjectLevel, TreeNodeOwner.Data.ObjectBranch).DisplayMember);
+
+                    if (newCbxSelection.Length > 0)
+                    {
+                        TreeNodeOwner.SetTreeNodeText(TreeNodeOwner, newCbxSelection, true);
+                        if (TreeNodeOwner.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl)
+                        {
+                            InstanceNode = TreeNodeOwner.TraverseUpUntil(TreeNodeOwner, (int)DbObjectLevel.Instance);
+                            int objectLevel = TreeNodeOwner.Data.ObjectLevel;
+                            switch (objectLevel)
+                            {
+                                case (int)DbObjectLevel.Table:
+                                    //raise an event for TrackingTblHndlr to check if this is a valid ProjectsTable:
+                                    var delegProjectTbl = eventCmbxTrackTblSelectedIndexChanged as HandlerCmbxProjectTblSelectedIndexChanged;
+                                    if (delegProjectTbl != null)
+                                    {
+                                        delegProjectTbl(this, new EventArgsMigrationTracking(InstanceNode
+                                                                                           , TreeNodeOwner
+                                                                                           , TreeNodeOwner.Parent.Data.ObjectText
+                                                                                           , TreeNodeOwner.Data.ObjectText)); //this line triggers the execution of OnCmbxProjectsTableSelectedIndexChange() in TrackingTblHndlr class
+                                    }
+                                    break;
+
+                                case (int)DbObjectLevel.Column:
+                                    var delegProjectName = eventCmbxProjectNameSelectedIndexChanged as HandlerCmbxProjectSelectedIndexChanged;
+                                    if (delegProjectName != null)
+                                    {
+                                        delegProjectName(this, new EventArgsMigrationTracking(InstanceNode
+                                                                                            , TreeNodeOwner
+                                                                                            , TreeNodeOwner.Parent.Data.ObjectText
+                                                                                            , TreeNodeOwner.Data.ObjectText));
+                                    }
+                                    break;
+                            }
+                        }
+                        CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner);
+                    }
+                }
+                else
+                {
+                    if (TreeNodeOwner.Data.ObjectLevel == (int)DbObjectLevel.Column)
+                    {
+                        var delegCbxEmpty = eventCmbxProjectSelectionEmpty as HandlerCmbxProjectSelectionEmpty;
+                        if (delegCbxEmpty != null)
+                        {
+                            delegCbxEmpty(this, new EventArgsMigrationTracking(InstanceNode
+                                                                               , TreeNodeOwner
+                                                                               , TreeNodeOwner.Parent.Data.ObjectText
+                                                                               , TreeNodeOwner.Data.ObjectText)); //this line triggers the execution of OnCmbxProjectsTableSelectedIndexChange() in TrackingTblHndlr class
+                        }
+                    }
+                }
+            }
+            catch (ExceptionEmptyResultSet ex)
+            {
+                if (ex.retry)
+                {
+                    this.DroppedDown = true;
+                }
+            }
+            catch (ExceptionDataTypeMismatch ex)
+            {
+                if (ex.retry)
+                {
+                    this.DroppedDown = true;
                 }
             }
         }
