@@ -516,9 +516,9 @@ namespace CsiMigrationHelper
             {
                 throw new Exception(
                     "You are trying to assign a dbObject [" + e.DbObject.ObjectName
-                    + "] of type: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel)
-                    + "] to a TreeNode of type: [" + DbObject.GetObjectLevelByIndex(e.TreeNodeLevel - 1)
-                    + "] correct parent-assignment of this dbObject type should be to: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel - 1) + "]");
+                    + "] of type: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel, e.DbObject.ObjectBranch)
+                    + "] to a TreeNode of type: [" + DbObject.GetObjectLevelByIndex(e.TreeNodeLevel - 1, e.DbObject.ObjectBranch)
+                    + "] correct parent-assignment of this dbObject type should be to: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel - 1, e.DbObject.ObjectBranch) + "]");
             }
             //TreeNode<DbObject> t = (TreeNode<DbObject>)Convert.ChangeType(sender, typeof(TreeNode<DbObject>));
             TreeNode<DbObject> t = ConvertToTreeNodeDbObject(sender);
@@ -530,9 +530,9 @@ namespace CsiMigrationHelper
                 {
                     throw new Exception(
                     "You are trying to assign a dbObject [" + e.DbObject.ObjectName
-                    + "] of type: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel)
-                    + "] to a Parent of type: [" + DbObject.GetObjectLevelByIndex(dbParent.ObjectLevel)
-                    + "] correct parent-assignment of this dbObject type should be to: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel - 1) + "]");
+                    + "] of type: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel, e.DbObject.ObjectBranch)
+                    + "] to a Parent of type: [" + DbObject.GetObjectLevelByIndex(dbParent.ObjectLevel, e.DbObject.ObjectBranch)
+                    + "] correct parent-assignment of this dbObject type should be to: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel - 1, e.DbObject.ObjectBranch) + "]");
                 }
             }
         }
@@ -544,9 +544,9 @@ namespace CsiMigrationHelper
             {
                 throw new Exception(
                     "You are trying to assign a dbObject [" + e.DbObject.ObjectName
-                    + "] of type: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel)
-                    + "] to a TreeNode of type: [" + DbObject.GetObjectLevelByIndex(e.TreeNodeLevel - 1)
-                    + "] correct parent-assignment of this dbObject type should be to: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel - 1) + "]");
+                    + "] of type: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel, e.DbObject.ObjectBranch)
+                    + "] to a TreeNode of type: [" + DbObject.GetObjectLevelByIndex(e.TreeNodeLevel - 1, e.DbObject.ObjectBranch)
+                    + "] correct parent-assignment of this dbObject type should be to: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel - 1, e.DbObject.ObjectBranch) + "]");
             }
         }
 

@@ -20,12 +20,15 @@ namespace CsiMigrationHelper
         public TextBox     Tbx_TrackTbl_Instance;
         public ComboBoxExt Cbxt_TrackTbl_Database;
         public ComboBoxExt Cbxt_TrackTbl_Schema;
+        public ComboBoxExt Cbxt_TrackTbl_Table;
         public RadioButton RdButtonCreateNew;
         public RadioButton RdButtonUseExisting;
         public GroupBox    RdButtonsGroupBox;
         public Button      SaveButton;
         public Button      EditButton;
         public TextBox     ProjectDescription;
+        public bool        ProjectTableNameValid;
+        public bool        ProjectNameValid;
 
         private TreeNode<DbObject> InstanceNode;
 
@@ -39,6 +42,7 @@ namespace CsiMigrationHelper
                                     , TextBox       tbx_TrackTbl_Instance
                                     , ComboBoxExt   cbxt_TrackTbl_Database
                                     , ComboBoxExt   cbxt_TrackTbl_Schema
+                                    , ComboBoxExt   cbxt_TrackTbl_Table
                                     , RadioButton rbtnNew
                                     , RadioButton rbtnExisting
                                     , GroupBox rdButtonsGroupBox
@@ -51,6 +55,7 @@ namespace CsiMigrationHelper
             Tbx_TrackTbl_Instance   = tbx_TrackTbl_Instance  != null ? tbx_TrackTbl_Instance  : null;
             Cbxt_TrackTbl_Database  = cbxt_TrackTbl_Database != null ? cbxt_TrackTbl_Database : null;
             Cbxt_TrackTbl_Schema = cbxt_TrackTbl_Schema != null ? cbxt_TrackTbl_Schema : null;
+            Cbxt_TrackTbl_Table  = cbxt_TrackTbl_Table  != null ? cbxt_TrackTbl_Table : null;
 
             RdButtonCreateNew   = rbtnNew               != null ? rbtnNew : null;
             RdButtonUseExisting = rbtnExisting          != null ? rbtnExisting : null;
@@ -100,6 +105,7 @@ namespace CsiMigrationHelper
                             case (int)DbObjectLevel.Table:
                                 TreeNodeOwner.Data.Gui.ClearGui();
                                 TreeNodeOwner.SetTreeNodeText(TreeNodeOwner, Options.projectsTableDefaultName, false);
+
                                 break;
 
                             case (int)DbObjectLevel.Column:
@@ -145,7 +151,11 @@ namespace CsiMigrationHelper
                                         delegProjectTbl(this, new EventArgsMigrationTracking(InstanceNode
                                                                                            , TreeNodeOwner
                                                                                            , TreeNodeOwner.Parent.Data.ObjectText
-                                                                                           , TreeNodeOwner.Data.ObjectText)); //this line triggers the execution of OnCmbxProjectsTableSelectedIndexChange() in TrackingTblHndlr class
+                                                                                           , TreeNodeOwner.Data.ObjectText));
+                                    }
+                                    if (ProjectTableNameValid)
+                                    {
+                                        CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner);
                                     }
                                     break;
 
@@ -158,14 +168,18 @@ namespace CsiMigrationHelper
                                                                                             , TreeNodeOwner.Parent.Data.ObjectText
                                                                                             , TreeNodeOwner.Data.ObjectText));
                                     }
+                                    if (ProjectNameValid)
+                                    {
+                                        CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner);
+                                    }
                                     break;
                             }
                         }
-                        CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner);
                     }
                 }
                 else
                 {
+                    TreeNodeOwner.EmptySubtreeText(TreeNodeOwner);
                     if (TreeNodeOwner.Data.ObjectLevel == (int)DbObjectLevel.Column)
                     {
                         var delegCbxEmpty = eventCmbxProjectSelectionEmpty as HandlerCmbxProjectSelectionEmpty;
@@ -183,14 +197,14 @@ namespace CsiMigrationHelper
             {
                 if (ex.retry)
                 {
-                    this.DroppedDown = true;
+                    //this.DroppedDown = true;
                 }
             }
             catch (ExceptionDataTypeMismatch ex)
             {
                 if (ex.retry)
                 {
-                    this.DroppedDown = true;
+                    //this.DroppedDown = true;
                 }
             }
         }

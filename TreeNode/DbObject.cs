@@ -165,12 +165,16 @@ namespace CsiMigrationHelper
             return enumValues.IndexOf(ob);
         }
 
-        public static string GetObjectLevelByIndex(int index)
+        public static string GetObjectLevelByIndex(int index, int branch)
         {
-            if (Enum.IsDefined(typeof(DbObjectLevel), index))
+            if (Enum.IsDefined(typeof(DbObjectLevel), index) && Enum.IsDefined(typeof(DbObjectLevel), branch))
+            {
                 return ((DbObjectLevel)index).ToString();
+            }                
             else
+            {
                 return string.Concat("Method GetObjectLevelByIndex() received an invalid Index Value: [", index.ToString(), "]");
+            }
         }
 
         public SqlParameter GetSqlParam()

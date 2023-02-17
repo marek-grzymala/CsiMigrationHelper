@@ -242,7 +242,7 @@ namespace CsiMigrationHelper
         public static StrctParMetaData GetParamMetaByObjectLvl(int lvl, int branch)
         {
             StrctParMetaData pm = new StrctParMetaData();            
-            pm.ErrorMsgIfNoneFound = string.Concat("Could not find any objects of type: [", DbObject.GetObjectLevelByIndex(lvl), "]");
+            pm.ErrorMsgIfNoneFound = string.Concat("Could not find any objects of type: [", DbObject.GetObjectLevelByIndex(lvl, branch), "]");
             switch (lvl)
             {
                 case (int)DbObjectLevel.Database:

@@ -130,6 +130,7 @@ namespace CsiMigrationHelper
                                 dr["ConstraintDefinition"] = "";
                                 dsConstraintList.Ds.Tables[0].Rows.Add(dr);
                             }
+                            
                             this.RenameDataSetFieldValue(dsConstraintList.Ds, "ConstraintName", e.SrcTable.Data.ObjectText, e.TgtTable.Data.ObjectText, 0, false);
 
                             e.GridConstraintList.Columns["Id"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -183,13 +184,20 @@ namespace CsiMigrationHelper
         public void RenameDataSetFieldValue(DataSet ds, string fieldName, string patternToMatch, string replacement, int matchMode, bool caseSensitive)
         {
             foreach (DataRow dr in ds.Tables[0].Rows)
-            {
-                if (dr.Field<String>(fieldName).Length > 0 && RegexUtil.FindSubstringMatchingPattern(dr.Field<String>(fieldName)
-                    , patternToMatch, matchMode, caseSensitive).Length > 0)
+            {                
+                if (dr["Type"].Equals("IX") && dr["ConstraintType"].ToString().Contains("COLUMNSTORE"))
                 {
-                    dr.BeginEdit();
-                    dr[fieldName] = RegexUtil.ReplaceSubstringMatchingPattern(dr.Field<String>(fieldName), patternToMatch, replacement, matchMode, caseSensitive);
-                    dr.EndEdit();
+                    // do not rename the Tgt Archive CSI Index (has to be exactly as in the TreeNode object because it is being referenced later)
+                }
+                else
+                {
+                    if (dr.Field<String>(fieldName).Length > 0 && RegexUtil.FindSubstringMatchingPattern(dr.Field<String>(fieldName)
+                        , patternToMatch, matchMode, caseSensitive).Length > 0)
+                    {
+                        dr.BeginEdit();
+                        dr[fieldName] = RegexUtil.ReplaceSubstringMatchingPattern(dr.Field<String>(fieldName), patternToMatch, replacement, matchMode, caseSensitive);
+                        dr.EndEdit();
+                    }
                 }
             }
         }

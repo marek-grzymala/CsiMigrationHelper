@@ -61,14 +61,14 @@ namespace CsiMigrationHelper
             }
             catch (ExceptionEmptyResultSet ex)
             {
-                if (ex.retry)
+                if (ex.retry && TreeNodeOwner.Data.ObjectBranch != (int)DbObjectBranch.TrckTbl)
                 {
                     this.DroppedDown = true;
                 }
             }
             catch (ExceptionDataTypeMismatch ex)
             {
-                if (ex.retry)
+                if (ex.retry && TreeNodeOwner.Data.ObjectBranch != (int)DbObjectBranch.TrckTbl)
                 {
                     this.DroppedDown = true;
                 }

@@ -277,29 +277,22 @@ namespace CsiMigrationHelper
                 DataTable dt = new DataTable();
 
                 dt.Columns.Add("Rn");
-                dt.Columns.Add("Condition");
+                dt.Columns.Add("BoundaryCondition");
                 dt.Columns.Add("DateBoudary");
-                string condition = e.BoundaryOnRight.Checked ? "before" : "before or equal to";
+                string boundaryCondition = e.BoundaryOnRight.Checked ? "earlier than" : "earlier than or equal to";
                 int counter = 1;
                 while (startPF < endPF && counter < e.GridFileGroups.RowCount - 1)
                 {
                     DataRow dr = dt.NewRow();
                     dr["Rn"] = counter;
-                    dr["Condition"] = condition;
-                    if (e.BoundaryOnRight.Checked)
-                    {
-                        dr["DateBoudary"] = startPF.AddMonths(1).Date.AddSeconds(0).ToString("yyyy-MM-dd HH:mm:ss");
-                    }
-                    else
-                    {
-                        dr["DateBoudary"] = startPF.AddDays(0).Date.AddSeconds(0).ToString("yyyy-MM-dd HH:mm:ss");
-                    }
+                    dr["BoundaryCondition"] = boundaryCondition;
+                    dr["DateBoudary"] = startPF.AddMonths(1).Date.AddSeconds(0).ToString("yyyy-MM-dd HH:mm:ss");
                     dt.Rows.Add(dr);
                     startPF = startPF.AddMonths(1);
                     counter++;
                 }
                 e.GridPF.DataSource = dt;
-                e.GridPF.Columns["Condition"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                e.GridPF.Columns["BoundaryCondition"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 e.GridPF.Columns["DateBoudary"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 return true;
             }

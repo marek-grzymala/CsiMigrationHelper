@@ -13,7 +13,7 @@ namespace CsiMigrationHelper
         private ComboBoxExtTrackTbl ProjectName;
         private DataGridView  GridTrackingTable;
         private EventArgsProjectFields ProjectFields;
-        private ImageList ImageList1;
+        private ImageList ImageList1;        
 
 
         public TrackingTblHndlr(ComboBoxExtTrackTbl projectsTable
@@ -42,6 +42,7 @@ namespace CsiMigrationHelper
         {            
             if (ProjectsTable.RdButtonCreateNew.Checked)
             {
+                ProjectName.UnLockGuiControls(this, EventArgs.Empty);
                 ProjectName.RdButtonUseExisting.Enabled = false;
                 ProjectName.RdButtonCreateNew.Checked = true;
                 ProjectName.RunOnRdButtonCheckedChanged(sender, EventArgs.Empty);
@@ -53,22 +54,42 @@ namespace CsiMigrationHelper
         }
 
         protected virtual void OnCmbxProjectsTableSelectedIndexChange(object sender, EventArgsMigrationTracking e)
-        {
-            if (VerifyTableName(e))
+        {            
+            if (ProjectsTable.SelectedIndex > 0 && VerifyTableName(e))
             {
-                Console.WriteLine(string.Concat("Table: [", e.SchemaName, "].[", e.TableName, "] on Instance: ", e.InstanceNode.Data.ObjectText, " is a Valid Project Table"));
+                ProjectsTable.ProjectTableNameValid = true;
+                ProjectName.UnLockGuiControls(this, EventArgs.Empty);                
+            }
+            else
+            {
+                ProjectsTable.ProjectTableNameValid = false;
+                ProjectName.LockGuiControls();
+                MessageBox.Show(string.Concat("Table: [", e.SchemaName, "].[", e.TableName, "] on Instance: ", e.InstanceNode.Data.ObjectText, " is an invalid Project Table"), "Invalid Project Table", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
 
         protected virtual void OnCmbxProjectNameSelectedIndexChange(object sender, EventArgsMigrationTracking e)
         {
-            GridTrackingTable.DataSource = null;
-            if (LoadGrid(e))
+            if (ProjectName.SelectedIndex > 0 && VerifyProjectNameEntriesPresentInMgrTrckgTbl(e))
             {
-            Console.WriteLine(string.Concat("Successfully Loaded Project: [", e.TreeNodeOwner.Data.ObjectText, "]", Environment.NewLine
-                                        , "On Instance: [", e.InstanceNode.Data.ObjectText, "]", Environment.NewLine
-                                        ));
+                ProjectName.ProjectNameValid = true;
+                GridTrackingTable.DataSource = null;
+                if (LoadGrid(e))
+                {
+                    // 
+                }
+            }
+            else
+            {
+                ProjectName.ProjectNameValid = false;
+                GridTrackingTable.DataSource = null;
+
+                MessageBox.Show(string.Concat("Project: [", ProjectName.TreeNodeOwner.Data.ObjectText
+                                          , "] listed in Table: [", e.SchemaName, "].[", ProjectsTable.TreeNodeOwner.Data.ObjectText
+                                          , "] on Instance: [", e.InstanceNode.Data.ObjectText
+                                          , "] does not have any entries in table: [", ProjectsTable.TreeNodeOwner.Data.ObjectText, Options.migrationTrackingTblSuffix
+                                          , "]"), "No Entries in Migration Tracking Table", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -82,8 +103,7 @@ namespace CsiMigrationHelper
                                         , ProjectsTable.TreeNodeOwner.Parent.Data.ObjectText
                                         , ProjectsTable.TreeNodeOwner.Data.ObjectText);
                 if (CreateProjectsTable(e))
-                {
-                    Console.WriteLine(string.Concat("Created Projects Table: [", e.SchemaName, "].[", e.TableName, "] on Instance: ", e.InstanceNode.Data.ObjectText));
+                {                    
                     ProjectsTable.LockGuiControls();
                     ProjectsTable.SaveButton.Image = ImageList1.Images[0];
                 }
@@ -108,9 +128,16 @@ namespace CsiMigrationHelper
                 {                    
                     ProjectName.LockGuiControls();
                     ProjectName.SaveButton.Image = ImageList1.Images[0];
-                    // Preload Migration Tracking Table with Partition List:
-                    // if (PreloadMigrationTracking()) {}
+                    //Create Tgt Linked Server:
+                    if (CreateLinkedServer(e, ProjectFields.TgtInstance.ToString(), ProjectFields.TgtInstance.Data.Dbu))
+                    {
+                        // Preload Migration Tracking Table with Partition List:
+                        if (PreloadMigrationTracking(e, ProjectFields))
+                        {
+                            Console.WriteLine("Migration Tracking Tbl Loaded, ready to run migration");
+                        }
 
+                    }
                 }
                 else
                 {
@@ -129,18 +156,24 @@ namespace CsiMigrationHelper
 
         private bool VerifyTableName(EventArgsMigrationTracking e)
         {
-            bool result = false;
-            try
-            {
-                result = e.InstanceNode.Data.Dbu.ExecuteSql(e.InstanceNode
+            bool result = false;               
+            if (e.InstanceNode.Data.Dbu.ParseSql(e.InstanceNode, SqlText.GetSqlTableVerificationProjectsTable(e.SchemaName, e.TableName)))
+            {                    
+                result = e.InstanceNode.Data.Dbu.ExecuteSqlScalar(e.InstanceNode
                     , SqlText.GetSqlTableVerificationProjectsTable(e.SchemaName, e.TableName)
-                    , "Table [" + e.SchemaName + "].[" + e.TableName + "] is an invalid Project Table" );
+                    , null ) == 10 ? true : false;
             }
-            catch (ExceptionSqlExecError ex)
+            return result;
+        }
+
+        private bool VerifyProjectNameEntriesPresentInMgrTrckgTbl(EventArgsMigrationTracking e)
+        {
+            bool result = true;
+            if (e.InstanceNode.Data.Dbu.ParseSql(e.InstanceNode, SqlText.GetSqlVerifyMigrationTrackingEntryCountPerProjectName(e.TreeNodeOwner)))
             {
-                ProjectsTable.TreeNodeOwner.EmptySubtreeText(ProjectsTable.TreeNodeOwner);
-                ProjectsTable.SelectedIndex = 0;
-                //ProjectsTable.DroppedDown = true; // .DroppedDown = true;
+                result = e.InstanceNode.Data.Dbu.ExecuteSqlScalar(e.InstanceNode
+                    , SqlText.GetSqlVerifyMigrationTrackingEntryCountPerProjectName(e.TreeNodeOwner)
+                    , null) > 0 ? true : false;
             }
             return result;
         }
@@ -162,8 +195,7 @@ namespace CsiMigrationHelper
         }
 
         private bool CreateProject(EventArgsMigrationTracking e, string projectName, string projectDescription)
-        {
-            Console.WriteLine(SqlText.GetSqlProjectNameInsert(e.SchemaName, e.TableName, projectName, projectDescription, ProjectFields));
+        {            
             try
             {                
                 return e.InstanceNode.Data.Dbu.ExecuteSql(e.InstanceNode
@@ -177,15 +209,30 @@ namespace CsiMigrationHelper
             }
         }
 
+        private bool CreateLinkedServer(EventArgsMigrationTracking e, string serverName, DbUtil dbu)
+        {
+            try
+            {
+                return e.InstanceNode.Data.Dbu.ExecuteSql(e.InstanceNode
+                       , SqlText.GetSqlAddLinkedServer(serverName, dbu)
+                       , "Error creating LinkedServer: [" + serverName + "]");
+            }
+            catch (ExceptionSqlExecError ex)
+            {
+                // for now do nothing
+                return false;
+            }
+        }
+
         private bool PreloadMigrationTracking(EventArgsMigrationTracking eMtr, EventArgsProjectFields eProjFields)
         {
             try
             {
-                string projectTable = ProjectsTable.TreeNodeOwner.Data.ObjectText;
+                string projectTableSchema = ProjectsTable.TreeNodeOwner.Parent.Data.ObjectText;
+                string projectTableName = ProjectsTable.TreeNodeOwner.Data.ObjectText;
                 string projectName = ProjectName.TreeNodeOwner.Data.ObjectText;
-
                 return eMtr.InstanceNode.Data.Dbu.ExecuteSql(eMtr.InstanceNode
-                       , SqlText.GetSqlPreloadMigrationTracking(projectTable, projectName, eProjFields)
+                       , SqlText.GetSqlPreloadMigrationTracking(projectTableSchema, projectTableName, projectName, eProjFields)
                        , "Error Preloading Migration Tracking Tbl for Project: [" + projectName + "]");
             }
             catch (ExceptionSqlExecError ex)
@@ -198,13 +245,13 @@ namespace CsiMigrationHelper
         private bool LoadGrid(EventArgsMigrationTracking e)
         {
             bool result = false;            
-            DataSetForGui ds = e.InstanceNode.Data.Dbu.GetDataSetForGui(e.InstanceNode, e.TreeNodeOwner, "MigrationTrackingTable");
-            
+            DataSetForGui ds = e.InstanceNode.Data.Dbu.GetDataSetForGui(e.InstanceNode, e.TreeNodeOwner, "MigrationTrackingTable");            
             if (ds != null)
             {
                 GridTrackingTable.DataSource = ds.Ds;
                 GridTrackingTable.DataMember = ds.Ds.Tables["Table"].TableName;
                 GridTrackingTable.Columns["PartitionId"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                GridTrackingTable.Columns["PartitionNumber"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 GridTrackingTable.Columns["RowNumSrc"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 GridTrackingTable.Columns["RowNumTgt"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 GridTrackingTable.Columns["TotalMB"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;

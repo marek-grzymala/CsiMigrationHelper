@@ -58,7 +58,7 @@ namespace CsiMigrationHelper
             {
                 instanceNode.Data.Dbu.OpenConnection();
                 {
-                    var parser = new TSql160Parser(true); //sql server 2022 parser
+                    var parser = new TSql150Parser(true); //sql server 2022 parser
                     IList<ParseError> errorList;
                     var reader = new StringReader(sql);
                     var res = parser.Parse(reader, out errorList);
@@ -98,6 +98,33 @@ namespace CsiMigrationHelper
                         instanceNode.Data.Dbu.CloseConnection();
                         EventLog.AppendLog(string.Concat("Successfully executed: ", Environment.NewLine, sql));
                         return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        instanceNode.Data.Dbu.CloseConnection();
+                        cmd.Dispose();
+                        throw new ExceptionSqlExecError(ex.Message, customMsgOnError);
+                    }
+                    finally
+                    {
+                        cmd.Dispose();
+                    }
+                }
+            }
+        }
+
+        public int ExecuteSqlScalar(TreeNode<DbObject> instanceNode, string sql, string customMsgOnError)
+        {
+            {
+                instanceNode.Data.Dbu.OpenConnection();
+                {
+                    SqlCommand cmd = new SqlCommand(sql, con);
+                    try
+                    {
+                        var result = cmd.ExecuteScalar();
+                        instanceNode.Data.Dbu.CloseConnection();
+                        EventLog.AppendLog(string.Concat("Successfully executed: ", Environment.NewLine, sql));
+                        return (int)result;
                     }
                     catch (Exception ex)
                     {
@@ -222,6 +249,11 @@ namespace CsiMigrationHelper
         public SqlConnection GetConnection()
         {
             return con;
+        }
+
+        public SqlCredential GetCredential()
+        {
+            return con.Credential;
         }
 
         public DataTable GetDataTable(string SQL)
