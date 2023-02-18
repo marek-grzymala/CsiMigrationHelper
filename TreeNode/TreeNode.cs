@@ -387,6 +387,40 @@ namespace CsiMigrationHelper
             }
             return returnNode;
         }
+
+        public bool IsBranchTextSet(TreeNode<T> startingNode, int upperLimit)
+        {
+            bool result = false;
+                TreeNode<T> returnNode = startingNode;
+                if ((upperLimit <= (int)DbObjectLevel.Root) || (upperLimit > startingNode.TreeNodeLevel))
+                {
+                    throw new Exception(string.Concat("Parameter upperLimit supplied to method IsBranchTextSet(): [", upperLimit
+                    , "] does not fit within the correct value-range, which is: ["
+                    , (int)DbObjectLevel.Root, "] - [", startingNode.TreeNodeLevel, "]"));
+                }
+                else
+                {
+                    while ((returnNode.TreeNodeLevel != upperLimit) && (returnNode.TreeNodeLevel > (int)DbObjectLevel.Root))
+                    {
+                        result = returnNode.IsTextSet() ? true : false; 
+                        if (!result)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            returnNode = returnNode.Parent;
+                        }
+                    }
+                    if (returnNode.TreeNodeLevel <= 0)
+                    {
+                        throw new Exception(string.Concat("Method TraverseUpUntil() could not find a TreeNode with a level of: ["
+                        , upperLimit, "] traversing up from node: ["
+                        , startingNode.TreeNodeLevel, "]"));
+                    }
+                }
+            return result;
+        }
         #endregion
 
 

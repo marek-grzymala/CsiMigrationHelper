@@ -46,6 +46,17 @@ namespace CsiMigrationHelper
             this.Tab_SrcTgtSetup = new System.Windows.Forms.TabPage();
             this.chkbxAutoDropDownComboBoxes = new System.Windows.Forms.CheckBox();
             this.lblAutoDropComboBoxes = new System.Windows.Forms.Label();
+            this.Tab_Partition = new System.Windows.Forms.TabPage();
+            this.cmbx_PartitionInterval = new System.Windows.Forms.ComboBox();
+            this.lbl_PartitionInterval = new System.Windows.Forms.Label();
+            this.lbl_Partition_PS = new System.Windows.Forms.Label();
+            this.tbx_Partition_PS = new System.Windows.Forms.TextBox();
+            this.lbl_Partition_PF = new System.Windows.Forms.Label();
+            this.tbx_Partition_PF = new System.Windows.Forms.TextBox();
+            this.lbl_Partition_FilePrefix = new System.Windows.Forms.Label();
+            this.tbx_Partition_FI_Prefix = new System.Windows.Forms.TextBox();
+            this.lbl_Partition_FG_Prefix = new System.Windows.Forms.Label();
+            this.tbx_Partition_FG_Prefix = new System.Windows.Forms.TextBox();
             this.Tab_TgtMetaDataSetup = new System.Windows.Forms.TabPage();
             this.chkbxRenameTgtColumns = new System.Windows.Forms.CheckBox();
             this.chkbxMakeCSIClustered = new System.Windows.Forms.CheckBox();
@@ -63,24 +74,14 @@ namespace CsiMigrationHelper
             this.lblTrackingTableDefaultName = new System.Windows.Forms.Label();
             this.tbx_ProjectsTableDefaultName = new System.Windows.Forms.TextBox();
             this.pnlButtons = new System.Windows.Forms.Panel();
-            this.Tab_Partition = new System.Windows.Forms.TabPage();
-            this.lbl_Partition_PS = new System.Windows.Forms.Label();
-            this.tbx_Partition_PS = new System.Windows.Forms.TextBox();
-            this.lbl_Partition_PF = new System.Windows.Forms.Label();
-            this.tbx_Partition_PF = new System.Windows.Forms.TextBox();
-            this.lbl_Partition_FilePrefix = new System.Windows.Forms.Label();
-            this.tbx_Partition_FI_Prefix = new System.Windows.Forms.TextBox();
-            this.lbl_Partition_FG_Prefix = new System.Windows.Forms.Label();
-            this.tbx_Partition_FG_Prefix = new System.Windows.Forms.TextBox();
-            this.lbl_PartitionInterval = new System.Windows.Forms.Label();
-            this.cmbx_PartitionInterval = new System.Windows.Forms.ComboBox();
+            this.chbxAllowCreateTgtArchiveWithNoCsiIndex = new System.Windows.Forms.CheckBox();
             this.tabControlOptions.SuspendLayout();
             this.Tab_SrcTgtSetup.SuspendLayout();
+            this.Tab_Partition.SuspendLayout();
             this.Tab_TgtMetaDataSetup.SuspendLayout();
             this.gpbxUserDefDataTypeHndling.SuspendLayout();
             this.Tab_TrackingTable.SuspendLayout();
             this.pnlButtons.SuspendLayout();
-            this.Tab_Partition.SuspendLayout();
             this.SuspendLayout();
             // 
             // OK
@@ -178,7 +179,7 @@ namespace CsiMigrationHelper
             // tbx_TgtColumnNameSuffix
             // 
             this.tbx_TgtColumnNameSuffix.Enabled = false;
-            this.tbx_TgtColumnNameSuffix.Location = new System.Drawing.Point(380, 251);
+            this.tbx_TgtColumnNameSuffix.Location = new System.Drawing.Point(380, 214);
             this.tbx_TgtColumnNameSuffix.Name = "tbx_TgtColumnNameSuffix";
             this.tbx_TgtColumnNameSuffix.Size = new System.Drawing.Size(91, 24);
             this.tbx_TgtColumnNameSuffix.TabIndex = 11;
@@ -189,7 +190,7 @@ namespace CsiMigrationHelper
             this.lblTgtColumnNameSuffix.AutoSize = true;
             this.lblTgtColumnNameSuffix.Enabled = false;
             this.lblTgtColumnNameSuffix.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTgtColumnNameSuffix.Location = new System.Drawing.Point(41, 253);
+            this.lblTgtColumnNameSuffix.Location = new System.Drawing.Point(41, 216);
             this.lblTgtColumnNameSuffix.Name = "lblTgtColumnNameSuffix";
             this.lblTgtColumnNameSuffix.Size = new System.Drawing.Size(333, 18);
             this.lblTgtColumnNameSuffix.TabIndex = 10;
@@ -250,8 +251,122 @@ namespace CsiMigrationHelper
             this.lblAutoDropComboBoxes.TabIndex = 10;
             this.lblAutoDropComboBoxes.Text = "Auto Drop-Down Combo Boxes:";
             // 
+            // Tab_Partition
+            // 
+            this.Tab_Partition.Controls.Add(this.cmbx_PartitionInterval);
+            this.Tab_Partition.Controls.Add(this.lbl_PartitionInterval);
+            this.Tab_Partition.Controls.Add(this.lbl_Partition_PS);
+            this.Tab_Partition.Controls.Add(this.tbx_Partition_PS);
+            this.Tab_Partition.Controls.Add(this.lbl_Partition_PF);
+            this.Tab_Partition.Controls.Add(this.tbx_Partition_PF);
+            this.Tab_Partition.Controls.Add(this.lbl_Partition_FilePrefix);
+            this.Tab_Partition.Controls.Add(this.tbx_Partition_FI_Prefix);
+            this.Tab_Partition.Controls.Add(this.lbl_Partition_FG_Prefix);
+            this.Tab_Partition.Controls.Add(this.tbx_Partition_FG_Prefix);
+            this.Tab_Partition.Location = new System.Drawing.Point(4, 27);
+            this.Tab_Partition.Name = "Tab_Partition";
+            this.Tab_Partition.Size = new System.Drawing.Size(531, 291);
+            this.Tab_Partition.TabIndex = 3;
+            this.Tab_Partition.Text = "Partition";
+            this.Tab_Partition.UseVisualStyleBackColor = true;
+            // 
+            // cmbx_PartitionInterval
+            // 
+            this.cmbx_PartitionInterval.FormattingEnabled = true;
+            this.cmbx_PartitionInterval.Items.AddRange(new object[] {
+            "quarterly",
+            "monthly",
+            "daily"});
+            this.cmbx_PartitionInterval.Location = new System.Drawing.Point(278, 214);
+            this.cmbx_PartitionInterval.Name = "cmbx_PartitionInterval";
+            this.cmbx_PartitionInterval.Size = new System.Drawing.Size(203, 26);
+            this.cmbx_PartitionInterval.TabIndex = 21;
+            // 
+            // lbl_PartitionInterval
+            // 
+            this.lbl_PartitionInterval.AutoSize = true;
+            this.lbl_PartitionInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_PartitionInterval.Location = new System.Drawing.Point(48, 217);
+            this.lbl_PartitionInterval.Name = "lbl_PartitionInterval";
+            this.lbl_PartitionInterval.Size = new System.Drawing.Size(116, 18);
+            this.lbl_PartitionInterval.TabIndex = 20;
+            this.lbl_PartitionInterval.Text = "Partition Interval:";
+            // 
+            // lbl_Partition_PS
+            // 
+            this.lbl_Partition_PS.AutoSize = true;
+            this.lbl_Partition_PS.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Partition_PS.Location = new System.Drawing.Point(48, 169);
+            this.lbl_Partition_PS.Name = "lbl_Partition_PS";
+            this.lbl_Partition_PS.Size = new System.Drawing.Size(219, 18);
+            this.lbl_Partition_PS.TabIndex = 18;
+            this.lbl_Partition_PS.Text = "Default Partition Scheme Name:";
+            // 
+            // tbx_Partition_PS
+            // 
+            this.tbx_Partition_PS.Location = new System.Drawing.Point(278, 167);
+            this.tbx_Partition_PS.Name = "tbx_Partition_PS";
+            this.tbx_Partition_PS.Size = new System.Drawing.Size(204, 24);
+            this.tbx_Partition_PS.TabIndex = 19;
+            this.tbx_Partition_PS.Text = "ps_monthly_date";
+            // 
+            // lbl_Partition_PF
+            // 
+            this.lbl_Partition_PF.AutoSize = true;
+            this.lbl_Partition_PF.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Partition_PF.Location = new System.Drawing.Point(48, 124);
+            this.lbl_Partition_PF.Name = "lbl_Partition_PF";
+            this.lbl_Partition_PF.Size = new System.Drawing.Size(221, 18);
+            this.lbl_Partition_PF.TabIndex = 16;
+            this.lbl_Partition_PF.Text = "Default Partition Function Name:";
+            // 
+            // tbx_Partition_PF
+            // 
+            this.tbx_Partition_PF.Location = new System.Drawing.Point(278, 122);
+            this.tbx_Partition_PF.Name = "tbx_Partition_PF";
+            this.tbx_Partition_PF.Size = new System.Drawing.Size(204, 24);
+            this.tbx_Partition_PF.TabIndex = 17;
+            this.tbx_Partition_PF.Text = "pf_monthly_date";
+            // 
+            // lbl_Partition_FilePrefix
+            // 
+            this.lbl_Partition_FilePrefix.AutoSize = true;
+            this.lbl_Partition_FilePrefix.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Partition_FilePrefix.Location = new System.Drawing.Point(48, 79);
+            this.lbl_Partition_FilePrefix.Name = "lbl_Partition_FilePrefix";
+            this.lbl_Partition_FilePrefix.Size = new System.Drawing.Size(166, 18);
+            this.lbl_Partition_FilePrefix.TabIndex = 14;
+            this.lbl_Partition_FilePrefix.Text = "Default FileName Prefix:";
+            // 
+            // tbx_Partition_FI_Prefix
+            // 
+            this.tbx_Partition_FI_Prefix.Location = new System.Drawing.Point(278, 77);
+            this.tbx_Partition_FI_Prefix.Name = "tbx_Partition_FI_Prefix";
+            this.tbx_Partition_FI_Prefix.Size = new System.Drawing.Size(204, 24);
+            this.tbx_Partition_FI_Prefix.TabIndex = 15;
+            this.tbx_Partition_FI_Prefix.Text = "FI_";
+            // 
+            // lbl_Partition_FG_Prefix
+            // 
+            this.lbl_Partition_FG_Prefix.AutoSize = true;
+            this.lbl_Partition_FG_Prefix.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Partition_FG_Prefix.Location = new System.Drawing.Point(48, 34);
+            this.lbl_Partition_FG_Prefix.Name = "lbl_Partition_FG_Prefix";
+            this.lbl_Partition_FG_Prefix.Size = new System.Drawing.Size(164, 18);
+            this.lbl_Partition_FG_Prefix.TabIndex = 12;
+            this.lbl_Partition_FG_Prefix.Text = "Default FileGroupPrefix:";
+            // 
+            // tbx_Partition_FG_Prefix
+            // 
+            this.tbx_Partition_FG_Prefix.Location = new System.Drawing.Point(278, 32);
+            this.tbx_Partition_FG_Prefix.Name = "tbx_Partition_FG_Prefix";
+            this.tbx_Partition_FG_Prefix.Size = new System.Drawing.Size(204, 24);
+            this.tbx_Partition_FG_Prefix.TabIndex = 13;
+            this.tbx_Partition_FG_Prefix.Text = "FG_";
+            // 
             // Tab_TgtMetaDataSetup
             // 
+            this.Tab_TgtMetaDataSetup.Controls.Add(this.chbxAllowCreateTgtArchiveWithNoCsiIndex);
             this.Tab_TgtMetaDataSetup.Controls.Add(this.chkbxRenameTgtColumns);
             this.Tab_TgtMetaDataSetup.Controls.Add(this.chkbxMakeCSIClustered);
             this.Tab_TgtMetaDataSetup.Controls.Add(this.chbxDoNotCreateFKsOnCrossDbTarget);
@@ -270,7 +385,7 @@ namespace CsiMigrationHelper
             // 
             this.chkbxRenameTgtColumns.AutoSize = true;
             this.chkbxRenameTgtColumns.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkbxRenameTgtColumns.Location = new System.Drawing.Point(41, 212);
+            this.chkbxRenameTgtColumns.Location = new System.Drawing.Point(41, 180);
             this.chkbxRenameTgtColumns.Name = "chkbxRenameTgtColumns";
             this.chkbxRenameTgtColumns.Size = new System.Drawing.Size(340, 22);
             this.chkbxRenameTgtColumns.TabIndex = 15;
@@ -282,7 +397,7 @@ namespace CsiMigrationHelper
             // 
             this.chkbxMakeCSIClustered.AutoSize = true;
             this.chkbxMakeCSIClustered.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkbxMakeCSIClustered.Location = new System.Drawing.Point(41, 174);
+            this.chkbxMakeCSIClustered.Location = new System.Drawing.Point(41, 146);
             this.chkbxMakeCSIClustered.Name = "chkbxMakeCSIClustered";
             this.chkbxMakeCSIClustered.Size = new System.Drawing.Size(283, 22);
             this.chkbxMakeCSIClustered.TabIndex = 14;
@@ -293,7 +408,7 @@ namespace CsiMigrationHelper
             // 
             this.chbxDoNotCreateFKsOnCrossDbTarget.AutoSize = true;
             this.chbxDoNotCreateFKsOnCrossDbTarget.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chbxDoNotCreateFKsOnCrossDbTarget.Location = new System.Drawing.Point(41, 140);
+            this.chbxDoNotCreateFKsOnCrossDbTarget.Location = new System.Drawing.Point(41, 112);
             this.chbxDoNotCreateFKsOnCrossDbTarget.Name = "chbxDoNotCreateFKsOnCrossDbTarget";
             this.chbxDoNotCreateFKsOnCrossDbTarget.Size = new System.Drawing.Size(352, 22);
             this.chbxDoNotCreateFKsOnCrossDbTarget.TabIndex = 13;
@@ -305,9 +420,9 @@ namespace CsiMigrationHelper
             this.gpbxUserDefDataTypeHndling.Controls.Add(this.rdbtnTranslateUserDefinedDataTypes);
             this.gpbxUserDefDataTypeHndling.Controls.Add(this.rdbtnUseDataTypesAsDefinedInSrc);
             this.gpbxUserDefDataTypeHndling.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gpbxUserDefDataTypeHndling.Location = new System.Drawing.Point(41, 17);
+            this.gpbxUserDefDataTypeHndling.Location = new System.Drawing.Point(41, 9);
             this.gpbxUserDefDataTypeHndling.Name = "gpbxUserDefDataTypeHndling";
-            this.gpbxUserDefDataTypeHndling.Size = new System.Drawing.Size(430, 114);
+            this.gpbxUserDefDataTypeHndling.Size = new System.Drawing.Size(430, 98);
             this.gpbxUserDefDataTypeHndling.TabIndex = 12;
             this.gpbxUserDefDataTypeHndling.TabStop = false;
             this.gpbxUserDefDataTypeHndling.Text = "User-Defined DataType Handling:";
@@ -315,7 +430,7 @@ namespace CsiMigrationHelper
             // rdbtnTranslateUserDefinedDataTypes
             // 
             this.rdbtnTranslateUserDefinedDataTypes.AutoSize = true;
-            this.rdbtnTranslateUserDefinedDataTypes.Location = new System.Drawing.Point(23, 71);
+            this.rdbtnTranslateUserDefinedDataTypes.Location = new System.Drawing.Point(23, 62);
             this.rdbtnTranslateUserDefinedDataTypes.Name = "rdbtnTranslateUserDefinedDataTypes";
             this.rdbtnTranslateUserDefinedDataTypes.Size = new System.Drawing.Size(374, 22);
             this.rdbtnTranslateUserDefinedDataTypes.TabIndex = 1;
@@ -326,7 +441,7 @@ namespace CsiMigrationHelper
             // 
             this.rdbtnUseDataTypesAsDefinedInSrc.AutoSize = true;
             this.rdbtnUseDataTypesAsDefinedInSrc.Checked = true;
-            this.rdbtnUseDataTypesAsDefinedInSrc.Location = new System.Drawing.Point(24, 35);
+            this.rdbtnUseDataTypesAsDefinedInSrc.Location = new System.Drawing.Point(24, 31);
             this.rdbtnUseDataTypesAsDefinedInSrc.Name = "rdbtnUseDataTypesAsDefinedInSrc";
             this.rdbtnUseDataTypesAsDefinedInSrc.Size = new System.Drawing.Size(271, 22);
             this.rdbtnUseDataTypesAsDefinedInSrc.TabIndex = 0;
@@ -434,118 +549,15 @@ namespace CsiMigrationHelper
             this.pnlButtons.Size = new System.Drawing.Size(539, 53);
             this.pnlButtons.TabIndex = 13;
             // 
-            // Tab_Partition
+            // chbxAllowCreateTgtArchiveWithNoCsiIndex
             // 
-            this.Tab_Partition.Controls.Add(this.cmbx_PartitionInterval);
-            this.Tab_Partition.Controls.Add(this.lbl_PartitionInterval);
-            this.Tab_Partition.Controls.Add(this.lbl_Partition_PS);
-            this.Tab_Partition.Controls.Add(this.tbx_Partition_PS);
-            this.Tab_Partition.Controls.Add(this.lbl_Partition_PF);
-            this.Tab_Partition.Controls.Add(this.tbx_Partition_PF);
-            this.Tab_Partition.Controls.Add(this.lbl_Partition_FilePrefix);
-            this.Tab_Partition.Controls.Add(this.tbx_Partition_FI_Prefix);
-            this.Tab_Partition.Controls.Add(this.lbl_Partition_FG_Prefix);
-            this.Tab_Partition.Controls.Add(this.tbx_Partition_FG_Prefix);
-            this.Tab_Partition.Location = new System.Drawing.Point(4, 27);
-            this.Tab_Partition.Name = "Tab_Partition";
-            this.Tab_Partition.Size = new System.Drawing.Size(531, 291);
-            this.Tab_Partition.TabIndex = 3;
-            this.Tab_Partition.Text = "Partition";
-            this.Tab_Partition.UseVisualStyleBackColor = true;
-            // 
-            // lbl_Partition_PS
-            // 
-            this.lbl_Partition_PS.AutoSize = true;
-            this.lbl_Partition_PS.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Partition_PS.Location = new System.Drawing.Point(48, 169);
-            this.lbl_Partition_PS.Name = "lbl_Partition_PS";
-            this.lbl_Partition_PS.Size = new System.Drawing.Size(219, 18);
-            this.lbl_Partition_PS.TabIndex = 18;
-            this.lbl_Partition_PS.Text = "Default Partition Scheme Name:";
-            // 
-            // tbx_Partition_PS
-            // 
-            this.tbx_Partition_PS.Location = new System.Drawing.Point(278, 167);
-            this.tbx_Partition_PS.Name = "tbx_Partition_PS";
-            this.tbx_Partition_PS.Size = new System.Drawing.Size(204, 24);
-            this.tbx_Partition_PS.TabIndex = 19;
-            this.tbx_Partition_PS.Text = "ps_monthly_date";
-            // 
-            // lbl_Partition_PF
-            // 
-            this.lbl_Partition_PF.AutoSize = true;
-            this.lbl_Partition_PF.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Partition_PF.Location = new System.Drawing.Point(48, 124);
-            this.lbl_Partition_PF.Name = "lbl_Partition_PF";
-            this.lbl_Partition_PF.Size = new System.Drawing.Size(221, 18);
-            this.lbl_Partition_PF.TabIndex = 16;
-            this.lbl_Partition_PF.Text = "Default Partition Function Name:";
-            // 
-            // tbx_Partition_PF
-            // 
-            this.tbx_Partition_PF.Location = new System.Drawing.Point(278, 122);
-            this.tbx_Partition_PF.Name = "tbx_Partition_PF";
-            this.tbx_Partition_PF.Size = new System.Drawing.Size(204, 24);
-            this.tbx_Partition_PF.TabIndex = 17;
-            this.tbx_Partition_PF.Text = "pf_monthly_date";
-            // 
-            // lbl_Partition_FilePrefix
-            // 
-            this.lbl_Partition_FilePrefix.AutoSize = true;
-            this.lbl_Partition_FilePrefix.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Partition_FilePrefix.Location = new System.Drawing.Point(48, 79);
-            this.lbl_Partition_FilePrefix.Name = "lbl_Partition_FilePrefix";
-            this.lbl_Partition_FilePrefix.Size = new System.Drawing.Size(166, 18);
-            this.lbl_Partition_FilePrefix.TabIndex = 14;
-            this.lbl_Partition_FilePrefix.Text = "Default FileName Prefix:";
-            // 
-            // tbx_Partition_FI_Prefix
-            // 
-            this.tbx_Partition_FI_Prefix.Location = new System.Drawing.Point(278, 77);
-            this.tbx_Partition_FI_Prefix.Name = "tbx_Partition_FI_Prefix";
-            this.tbx_Partition_FI_Prefix.Size = new System.Drawing.Size(204, 24);
-            this.tbx_Partition_FI_Prefix.TabIndex = 15;
-            this.tbx_Partition_FI_Prefix.Text = "FI_";
-            // 
-            // lbl_Partition_FG_Prefix
-            // 
-            this.lbl_Partition_FG_Prefix.AutoSize = true;
-            this.lbl_Partition_FG_Prefix.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Partition_FG_Prefix.Location = new System.Drawing.Point(48, 34);
-            this.lbl_Partition_FG_Prefix.Name = "lbl_Partition_FG_Prefix";
-            this.lbl_Partition_FG_Prefix.Size = new System.Drawing.Size(164, 18);
-            this.lbl_Partition_FG_Prefix.TabIndex = 12;
-            this.lbl_Partition_FG_Prefix.Text = "Default FileGroupPrefix:";
-            // 
-            // tbx_Partition_FG_Prefix
-            // 
-            this.tbx_Partition_FG_Prefix.Location = new System.Drawing.Point(278, 32);
-            this.tbx_Partition_FG_Prefix.Name = "tbx_Partition_FG_Prefix";
-            this.tbx_Partition_FG_Prefix.Size = new System.Drawing.Size(204, 24);
-            this.tbx_Partition_FG_Prefix.TabIndex = 13;
-            this.tbx_Partition_FG_Prefix.Text = "FG_";
-            // 
-            // lbl_PartitionInterval
-            // 
-            this.lbl_PartitionInterval.AutoSize = true;
-            this.lbl_PartitionInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_PartitionInterval.Location = new System.Drawing.Point(48, 217);
-            this.lbl_PartitionInterval.Name = "lbl_PartitionInterval";
-            this.lbl_PartitionInterval.Size = new System.Drawing.Size(116, 18);
-            this.lbl_PartitionInterval.TabIndex = 20;
-            this.lbl_PartitionInterval.Text = "Partition Interval:";
-            // 
-            // cmbx_PartitionInterval
-            // 
-            this.cmbx_PartitionInterval.FormattingEnabled = true;
-            this.cmbx_PartitionInterval.Items.AddRange(new object[] {
-            "quarterly",
-            "monthly",
-            "daily"});
-            this.cmbx_PartitionInterval.Location = new System.Drawing.Point(278, 214);
-            this.cmbx_PartitionInterval.Name = "cmbx_PartitionInterval";
-            this.cmbx_PartitionInterval.Size = new System.Drawing.Size(203, 26);
-            this.cmbx_PartitionInterval.TabIndex = 21;
+            this.chbxAllowCreateTgtArchiveWithNoCsiIndex.AutoSize = true;
+            this.chbxAllowCreateTgtArchiveWithNoCsiIndex.Location = new System.Drawing.Point(43, 249);
+            this.chbxAllowCreateTgtArchiveWithNoCsiIndex.Name = "chbxAllowCreateTgtArchiveWithNoCsiIndex";
+            this.chbxAllowCreateTgtArchiveWithNoCsiIndex.Size = new System.Drawing.Size(337, 22);
+            this.chbxAllowCreateTgtArchiveWithNoCsiIndex.TabIndex = 16;
+            this.chbxAllowCreateTgtArchiveWithNoCsiIndex.Text = "Allow to Create Archive Table With No CsiIndex";
+            this.chbxAllowCreateTgtArchiveWithNoCsiIndex.UseVisualStyleBackColor = true;
             // 
             // Options
             // 
@@ -563,6 +575,8 @@ namespace CsiMigrationHelper
             this.tabControlOptions.ResumeLayout(false);
             this.Tab_SrcTgtSetup.ResumeLayout(false);
             this.Tab_SrcTgtSetup.PerformLayout();
+            this.Tab_Partition.ResumeLayout(false);
+            this.Tab_Partition.PerformLayout();
             this.Tab_TgtMetaDataSetup.ResumeLayout(false);
             this.Tab_TgtMetaDataSetup.PerformLayout();
             this.gpbxUserDefDataTypeHndling.ResumeLayout(false);
@@ -570,8 +584,6 @@ namespace CsiMigrationHelper
             this.Tab_TrackingTable.ResumeLayout(false);
             this.Tab_TrackingTable.PerformLayout();
             this.pnlButtons.ResumeLayout(false);
-            this.Tab_Partition.ResumeLayout(false);
-            this.Tab_Partition.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -622,5 +634,6 @@ namespace CsiMigrationHelper
         private System.Windows.Forms.TextBox tbx_Partition_FG_Prefix;
         private System.Windows.Forms.ComboBox cmbx_PartitionInterval;
         private System.Windows.Forms.Label lbl_PartitionInterval;
+        private System.Windows.Forms.CheckBox chbxAllowCreateTgtArchiveWithNoCsiIndex;
     }
 }

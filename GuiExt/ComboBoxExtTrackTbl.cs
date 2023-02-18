@@ -141,6 +141,10 @@ namespace CsiMigrationHelper
                         {
                             InstanceNode = TreeNodeOwner.TraverseUpUntil(TreeNodeOwner, (int)DbObjectLevel.Instance);
                             int objectLevel = TreeNodeOwner.Data.ObjectLevel;
+                            EventArgsMigrationTracking eaTrackTbl = new EventArgsMigrationTracking(InstanceNode
+                                                                                           , TreeNodeOwner
+                                                                                           , TreeNodeOwner.TraverseUpUntil(TreeNodeOwner, (int)DbObjectLevel.Schema).ToString()
+                                                                                           , TreeNodeOwner.TraverseUpUntil(TreeNodeOwner, (int)DbObjectLevel.Table).ToString());
                             switch (objectLevel)
                             {
                                 case (int)DbObjectLevel.Table:
@@ -148,10 +152,7 @@ namespace CsiMigrationHelper
                                     var delegProjectTbl = eventCmbxTrackTblSelectedIndexChanged as HandlerCmbxProjectTblSelectedIndexChanged;
                                     if (delegProjectTbl != null)
                                     {
-                                        delegProjectTbl(this, new EventArgsMigrationTracking(InstanceNode
-                                                                                           , TreeNodeOwner
-                                                                                           , TreeNodeOwner.Parent.Data.ObjectText
-                                                                                           , TreeNodeOwner.Data.ObjectText));
+                                        delegProjectTbl(this, eaTrackTbl);
                                     }
                                     if (ProjectTableNameValid)
                                     {
@@ -163,10 +164,7 @@ namespace CsiMigrationHelper
                                     var delegProjectName = eventCmbxProjectNameSelectedIndexChanged as HandlerCmbxProjectSelectedIndexChanged;
                                     if (delegProjectName != null)
                                     {
-                                        delegProjectName(this, new EventArgsMigrationTracking(InstanceNode
-                                                                                            , TreeNodeOwner
-                                                                                            , TreeNodeOwner.Parent.Data.ObjectText
-                                                                                            , TreeNodeOwner.Data.ObjectText));
+                                        delegProjectName(this, eaTrackTbl);
                                     }
                                     if (ProjectNameValid)
                                     {

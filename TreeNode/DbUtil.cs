@@ -94,10 +94,13 @@ namespace CsiMigrationHelper
                     SqlCommand cmd = new SqlCommand(sql, con);
                     try
                     {
-                        cmd.ExecuteNonQuery();
+                        int rowsAffected = cmd.ExecuteNonQuery();
                         instanceNode.Data.Dbu.CloseConnection();
-                        EventLog.AppendLog(string.Concat("Successfully executed: ", Environment.NewLine, sql));
+                        //EventLog.AppendLog(string.Concat("Successfully executed: ", Environment.NewLine, sql));
+                        //Console.WriteLine(string.Concat("Records affected by command:", rowsAffected));
+                        Console.WriteLine(sql);
                         return true;
+
                     }
                     catch (Exception ex)
                     {
@@ -131,6 +134,44 @@ namespace CsiMigrationHelper
                         instanceNode.Data.Dbu.CloseConnection();
                         cmd.Dispose();
                         throw new ExceptionSqlExecError(ex.Message, customMsgOnError);
+                    }
+                    finally
+                    {
+                        cmd.Dispose();
+                    }
+                }
+            }
+        }
+
+        public int ExecuteSqlUsp(TreeNode<DbObject> instanceNode, string uspName, List<SqlParameter> sqlParamList)
+        {
+            {
+                instanceNode.Data.Dbu.OpenConnection();
+                {
+                    SqlCommand cmd = new SqlCommand(uspName, con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    foreach (SqlParameter p in sqlParamList)
+                    {
+                        if (p != null)
+                        {
+                            //cmd.Parameters.AddWithValue(p.ParameterName, p.Value);
+                            cmd.Parameters.Add(p);
+                        }
+                    }
+
+                    try
+                    {
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        instanceNode.Data.Dbu.CloseConnection();
+                        EventLog.AppendLog(string.Concat("Successfully executed: ", uspName, " Rows Affected: ", rowsAffected));
+                        return rowsAffected;
+                    }
+                    catch (Exception ex)
+                    {
+                        instanceNode.Data.Dbu.CloseConnection();
+                        cmd.Dispose();
+                        throw new ExceptionSqlExecError(ex.Message, string.Concat("Error executing: ", uspName));
                     }
                     finally
                     {

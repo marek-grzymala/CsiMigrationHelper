@@ -74,11 +74,13 @@ namespace CsiMigrationHelper
                 Options.newProjectDefaultName = "My New Csi Migration Project";
                 Options.newProjectDefaultDescription = "Project description";
                 Options.migrationTrackingTblSuffix = "_TrackingTbl";
+                Options.allowCreateTgtArchiveWithNoCsiIndex = false;
                 Options.partition_FG_Prefix = "FG_";
                 Options.partition_FI_Prefix = "FI_";
                 Options.partition_PF_Name = "pf_monthly_date";
                 Options.partition_PS_Name = "ps_monthly_date";
                 Options.partitionInterval = "monthly";
+
             }
 
             root = new TreeNode<DbObject>(new DbObject(DbObjectBranch.Root, DbObjectLevel.Root, "Root", "---------------------- Root Node ----------------------", null));

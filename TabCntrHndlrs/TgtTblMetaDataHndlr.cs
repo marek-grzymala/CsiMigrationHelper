@@ -311,7 +311,22 @@ namespace CsiMigrationHelper
                 if (e.TgtInstance.Data.Dbu.ParseSql(e.TgtInstance, string.Concat(CreateTable, Environment.NewLine, CreateConstraints)))
                 {
                     e.BtnExecute.Image = null;
-                    e.BtnExecute.Enabled = true;
+                    if (e.TgtTable.Data.ObjectName.Equals("tgtTable_Archive") && string.IsNullOrEmpty(e.TgtIndex.ToString()))
+                    {
+                        if (Options.allowCreateTgtArchiveWithNoCsiIndex)
+                        {
+                            e.BtnExecute.Enabled = true;
+                        }
+                        else
+                        {
+                            MessageBox.Show(string.Concat("Create Table Parsed successfully but Option to Allow to Create Archive Table With No CsiIndex is unchecked"), "Allow to Create Archive Table With No CsiIndex is unchecked", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    else
+                    {
+                        e.BtnExecute.Enabled = true;
+                    }
+                    
                     result = true;
                 }
             }

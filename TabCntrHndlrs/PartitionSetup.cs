@@ -71,7 +71,6 @@ namespace CsiMigrationHelper
                 e.BtnCheckSyntaxFG.Image = null;
                 e.BtnExecuteFG.Enabled = false;
                 e.BtnExecuteFG.Image = null;
-
             }
             else
             {
@@ -145,6 +144,8 @@ namespace CsiMigrationHelper
         {
             if (CheckSqlSyntaxPF())
             {
+                e.NamePFcbx.Items.Clear();
+                e.NamePFcbx.Items.Add(e.NamePF.Text);
                 e.BtnCheckSyntaxPF.Image = e.ImageList1.Images[0];
             }
             else
@@ -157,6 +158,8 @@ namespace CsiMigrationHelper
         {
             if (CheckSqlSyntaxPS())
             {
+                e.NamePFcbx.Items.Clear();
+                e.NamePFcbx.Items.Add(e.NamePF.Text);
                 e.BtnCheckSyntaxPS.Image = e.ImageList1.Images[0];
             }
             else
@@ -194,6 +197,8 @@ namespace CsiMigrationHelper
                     , sqlExecutePF
                     , string.Concat("Error Creating Partition Function: ", e.NamePF.Text)))
                 {
+                    e.NamePFcbx.Items.Clear();
+                    e.NamePFcbx.Items.Add(e.NamePF.Text);
                     e.BtnExecutePF.Image = e.ImageList1.Images[0];
                 }
             }
@@ -250,7 +255,7 @@ namespace CsiMigrationHelper
                 dr["Rn"] = rn;
                 dr["FileGroup"] = string.Concat(prefixFG, yyyyMM);
                 dr["FileName"] = string.Concat(prefixFN, yyyyMM);
-                dr["FilePath"] = string.Concat("'C:\\MSSQL\\Data\\", e.TgtDatabase.Data.ObjectText, "_", yyyyMM, ".ndf'");
+                dr["FilePath"] = string.Concat("'C:\\MSSQL\\Data\\", e.TgtDatabase.Data.ObjectText, "_", prefixFG, "_", yyyyMM, ".ndf'");
                 dt.Rows.Add(dr);
 
                 startFG = startFG.AddMonths(1);
@@ -307,7 +312,6 @@ namespace CsiMigrationHelper
             }
             else
             {
-
                 DataTable dt = new DataTable();
                 dt.Columns.Add("Rn");
                 dt.Columns.Add("FileGroupMapped");
@@ -381,6 +385,7 @@ namespace CsiMigrationHelper
                     sql.Append(sbPF);
                 }
             }
+            EventLog.AppendLog(string.Concat("Parsing SyntaxPF: ", Environment.NewLine, sql));
             try
             {
                 if (e.TgtInstance.Data.Dbu.ParseSql(e.TgtInstance, sql.ToString()))
@@ -405,7 +410,7 @@ namespace CsiMigrationHelper
             
             bool result = false;
             StringBuilder sql = new StringBuilder();
-            sql.Append(string.Concat("CREATE PARTITION SCHEME [", e.NamePS.Text, "] AS PARTITION [", e.NamePFcbx.SelectedItem
+            sql.Append(string.Concat("CREATE PARTITION SCHEME [", e.NamePS.Text, "] AS PARTITION [", e.NamePFcbx.Text
                                     , "] TO (", Environment.NewLine));
             foreach (DataGridViewRow row in e.GridPS.Rows)
             {
@@ -416,6 +421,7 @@ namespace CsiMigrationHelper
                     sql.Append(sbPS);
                 }
             }
+            EventLog.AppendLog(string.Concat("Parsing SyntaxPS: ", Environment.NewLine, sql));
             try
             {
                 if (e.TgtInstance.Data.Dbu.ParseSql(e.TgtInstance, sql.ToString()))

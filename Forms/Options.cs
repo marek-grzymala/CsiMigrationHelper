@@ -13,6 +13,7 @@ namespace CsiMigrationHelper
 {
     public partial class Options : Form
     {
+        public static bool autoDropDownComboBoxes;
         public static string suffixCurrent;
         public static string suffixStaging;
         public static string suffixArchive;
@@ -24,12 +25,12 @@ namespace CsiMigrationHelper
         public static string partition_PS_Name;
         public static string partitionInterval;
 
-        public static bool autoDropDownComboBoxes;
         public static bool translateUserDefinedDataTypes;
         public static bool doNotCreateFKsOnCrossDbTarget;
         public static bool makeCSIClustered;
         public static bool renameTgtColumns;
         public static string suffixTgtColName;
+        public static bool allowCreateTgtArchiveWithNoCsiIndex;
 
         public static string projectsTableDefaultName;
         public static string newProjectDefaultName;
@@ -56,6 +57,7 @@ namespace CsiMigrationHelper
             chkbxMakeCSIClustered.Checked = makeCSIClustered;
             chkbxRenameTgtColumns.Checked = renameTgtColumns;
             tbx_TgtColumnNameSuffix.Text = suffixTgtColName;
+            chbxAllowCreateTgtArchiveWithNoCsiIndex.Checked = allowCreateTgtArchiveWithNoCsiIndex;
 
             tbx_ProjectsTableDefaultName.Text = projectsTableDefaultName;
             tbx_NewProjectDefaultName.Text = newProjectDefaultName;
@@ -88,7 +90,8 @@ namespace CsiMigrationHelper
                     makeCSIClustered = options.chkbxMakeCSIClustered.Checked ? true : false;
                     renameTgtColumns = options.chkbxRenameTgtColumns.Checked ? true : false;
                     suffixTgtColName = options.tbx_TgtColumnNameSuffix.Text;
-                    
+                    allowCreateTgtArchiveWithNoCsiIndex = options.chbxAllowCreateTgtArchiveWithNoCsiIndex.Checked ? true : false;
+
                     projectsTableDefaultName = options.tbx_ProjectsTableDefaultName.Text;
                     newProjectDefaultName = options.tbx_NewProjectDefaultName.Text;
                     newProjectDefaultDescription = options.tbx_NewProjectDefaultDescription.Text;

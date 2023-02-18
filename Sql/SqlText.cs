@@ -638,14 +638,14 @@ namespace CsiMigrationHelper
             return string.Concat(
                   "DECLARE		@Count INT;					"
                 , "SELECT		@Count = COUNT(mt.[ProjectGUID])	"
-                , "FROM  [", schema, "].[", migrationTrackingTbl, "] AS mt ", Environment.NewLine
-                , "INNER JOIN  [", schema, "].[", migrationProjectsTbl, "] AS mp ", Environment.NewLine
-                , "ON mp.[ProjectGUID] = mt.[ProjectGUID]                        ", Environment.NewLine
+                , "FROM         [", schema, "].[", migrationTrackingTbl, "] AS mt ", Environment.NewLine
+                , "INNER JOIN   [", schema, "].[", migrationProjectsTbl, "] AS mp ", Environment.NewLine
+                , "ON           mp.[ProjectGUID] = mt.[ProjectGUID]                        ", Environment.NewLine
                 , "WHERE		mp.[ProjectName] = '", migrationProjectName, "'; ", Environment.NewLine
                 , "SELECT @Count;");            
         }
 
-        public static string GetSqlProjectNameInsert(string schemaName, string tableName, string projectName, string projectDescription, EventArgsProjectFields e)
+        public static string GetSqlProjectInsert(string schemaName, string tableName, string projectName, string projectDescription, EventArgsProjectFields e)
         {
             return string.Concat(
                   "INSERT INTO [", schemaName, "].[", tableName, "]"
@@ -668,6 +668,27 @@ namespace CsiMigrationHelper
                 , "', '", e.TgtArchiveTableName.Data.ObjectText
                 , "', '", e.TgtArchiveTableCSIndex.Data.ObjectText
                 , "');"
+                );
+        }
+
+        public static string GetSqlProjectRemove(string schema, string tableName, string projectName)
+        {
+            string migrationProjectsTbl = tableName;
+            string migrationTrackingTbl = string.Concat(migrationProjectsTbl, Options.migrationTrackingTblSuffix);
+
+            return string.Concat(
+                 "IF (SELECT 1 FROM [", schema, "].[", migrationTrackingTbl, "] mt									"
+                , "INNER JOIN [", schema, "].[", migrationProjectsTbl, "] mp 										"
+                , "ON mp.ProjectGUID = mt.ProjectGUID																"
+                , "WHERE mp.ProjectName = '", projectName, "') > 1													"
+                , "BEGIN																						    "
+                , "	DELETE mt FROM [", schema, "].[", migrationTrackingTbl, "] mt									"
+                , "	INNER JOIN [", schema, "].[", migrationProjectsTbl, "] mp 										"
+                , "	ON mp.ProjectGUID = mt.ProjectGUID																"
+                , "	WHERE mp.ProjectName = '", projectName, "'														"
+                , "END																								"
+                , "ELSE 																							"
+                , "DELETE FROM [", schema, "].[", migrationProjectsTbl, "] WHERE [ProjectName] = '", projectName, "';"
                 );
         }
 
@@ -742,17 +763,51 @@ namespace CsiMigrationHelper
                 );
         }
 
-        public static string GetSqlPreloadMigrationTracking(string projectTableSchema, string projectTableName, string projectName, EventArgsProjectFields e)
-        {            
+        public static string GetSqlCreateUspPreloadMigrationTracking(string projectTableSchema, string projectTableName, EventArgsProjectFields e)
+        {
             string tgtInstance = e.TgtInstance.ToString();
             string tgtDatabase = e.TgtDatabase.ToString();
-            string tgtArchiveTableSchema = e.TgtArchiveTableSchema.ToString();
-            string tgtArchiveTableName = e.TgtArchiveTableName.ToString();
-            string tgtCSIndexName = e.TgtArchiveTableCSIndex.ToString();
-
             return string.Concat(
-                     " DECLARE		@ProjectGUID AS UNIQUEIDENTIFIER;				", Environment.NewLine
-                    , "SELECT @ProjectGUID = [ProjectGUID] FROM [", projectTableSchema, "].[", projectTableName, "] WHERE [ProjectName] = '", projectName, "';", Environment.NewLine
+                      "CREATE PROCEDURE [", projectTableSchema, "].[usp_Preload_", projectTableName, Options.migrationTrackingTblSuffix, "]", Environment.NewLine
+                    , "		 @ProjectName NVARCHAR(256)												  ", Environment.NewLine
+                    , "		,@TgtSchema SYSNAME														  ", Environment.NewLine
+                    , "		,@TgtTable  SYSNAME														  ", Environment.NewLine
+                    , "		,@TgtIndex  SYSNAME														  ", Environment.NewLine
+                    , "AS																			  ", Environment.NewLine
+                    , "DECLARE @ErrorLine        INT																									", Environment.NewLine
+                    , "      , @ErrorState       INT																									", Environment.NewLine
+                    , "      , @ErrorNumber      INT																									", Environment.NewLine
+                    , "      , @ReturnStatus     INT																									", Environment.NewLine
+                    , "      , @ErrorMessage     NVARCHAR(4000)																							", Environment.NewLine
+                    , "      , @InputMessage     NVARCHAR(4000)																							", Environment.NewLine
+                    , "      , @ErrorSeverity    INT = 11																									", Environment.NewLine
+                    , "      , @ErrorProcedure   NVARCHAR(200)																							", Environment.NewLine
+                    , "																																	", Environment.NewLine
+                    , "IF (SELECT COUNT(1) FROM [", tgtInstance, "].[", tgtDatabase, "].sys.schemas ss WHERE ss.name = @TgtSchema) <> 1					", Environment.NewLine
+                    , "BEGIN																															", Environment.NewLine
+                    , "    SET @InputMessage = CONCAT('Check if Schema [', @TgtSchema, '] exists in Database: [", tgtInstance, "].[", tgtDatabase, "]');", Environment.NewLine
+                    , "    RAISERROR(@InputMessage, @ErrorSeverity, @ErrorState) WITH LOG;																", Environment.NewLine
+                    , "END;																															    ", Environment.NewLine
+                    , "																																	", Environment.NewLine
+                    , "IF (SELECT COUNT(1) FROM [", tgtInstance, "].[", tgtDatabase, "].sys.tables st WHERE st.name = @TgtTable) <> 1					", Environment.NewLine
+                    , "BEGIN																															", Environment.NewLine
+                    , "    SET @InputMessage = CONCAT('Check if Table [', @TgtTable, '] exists in Database: [", tgtInstance, "].[", tgtDatabase, "]');	", Environment.NewLine
+                    , "    RAISERROR(@InputMessage, @ErrorSeverity, @ErrorState) WITH LOG;																", Environment.NewLine
+                    , "END;																																", Environment.NewLine
+                    , "																																	", Environment.NewLine
+                    , "IF (SELECT COUNT(1) FROM [", tgtInstance, "].[", tgtDatabase, "].sys.indexes ix WHERE ix.name = @TgtIndex) <> 1					", Environment.NewLine
+                    , "BEGIN																														    ", Environment.NewLine
+                    , "    SET @InputMessage = CONCAT('Check if Index [', @TgtIndex, '] exists in Database: [", tgtInstance, "].[", tgtDatabase, "]');	", Environment.NewLine
+                    , "    RAISERROR(@InputMessage, @ErrorSeverity, @ErrorState) WITH LOG;																", Environment.NewLine
+                    , "END;                                                                                                                             ", Environment.NewLine
+                    , "IF (SELECT COUNT(1) FROM [", projectTableSchema, "].[", projectTableName, "] WHERE [ProjectName] = @ProjectName) <> 1		    ", Environment.NewLine
+                    , "BEGIN																														    ", Environment.NewLine
+                    , "    SET @InputMessage = CONCAT('Check if Project [', @ProjectName, '] exists in [", projectTableSchema, "].[", projectTableName, "]');", Environment.NewLine
+                    , "    RAISERROR(@InputMessage, @ErrorSeverity, @ErrorState) WITH LOG;																", Environment.NewLine
+                    , "END;                                                                                                                             ", Environment.NewLine
+                    , "BEGIN TRY																														", Environment.NewLine
+                    , "DECLARE	@ProjectGUID AS UNIQUEIDENTIFIER;				", Environment.NewLine
+                    , "SELECT   @ProjectGUID = [ProjectGUID] FROM [", projectTableSchema, "].[", projectTableName, "] WHERE [ProjectName] = @ProjectName;", Environment.NewLine
                     , "; WITH cte AS (																														  ", Environment.NewLine
                     , "				SELECT 																													  ", Environment.NewLine
                     , "				 	  st.name AS [TableName]  																							  ", Environment.NewLine
@@ -799,37 +854,51 @@ namespace CsiMigrationHelper
                     , "								ON  au.container_id = prt.partition_id																																		", Environment.NewLine
                     , "				    INNER JOIN [", tgtInstance, "].[", tgtDatabase, "].sys.dm_db_partition_stats pst            ON pst.partition_id = prt.partition_id														", Environment.NewLine
                     , "																																																			", Environment.NewLine
-                    , "				WHERE ss.name = '", tgtArchiveTableSchema, "'																																				", Environment.NewLine
-                    , "				AND st.name = '", tgtArchiveTableName, "' 																																					", Environment.NewLine
-                    , "				AND ix.name = '", tgtCSIndexName, "'",          Environment.NewLine
-                    , ")																																																		", Environment.NewLine
-                    , "INSERT INTO [", projectTableSchema, "].[", projectTableName, Options.migrationTrackingTblSuffix, "]																										", Environment.NewLine
-                    , "           ([ProjectGUID]																																											    ", Environment.NewLine
-                    , "           ,[PartitionId]																																												", Environment.NewLine
-                    , "		      ,[PartitionNumber]																																											", Environment.NewLine
-                    , "           ,[RowNumSrc]																																													", Environment.NewLine
-                    , "           ,[RowNumTgt]																																													", Environment.NewLine
-                    , "           ,[TotalMB]																																													", Environment.NewLine
-                    , "           ,[UsedMB]																																														", Environment.NewLine
-                    , "           ,[FilegroupName]																																												", Environment.NewLine
-                    , "           ,[LowerPartitionBoundary]																																										", Environment.NewLine
-                    , "           ,[UpperPartitionBoundary]																																										", Environment.NewLine
-                    , "           ,[migrated])																																													", Environment.NewLine
-                    , "																																																			", Environment.NewLine
-                    , "SELECT																																																	", Environment.NewLine
-                    , "			  @ProjectGUID																																													", Environment.NewLine
-                    , "			, cte.[PartitionId]																																												", Environment.NewLine
-                    , "			, cte.[PartitionNumber]																																											", Environment.NewLine
-                    , "			, NULL AS [RowNumSrc]																																											", Environment.NewLine
-                    , "			, cte.[RowNumTgt]																																												", Environment.NewLine
-                    , "			, STR(cte.[TotalMB], 10,2) AS [TotalMB]																																							", Environment.NewLine
-                    , "			, STR(cte.[UsedMB], 10,2)  AS [UsedMB]																																							", Environment.NewLine
-                    , "			, cte.[FilegroupName]																																											", Environment.NewLine
-                    , "			, CONVERT(DATETIME, cte.[LowerPartitionBoundary]) AS [LowerPartitionBoundary]																													", Environment.NewLine
-                    , "			, CONVERT(DATETIME, cte.[UpperPartitionBoundary]) AS [UpperPartitionBoundary]																													", Environment.NewLine
-                    , "			, 0                                               AS [migrated]																																	", Environment.NewLine
-                    , "FROM		cte 																																															", Environment.NewLine
-                    , "ORDER BY	cte.[PartitionNumber] 																																											", Environment.NewLine
+                    , "				WHERE ss.name = @TgtSchema", Environment.NewLine
+                    , "				AND st.name   = @TgtTable ", Environment.NewLine
+                    , "				AND ix.name   = @TgtIndex ", Environment.NewLine
+                    , ")																									", Environment.NewLine
+                    , "INSERT INTO [", projectTableSchema, "].[", projectTableName, Options.migrationTrackingTblSuffix, "]	", Environment.NewLine
+                    , "           ([ProjectGUID]																			", Environment.NewLine
+                    , "           ,[PartitionId]																			", Environment.NewLine
+                    , "		      ,[PartitionNumber]																		", Environment.NewLine
+                    , "           ,[RowNumSrc]																				", Environment.NewLine
+                    , "           ,[RowNumTgt]																				", Environment.NewLine
+                    , "           ,[TotalMB]																				", Environment.NewLine
+                    , "           ,[UsedMB]																					", Environment.NewLine
+                    , "           ,[FilegroupName]																			", Environment.NewLine
+                    , "           ,[LowerPartitionBoundary]																	", Environment.NewLine
+                    , "           ,[UpperPartitionBoundary]																	", Environment.NewLine
+                    , "           ,[migrated])																				", Environment.NewLine
+                    , "																										", Environment.NewLine
+                    , "SELECT																								", Environment.NewLine
+                    , "			  @ProjectGUID																				", Environment.NewLine
+                    , "			, cte.[PartitionId]																			", Environment.NewLine
+                    , "			, cte.[PartitionNumber]																		", Environment.NewLine
+                    , "			, NULL AS [RowNumSrc]																		", Environment.NewLine
+                    , "			, cte.[RowNumTgt]																			", Environment.NewLine
+                    , "			, STR(cte.[TotalMB], 10,2) AS [TotalMB]														", Environment.NewLine
+                    , "			, STR(cte.[UsedMB], 10,2)  AS [UsedMB]														", Environment.NewLine
+                    , "			, cte.[FilegroupName]																		", Environment.NewLine
+                    , "			, CONVERT(DATETIME, cte.[LowerPartitionBoundary]) AS [LowerPartitionBoundary]				", Environment.NewLine
+                    , "			, CONVERT(DATETIME, cte.[UpperPartitionBoundary]) AS [UpperPartitionBoundary]				", Environment.NewLine
+                    , "			, 0                                               AS [migrated]								", Environment.NewLine
+                    , "FROM		cte 																						", Environment.NewLine
+                    , "ORDER BY	cte.[PartitionNumber]", Environment.NewLine
+                    , "END TRY																												", Environment.NewLine
+                    , "BEGIN CATCH																											", Environment.NewLine
+                    , "    IF @@TRANCOUNT <> 0																								", Environment.NewLine
+                    , "        ROLLBACK TRAN;																								", Environment.NewLine
+                    , "    SET @ErrorNumber = ERROR_NUMBER();																				", Environment.NewLine
+                    , "    SET @ErrorSeverity = ERROR_SEVERITY();																			", Environment.NewLine
+                    , "    SET @ErrorState = ERROR_STATE();																					", Environment.NewLine
+                    , "    SET @ErrorLine = ERROR_LINE();																					", Environment.NewLine
+                    , "    SET @ErrorProcedure = ISNULL(ERROR_PROCEDURE(), '-');															", Environment.NewLine
+                    , "    SET @ErrorMessage = ERROR_MESSAGE();																				", Environment.NewLine
+                    , "    SET @ErrorMessage = '[", projectTableSchema, "].[usp_Preload_", projectTableName, Options.migrationTrackingTblSuffix, "]' + N': ' + @ErrorMessage;				", Environment.NewLine
+                    , "																														", Environment.NewLine
+                    , "	RAISERROR(@ErrorMessage, ", 17, ", 1, @ErrorNumber, @ErrorSeverity, @ErrorState, @ErrorProcedure, @ErrorLine)	", Environment.NewLine
+                    , "END CATCH;																											", Environment.NewLine
                 );
         }
 
