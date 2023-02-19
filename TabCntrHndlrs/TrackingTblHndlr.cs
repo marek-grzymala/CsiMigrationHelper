@@ -131,16 +131,17 @@ namespace CsiMigrationHelper
                     EventArgsMigrationTracking e = new EventArgsMigrationTracking(
                                               ProjectsTable.TreeNodeOwner.TraverseUpUntil(ProjectsTable.TreeNodeOwner, (int)DbObjectLevel.Instance)
                                             , ProjectsTable.TreeNodeOwner
+                                            , ProjectsTable.TreeNodeOwner.TraverseUpUntil(ProjectsTable.TreeNodeOwner, (int)DbObjectLevel.Database).ToString()
                                             , ProjectsTable.TreeNodeOwner.Parent.ToString()
                                             , ProjectsTable.TreeNodeOwner.ToString());
 
                     if (CreateProjectsTable(e))
                     {
-                        Console.WriteLine(string.Concat("Successfully Created Project Tables: ", Environment.NewLine
-                                                      , "[", e.SchemaName, "].[", e.TableName, "]", Environment.NewLine
-                                                      , "[", e.SchemaName, "].[", e.TableName, Options.migrationTrackingTblSuffix, "]"));
-                            ProjectsTable.LockGuiControls();
-                            ProjectsTable.SaveButton.Image = ImageList1.Images[0];
+                        ProjectFields.TrackSynonymProjects = string.Concat("Track_", e.InstanceNode.ToString(), "_", e.SchemaName.ToString(), "_", e.TableName.ToString());
+                        ProjectFields.TrackSynonymMigrationTrck = string.Concat("Track_", e.InstanceNode.ToString(), "_", e.SchemaName.ToString(), "_", e.TableName.ToString(), Options.migrationTrackingTblSuffix);
+
+                        ProjectsTable.LockGuiControls();
+                        ProjectsTable.SaveButton.Image = ImageList1.Images[0];
                     }
                     else
                     {
@@ -168,6 +169,7 @@ namespace CsiMigrationHelper
                     EventArgsMigrationTracking e = new EventArgsMigrationTracking(
                                           ProjectsTable.TreeNodeOwner.TraverseUpUntil(ProjectsTable.TreeNodeOwner, (int)DbObjectLevel.Instance)
                                         , ProjectsTable.TreeNodeOwner
+                                        , ProjectsTable.TreeNodeOwner.TraverseUpUntil(ProjectsTable.TreeNodeOwner, (int)DbObjectLevel.Database).ToString()
                                         , ProjectsTable.TreeNodeOwner.Parent.Data.ObjectText
                                         , ProjectsTable.TreeNodeOwner.Data.ObjectText);
 
@@ -181,8 +183,6 @@ namespace CsiMigrationHelper
                         //Create Tgt Linked Server:
                         if (CreateLinkedServersAndSynonyms(e, ProjectFields.TgtInstance.Data.Dbu))
                         {
-                            Console.WriteLine("Linked Servers created successfully");
-                        
                             //Create Usp Preloading the migration tracking table:
                             if (CreateUspPreloadMigrationTrackingTbl(e, ProjectFields))
                             {
@@ -194,9 +194,10 @@ namespace CsiMigrationHelper
                                 int r = RunUspPreloadMigrationTrackingTbl(e, ProjectFields);
                                 if (r > 0)
                                 {
-                                    
                                     Console.WriteLine(string.Concat("Procedure: ", UspNamePreloadMigrationTrackingTbl, " returned :", r, " records"));
-                                    Console.WriteLine(string.Concat("ProjectsTable.TreeNodeOwner: ", ProjectsTable.TreeNodeOwner.ToString()));
+                                    
+                                    // update Project entry with Synonym for Migration Tracking Table:
+                                    UpdateProjectTblSetTrackTblSynonyms(e, ProjectFields.TrackSynonymProjects, ProjectFields.TrackSynonymMigrationTrck);                   
                                     if (LoadGrid(e))
                                     {
                                         TbxSrc.Text = string.Concat("[",        ProjectFields.SrcInstance
@@ -379,12 +380,57 @@ namespace CsiMigrationHelper
                                                 , ProjectFields.TgtArchiveTableName.ToString()
                                                 )
                        , "Error creating Synonym: [" + ProjectFields.SrcInstance.ToString() + "]");
+
+                if (!result)
+                {
+                    return false;
+                }
+
+                result = e.InstanceNode.Data.Dbu.ExecuteSqlNonQuery(e.InstanceNode
+                       , SqlText.GetSqlAddSynonym(ProjectFields.TrackSynonymProjects
+                                                , e.InstanceNode.ToString()
+                                                , e.DatabaseName
+                                                , e.SchemaName
+                                                , e.TableName
+                                                )
+                       , "Error creating Synonym: [" + ProjectFields.SrcInstance.ToString() + "]");
+
+                if (!result)
+                {
+                    return false;
+                }
+
+                result = e.InstanceNode.Data.Dbu.ExecuteSqlNonQuery(e.InstanceNode
+                       , SqlText.GetSqlAddSynonym(ProjectFields.TrackSynonymMigrationTrck
+                                                , e.InstanceNode.ToString()
+                                                , e.DatabaseName
+                                                , e.SchemaName
+                                                , string.Concat(e.TableName, Options.migrationTrackingTblSuffix)
+                                                )
+                       , "Error creating Synonym: [" + ProjectFields.SrcInstance.ToString() + "]");
                 return result;
             }
             catch (ExceptionSqlExecError ex)
             {
                 // for now do nothing
                 return result;
+            }
+        }
+
+        private bool UpdateProjectTblSetTrackTblSynonyms(EventArgsMigrationTracking e
+                                                       , string synonymMigrationProjectsTable
+                                                       , string synonymMigrationTrackingTbl)
+        {
+            try
+            {
+                return e.InstanceNode.Data.Dbu.ExecuteSqlNonQuery(e.InstanceNode
+                       , SqlText.GetSqlUpdateProjectTblSetTrackTblSynonyms(e.SchemaName, e.TableName, ProjectName.TreeNodeOwner.ToString(), synonymMigrationProjectsTable, synonymMigrationTrackingTbl)
+                       , "Error updating [" + e.SchemaName + "].[" + e.TableName + "] when Setting Synonyms: [" + synonymMigrationProjectsTable + "] and [" + synonymMigrationTrackingTbl + "] for Project" + ProjectName.TreeNodeOwner.ToString());
+            }
+            catch (ExceptionSqlExecError ex)
+            {
+                // for now do nothing
+                return false;
             }
         }
 
@@ -482,8 +528,6 @@ namespace CsiMigrationHelper
         {
             try
             {
-                //Console.WriteLine(SqlText.GetSqlCreateUspPreloadMigrationTracking(projectTableSchema, projectTableName, eProjFields));
-
                 List<SqlParameter> sqlParamList = new List<SqlParameter>();
                 SqlParameter p_ProjectName = new SqlParameter()
                 {
@@ -619,6 +663,7 @@ namespace CsiMigrationHelper
                 EventArgsMigrationTracking e = new EventArgsMigrationTracking(
                               ProjectsTable.TreeNodeOwner.TraverseUpUntil(ProjectsTable.TreeNodeOwner, (int)DbObjectLevel.Instance)
                             , ProjectsTable.TreeNodeOwner
+                            , ProjectsTable.TreeNodeOwner.TraverseUpUntil(ProjectsTable.TreeNodeOwner, (int)DbObjectLevel.Database).ToString()
                             , ProjectsTable.TreeNodeOwner.Parent.ToString()
                             , ProjectsTable.TreeNodeOwner.ToString());
 

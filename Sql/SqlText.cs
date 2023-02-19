@@ -588,6 +588,8 @@ namespace CsiMigrationHelper
                                  , ", [TgtColumn] NVARCHAR(256) NOT NULL"
                                  , ", [TgtArchiveTableCSIndex] NVARCHAR(256) NOT NULL"
                                  , ", [TgtSynonym] NVARCHAR(256) NOT NULL"
+                                 , ", [TrackSynonymProjects] NVARCHAR(256) NULL"
+                                 , ", [TrackSynonymMigrationTrck] NVARCHAR(256) NULL"
                                  , ");", Environment.NewLine
                                  
                                  /* Migration Tracking Table Definition: */
@@ -768,6 +770,17 @@ namespace CsiMigrationHelper
                       "SELECT [ProjectDescription]				"
                     , "FROM   [", schemaName, "].[", tableName, "]"
                     , "WHERE  [ProjectName] = '", projectName, "'; "
+                );
+        }
+
+        public static string GetSqlUpdateProjectTblSetTrackTblSynonyms(string schemaName, string tableName, string projectName, string synonymMigrationProject, string synonymMigrationTrackingTbl)
+        {
+            return string.Concat(
+                 "UPDATE [", schemaName, "].[", tableName, "]								"
+                , "SET																		"
+                , "       [TrackSynonymProjects] = '", synonymMigrationProject, "'			"
+                , "      ,[TrackSynonymMigrationTrck] = '", synonymMigrationTrackingTbl, "'	"
+                , "WHERE [ProjectName] = '", projectName, "';								"
                 );
         }
 

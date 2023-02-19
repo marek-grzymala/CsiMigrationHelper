@@ -143,6 +143,7 @@ namespace CsiMigrationHelper
                             int objectLevel = TreeNodeOwner.Data.ObjectLevel;
                             EventArgsMigrationTracking eaTrackTbl = new EventArgsMigrationTracking(InstanceNode
                                                                                            , TreeNodeOwner
+                                                                                           , TreeNodeOwner.TraverseUpUntil(TreeNodeOwner, (int)DbObjectLevel.Database).ToString()
                                                                                            , TreeNodeOwner.TraverseUpUntil(TreeNodeOwner, (int)DbObjectLevel.Schema).ToString()
                                                                                            , TreeNodeOwner.TraverseUpUntil(TreeNodeOwner, (int)DbObjectLevel.Table).ToString());
                             switch (objectLevel)
@@ -185,6 +186,7 @@ namespace CsiMigrationHelper
                         {
                             delegCbxEmpty(this, new EventArgsMigrationTracking(InstanceNode
                                                                                , TreeNodeOwner
+                                                                               , TreeNodeOwner.TraverseUpUntil(TreeNodeOwner, (int)DbObjectLevel.Database).ToString()
                                                                                , TreeNodeOwner.Parent.Data.ObjectText
                                                                                , TreeNodeOwner.Data.ObjectText)); //this line triggers the execution of OnCmbxProjectsTableSelectedIndexChange() in TrackingTblHndlr class
                         }

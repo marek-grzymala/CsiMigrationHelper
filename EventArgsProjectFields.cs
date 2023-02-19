@@ -23,6 +23,9 @@ namespace CsiMigrationHelper
         public TreeNode<DbObject> TgtColumn;
         public TreeNode<DbObject> TgtArchiveTableCSIndex;
         public string             TgtSynonym;
+        public string             TrackSynonymProjects;
+        public string             TrackSynonymMigrationTrck;
+
 
         public EventArgsProjectFields(
 
