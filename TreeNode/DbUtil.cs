@@ -85,7 +85,7 @@ namespace CsiMigrationHelper
             return true;
         }
 
-        public bool ExecuteSql(TreeNode<DbObject> instanceNode, string sql, string customMsgOnError)
+        public bool ExecuteSqlNonQuery(TreeNode<DbObject> instanceNode, string sql, string customMsgOnError)
         {
             using (instanceNode.Data.Dbu)
             {
@@ -172,6 +172,53 @@ namespace CsiMigrationHelper
                         instanceNode.Data.Dbu.CloseConnection();
                         cmd.Dispose();
                         throw new ExceptionSqlExecError(ex.Message, string.Concat("Error executing: ", uspName));
+                    }
+                    finally
+                    {
+                        cmd.Dispose();
+                    }
+                }
+            }
+        }
+
+        public bool ExecuteSqlUspOutParams(TreeNode<DbObject> instanceNode, string sql, string customMsgOnError, List<SqlParameter> sqlParamList)
+        {
+            using (instanceNode.Data.Dbu)
+            {
+                instanceNode.Data.Dbu.OpenConnection();
+                {
+                    SqlCommand cmd = new SqlCommand(sql, con);
+                    cmd.Connection = instanceNode.Data.Dbu.con;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = sql;
+
+                    foreach (SqlParameter p in sqlParamList)
+                    {
+                        if (p != null)
+                        {
+                            //cmd.Parameters.AddWithValue(p.ParameterName, p.Value);
+                            cmd.Parameters.Add(p);
+                        }
+                    }
+
+                    try
+                    {
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        //foreach (SqlParameter p in sqlParamList)
+                        //{
+                        //    if (p != null) // && p.Direction == ParameterDirection.Output)
+                        //    {
+                        //        Console.WriteLine(string.Concat(p.ParameterName, ":", p.Value.ToString()));
+                        //    }
+                        //}
+                        instanceNode.Data.Dbu.CloseConnection();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        instanceNode.Data.Dbu.CloseConnection();
+                        cmd.Dispose();
+                        throw new ExceptionSqlExecError(ex.Message, customMsgOnError);
                     }
                     finally
                     {

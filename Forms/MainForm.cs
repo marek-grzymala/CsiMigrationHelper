@@ -247,6 +247,8 @@ namespace CsiMigrationHelper
                             rdbtn_TrackTbl_ProjectNameCreateNew.Checked = true;
                             TrckTblHndlr = new TrackingTblHndlr(cbxt_TrackTbl_ProjectsTable
                                                               , cbxt_TrackTbl_ProjectName
+                                                              , tbxTrackFullSource
+                                                              , tbxTrackFullTarget
                                                               , gridTrackingTable
                                                               , eaProjectFields
                                                               , imageList1

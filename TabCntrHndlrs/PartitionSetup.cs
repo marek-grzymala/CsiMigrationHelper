@@ -172,7 +172,7 @@ namespace CsiMigrationHelper
         {
             try
             {
-                if (e.TgtInstance.Data.Dbu.ExecuteSql(e.TgtInstance
+                if (e.TgtInstance.Data.Dbu.ExecuteSqlNonQuery(e.TgtInstance
                     , sqlExecuteFG
                     , string.Concat("Error Creating FileGroups")))
                 {
@@ -193,7 +193,7 @@ namespace CsiMigrationHelper
         {
             try
             {
-                if (e.TgtInstance.Data.Dbu.ExecuteSql(e.TgtInstance
+                if (e.TgtInstance.Data.Dbu.ExecuteSqlNonQuery(e.TgtInstance
                     , sqlExecutePF
                     , string.Concat("Error Creating Partition Function: ", e.NamePF.Text)))
                 {
@@ -216,7 +216,7 @@ namespace CsiMigrationHelper
         {
             try
             {
-                if (e.TgtInstance.Data.Dbu.ExecuteSql(e.TgtInstance
+                if (e.TgtInstance.Data.Dbu.ExecuteSqlNonQuery(e.TgtInstance
                     , sqlExecutePS
                     , string.Concat("Error Creating Partition Scheme: ", e.NamePS.Text)))
                 {

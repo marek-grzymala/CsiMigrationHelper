@@ -13,6 +13,8 @@ namespace CsiMigrationHelper
     {
         private ComboBoxExtTrackTbl ProjectsTable;
         private ComboBoxExtTrackTbl ProjectName;
+        TextBox TbxSrc;
+        TextBox TbxTgt;
         private DataGridView  GridTrackingTable;
         private EventArgsProjectFields ProjectFields;
         private ImageList ImageList1;
@@ -22,6 +24,8 @@ namespace CsiMigrationHelper
 
         public TrackingTblHndlr(ComboBoxExtTrackTbl projectsTable
                               , ComboBoxExtTrackTbl projectName
+                              , TextBox tbxSrc
+                              , TextBox tbxTgt
                               , DataGridView gridTrackingTable
                               , EventArgsProjectFields projectFields
                               , ImageList imageList1
@@ -29,6 +33,8 @@ namespace CsiMigrationHelper
         {
             ProjectsTable = projectsTable;
             ProjectName   = projectName;
+            TbxSrc = tbxSrc;
+            TbxTgt = tbxTgt;
             GridTrackingTable = gridTrackingTable;
             ProjectFields = projectFields;
 
@@ -84,10 +90,16 @@ namespace CsiMigrationHelper
         {
             if (ProjectName.SelectedIndex > 0 && VerifyProjectNameEntriesPresentInMgrTrckgTbl(e))
             {
+                // fill out Src and Tgt Textboxes:
+                string newCbxSelection = ProjectName.TreeNodeOwner.Data.Gui.GetCbxSelectionChangeCommited(
+                    ParamSelector.GetParamMetaByObjectLvl(ProjectName.TreeNodeOwner.Data.ObjectLevel
+                                                        , ProjectName.TreeNodeOwner.Data.ObjectBranch).DisplayMember);
+                RunUspGetSourceTargetSettingsByProjectName(newCbxSelection, e);
+
                 ProjectName.ProjectNameValid = true;
                 GridTrackingTable.DataSource = null;
                 if (LoadGrid(e))
-                {
+                {                    
                     BtnTrackingLoadSrcCount.Enabled = true;
                 }
                 else
@@ -98,6 +110,8 @@ namespace CsiMigrationHelper
             else
             {
                 ProjectName.ProjectNameValid = false;
+                TbxSrc.Text = null;
+                TbxTgt.Text = null;
                 GridTrackingTable.DataSource = null;
 
                 MessageBox.Show(string.Concat("Project: [", ProjectName.TreeNodeOwner,ToString()
@@ -157,8 +171,8 @@ namespace CsiMigrationHelper
                                         , ProjectsTable.TreeNodeOwner.Parent.Data.ObjectText
                                         , ProjectsTable.TreeNodeOwner.Data.ObjectText);
 
-                    ProjectFields.SrcSynonym = string.Concat("Src_", ProjectFields.SrcTableSchema, "_", ProjectFields.SrcTableName);
-                    ProjectFields.TgtSynonym = string.Concat("Src_", ProjectFields.TgtArchiveTableSchema, "_", ProjectFields.TgtArchiveTableName);
+                    ProjectFields.SrcSynonym = string.Concat("Src_", ProjectFields.SrcInstance, "_", ProjectFields.SrcTableSchema, "_", ProjectFields.SrcTableName);
+                    ProjectFields.TgtSynonym = string.Concat("Tgt_", ProjectFields.TgtInstance, "_", ProjectFields.TgtArchiveTableSchema, "_", ProjectFields.TgtArchiveTableName);
 
                     if (CreateProject(e, ProjectName.TreeNodeOwner.Data.ObjectText, ProjectName.ProjectDescription.Text))
                     {                    
@@ -180,10 +194,21 @@ namespace CsiMigrationHelper
                                 int r = RunUspPreloadMigrationTrackingTbl(e, ProjectFields);
                                 if (r > 0)
                                 {
+                                    
                                     Console.WriteLine(string.Concat("Procedure: ", UspNamePreloadMigrationTrackingTbl, " returned :", r, " records"));
                                     Console.WriteLine(string.Concat("ProjectsTable.TreeNodeOwner: ", ProjectsTable.TreeNodeOwner.ToString()));
                                     if (LoadGrid(e))
                                     {
+                                        TbxSrc.Text = string.Concat("[",        ProjectFields.SrcInstance
+                                                                       , "].[", ProjectFields.SrcDatabase
+                                                                       , "].[", ProjectFields.SrcTableSchema
+                                                                       , "].[", ProjectFields.SrcTableName, "]"
+                                                                       );
+                                        TbxTgt.Text = string.Concat("[", ProjectFields.TgtInstance
+                                                                       , "].[", ProjectFields.TgtDatabase
+                                                                       , "].[", ProjectFields.TgtArchiveTableSchema
+                                                                       , "].[", ProjectFields.TgtArchiveTableName, "]"
+                                                                       );
                                         // enable GetCountFromSource:
                                         BtnTrackingLoadSrcCount.Enabled = true;
                                     }
@@ -226,6 +251,14 @@ namespace CsiMigrationHelper
 
         protected virtual void OnCmbxProjectSelectionEmpty(object sender, EventArgsMigrationTracking e)
         {
+            if (!string.IsNullOrEmpty(TbxSrc.Text))
+            {
+                TbxSrc.Text = null;
+            }
+            if (!string.IsNullOrEmpty(TbxTgt.Text))
+            {
+                TbxTgt.Text = null;
+            }
             if (GridTrackingTable.DataSource != null)
             {
                 GridTrackingTable.DataSource = null;
@@ -246,7 +279,7 @@ namespace CsiMigrationHelper
 
         private bool VerifyProjectNameEntriesPresentInMgrTrckgTbl(EventArgsMigrationTracking e)
         {
-            bool result = true;
+            bool result = false;
             if (e.InstanceNode.Data.Dbu.ParseSql(e.InstanceNode, SqlText.GetSqlVerifyMigrationTrackingEntryCountPerProjectName(e.TreeNodeOwner)))
             {
                 result = e.InstanceNode.Data.Dbu.ExecuteSqlScalar(e.InstanceNode
@@ -260,7 +293,7 @@ namespace CsiMigrationHelper
         {
             try
             {
-                return e.InstanceNode.Data.Dbu.ExecuteSql(e.InstanceNode
+                return e.InstanceNode.Data.Dbu.ExecuteSqlNonQuery(e.InstanceNode
                     , SqlText.GetSqlTableDefinitionProjectTable(e.SchemaName, e.TableName)
                     , "Error creating Project Table: [" + e.SchemaName +"].["+ e.TableName +"]");
                 
@@ -276,7 +309,7 @@ namespace CsiMigrationHelper
         {            
             try
             {                
-                return e.InstanceNode.Data.Dbu.ExecuteSql(e.InstanceNode
+                return e.InstanceNode.Data.Dbu.ExecuteSqlNonQuery(e.InstanceNode
                        , SqlText.GetSqlProjectInsert(e.SchemaName, e.TableName, projectName, projectDescription, ProjectFields)
                        , "Error creating Project: ["+ projectName + "]");
             }
@@ -291,7 +324,7 @@ namespace CsiMigrationHelper
         {
             try
             {
-                return e.InstanceNode.Data.Dbu.ExecuteSql(e.InstanceNode
+                return e.InstanceNode.Data.Dbu.ExecuteSqlNonQuery(e.InstanceNode
                        , SqlText.GetSqlProjectRemove(e.SchemaName, e.TableName, projectName)
                        , "Error removing Project: [" + projectName + "]");
             }
@@ -307,7 +340,7 @@ namespace CsiMigrationHelper
             bool result = false;
             try
             {
-                result = e.InstanceNode.Data.Dbu.ExecuteSql(e.InstanceNode
+                result = e.InstanceNode.Data.Dbu.ExecuteSqlNonQuery(e.InstanceNode
                        , SqlText.GetSqlAddLinkedServer(ProjectFields.SrcInstance.ToString(), dbu)
                        , "Error creating LinkedServer: [" + ProjectFields.SrcInstance.ToString() + "]");
                 
@@ -315,7 +348,7 @@ namespace CsiMigrationHelper
                 {
                     return false;
                 }
-                result = e.InstanceNode.Data.Dbu.ExecuteSql(e.InstanceNode
+                result = e.InstanceNode.Data.Dbu.ExecuteSqlNonQuery(e.InstanceNode
                        , SqlText.GetSqlAddSynonym(ProjectFields.SrcSynonym
                                                 , ProjectFields.SrcInstance.ToString()
                                                 , ProjectFields.SrcDatabase.ToString()
@@ -329,7 +362,7 @@ namespace CsiMigrationHelper
                     return false;
                 }
                 
-                result = e.InstanceNode.Data.Dbu.ExecuteSql(e.InstanceNode
+                result = e.InstanceNode.Data.Dbu.ExecuteSqlNonQuery(e.InstanceNode
                        , SqlText.GetSqlAddLinkedServer(ProjectFields.TgtInstance.ToString(), dbu)
                        , "Error creating LinkedServer: [" + ProjectFields.TgtInstance.ToString() + "]");
                 
@@ -338,7 +371,7 @@ namespace CsiMigrationHelper
                     return false;
                 }
                 
-                result = e.InstanceNode.Data.Dbu.ExecuteSql(e.InstanceNode
+                result = e.InstanceNode.Data.Dbu.ExecuteSqlNonQuery(e.InstanceNode
                        , SqlText.GetSqlAddSynonym(ProjectFields.TgtSynonym
                                                 , ProjectFields.TgtInstance.ToString()
                                                 , ProjectFields.TgtDatabase.ToString()
@@ -364,7 +397,7 @@ namespace CsiMigrationHelper
                 string projectName = ProjectName.TreeNodeOwner.Data.ObjectText;
                 //Console.WriteLine(SqlText.GetSqlCreateUspPreloadMigrationTracking(projectTableSchema, projectTableName, eProjFields));
                 
-                return eMtr.InstanceNode.Data.Dbu.ExecuteSql(eMtr.InstanceNode
+                return eMtr.InstanceNode.Data.Dbu.ExecuteSqlNonQuery(eMtr.InstanceNode
                        , SqlText.GetSqlCreateUspPreloadMigrationTracking(projectTableSchema, projectTableName, eProjFields)
                        , string.Concat("Error Creating usp: [", projectTableSchema, "].[usp_Preload_", projectTableName, Options.migrationTrackingTblSuffix, "]"));
             }
@@ -379,7 +412,7 @@ namespace CsiMigrationHelper
         {
             try
             {
-                return eMtr.InstanceNode.Data.Dbu.ExecuteSql(eMtr.InstanceNode
+                return eMtr.InstanceNode.Data.Dbu.ExecuteSqlNonQuery(eMtr.InstanceNode
                        , string.Concat("DROP PROCEDURE ", uspName)
                        , string.Concat("Error Dropping usp: [", uspName));
             }
@@ -445,6 +478,116 @@ namespace CsiMigrationHelper
             }
         }
 
+        private int RunUspGetSourceTargetSettingsByProjectName(string projectName, EventArgsMigrationTracking e)
+        {
+            try
+            {
+                //Console.WriteLine(SqlText.GetSqlCreateUspPreloadMigrationTracking(projectTableSchema, projectTableName, eProjFields));
+
+                List<SqlParameter> sqlParamList = new List<SqlParameter>();
+                SqlParameter p_ProjectName = new SqlParameter()
+                {
+                    ParameterName = "@ProjectName",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 4000,
+                    Value = projectName
+                };
+                sqlParamList.Add(p_ProjectName);
+
+                SqlParameter p_SrcInstance = new SqlParameter()
+                {
+                    ParameterName = "@SrcInstance",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 4000
+                };
+                p_SrcInstance.Direction = ParameterDirection.Output;
+                sqlParamList.Add(p_SrcInstance);
+
+                SqlParameter p_SrcDatabase = new SqlParameter()
+                {
+                    ParameterName = "@SrcDatabase",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 4000
+                };
+                p_SrcDatabase.Direction = ParameterDirection.Output;
+                sqlParamList.Add(p_SrcDatabase);
+
+                SqlParameter p_SrcTableSchema = new SqlParameter()
+                {
+                    ParameterName = "@SrcTableSchema",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 4000
+                };
+                p_SrcTableSchema.Direction = ParameterDirection.Output;
+                sqlParamList.Add(p_SrcTableSchema);
+
+                SqlParameter p_SrcTableName = new SqlParameter()
+                {
+                    ParameterName = "@SrcTableName",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 4000
+                };
+                p_SrcTableName.Direction = ParameterDirection.Output;
+                sqlParamList.Add(p_SrcTableName);
+
+                SqlParameter p_TgtInstance = new SqlParameter()
+                {
+                    ParameterName = "@TgtInstance",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 4000
+                };
+                p_TgtInstance.Direction = ParameterDirection.Output;
+                sqlParamList.Add(p_TgtInstance);
+
+                SqlParameter p_TgtDatabase = new SqlParameter()
+                {
+                    ParameterName = "@TgtDatabase",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 4000
+                };
+                p_TgtDatabase.Direction = ParameterDirection.Output;
+                sqlParamList.Add(p_TgtDatabase);
+
+                SqlParameter p_TgtArchiveTableSchema = new SqlParameter()
+                {
+                    ParameterName = "@TgtArchiveTableSchema",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 4000
+                };
+                p_TgtArchiveTableSchema.Direction = ParameterDirection.Output;
+                sqlParamList.Add(p_TgtArchiveTableSchema);
+
+                SqlParameter p_TgtArchiveTableName = new SqlParameter()
+                {
+                    ParameterName = "@TgtArchiveTableName",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 4000
+                };
+                p_TgtArchiveTableName.Direction = ParameterDirection.Output;
+                sqlParamList.Add(p_TgtArchiveTableName);
+
+                e.InstanceNode.Data.Dbu.ExecuteSqlUspOutParams(e.InstanceNode, string.Concat(e.SchemaName, ".", "[usp_GetSourceTargetSettingsByProjectName]")
+                                                              , string.Concat("Error Execting: ", e.SchemaName, ".", "[usp_GetSourceTargetSettingsByProjectName]")
+                                                              , sqlParamList);
+                TbxSrc.Text = string.Concat("[", p_SrcInstance.Value
+                                        , "].[", p_SrcDatabase.Value
+                                        , "].[", p_SrcTableSchema.Value
+                                        , "].[", p_SrcTableName.Value
+                                        , "]");
+                TbxTgt.Text = string.Concat("[", p_TgtInstance.Value
+                                        , "].[", p_TgtDatabase.Value
+                                        , "].[", p_TgtArchiveTableSchema.Value
+                                        , "].[", p_TgtArchiveTableName.Value
+                                        , "]");
+                return 1;
+            }
+            catch (ExceptionSqlExecError ex)
+            {
+                // for now do nothing
+                return 0;
+            }
+        }
+
         private bool LoadGrid(EventArgsMigrationTracking e)
         {
             bool result = false;            
@@ -471,29 +614,38 @@ namespace CsiMigrationHelper
 
         protected virtual void OnBtnTrackingLoadSrcCountClick(object sender, EventArgs ea)
         {
-            EventArgsMigrationTracking e = new EventArgsMigrationTracking(
-                          ProjectsTable.TreeNodeOwner.TraverseUpUntil(ProjectsTable.TreeNodeOwner, (int)DbObjectLevel.Instance)
-                        , ProjectsTable.TreeNodeOwner
-                        , ProjectsTable.TreeNodeOwner.Parent.ToString()
-                        , ProjectsTable.TreeNodeOwner.ToString());
+            try
+            {
+                EventArgsMigrationTracking e = new EventArgsMigrationTracking(
+                              ProjectsTable.TreeNodeOwner.TraverseUpUntil(ProjectsTable.TreeNodeOwner, (int)DbObjectLevel.Instance)
+                            , ProjectsTable.TreeNodeOwner
+                            , ProjectsTable.TreeNodeOwner.Parent.ToString()
+                            , ProjectsTable.TreeNodeOwner.ToString());
 
-            List<SqlParameter> sqlParamList = new List<SqlParameter>();
-            SqlParameter p_ProjectName = new SqlParameter()
-            {
-                ParameterName = "@ProjectName",
-                SqlDbType = SqlDbType.VarChar,
-                Size = 4000,
-                Value = ProjectName.TreeNodeOwner.ToString()
-            };
-            sqlParamList.Add(p_ProjectName);
-            int rowCountAffected = e.InstanceNode.Data.Dbu.ExecuteSqlUsp(e.InstanceNode, string.Concat(e.SchemaName, ".", "[usp_UpdateMigrationTrackingPerCountPerProjectName]"), sqlParamList);
+                List<SqlParameter> sqlParamList = new List<SqlParameter>();
+                SqlParameter p_ProjectName = new SqlParameter()
+                {
+                    ParameterName = "@ProjectName",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 4000,
+                    Value = ProjectName.TreeNodeOwner.ToString()
+                };
+                sqlParamList.Add(p_ProjectName);
+                int rowCountAffected = e.InstanceNode.Data.Dbu.ExecuteSqlUsp(e.InstanceNode
+                    , string.Concat(e.SchemaName, ".", "[usp_UpdateMigrationTrackingPerCountPerProjectName]")
+                    , sqlParamList);
             
-            if (rowCountAffected > 0)
-            {
-                BtnTrackingLoadSrcCount.Image = ImageList1.Images[0];
-                LoadGrid(e);
+                if (rowCountAffected > 0)
+                {
+                    BtnTrackingLoadSrcCount.Image = ImageList1.Images[0];
+                    LoadGrid(e);
+                }
+                else
+                {
+                    BtnTrackingLoadSrcCount.Image = ImageList1.Images[1];
+                }
             }
-            else
+            catch (ExceptionSqlExecError ex)
             {
                 BtnTrackingLoadSrcCount.Image = ImageList1.Images[1];
             }

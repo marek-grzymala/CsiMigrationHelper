@@ -228,6 +228,8 @@
             this.cbxt_TrackTbl_ProjectName = new CsiMigrationHelper.ComboBoxExtTrackTbl();
             this.rdbtn_TrackTbl_ProjectsCreateNew = new CsiMigrationHelper.RadioButtonExt();
             this.cbxt_TrackTbl_ProjectsTable = new CsiMigrationHelper.ComboBoxExtTrackTbl();
+            this.tbxTrackFullSource = new System.Windows.Forms.TextBox();
+            this.tbxTrackFullTarget = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabSrcTgtSetup.SuspendLayout();
             this.tblp_TabSetupOuter.SuspendLayout();
@@ -354,6 +356,8 @@
             this.split_TrackingTable_SrcTgt.Panel1.SuspendLayout();
             this.split_TrackingTable_SrcTgt.Panel2.SuspendLayout();
             this.split_TrackingTable_SrcTgt.SuspendLayout();
+            this.grpbx_TrackingTbl_Src.SuspendLayout();
+            this.grpbx_TrackingTbl_Tgt.SuspendLayout();
             this.tabEventLog.SuspendLayout();
             this.tabSandBox.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -2530,6 +2534,7 @@
             // 
             // grpbx_TrackingTbl_Src
             // 
+            this.grpbx_TrackingTbl_Src.Controls.Add(this.tbxTrackFullSource);
             this.grpbx_TrackingTbl_Src.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpbx_TrackingTbl_Src.Location = new System.Drawing.Point(0, 0);
             this.grpbx_TrackingTbl_Src.Name = "grpbx_TrackingTbl_Src";
@@ -2540,6 +2545,7 @@
             // 
             // grpbx_TrackingTbl_Tgt
             // 
+            this.grpbx_TrackingTbl_Tgt.Controls.Add(this.tbxTrackFullTarget);
             this.grpbx_TrackingTbl_Tgt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpbx_TrackingTbl_Tgt.Location = new System.Drawing.Point(0, 0);
             this.grpbx_TrackingTbl_Tgt.Name = "grpbx_TrackingTbl_Tgt";
@@ -2955,6 +2961,22 @@
             this.cbxt_TrackTbl_ProjectsTable.Size = new System.Drawing.Size(605, 24);
             this.cbxt_TrackTbl_ProjectsTable.TabIndex = 2;
             // 
+            // tbxTrackFullSource
+            // 
+            this.tbxTrackFullSource.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbxTrackFullSource.Location = new System.Drawing.Point(3, 18);
+            this.tbxTrackFullSource.Name = "tbxTrackFullSource";
+            this.tbxTrackFullSource.Size = new System.Drawing.Size(717, 22);
+            this.tbxTrackFullSource.TabIndex = 0;
+            // 
+            // tbxTrackFullTarget
+            // 
+            this.tbxTrackFullTarget.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbxTrackFullTarget.Location = new System.Drawing.Point(3, 18);
+            this.tbxTrackFullTarget.Name = "tbxTrackFullTarget";
+            this.tbxTrackFullTarget.Size = new System.Drawing.Size(731, 22);
+            this.tbxTrackFullTarget.TabIndex = 1;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3120,6 +3142,10 @@
             this.split_TrackingTable_SrcTgt.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.split_TrackingTable_SrcTgt)).EndInit();
             this.split_TrackingTable_SrcTgt.ResumeLayout(false);
+            this.grpbx_TrackingTbl_Src.ResumeLayout(false);
+            this.grpbx_TrackingTbl_Src.PerformLayout();
+            this.grpbx_TrackingTbl_Tgt.ResumeLayout(false);
+            this.grpbx_TrackingTbl_Tgt.PerformLayout();
             this.tabEventLog.ResumeLayout(false);
             this.tabSandBox.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
@@ -3332,6 +3358,8 @@
         private System.Windows.Forms.GroupBox grpbx_TrackingTbl_Src;
         private System.Windows.Forms.GroupBox grpbx_TrackingTbl_Tgt;
         private System.Windows.Forms.Button btnTrackingLoadSrcCount;
+        private System.Windows.Forms.TextBox tbxTrackFullSource;
+        private System.Windows.Forms.TextBox tbxTrackFullTarget;
     }
 }
 

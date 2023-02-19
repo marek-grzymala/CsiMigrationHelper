@@ -343,7 +343,7 @@ namespace CsiMigrationHelper
         {
             try
             {
-                return e.TgtInstance.Data.Dbu.ExecuteSql(e.TgtInstance
+                return e.TgtInstance.Data.Dbu.ExecuteSqlNonQuery(e.TgtInstance
                     , string.Concat(CreateTable, Environment.NewLine, CreateConstraints)
                     , "Error Creating Table");
             }
