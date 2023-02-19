@@ -252,7 +252,9 @@ namespace CsiMigrationHelper
                                                               , gridTrackingTable
                                                               , eaProjectFields
                                                               , imageList1
-                                                              , btnTrackingLoadSrcCount);
+                                                              , btnTrackingLoadSrcCount
+                                                              , btnTrackingRunImport
+                                                              );
                             {
                                 trckProjectDescription = trckProjectName.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.DataType, "trckProjectDescription", string.Empty, new GuiElem(tbx_TrackTbl_ProjectDescription)));
                             }

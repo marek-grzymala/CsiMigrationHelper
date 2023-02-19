@@ -950,6 +950,130 @@ namespace CsiMigrationHelper
                 );
         }
 
+        public static string GetSqlCreateUspInsertIntoTargetTable(    string srcInstance
+                                                                    , string srcDatabase
+                                                                    , string tgtInstance
+                                                                    , string tgtDatabase
+                                                                    , string tgtTableSchema
+                                                                    , string tgtTableName
+                                                                    )
+        {
+            return string.Concat(
+              "CREATE OR ALTER PROCEDURE [dbo].[usp_Insert_Into_Target_Table]																								", Environment.NewLine
+            , "   @SourceSchemaName NVARCHAR(256)																															", Environment.NewLine
+            , " , @SourceTableName NVARCHAR(256)																															", Environment.NewLine
+            , "	, @SourceColumnName NVARCHAR(256)																															", Environment.NewLine
+            , "	, @SourceIndexName NVARCHAR(256)																															", Environment.NewLine
+            , " , @SourceSynonym NVARCHAR(256)																																", Environment.NewLine
+            , "																																								", Environment.NewLine
+            , "	, @TargetSchemaName NVARCHAR(256)																															", Environment.NewLine
+            , " , @TargetTableName NVARCHAR(256)																															", Environment.NewLine
+            , "	, @TargetSynonym NVARCHAR(256)																																", Environment.NewLine
+            , " , @FromDate DATETIME																																		", Environment.NewLine
+            , " , @ToDate DATETIME																																			", Environment.NewLine
+            , "AS																																							", Environment.NewLine
+            , "BEGIN																																						", Environment.NewLine
+            , "	SET NOCOUNT ON;																																				", Environment.NewLine
+            , " SET XACT_ABORT ON;																																		    ", Environment.NewLine
+            , "																																								", Environment.NewLine
+            , "-----------------------------------------------------------------------------------------------------------------------------------------------------------------	", Environment.NewLine
+            , "DECLARE @SourceSchemaNameQt NVARCHAR(256) = QUOTENAME(@SourceSchemaName)																							", Environment.NewLine
+            , "DECLARE @SourceTableNameQt NVARCHAR(256) = QUOTENAME(@SourceTableName)																							", Environment.NewLine
+            , "DECLARE @SourceSynonymQt NVARCHAR(256) = QUOTENAME(@SourceSynonym)																								", Environment.NewLine
+            , "																																									", Environment.NewLine
+            , "DECLARE @TargetSchemaNameQt NVARCHAR(256) = QUOTENAME(@TargetSchemaName)																							", Environment.NewLine
+            , "DECLARE @TargetTableNameQt NVARCHAR(256) = QUOTENAME(@TargetTableName)																							", Environment.NewLine
+            , "DECLARE @TargetSynonymQt NVARCHAR(256) = QUOTENAME(@TargetSynonym)																								", Environment.NewLine
+            , "																																									", Environment.NewLine
+            , "DECLARE @Sql NVARCHAR(MAX)																																		", Environment.NewLine
+            , "DECLARE @ColumnListSource NVARCHAR(MAX)																															", Environment.NewLine
+            , "DECLARE @ColumnListTarget NVARCHAR(MAX)																															", Environment.NewLine
+            , "DECLARE @ErrMsg VARCHAR(MAX)																																		", Environment.NewLine
+            , "																																									", Environment.NewLine
+            , "-----------------------------------------------------------------------------------------------------------------------------------------------------------------	", Environment.NewLine
+            , "; WITH cte AS (																																					", Environment.NewLine
+            , "    SELECT DISTINCT																																				", Environment.NewLine
+            , "                '  ['+col.column_name+'] '    AS [ColumnName]  																									", Environment.NewLine
+            , "    FROM          [", srcInstance, "].[", srcDatabase, "].INFORMATION_SCHEMA.COLUMNS  col																			", Environment.NewLine
+            , "    INNER JOIN    [", srcInstance, "].[", srcDatabase, "].INFORMATION_SCHEMA.TABLES   tbl ON tbl.TABLE_NAME = col.TABLE_NAME										", Environment.NewLine
+            , "    WHERE         																																				", Environment.NewLine
+            , "    tbl.table_schema            = @SourceSchemaName AND 																											", Environment.NewLine
+            , "    tbl.table_name              = @SourceTableName          																										", Environment.NewLine
+            , "),																																								", Environment.NewLine
+            , "colListNumbered AS (																																				", Environment.NewLine
+            , "SELECT 																																							", Environment.NewLine
+            , "    ROW_NUMBER() OVER (ORDER BY cte.ColumnName) AS [ColumnNumber],																								", Environment.NewLine
+            , "    cte.ColumnName																																				", Environment.NewLine
+            , "FROM cte																																							", Environment.NewLine
+            , "),																																								", Environment.NewLine
+            , "mcv AS (																																							", Environment.NewLine
+            , "    SELECT MAX(colListNumbered.[ColumnNumber]) AS MaxColNrVal FROM colListNumbered																				", Environment.NewLine
+            , "),																																								", Environment.NewLine
+            , "colListFinal AS (																																					", Environment.NewLine
+            , "    SELECT  -- adding a comma to all columns except for the last one:																								", Environment.NewLine
+            , "            CASE WHEN cln.[ColumnNumber] < (SELECT TOP 1 (mcv.MaxColNrVal) FROM mcv) THEN cln.[ColumnName]+',' ELSE cln.[ColumnName] END AS [ColumnNames]			", Environment.NewLine
+            , "    FROM    colListNumbered cln																																	", Environment.NewLine
+            , ")																																									", Environment.NewLine
+            , "SELECT @ColumnListSource = 																																		", Environment.NewLine
+            , "(																																									", Environment.NewLine
+            , "     -- flatten all rows into a single row:																														", Environment.NewLine
+            , "     SELECT SUBSTRING([ColumnNames], 0, 9999) 																													", Environment.NewLine
+            , "     FROM colListFinal FOR XML PATH('') 																															", Environment.NewLine
+            , ")																																									", Environment.NewLine
+            , "-----------------------------------------------------------------------------------------------------------------------------------------------------------------	", Environment.NewLine
+            , "; WITH cte AS (																																					", Environment.NewLine
+            , "    SELECT DISTINCT																																				", Environment.NewLine
+            , "                '  ['+col.column_name+'] '    AS [ColumnName]  																									", Environment.NewLine
+            , "    FROM          [", tgtInstance, "].[", tgtDatabase, "].INFORMATION_SCHEMA.COLUMNS  col																			", Environment.NewLine
+            , "    INNER JOIN    [", tgtInstance, "].[", tgtDatabase, "].INFORMATION_SCHEMA.TABLES   tbl ON tbl.TABLE_NAME = col.TABLE_NAME										", Environment.NewLine
+            , "    WHERE         																																				", Environment.NewLine
+            , "    tbl.table_schema            = @TargetSchemaName AND 																											", Environment.NewLine
+            , "    tbl.table_name              = @TargetTableName          																										", Environment.NewLine
+            , "),																																								", Environment.NewLine
+            , "colListNumbered AS (																																				", Environment.NewLine
+            , "SELECT 																																							", Environment.NewLine
+            , "    ROW_NUMBER() OVER (ORDER BY cte.ColumnName) AS [ColumnNumber],																								", Environment.NewLine
+            , "    cte.ColumnName																																				", Environment.NewLine
+            , "FROM cte																																							", Environment.NewLine
+            , "),																																								", Environment.NewLine
+            , "mcv AS (																																							", Environment.NewLine
+            , "    SELECT MAX(colListNumbered.[ColumnNumber]) AS MaxColNrVal FROM colListNumbered																				", Environment.NewLine
+            , "),																																								", Environment.NewLine
+            , "colListFinal AS (																																					", Environment.NewLine
+            , "    SELECT  -- adding a comma to all columns except for the last one:																								", Environment.NewLine
+            , "            CASE WHEN cln.[ColumnNumber] < (SELECT TOP 1 (mcv.MaxColNrVal) FROM mcv) THEN cln.[ColumnName]+',' ELSE cln.[ColumnName] END AS [ColumnNames]			", Environment.NewLine
+            , "    FROM    colListNumbered cln																																	", Environment.NewLine
+            , ")																																									", Environment.NewLine
+            , "SELECT @ColumnListTarget = 																																		", Environment.NewLine
+            , "(																																									", Environment.NewLine
+            , "     -- flatten all rows into a single row:																														", Environment.NewLine
+            , "     SELECT SUBSTRING([ColumnNames], 0, 9999)																														", Environment.NewLine
+            , "     FROM colListFinal FOR XML PATH('') 																															", Environment.NewLine
+            , ")																																									", Environment.NewLine
+            , "-----------------------------------------------------------------------------------------------------------------------------------------------------------------	", Environment.NewLine
+            , "IF ((@ColumnListSource IS NULL OR @ColumnListTarget IS NULL) OR (@ColumnListSource <> @ColumnListTarget))															", Environment.NewLine
+            , "BEGIN																																								", Environment.NewLine
+            , "      SET @ErrMsg = 'Error executing: ' + COALESCE(OBJECT_NAME(@@PROCID), 'Unknown procedure') + CHAR(13) + '														", Environment.NewLine
+            , "      Lists of columns collected for tables: '+@SourceSchemaNameQt+'.'+@SourceTableNameQt+' and '+@TargetSchemaNameQt+'.'+@TargetTableNameQt+' do not match or are emty'+ CHAR(13)", Environment.NewLine
+            , "      ;THROW 99001, @ErrMsg, 1;																																				", Environment.NewLine
+            , "END																																											", Environment.NewLine
+            , "-----------------------------------------------------------------------------------------------------------------------------------------------------------------			", Environment.NewLine
+            , "																																												", Environment.NewLine
+            , "PRINT(CONCAT('Inserting from source table: ', @SourceSchemaNameQt, '.', @SourceTableNameQt																					", Environment.NewLine
+            , ", ' into table: ', @TargetSchemaNameQt, '.', @TargetTableNameQt, ' with date range from: ', +CONVERT(NVARCHAR(64), @FromDate), ' to: ', CONVERT(NVARCHAR(64), @ToDate)))		", Environment.NewLine
+            , "																																												", Environment.NewLine
+            , "SET @Sql = N'INSERT INTO [", tgtDatabase, "].[", tgtTableSchema, "].[", tgtTableName, "]																						", Environment.NewLine
+            , "        (																																									", Environment.NewLine
+            , "         '+@ColumnListTarget+'																																				", Environment.NewLine
+            , "        )																																									", Environment.NewLine
+            , "        SELECT 																																								", Environment.NewLine
+            , "         '+@ColumnListSource+'																																				", Environment.NewLine
+            , "		FROM '+@SourceSynonymQt+' WHERE '+@SourceColumnName+' >= '''+CONVERT(NVARCHAR(64), @FromDate)+''' AND '+@SourceColumnName+' < '''+CONVERT(NVARCHAR(64), @ToDate)+''';'	", Environment.NewLine
+            , "EXEC sp_executesql @Sql																																						", Environment.NewLine
+            , "END;																																											", Environment.NewLine
+            );
+        }
+
         public static string GetSqlObjectListByNodeLevel(TreeNode<DbObject> tn)
         {
             /*

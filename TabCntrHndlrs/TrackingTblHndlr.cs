@@ -19,17 +19,20 @@ namespace CsiMigrationHelper
         private EventArgsProjectFields ProjectFields;
         private ImageList ImageList1;
         private Button BtnTrackingLoadSrcCount;
+        private Button BtnTrackingRunImport;
         private string UspNamePreloadMigrationTrackingTbl;
 
 
-        public TrackingTblHndlr(ComboBoxExtTrackTbl projectsTable
-                              , ComboBoxExtTrackTbl projectName
-                              , TextBox tbxSrc
-                              , TextBox tbxTgt
-                              , DataGridView gridTrackingTable
-                              , EventArgsProjectFields projectFields
-                              , ImageList imageList1
-                              , Button btnTrackingLoadSrcCount)
+        public TrackingTblHndlr(  ComboBoxExtTrackTbl projectsTable
+                                , ComboBoxExtTrackTbl projectName
+                                , TextBox tbxSrc
+                                , TextBox tbxTgt
+                                , DataGridView gridTrackingTable
+                                , EventArgsProjectFields projectFields
+                                , ImageList imageList1
+                                , Button btnTrackingLoadSrcCount
+                                , Button btnTrackingRunImport
+                                )
         {
             ProjectsTable = projectsTable;
             ProjectName   = projectName;
@@ -51,6 +54,8 @@ namespace CsiMigrationHelper
 
             BtnTrackingLoadSrcCount = btnTrackingLoadSrcCount;
             BtnTrackingLoadSrcCount.Click += new EventHandler(OnBtnTrackingLoadSrcCountClick);
+            BtnTrackingRunImport = btnTrackingRunImport;
+            BtnTrackingLoadSrcCount.Click += new EventHandler(OnBtnTrackingRunImportClick);
         }
 
         // if Create New ProjectTable option chosen allow only creating new Projects in it (there is no existing Projects in a New ProjectTable):
@@ -623,6 +628,14 @@ namespace CsiMigrationHelper
                                         , "].[", p_TgtArchiveTableSchema.Value
                                         , "].[", p_TgtArchiveTableName.Value
                                         , "]");
+                ProjectFields.SrcInstance.SetTreeNodeText(ProjectFields.SrcInstance, p_SrcInstance.Value.ToString(), false);
+                ProjectFields.SrcDatabase.SetTreeNodeText(ProjectFields.SrcDatabase, p_SrcDatabase.Value.ToString(), false);
+                ProjectFields.SrcTableSchema.SetTreeNodeText(ProjectFields.SrcTableSchema, p_SrcTableSchema.Value.ToString(), false);
+                ProjectFields.SrcTableName.SetTreeNodeText(ProjectFields.SrcTableName, p_SrcTableName.Value.ToString(), false);
+                ProjectFields.TgtInstance.SetTreeNodeText(ProjectFields.TgtInstance, p_TgtInstance.Value.ToString(), false);
+                ProjectFields.TgtDatabase.SetTreeNodeText(ProjectFields.TgtDatabase, p_TgtDatabase.Value.ToString(), false);
+                ProjectFields.TgtArchiveTableSchema.SetTreeNodeText(ProjectFields.TgtArchiveTableSchema, p_TgtArchiveTableSchema.Value.ToString(), false);
+                ProjectFields.TgtArchiveTableName.SetTreeNodeText(ProjectFields.TgtArchiveTableName, p_TgtArchiveTableName.Value.ToString(), false);
                 return 1;
             }
             catch (ExceptionSqlExecError ex)
@@ -684,11 +697,68 @@ namespace CsiMigrationHelper
                 {
                     BtnTrackingLoadSrcCount.Image = ImageList1.Images[0];
                     LoadGrid(e);
+                    BtnTrackingRunImport.Enabled = true;
                 }
                 else
                 {
                     BtnTrackingLoadSrcCount.Image = ImageList1.Images[1];
+                    BtnTrackingRunImport.Enabled = false;
                 }
+            }
+            catch (ExceptionSqlExecError ex)
+            {
+                BtnTrackingLoadSrcCount.Image = ImageList1.Images[1];
+                BtnTrackingRunImport.Enabled = false;
+            }
+        }
+
+        protected virtual void OnBtnTrackingRunImportClick(object sender, EventArgs ea)
+        {
+            try
+            {
+                EventArgsMigrationTracking e = new EventArgsMigrationTracking(
+                              ProjectsTable.TreeNodeOwner.TraverseUpUntil(ProjectsTable.TreeNodeOwner, (int)DbObjectLevel.Instance)
+                            , ProjectsTable.TreeNodeOwner
+                            , ProjectsTable.TreeNodeOwner.TraverseUpUntil(ProjectsTable.TreeNodeOwner, (int)DbObjectLevel.Database).ToString()
+                            , ProjectsTable.TreeNodeOwner.Parent.ToString()
+                            , ProjectsTable.TreeNodeOwner.ToString());
+
+                List<SqlParameter> sqlParamList = new List<SqlParameter>();
+                SqlParameter p_ProjectName = new SqlParameter()
+                {
+                    ParameterName = "@ProjectName",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 4000,
+                    Value = ProjectName.TreeNodeOwner.ToString()
+                };
+                sqlParamList.Add(p_ProjectName);
+                //int rowCountAffected = e.InstanceNode.Data.Dbu.ExecuteSqlUsp(e.InstanceNode
+                //    , string.Concat(e.SchemaName, ".", "[usp_UpdateMigrationTrackingPerCountPerProjectName]")
+                //    , sqlParamList);
+
+                Console.WriteLine(SqlText.GetSqlCreateUspInsertIntoTargetTable(
+                                                                 ProjectFields.SrcInstance.ToString()
+                                                                , ProjectFields.SrcDatabase.ToString()
+                                                                , ProjectFields.TgtInstance.ToString()
+                                                                , ProjectFields.TgtDatabase.ToString()
+                                                                , ProjectFields.TgtArchiveTableSchema.ToString()
+                                                                , ProjectFields.TgtArchiveTableName.ToString()
+                                                              ));
+                
+                if (e.InstanceNode.Data.Dbu.ExecuteSqlNonQuery(e.InstanceNode
+                , SqlText.GetSqlCreateUspInsertIntoTargetTable(
+                                                                 ProjectFields.SrcInstance.ToString()
+                                                                ,ProjectFields.SrcDatabase.ToString()
+                                                                ,ProjectFields.TgtInstance.ToString()
+                                                                ,ProjectFields.TgtDatabase.ToString()
+                                                                ,ProjectFields.TgtArchiveTableSchema.ToString()
+                                                                ,ProjectFields.TgtArchiveTableName.ToString()
+                                                              )
+                , string.Concat("Error Creating usp: [dbo].[usp_Insert_Into_Target_Table]")))
+                {
+                    Console.WriteLine("Created SP: [dbo].[usp_Insert_Into_Target_Table]");
+                }
+
             }
             catch (ExceptionSqlExecError ex)
             {
