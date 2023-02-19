@@ -29,9 +29,18 @@ namespace CsiMigrationHelper
             {
             switch (branch)
                 {
-
                 case (int)DbObjectBranch.Tgt:
-                    CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner.Parent);
+                    if (TreeNodeOwner.CloneableFromSrc)
+                    {
+                       CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner.Parent);
+                    }
+                    else
+                    {
+                        if (TreeNodeOwner.Parent.IsTextSet())
+                        {
+                            CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner.Parent);
+                        }
+                    } 
                     break;
 
                 case (int)DbObjectBranch.TrckTbl:
@@ -41,7 +50,10 @@ namespace CsiMigrationHelper
                     }
                     else
                     {    
-                        CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner.Parent);
+                        if (TreeNodeOwner.Parent.IsTextSet())
+                        {
+                            CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner.Parent);
+                        }
                     }
                     break;
                 }

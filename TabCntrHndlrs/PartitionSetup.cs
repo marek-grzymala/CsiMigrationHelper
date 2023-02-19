@@ -255,7 +255,7 @@ namespace CsiMigrationHelper
                 dr["Rn"] = rn;
                 dr["FileGroup"] = string.Concat(prefixFG, yyyyMM);
                 dr["FileName"] = string.Concat(prefixFN, yyyyMM);
-                dr["FilePath"] = string.Concat("'C:\\MSSQL\\Data\\", e.TgtDatabase.Data.ObjectText, "_", prefixFG, "_", yyyyMM, ".ndf'");
+                dr["FilePath"] = string.Concat("'C:\\MSSQL\\Data\\", e.TgtDatabase.Data.ObjectText, "_", prefixFG, yyyyMM, ".ndf'");
                 dt.Rows.Add(dr);
 
                 startFG = startFG.AddMonths(1);

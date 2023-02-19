@@ -574,11 +574,20 @@ namespace CsiMigrationHelper
                                  , ", [ProjectName] NVARCHAR(256) UNIQUE NOT NULL"
                                  , ", [ProjectDescription] NVARCHAR(256) NULL"
                                  , ", [ProjectCreateDate] DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP"
+                                 , ", [SrcInstance] NVARCHAR(256) NOT NULL"
+                                 , ", [SrcDatabase] NVARCHAR(256) NOT NULL"
+                                 , ", [SrcTableSchema] NVARCHAR(256) NOT NULL"
+                                 , ", [SrcTableName] NVARCHAR(256) NOT NULL"
+                                 , ", [SrcColumn] NVARCHAR(256) NOT NULL"
+                                 , ", [SrcTableIndex] NVARCHAR(256) NOT NULL"
+                                 , ", [SrcSynonym] NVARCHAR(256) NOT NULL"
                                  , ", [TgtInstance] NVARCHAR(256) NOT NULL"
                                  , ", [TgtDatabase] NVARCHAR(256) NOT NULL"
                                  , ", [TgtArchiveTableSchema] NVARCHAR(256) NOT NULL"
                                  , ", [TgtArchiveTableName] NVARCHAR(256) NOT NULL"
+                                 , ", [TgtColumn] NVARCHAR(256) NOT NULL"
                                  , ", [TgtArchiveTableCSIndex] NVARCHAR(256) NOT NULL"
+                                 , ", [TgtSynonym] NVARCHAR(256) NOT NULL"
                                  , ");", Environment.NewLine
                                  
                                  /* Migration Tracking Table Definition: */
@@ -652,21 +661,39 @@ namespace CsiMigrationHelper
                 , "           ([ProjectName]"
                 , "           ,[ProjectGUID]"
                 , "           ,[ProjectDescription]"
+                , "           ,[SrcInstance]"
+                , "           ,[SrcDatabase]"
+                , "           ,[SrcTableSchema]"
+                , "           ,[SrcTableName]"
+                , "           ,[SrcColumn]"
+                , "           ,[SrcTableIndex]"
+                , "           ,[SrcSynonym]"
                 , "           ,[TgtInstance]"
                 , "           ,[TgtDatabase]"
                 , "           ,[TgtArchiveTableSchema]"
                 , "           ,[TgtArchiveTableName]"
+                , "           ,[TgtColumn]"
                 , "           ,[TgtArchiveTableCSIndex]"
+                , "           ,[TgtSynonym]"
                 , ")" , Environment.NewLine
                 , "VALUES	  ('"
                 , projectName
                 , "', NEWID()"
                 , " , '", projectDescription
+                , "', '", e.SrcInstance.Data.ObjectText
+                , "', '", e.SrcDatabase.Data.ObjectText
+                , "', '", e.SrcTableSchema.Data.ObjectText
+                , "', '", e.SrcTableName.Data.ObjectText
+                , "', '", e.SrcColumn.Data.ObjectText
+                , "', '", e.SrcTableIndex.Data.ObjectText
+                , "', '", e.SrcSynonym
                 , "', '", e.TgtInstance.Data.ObjectText
                 , "', '", e.TgtDatabase.Data.ObjectText
                 , "', '", e.TgtArchiveTableSchema.Data.ObjectText
                 , "', '", e.TgtArchiveTableName.Data.ObjectText
+                , "', '", e.TgtColumn.Data.ObjectText
                 , "', '", e.TgtArchiveTableCSIndex.Data.ObjectText
+                , "', '", e.TgtSynonym
                 , "');"
                 );
         }
@@ -719,6 +746,14 @@ namespace CsiMigrationHelper
                 , "EXEC [master].[dbo].sp_serveroption		 @server =	 N'", serverName, "', @optname=N'remote proc transaction promotion', @optvalue=N'true';"
                 );
         }
+        public static string GetSqlAddSynonym(string synonymName, string linkedServerName, string dbName, string schemaName, string tableName)
+        {
+            return string.Concat(
+                  "DROP SYNONYM IF EXISTS [", synonymName, "];"
+                , "CREATE SYNONYM [", synonymName, "] FOR [", linkedServerName, "].[", dbName, "].[", schemaName, "].[", tableName, "];"
+                );
+        }
+
 
         public static string GetSqlProjectListFromProjectTable(string schemaName, string tableName)
         {

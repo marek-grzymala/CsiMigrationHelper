@@ -8,45 +8,51 @@ namespace CsiMigrationHelper
 {
     public class EventArgsProjectFields : EventArgs
     {
+        public TreeNode<DbObject> SrcInstance;
+        public TreeNode<DbObject> SrcDatabase;
+        public TreeNode<DbObject> SrcTableSchema;
+        public TreeNode<DbObject> SrcTableName;
+        public TreeNode<DbObject> SrcColumn;
+        public TreeNode<DbObject> SrcTableIndex;
+        public string             SrcSynonym;
+
         public TreeNode<DbObject> TgtInstance;
         public TreeNode<DbObject> TgtDatabase;
         public TreeNode<DbObject> TgtArchiveTableSchema;
         public TreeNode<DbObject> TgtArchiveTableName;
+        public TreeNode<DbObject> TgtColumn;
         public TreeNode<DbObject> TgtArchiveTableCSIndex;
-        //private TreeNode<DbObject>[] AllFields;
+        public string             TgtSynonym;
 
         public EventArgsProjectFields(
+
+                                        TreeNode<DbObject> srcInstance,
+                                        TreeNode<DbObject> srcDatabase,
+                                        TreeNode<DbObject> srcArchiveTableSchema,
+                                        TreeNode<DbObject> srcArchiveTableName,
+                                        TreeNode<DbObject> srcColumn,
+                                        TreeNode<DbObject> srcArchiveTableIndex,
                                         TreeNode<DbObject> tgtInstance,
                                         TreeNode<DbObject> tgtDatabase,
                                         TreeNode<DbObject> tgtArchiveTableSchema,
                                         TreeNode<DbObject> tgtArchiveTableName,
+                                        TreeNode<DbObject> tgtColumn,
                                         TreeNode<DbObject> tgtArchiveTableCSIndex
                                      )
         {
-            TgtInstance =             tgtInstance;
-            TgtDatabase =             tgtDatabase;
-            TgtArchiveTableSchema =   tgtArchiveTableSchema;
-            TgtArchiveTableName =     tgtArchiveTableName;
-            TgtArchiveTableCSIndex =  tgtArchiveTableCSIndex;
+            SrcInstance      = srcInstance;
+            SrcDatabase      = srcDatabase;
+            SrcTableSchema   = srcArchiveTableSchema;
+            SrcTableName     = srcArchiveTableName;
+            SrcColumn        = srcColumn;
+            SrcTableIndex    = srcArchiveTableIndex;
 
-            //AllFields[0] = TgtInstance;
-            //AllFields[1] = TgtDatabase;
-            //AllFields[2] = TgtArchiveTableSchema;
-            //AllFields[3] = TgtArchiveTableName;
-            //AllFields[4] = TgtArchiveTableCSIndex;
+            TgtInstance             = tgtInstance;
+            TgtDatabase             = tgtDatabase;
+            TgtArchiveTableSchema   = tgtArchiveTableSchema;
+            TgtArchiveTableName     = tgtArchiveTableName;
+            TgtColumn               = tgtColumn;
+            TgtArchiveTableCSIndex  = tgtArchiveTableCSIndex;
         }
-
-        //public bool AreAllFiledsSet()
-        //{
-        //    bool result = true;
-        //    for (int i = 0; i <= AllFields.Length; i++)
-        //    {
-        //        if (!AllFields[i].IsTextSet())
-        //        {
-        //            result = false;
-        //        }
-        //    }            
-        //    return result;
-        //}
     }
 }

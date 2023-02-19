@@ -188,10 +188,18 @@ namespace CsiMigrationHelper
             }
 
             eaProjectFields = new EventArgsProjectFields(
-                                     tgtInstance
+                                     srcInstance
+                                   , srcDatabase
+                                   , srcSchema
+                                   , srcTable
+                                   , srcColumn
+                                   , srcIndex
+
+                                   , tgtInstance
                                    , tgtDatabase
                                    , tgtSchema_Archive
                                    , tgtTable_Archive
+                                   , tgtColumn
                                    , tgtIndex
                                    );
 
@@ -241,7 +249,8 @@ namespace CsiMigrationHelper
                                                               , cbxt_TrackTbl_ProjectName
                                                               , gridTrackingTable
                                                               , eaProjectFields
-                                                              , imageList1);
+                                                              , imageList1
+                                                              , btnTrackingLoadSrcCount);
                             {
                                 trckProjectDescription = trckProjectName.AddChild(new DbObject(DbObjectBranch.TrckTbl, DbObjectLevel.DataType, "trckProjectDescription", string.Empty, new GuiElem(tbx_TrackTbl_ProjectDescription)));
                             }

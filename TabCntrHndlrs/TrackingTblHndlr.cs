@@ -16,6 +16,7 @@ namespace CsiMigrationHelper
         private DataGridView  GridTrackingTable;
         private EventArgsProjectFields ProjectFields;
         private ImageList ImageList1;
+        private Button BtnTrackingLoadSrcCount;
         private string UspNamePreloadMigrationTrackingTbl;
 
 
@@ -23,7 +24,8 @@ namespace CsiMigrationHelper
                               , ComboBoxExtTrackTbl projectName
                               , DataGridView gridTrackingTable
                               , EventArgsProjectFields projectFields
-                              , ImageList imageList1)
+                              , ImageList imageList1
+                              , Button btnTrackingLoadSrcCount)
         {
             ProjectsTable = projectsTable;
             ProjectName   = projectName;
@@ -35,9 +37,14 @@ namespace CsiMigrationHelper
             ProjectName.eventCmbxProjectNameSelectedIndexChanged += new HandlerCmbxProjectSelectedIndexChanged(OnCmbxProjectNameSelectedIndexChange);
             ProjectName.eventCmbxProjectSelectionEmpty += new HandlerCmbxProjectSelectionEmpty(OnCmbxProjectSelectionEmpty);
 
+
+
             ProjectsTable.SaveButton.Click += new EventHandler(OnProjectsTableSaveButtonClick);
             ProjectName.SaveButton.Click += new EventHandler(OnProjectNameSaveButtonClick);
             ImageList1 = imageList1;
+
+            BtnTrackingLoadSrcCount = btnTrackingLoadSrcCount;
+            BtnTrackingLoadSrcCount.Click += new EventHandler(OnBtnTrackingLoadSrcCountClick);
         }
 
         // if Create New ProjectTable option chosen allow only creating new Projects in it (there is no existing Projects in a New ProjectTable):
@@ -81,7 +88,11 @@ namespace CsiMigrationHelper
                 GridTrackingTable.DataSource = null;
                 if (LoadGrid(e))
                 {
-                    // 
+                    BtnTrackingLoadSrcCount.Enabled = true;
+                }
+                else
+                {
+                    BtnTrackingLoadSrcCount.Enabled = false;
                 }
             }
             else
@@ -108,6 +119,7 @@ namespace CsiMigrationHelper
                                             , ProjectsTable.TreeNodeOwner
                                             , ProjectsTable.TreeNodeOwner.Parent.ToString()
                                             , ProjectsTable.TreeNodeOwner.ToString());
+
                     if (CreateProjectsTable(e))
                     {
                         Console.WriteLine(string.Concat("Successfully Created Project Tables: ", Environment.NewLine
@@ -130,6 +142,11 @@ namespace CsiMigrationHelper
 
         protected virtual void OnProjectNameSaveButtonClick(object sender, EventArgs ea)
         {
+            /*
+                to do: why isn't this working:
+                ProjectFields.SrcTableIndex.IsBranchTextSet(ProjectFields.SrcTableIndex, (int)DbObjectLevel.Instance)              
+            */
+
             if (ProjectFields.TgtArchiveTableCSIndex.IsBranchTextSet(ProjectFields.TgtArchiveTableCSIndex, (int)DbObjectLevel.Instance))
             {
                 if (ProjectName.RdButtonCreateNew.Checked && ProjectName.Text.Length > 0)
@@ -140,12 +157,15 @@ namespace CsiMigrationHelper
                                         , ProjectsTable.TreeNodeOwner.Parent.Data.ObjectText
                                         , ProjectsTable.TreeNodeOwner.Data.ObjectText);
 
+                    ProjectFields.SrcSynonym = string.Concat("Src_", ProjectFields.SrcTableSchema, "_", ProjectFields.SrcTableName);
+                    ProjectFields.TgtSynonym = string.Concat("Src_", ProjectFields.TgtArchiveTableSchema, "_", ProjectFields.TgtArchiveTableName);
+
                     if (CreateProject(e, ProjectName.TreeNodeOwner.Data.ObjectText, ProjectName.ProjectDescription.Text))
                     {                    
                         ProjectName.LockGuiControls();
                         ProjectName.SaveButton.Image = ImageList1.Images[0];
                         //Create Tgt Linked Server:
-                        if (CreateLinkedServer(e, ProjectFields.TgtInstance.ToString(), ProjectFields.TgtInstance.Data.Dbu))
+                        if (CreateLinkedServersAndSynonyms(e, ProjectFields.TgtInstance.Data.Dbu))
                         {
                             Console.WriteLine("Linked Servers created successfully");
                         
@@ -162,7 +182,11 @@ namespace CsiMigrationHelper
                                 {
                                     Console.WriteLine(string.Concat("Procedure: ", UspNamePreloadMigrationTrackingTbl, " returned :", r, " records"));
                                     Console.WriteLine(string.Concat("ProjectsTable.TreeNodeOwner: ", ProjectsTable.TreeNodeOwner.ToString()));
-                                    LoadGrid(e);
+                                    if (LoadGrid(e))
+                                    {
+                                        // enable GetCountFromSource:
+                                        BtnTrackingLoadSrcCount.Enabled = true;
+                                    }
                                 }
                                 else
                                 {
@@ -278,18 +302,56 @@ namespace CsiMigrationHelper
             }
         }
 
-        private bool CreateLinkedServer(EventArgsMigrationTracking e, string serverName, DbUtil dbu)
+        private bool CreateLinkedServersAndSynonyms(EventArgsMigrationTracking e, DbUtil dbu)
         {
+            bool result = false;
             try
             {
-                return e.InstanceNode.Data.Dbu.ExecuteSql(e.InstanceNode
-                       , SqlText.GetSqlAddLinkedServer(serverName, dbu)
-                       , "Error creating LinkedServer: [" + serverName + "]");
+                result = e.InstanceNode.Data.Dbu.ExecuteSql(e.InstanceNode
+                       , SqlText.GetSqlAddLinkedServer(ProjectFields.SrcInstance.ToString(), dbu)
+                       , "Error creating LinkedServer: [" + ProjectFields.SrcInstance.ToString() + "]");
+                
+                if (!result)
+                {
+                    return false;
+                }
+                result = e.InstanceNode.Data.Dbu.ExecuteSql(e.InstanceNode
+                       , SqlText.GetSqlAddSynonym(ProjectFields.SrcSynonym
+                                                , ProjectFields.SrcInstance.ToString()
+                                                , ProjectFields.SrcDatabase.ToString()
+                                                , ProjectFields.SrcTableSchema.ToString()
+                                                , ProjectFields.SrcTableName.ToString()
+                                                )
+                       , "Error creating Synonym: [" + ProjectFields.SrcInstance.ToString() + "]");
+
+                if (!result)
+                {
+                    return false;
+                }
+                
+                result = e.InstanceNode.Data.Dbu.ExecuteSql(e.InstanceNode
+                       , SqlText.GetSqlAddLinkedServer(ProjectFields.TgtInstance.ToString(), dbu)
+                       , "Error creating LinkedServer: [" + ProjectFields.TgtInstance.ToString() + "]");
+                
+                if (!result)
+                {
+                    return false;
+                }
+                
+                result = e.InstanceNode.Data.Dbu.ExecuteSql(e.InstanceNode
+                       , SqlText.GetSqlAddSynonym(ProjectFields.TgtSynonym
+                                                , ProjectFields.TgtInstance.ToString()
+                                                , ProjectFields.TgtDatabase.ToString()
+                                                , ProjectFields.TgtArchiveTableSchema.ToString()
+                                                , ProjectFields.TgtArchiveTableName.ToString()
+                                                )
+                       , "Error creating Synonym: [" + ProjectFields.SrcInstance.ToString() + "]");
+                return result;
             }
             catch (ExceptionSqlExecError ex)
             {
                 // for now do nothing
-                return false;
+                return result;
             }
         }
 
@@ -405,6 +467,36 @@ namespace CsiMigrationHelper
                 result = true;
             }
             return result;
+        }
+
+        protected virtual void OnBtnTrackingLoadSrcCountClick(object sender, EventArgs ea)
+        {
+            EventArgsMigrationTracking e = new EventArgsMigrationTracking(
+                          ProjectsTable.TreeNodeOwner.TraverseUpUntil(ProjectsTable.TreeNodeOwner, (int)DbObjectLevel.Instance)
+                        , ProjectsTable.TreeNodeOwner
+                        , ProjectsTable.TreeNodeOwner.Parent.ToString()
+                        , ProjectsTable.TreeNodeOwner.ToString());
+
+            List<SqlParameter> sqlParamList = new List<SqlParameter>();
+            SqlParameter p_ProjectName = new SqlParameter()
+            {
+                ParameterName = "@ProjectName",
+                SqlDbType = SqlDbType.VarChar,
+                Size = 4000,
+                Value = ProjectName.TreeNodeOwner.ToString()
+            };
+            sqlParamList.Add(p_ProjectName);
+            int rowCountAffected = e.InstanceNode.Data.Dbu.ExecuteSqlUsp(e.InstanceNode, string.Concat(e.SchemaName, ".", "[usp_UpdateMigrationTrackingPerCountPerProjectName]"), sqlParamList);
+            
+            if (rowCountAffected > 0)
+            {
+                BtnTrackingLoadSrcCount.Image = ImageList1.Images[0];
+                LoadGrid(e);
+            }
+            else
+            {
+                BtnTrackingLoadSrcCount.Image = ImageList1.Images[1];
+            }
         }
     }
 }
