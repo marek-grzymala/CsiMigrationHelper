@@ -22,12 +22,12 @@ namespace CsiMigrationHelper
 
         private TreeNode<DbObject> tgtInstance;
         private TreeNode<DbObject> tgtDatabase;
-        private TreeNode<DbObject> tgtSchema_Current;
-        private TreeNode<DbObject> tgtSchema_Staging;
-        private TreeNode<DbObject> tgtSchema_Archive;
-        private TreeNode<DbObject> tgtTable_Current;
-        private TreeNode<DbObject> tgtTable_Staging;
-        private TreeNode<DbObject> tgtTable_Archive;
+        private TreeNode<DbObject> tgtCurrentSchema;
+        private TreeNode<DbObject> tgtCurrentTable;
+        private TreeNode<DbObject> tgtStagingSchema;
+        private TreeNode<DbObject> tgtStagingTable;
+        private TreeNode<DbObject> tgtArchiveSchema;
+        private TreeNode<DbObject> tgtArchiveTable;
         private TreeNode<DbObject> tgtColumn;
         private TreeNode<DbObject> tgtDataType;
         private TreeNode<DbObject> tgtPartitionScheme;
@@ -119,52 +119,52 @@ namespace CsiMigrationHelper
                 tgtDatabase = tgtInstance.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Database, "tgtDatabase", string.Empty, new GuiElem(cbx_dbList_Tgt)));
                 cbx_dbList_Tgt.SetParentTreeNode(tgtDatabase);
                 {
-                    tgtSchema_Current = tgtDatabase.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Schema, "tgtSchema_Current", string.Empty, new GuiElem(cbx_schList_Tgt_Current)));
-                    cbx_schList_Tgt_Current.SetParentTreeNode(tgtSchema_Current);
+                    tgtCurrentSchema = tgtDatabase.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Schema, "tgtSchema_Current", string.Empty, new GuiElem(cbx_schList_Tgt_Current)));
+                    cbx_schList_Tgt_Current.SetParentTreeNode(tgtCurrentSchema);
                     {
-                        tgtTable_Current = tgtSchema_Current.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Table, "tgtTable_Current", string.Empty, new GuiElem(cbx_tbList_Tgt_Current)));
-                        cbx_tbList_Tgt_Current.SetParentTreeNode(tgtTable_Current);
-                        rdbtn_Current_Clone.SetParentTreeNode(tgtTable_Current);
+                        tgtCurrentTable = tgtCurrentSchema.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Table, "tgtTable_Current", string.Empty, new GuiElem(cbx_tbList_Tgt_Current)));
+                        cbx_tbList_Tgt_Current.SetParentTreeNode(tgtCurrentTable);
+                        rdbtn_Current_Clone.SetParentTreeNode(tgtCurrentTable);
                         rdbtn_Current_Clone.Checked = true;
 
-                        tgtTable_Current.CloneableFromSrc = rdbtn_Current_Clone.Checked ? true : false;
-                        tgtTable_Current.AddCousin(srcTable, srcTable.CloneableFromSrc);
-                        srcTable.AddCousin(tgtTable_Current, tgtTable_Current.CloneableFromSrc);
+                        tgtCurrentTable.CloneableFromSrc = rdbtn_Current_Clone.Checked ? true : false;
+                        tgtCurrentTable.AddCousin(srcTable, srcTable.CloneableFromSrc);
+                        srcTable.AddCousin(tgtCurrentTable, tgtCurrentTable.CloneableFromSrc);
                     }
 
-                    tgtSchema_Staging = tgtDatabase.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Schema, "tgtSchema_Staging", string.Empty, new GuiElem(cbx_schList_Tgt_Staging)));
-                    cbx_schList_Tgt_Staging.SetParentTreeNode(tgtSchema_Staging);
+                    tgtStagingSchema = tgtDatabase.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Schema, "tgtSchema_Staging", string.Empty, new GuiElem(cbx_schList_Tgt_Staging)));
+                    cbx_schList_Tgt_Staging.SetParentTreeNode(tgtStagingSchema);
                     {
-                        tgtTable_Staging = tgtSchema_Staging.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Table, "tgtTable_Staging", string.Empty, new GuiElem(cbx_tbList_Tgt_Staging)));
-                        cbx_tbList_Tgt_Staging.SetParentTreeNode(tgtTable_Staging);
-                        rdbtn_Staging_Clone.SetParentTreeNode(tgtTable_Staging);
+                        tgtStagingTable = tgtStagingSchema.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Table, "tgtTable_Staging", string.Empty, new GuiElem(cbx_tbList_Tgt_Staging)));
+                        cbx_tbList_Tgt_Staging.SetParentTreeNode(tgtStagingTable);
+                        rdbtn_Staging_Clone.SetParentTreeNode(tgtStagingTable);
                         rdbtn_Staging_Clone.Checked = true;
 
-                        tgtTable_Staging.CloneableFromSrc = rdbtn_Staging_Clone.Checked ? true : false;
-                        tgtTable_Staging.AddCousin(srcTable, srcTable.CloneableFromSrc);
-                        srcTable.AddCousin(tgtTable_Staging, tgtTable_Staging.CloneableFromSrc);
+                        tgtStagingTable.CloneableFromSrc = rdbtn_Staging_Clone.Checked ? true : false;
+                        tgtStagingTable.AddCousin(srcTable, srcTable.CloneableFromSrc);
+                        srcTable.AddCousin(tgtStagingTable, tgtStagingTable.CloneableFromSrc);
                     }
 
-                    tgtSchema_Archive = tgtDatabase.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Schema, "tgtSchema_Archive", string.Empty, new GuiElem(cbx_schList_Tgt_Archive)));
-                    cbx_schList_Tgt_Archive.SetParentTreeNode(tgtSchema_Archive);
+                    tgtArchiveSchema = tgtDatabase.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Schema, "tgtSchema_Archive", string.Empty, new GuiElem(cbx_schList_Tgt_Archive)));
+                    cbx_schList_Tgt_Archive.SetParentTreeNode(tgtArchiveSchema);
                     {
-                        tgtTable_Archive = tgtSchema_Archive.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Table, "tgtTable_Archive", string.Empty, new GuiElem(cbx_tbList_Tgt_Archive)));
-                        cbx_tbList_Tgt_Archive.SetParentTreeNode(tgtTable_Archive);
-                        rdbtn_Archive_Clone.SetParentTreeNode(tgtTable_Archive);
+                        tgtArchiveTable = tgtArchiveSchema.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Table, "tgtTable_Archive", string.Empty, new GuiElem(cbx_tbList_Tgt_Archive)));
+                        cbx_tbList_Tgt_Archive.SetParentTreeNode(tgtArchiveTable);
+                        rdbtn_Archive_Clone.SetParentTreeNode(tgtArchiveTable);
                         rdbtn_Archive_Clone.Checked = true;
 
-                        tgtTable_Archive.CloneableFromSrc = rdbtn_Archive_Clone.Checked ? true : false; // if tgtColumn.CloneableFromSrc is changed to false then this flag has to be to be changed as well
-                        tgtTable_Archive.AddCousin(srcTable, srcTable.CloneableFromSrc);
-                        srcTable.AddCousin(tgtTable_Archive, tgtTable_Archive.CloneableFromSrc);
+                        tgtArchiveTable.CloneableFromSrc = rdbtn_Archive_Clone.Checked ? true : false; // if tgtColumn.CloneableFromSrc is changed to false then this flag has to be to be changed as well
+                        tgtArchiveTable.AddCousin(srcTable, srcTable.CloneableFromSrc);
+                        srcTable.AddCousin(tgtArchiveTable, tgtArchiveTable.CloneableFromSrc);
                         {
-                            tgtColumn = tgtTable_Archive.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Column, "tgtColumn", string.Empty, new GuiElem(cbx_colList_Tgt)));
+                            tgtColumn = tgtArchiveTable.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.Column, "tgtColumn", string.Empty, new GuiElem(cbx_colList_Tgt)));
                             cbx_colList_Tgt.SetParentTreeNode(tgtColumn);
                             tgtColumn.CloneableFromSrc = rdbtn_Archive_Clone.Checked ? true : false; // if this flag gets changed then its parent flag has to be changed as well
                             tgtColumn.AddCousin(srcColumn, srcColumn.CloneableFromSrc);
                             srcColumn.AddCousin(tgtColumn, tgtColumn.CloneableFromSrc);
                             {
                                 tgtDataType = tgtColumn.AddChild(new DbObject(DbObjectBranch.Tgt, DbObjectLevel.DataType, "tgtDataType", string.Empty, new GuiElem(tbx_DataType_Tgt)));
-                                tbx_DataType_Tgt.SetParentTreeNode(tgtDataType, cbx_tbList_Src, srcTable, cbx_tbList_Tgt_Archive, tgtTable_Archive);
+                                tbx_DataType_Tgt.SetParentTreeNode(tgtDataType, cbx_tbList_Src, srcTable, cbx_tbList_Tgt_Archive, tgtArchiveTable);
                                 tgtDataType.CloneableFromSrc = rdbtn_Archive_Clone.Checked ? true : false; // if this flag gets changed then its parent flag has to be changed as well
                                 tgtDataType.AddCousin(srcDataType, srcDataType.CloneableFromSrc);
                                 srcDataType.AddCousin(tgtDataType, tgtDataType.CloneableFromSrc);
@@ -188,19 +188,25 @@ namespace CsiMigrationHelper
             }
 
             eaProjectFields = new EventArgsProjectFields(
-                                     srcInstance
-                                   , srcDatabase
-                                   , srcSchema
-                                   , srcTable
-                                   , srcColumn
-                                   , srcIndex
-
-                                   , tgtInstance
-                                   , tgtDatabase
-                                   , tgtSchema_Archive
-                                   , tgtTable_Archive
-                                   , tgtColumn
-                                   , tgtIndex
+                                      srcInstance
+                                    , srcDatabase
+                                    , srcSchema
+                                    , srcTable
+                                    , srcColumn
+                                    , srcDataType
+                                    , srcIndex
+                                    , tgtInstance
+                                    , tgtDatabase
+                                    , tgtCurrentSchema
+                                    , tgtCurrentTable
+                                    , tgtStagingSchema
+                                    , tgtStagingTable
+                                    , tgtArchiveSchema
+                                    , tgtArchiveTable
+                                    , tgtColumn
+                                    , tgtDataType
+                                    , tgtPartitionScheme
+                                    , tgtIndex
                                    );
 
 
@@ -305,7 +311,7 @@ namespace CsiMigrationHelper
 
             TgtMtdHdlr_Current = new TgtTblMetaDataHandler(new EventArgsTgtTblMetadata(
                                                                 root,
-                                                                tgtTable_Current,
+                                                                tgtCurrentTable,
                                                                 tbx_TgtMetadataTableName_Current,
                                                                 gridColList_Current,
                                                                 gridConstraintList_Current,
@@ -316,7 +322,7 @@ namespace CsiMigrationHelper
                                                               ));
             TgtMtdHdlr_Staging = new TgtTblMetaDataHandler(new EventArgsTgtTblMetadata(
                                                                 root,
-                                                                tgtTable_Staging,
+                                                                tgtStagingTable,
                                                                 tbx_TgtMetadataTableName_Staging,
                                                                 gridColList_Staging,
                                                                 gridConstraintList_Staging,
@@ -327,7 +333,7 @@ namespace CsiMigrationHelper
                                                               ));
             TgtMtdHdlr_Archive = new TgtTblMetaDataHandler(new EventArgsTgtTblMetadata(
                                                                 root,
-                                                                tgtTable_Archive,
+                                                                tgtArchiveTable,
                                                                 tbx_TgtMetaDataTableName_Archive,
                                                                 gridColList_Archive,
                                                                 gridConstraintList_Archive,
@@ -366,17 +372,17 @@ namespace CsiMigrationHelper
 
         private void chkBxCurrent_CheckedChanged(object sender, EventArgs e)
         {
-            tgtSchema_Current.Enabled = chkBxCurrent.Checked ? true : false;
+            tgtCurrentSchema.Enabled = chkBxCurrent.Checked ? true : false;
         }
 
         private void chkBxStaging_CheckedChanged(object sender, EventArgs e)
         {
-            tgtSchema_Staging.Enabled = chkBxStaging.Checked ? true : false;
+            tgtStagingSchema.Enabled = chkBxStaging.Checked ? true : false;
         }
 
         private void chkBxArchive_CheckedChanged(object sender, EventArgs e)
         {
-            tgtSchema_Archive.Enabled = chkBxArchive.Checked ? true : false;
+            tgtArchiveSchema.Enabled = chkBxArchive.Checked ? true : false;
         }
         #endregion
 

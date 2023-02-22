@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 
 
 namespace CsiMigrationHelper
@@ -19,6 +20,7 @@ namespace CsiMigrationHelper
         public DbUtil Dbu { get; set; }
         public GuiElem Gui { get; set; }
         private SqlParameter SqlParam { get; set; }
+        public StringBuilder ColumnList { get; set; }
 
         public DbObject(DbObjectBranch objectBranch, DbObjectLevel objectLevel, string objectName, string objectText, GuiElem gui)
         {

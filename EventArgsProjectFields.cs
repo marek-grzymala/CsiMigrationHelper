@@ -10,18 +10,25 @@ namespace CsiMigrationHelper
     {
         public TreeNode<DbObject> SrcInstance;
         public TreeNode<DbObject> SrcDatabase;
-        public TreeNode<DbObject> SrcTableSchema;
-        public TreeNode<DbObject> SrcTableName;
+        public TreeNode<DbObject> SrcSchema;
+        public TreeNode<DbObject> SrcTable;
         public TreeNode<DbObject> SrcColumn;
-        public TreeNode<DbObject> SrcTableIndex;
+        public TreeNode<DbObject> SrcDataType;
+        public TreeNode<DbObject> SrcIndex;
         public string             SrcSynonym;
 
         public TreeNode<DbObject> TgtInstance;
         public TreeNode<DbObject> TgtDatabase;
-        public TreeNode<DbObject> TgtArchiveTableSchema;
-        public TreeNode<DbObject> TgtArchiveTableName;
+        public TreeNode<DbObject> TgtCurrentSchema;
+        public TreeNode<DbObject> TgtCurrentTable;
+        public TreeNode<DbObject> TgtStagingSchema;
+        public TreeNode<DbObject> TgtStagingTable;
+        public TreeNode<DbObject> TgtArchiveSchema;
+        public TreeNode<DbObject> TgtArchiveTable;
         public TreeNode<DbObject> TgtColumn;
-        public TreeNode<DbObject> TgtArchiveTableCSIndex;
+        public TreeNode<DbObject> TgtDataType;
+        public TreeNode<DbObject> TgtPartitionScheme;
+        public TreeNode<DbObject> TgtIndex;
         public string             TgtSynonym;
         public string             TrackSynonymProjects;
         public string             TrackSynonymMigrationTrck;
@@ -31,31 +38,44 @@ namespace CsiMigrationHelper
 
                                         TreeNode<DbObject> srcInstance,
                                         TreeNode<DbObject> srcDatabase,
-                                        TreeNode<DbObject> srcArchiveTableSchema,
-                                        TreeNode<DbObject> srcArchiveTableName,
+                                        TreeNode<DbObject> srcSchema,
+                                        TreeNode<DbObject> srcTable,
                                         TreeNode<DbObject> srcColumn,
-                                        TreeNode<DbObject> srcArchiveTableIndex,
+                                        TreeNode<DbObject> srcDataType,
+                                        TreeNode<DbObject> srcIndex,
                                         TreeNode<DbObject> tgtInstance,
                                         TreeNode<DbObject> tgtDatabase,
-                                        TreeNode<DbObject> tgtArchiveTableSchema,
-                                        TreeNode<DbObject> tgtArchiveTableName,
+                                        TreeNode<DbObject> tgtCurrentSchema,
+                                        TreeNode<DbObject> tgtCurrentTable,
+                                        TreeNode<DbObject> tgtStagingSchema,
+                                        TreeNode<DbObject> tgtStagingTable,
+                                        TreeNode<DbObject> tgtArchiveSchema,
+                                        TreeNode<DbObject> tgtArchiveTable,
                                         TreeNode<DbObject> tgtColumn,
+                                        TreeNode<DbObject> tgtDataType,
+                                        TreeNode<DbObject> tgtPartitionScheme,
                                         TreeNode<DbObject> tgtArchiveTableCSIndex
                                      )
         {
-            SrcInstance      = srcInstance;
-            SrcDatabase      = srcDatabase;
-            SrcTableSchema   = srcArchiveTableSchema;
-            SrcTableName     = srcArchiveTableName;
-            SrcColumn        = srcColumn;
-            SrcTableIndex    = srcArchiveTableIndex;
-
+            SrcInstance             = srcInstance;
+            SrcDatabase             = srcDatabase;
+            SrcSchema               = srcSchema;
+            SrcTable                = srcTable;
+            SrcColumn               = srcColumn;
+            SrcDataType             = srcDataType;
+            SrcIndex                = srcIndex;
             TgtInstance             = tgtInstance;
             TgtDatabase             = tgtDatabase;
-            TgtArchiveTableSchema   = tgtArchiveTableSchema;
-            TgtArchiveTableName     = tgtArchiveTableName;
+            TgtCurrentSchema        = tgtCurrentSchema;
+            TgtCurrentTable         = tgtCurrentTable;
+            TgtStagingSchema        = tgtStagingSchema;
+            TgtStagingTable         = tgtStagingTable;
+            TgtArchiveSchema        = tgtArchiveSchema;
+            TgtArchiveTable         = tgtArchiveTable;
             TgtColumn               = tgtColumn;
-            TgtArchiveTableCSIndex  = tgtArchiveTableCSIndex;
+            TgtDataType             = tgtDataType;
+            TgtPartitionScheme      = tgtPartitionScheme;
+            TgtIndex                = tgtArchiveTableCSIndex;
         }
     }
 }

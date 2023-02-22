@@ -400,7 +400,7 @@ namespace CsiMigrationHelper
                 }
                 else
                 {
-                    while ((returnNode.TreeNodeLevel != upperLimit) && (returnNode.TreeNodeLevel > (int)DbObjectLevel.Root))
+                    while ((returnNode.TreeNodeLevel != upperLimit) && (returnNode.TreeNodeLevel > (int)DbObjectLevel.Root) && (!returnNode.IsDummyNode))
                     {
                         result = returnNode.IsTextSet() ? true : false; 
                         if (!result)

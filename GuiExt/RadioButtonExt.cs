@@ -29,19 +29,12 @@ namespace CsiMigrationHelper
             {
             switch (branch)
                 {
-                case (int)DbObjectBranch.Tgt:
-                    if (TreeNodeOwner.CloneableFromSrc)
-                    {
-                       CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner.Parent);
-                    }
-                    else
-                    {
-                        if (TreeNodeOwner.Parent.IsTextSet())
-                        {
-                            CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner.Parent);
-                        }
-                    } 
-                    break;
+                case (int)DbObjectBranch.Tgt:                        
+                     if (TreeNodeOwner.Parent.IsTextSet())
+                     {
+                             CmBxSelectHndlr.PopulateChildNodes(sender, TreeNodeOwner.Parent);
+                     }
+                     break;
 
                 case (int)DbObjectBranch.TrckTbl:
                     if (TreeNodeOwner.CloneableFromSrc)

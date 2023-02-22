@@ -234,6 +234,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="EventArgs\EventArgsTgtTblMetaData.cs" />
+    <Compile Include="ProjectFields.cs" />
     <Compile Include="TabCntrHndlrs\PartitionSetup.cs" />
     <Compile Include="TabCntrHndlrs\EventLog.cs" />
     <Compile Include="Exceptions\ExceptionDataTypeMismatch.cs" />

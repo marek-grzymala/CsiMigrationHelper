@@ -346,8 +346,9 @@ namespace CsiMigrationHelper
                                                                     , ", SIZE = 1MB"
                                                                     , ", FILEGROWTH = 1MB"
                                                                     , ") TO FILEGROUP [", row.Cells["FileGroup"].Value, "];"));
-                //Console.WriteLine(sbFG.ToString());
+                    //.WriteLine(sbFG.ToString());
                 sql.Append(sbFG);
+                EventLog.AppendLog(sql.ToString());
                 }
             }
 
