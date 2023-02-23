@@ -928,6 +928,8 @@ namespace CsiMigrationHelper
                 , "			   , mt.[LowerPartitionBoundary]					 ", Environment.NewLine
                 , "			   , mt.[UpperPartitionBoundary]					 ", Environment.NewLine
                 , "			   , mt.[Migrated]									 ", Environment.NewLine
+                , "			   , mt.[Duration]									 ", Environment.NewLine
+                , "			   , mt.[DestinationFlag]							 ", Environment.NewLine
                 , "FROM        [", schema, "].[", migrationProjectsTbl, "] AS mp ", Environment.NewLine
                 , "INNER JOIN  [", schema, "].[", migrationTrackingTbl, "] AS mt ", Environment.NewLine
                 , "ON mp.[ProjectGUID] = mt.[ProjectGUID]                        ", Environment.NewLine
@@ -1462,21 +1464,21 @@ namespace CsiMigrationHelper
                 , "				    @RowCountSrc							= mt.[RowNumSrc]																	", Environment.NewLine
                 , "				  , @LowerPartitionBoundary					= mt.[LowerPartitionBoundary]														", Environment.NewLine
                 , "				  , @UpperPartitionBoundary					= mt.[UpperPartitionBoundary] 														", Environment.NewLine
-                , "		FROM		[", projectTableSchema, "].[", projectTableName, Options.migrationTrackingTblSuffix, "] AS mt								", Environment.NewLine
-                , "		INNER JOIN	[", projectTableSchema, "].[", projectTableName, "]			 AS mp ON mp.[ProjectGUID] = mt.[ProjectGUID]					", Environment.NewLine
-                , "		WHERE		mp.[ProjectName]						= @ProjectName        																", Environment.NewLine
-                , "		AND			[PartitionId]							= @PartitionId																		", Environment.NewLine
-                , "		AND			mt.[DestinationFlag]					= 'A'																		", Environment.NewLine
+                , "		    FROM		[", projectTableSchema, "].[", projectTableName, Options.migrationTrackingTblSuffix, "] AS mt								", Environment.NewLine
+                , "		    INNER JOIN	[", projectTableSchema, "].[", projectTableName, "]			 AS mp ON mp.[ProjectGUID] = mt.[ProjectGUID]					", Environment.NewLine
+                , "		    WHERE		mp.[ProjectName]						= @ProjectName        																", Environment.NewLine
+                , "		    AND			[PartitionId]							= @PartitionId																		", Environment.NewLine
+                , "		    AND			mt.[DestinationFlag]					= 'A'																		        ", Environment.NewLine
 
                 , "			SET XACT_ABORT ON;																													", Environment.NewLine
                 , "			BEGIN TRY																															", Environment.NewLine
                 , "			BEGIN TRANSACTION																													", Environment.NewLine
                 , "																																				", Environment.NewLine
-                , "				INSERT INTO [", tgtDatabase, "].[", tgtSchemaArchive, "].[", tgtTableArchive, "]														", Environment.NewLine
+                , "				INSERT INTO [", tgtDatabase, "].[", tgtSchemaArchive, "].[", tgtTableArchive, "]												", Environment.NewLine
                 , "				( ", tgtColumnListArchive, ")																									", Environment.NewLine
                 , "				SELECT  ", srcColumnList, " 																									", Environment.NewLine
                 , "				FROM [", srcInstance, "].[", srcDatabase, "].[", srcSchema, "].[", srcTable, "]													", Environment.NewLine
-                , "				WHERE [", srcColumn, "] >= @LowerPartitionBoundary AND [", srcColumn, "] < @UpperPartitionBoundary;												", Environment.NewLine
+                , "				WHERE [", srcColumn, "] >= @LowerPartitionBoundary AND [", srcColumn, "] < @UpperPartitionBoundary;								", Environment.NewLine
                 , "																																				", Environment.NewLine
                 , "				COMMIT TRANSACTION;																												", Environment.NewLine
                 , "																																				", Environment.NewLine
@@ -1490,15 +1492,16 @@ namespace CsiMigrationHelper
                 , "		END	 																																	", Environment.NewLine
                 , "																																				", Environment.NewLine
                 , "		ELSE IF (@DestinationFlag = 'C')																										", Environment.NewLine
-                , "        SELECT																																", Environment.NewLine
-                , "				    @RowCountSrc							= mt.[RowNumSrc]																	", Environment.NewLine
-                , "				  , @LowerPartitionBoundary					= mt.[LowerPartitionBoundary]														", Environment.NewLine
-                , "				  , @UpperPartitionBoundary					= mt.[UpperPartitionBoundary] 														", Environment.NewLine
-                , "		FROM		[", projectTableSchema, "].[", projectTableName, Options.migrationTrackingTblSuffix, "] AS mt								", Environment.NewLine
-                , "		INNER JOIN	[", projectTableSchema, "].[", projectTableName, "]			 AS mp ON mp.[ProjectGUID] = mt.[ProjectGUID]					", Environment.NewLine
-                , "		WHERE		mp.[ProjectName]						= @ProjectName        																", Environment.NewLine
-                , "		AND			[PartitionId]							= @PartitionId																		", Environment.NewLine
-                , "		AND			mt.[DestinationFlag]					= 'C'																		        ", Environment.NewLine
+                , "         BEGIN                                                                                                                                   ", Environment.NewLine
+                , "         SELECT																																", Environment.NewLine
+                , "		    		    @RowCountSrc							= mt.[RowNumSrc]																	", Environment.NewLine
+                , "		    		  , @LowerPartitionBoundary					= mt.[LowerPartitionBoundary]														", Environment.NewLine
+                , "		    		  , @UpperPartitionBoundary					= mt.[UpperPartitionBoundary] 														", Environment.NewLine
+                , "		    FROM		[", projectTableSchema, "].[", projectTableName, Options.migrationTrackingTblSuffix, "] AS mt								", Environment.NewLine
+                , "		    INNER JOIN	[", projectTableSchema, "].[", projectTableName, "]			 AS mp ON mp.[ProjectGUID] = mt.[ProjectGUID]					", Environment.NewLine
+                , "		    WHERE		mp.[ProjectName]						= @ProjectName        																", Environment.NewLine
+                , "		    AND			[PartitionId]							= @PartitionId																		", Environment.NewLine
+                , "		    AND			mt.[DestinationFlag]					= 'C'																		        ", Environment.NewLine
 
                 , "			SET XACT_ABORT ON;																													", Environment.NewLine
                 , "			BEGIN TRY																															", Environment.NewLine
@@ -1518,7 +1521,7 @@ namespace CsiMigrationHelper
                 , "				RAISERROR(@ErrorMsg, 18, 10)																									", Environment.NewLine
                 , "				BREAK																															", Environment.NewLine
                 , "			END CATCH																															", Environment.NewLine
-                , "																																				", Environment.NewLine
+                , "		END																																		", Environment.NewLine
                 , "		SELECT @Duration_Stop = GETDATE()    																									", Environment.NewLine
                 , "		SELECT @Duration = DATEDIFF(SECOND, @Duration_Start, @Duration_Stop)																	", Environment.NewLine
                 , "																																				", Environment.NewLine
@@ -1536,6 +1539,7 @@ namespace CsiMigrationHelper
                 , "		END																																		", Environment.NewLine
                 , "		IF (@RowCountSrc = @RowCountTgt)																										", Environment.NewLine
                 , "		BEGIN																																	", Environment.NewLine
+                , "         PRINT(CONCAT('Successfully Migrated Partition Nr: ', @PartitionNumber, ' Date Range: ', @LowerPartitionBoundary, ' to: ', @UpperPartitionBoundary)) ", Environment.NewLine
                 , "			UPDATE		[", projectTableSchema, "].[", projectTableName, Options.migrationTrackingTblSuffix, "]									", Environment.NewLine
                 , "			SET			[RowNumTgt] = @RowCountTgt --@RowNumTgt 																				", Environment.NewLine
                 , "					  , [migrated]  = 1																											", Environment.NewLine

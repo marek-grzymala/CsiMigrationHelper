@@ -221,7 +221,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventArgsProjectFields.cs" />
+    <Compile Include="EventArgs\EventArgsProjectFields.cs" />
     <Compile Include="EventArgs\EventArgsPartitionSetup.cs" />
     <Compile Include="EventArgs\EventArgsMigrationTracking.cs" />
     <Compile Include="GuiExt\ComboBoxExtTrackTbl.cs">
@@ -234,7 +234,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="EventArgs\EventArgsTgtTblMetaData.cs" />
-    <Compile Include="ProjectFields.cs" />
+    <Compile Include="EventArgs\ProjectFields.cs" />
     <Compile Include="TabCntrHndlrs\PartitionSetup.cs" />
     <Compile Include="TabCntrHndlrs\EventLog.cs" />
     <Compile Include="Exceptions\ExceptionDataTypeMismatch.cs" />

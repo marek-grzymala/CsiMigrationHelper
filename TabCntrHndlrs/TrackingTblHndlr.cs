@@ -152,10 +152,10 @@ namespace CsiMigrationHelper
                                     // update Project entry with Synonym for Migration Tracking Table:
                                     UpdateProjectTblSetTrackTblSynonyms(e, pf.TrackSynonymProjects, pf.TrackSynonymMigrationTrck);                                    
 
-
-
                                     if (LoadGrid(e))
                                     {
+
+                                        CreateUspRunMigrationProject();
                                         TbxSrc.Text = string.Concat("[",        pf_new.SrcInstance
                                                                        , "].[", pf_new.SrcDatabase
                                                                        , "].[", pf_new.SrcSchema
@@ -914,7 +914,9 @@ namespace CsiMigrationHelper
                 GridTrackingTable.Columns["FilegroupName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 GridTrackingTable.Columns["LowerPartitionBoundary"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 GridTrackingTable.Columns["UpperPartitionBoundary"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                GridTrackingTable.Columns["migrated"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                GridTrackingTable.Columns["Migrated"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                GridTrackingTable.Columns["Duration"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                GridTrackingTable.Columns["DestinationFlag"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 GridTrackingTable.Update();
                 result = true;
                 BtnTrackingLoadSrcCount.Image = null;
@@ -954,19 +956,7 @@ namespace CsiMigrationHelper
                     BtnTrackingLoadSrcCount.Image = ImageList1.Images[0];
                     LoadGrid(e);
 
-                    // create sp:
-                    e.InstanceNode.Data.Dbu.ExecuteSqlNonQuery(e.InstanceNode
-                    , SqlText.GetSqlCreateUspInsertIntoTargetTable(
-                                                                     pf.SrcInstance.ToString()
-                                                                    ,pf.SrcDatabase.ToString()
-                                                                    ,pf.TgtInstance.ToString()
-                                                                    ,pf.TgtDatabase.ToString()
-                                                                    ,pf.TgtArchiveSchema.ToString()
-                                                                    ,pf.TgtArchiveTable.ToString()
-                                                                  )
-                    , "Error creating GetSqlCreateUspInsertIntoTargetTable");
-
-                    CreateUspRunMigrationProject();
+                    BtnTrackingLoadSrcCount.Image = ImageList1.Images[0];
                     BtnTrackingRunImport.Enabled = true;
                 }
                 else
