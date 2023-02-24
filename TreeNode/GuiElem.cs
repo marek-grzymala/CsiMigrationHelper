@@ -11,7 +11,10 @@ namespace CsiMigrationHelper
     public class GuiElem
     {
         public ComboBox Cbx { get; set; }
+        public ComboBoxExt Cbxt { get; set; }
+        public ComboBoxExtTrackTbl Cbxtr { get; set; }
         public TextBox Tbx { get; set; }
+        public TextBoxExt Tbxt { get; set; }
 
         // constructor has to initialize either Cbx or Tbx (one of those but not both)
         public GuiElem(ComboBox cbx)
@@ -20,9 +23,26 @@ namespace CsiMigrationHelper
             //Cbx.DropDownStyle = ComboBoxStyle.DropDownList; // this will prevent any new manual entries into the Cbx
         }
 
+        public GuiElem(ComboBoxExt cbxt)
+        {
+            Cbxt = cbxt;
+            //Cbx.DropDownStyle = ComboBoxStyle.DropDownList; // this will prevent any new manual entries into the Cbx
+        }
+
+        public GuiElem(ComboBoxExtTrackTbl cbxtr)
+        {
+            Cbxtr = cbxtr;
+            //Cbx.DropDownStyle = ComboBoxStyle.DropDownList; // this will prevent any new manual entries into the Cbx
+        }
+
         public GuiElem(TextBox tbx)
         {
             Tbx = tbx;
+        }
+
+        public GuiElem(TextBoxExt tbxt)
+        {
+            Tbxt = tbxt;
         }
 
         public Type GetGuiType()
@@ -32,11 +52,49 @@ namespace CsiMigrationHelper
             {
                 type = typeof(ComboBox);
             }
-            if (Tbx != null)
+            else if (Cbxt != null)
+            {
+                type = typeof(ComboBoxExt);
+            }
+            else if (Cbxtr != null)
+            {
+                type = typeof(ComboBoxExtTrackTbl);
+            }
+            else if (Tbx != null)
             {
                 type = typeof(TextBox);
             }
+            else if (Tbxt != null)
+            {
+                type = typeof(TextBoxExt);
+            }
             return type;
+        }
+
+        public object GetGuiObject()
+        {
+            object guiObject = null;
+            if (this.GetGuiType() == typeof(ComboBox))
+            {
+                guiObject = Cbx;
+            }
+            else if (this.GetGuiType() == typeof(ComboBoxExt))
+            {
+                guiObject = Cbxt;
+            }
+            else if (this.GetGuiType() == typeof(ComboBoxExtTrackTbl))
+            {
+                guiObject = Cbxtr;
+            }
+            else if (this.GetGuiType() == typeof(TextBox))
+            {
+                guiObject = Tbx;
+            }
+            else if (this.GetGuiType() == typeof(TextBoxExt))
+            {
+                guiObject = Tbxt;
+            }
+            return guiObject;
         }
 
         public string GetGuiText()
@@ -46,9 +104,21 @@ namespace CsiMigrationHelper
             {
                 guiText = Cbx.Text;
             }
-            if (this.GetGuiType() == typeof(TextBox))
+            else if (this.GetGuiType() == typeof(ComboBoxExt))
+            {
+                guiText = Cbxt.Text;
+            }
+            else if (this.GetGuiType() == typeof(ComboBoxExtTrackTbl))
+            {
+                guiText = Cbxtr.Text;
+            }
+            else if (this.GetGuiType() == typeof(TextBox))
             {
                 guiText = Tbx.Text;
+            }
+            else if (this.GetGuiType() == typeof(TextBoxExt))
+            {
+                guiText = Tbxt.Text;
             }
             return guiText;
         }
@@ -59,35 +129,30 @@ namespace CsiMigrationHelper
             {
                 if (e.NewObjectText.Length > 0)
                 {
-                    if (Cbx != null)
+                    if (this.GetGuiType() == typeof(ComboBox))
                     {
-                        if (e.NewObjectText.Length > 0)
-                        {
-                            Cbx.Text = e.NewObjectText;
-                            Cbx.Enabled = true;
-                        }
-                        else
-                        {
-                            Cbx.DataSource = null;
-                            Cbx.Items.Clear();
-                            Cbx.SelectedIndex = -1;
-                            Cbx.Text = string.Empty;
-                            Cbx.Enabled = false;
-                        }
+                        Cbx.Text = e.NewObjectText;
+                        Cbx.Enabled = true;
                     }
-                    if (Tbx != null)
+                    if (this.GetGuiType() == typeof(ComboBoxExt))
                     {
-                        if (e.NewObjectText.Length > 0)
-                        {
-                            Tbx.Text = e.NewObjectText;
-                            Tbx.Enabled = true;
-                        }
-                        else
-                        {
-                            Tbx.Text = string.Empty;
-                            Tbx.Clear();
-                            Tbx.Enabled = false;
-                        }
+                        Cbxt.Text = e.NewObjectText;
+                        Cbxt.Enabled = true;
+                    }
+                    if (this.GetGuiType() == typeof(ComboBoxExtTrackTbl))
+                    {
+                        Cbxtr.Text = e.NewObjectText;
+                        Cbxtr.Enabled = true;
+                    }
+                    else if (this.GetGuiType() == typeof(TextBox))
+                    {
+                        Tbx.Text = e.NewObjectText;
+                        Tbx.Enabled = true;
+                    }
+                    else if (this.GetGuiType() == typeof(TextBoxExt))
+                    {
+                        Tbxt.Text = e.NewObjectText;
+                        Tbxt.Enabled = true;
                     }
                 }
                 else
@@ -142,7 +207,7 @@ namespace CsiMigrationHelper
         {
             try
             {
-                if (Cbx != null)
+                if (this.GetGuiType() == typeof(ComboBox))
                 {                  
                     Cbx.DataSource = null;
                     Cbx.Items.Clear();
@@ -150,12 +215,33 @@ namespace CsiMigrationHelper
                     Cbx.Text = string.Empty;
                     Cbx.Enabled = false;
                 }
-
-                if (Tbx != null)
+                else if (this.GetGuiType() == typeof(ComboBoxExt))
+                {
+                    Cbxt.DataSource = null;
+                    Cbxt.Items.Clear();
+                    Cbxt.SelectedIndex = -1;
+                    Cbxt.Text = string.Empty;
+                    Cbxt.Enabled = false;
+                }
+                else if (this.GetGuiType() == typeof(ComboBoxExtTrackTbl))
+                {
+                    Cbxtr.DataSource = null;
+                    Cbxtr.Items.Clear();
+                    Cbxtr.SelectedIndex = -1;
+                    Cbxtr.Text = string.Empty;
+                    Cbxtr.Enabled = false;
+                }
+                else if (this.GetGuiType() == typeof(TextBox))
                 {
                     Tbx.Text = string.Empty;
                     Tbx.Clear();
                     Tbx.Enabled = false;
+                }
+                else if (this.GetGuiType() == typeof(TextBoxExt))
+                {
+                    Tbxt.Text = string.Empty;
+                    Tbxt.Clear();
+                    Tbxt.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -171,9 +257,23 @@ namespace CsiMigrationHelper
                 Cbx.Enabled = enabled;
             }
 
-            if (GetGuiType() == typeof(TextBox))
+            else if (GetGuiType() == typeof(ComboBoxExt))
+            {
+                Cbxt.Enabled = enabled;
+            }
+
+            else if (GetGuiType() == typeof(ComboBoxExtTrackTbl))
+            {
+                Cbxtr.Enabled = enabled;
+            }
+
+            else if (GetGuiType() == typeof(TextBox))
             {
                 Tbx.Enabled = enabled;
+            }
+            else if (GetGuiType() == typeof(TextBoxExt))
+            {
+                Tbxt.Enabled = enabled;
             }
         }
 
@@ -184,9 +284,24 @@ namespace CsiMigrationHelper
                 Cbx.Enabled = false;
             }
 
-            if (GetGuiType() == typeof(TextBox))
+            else if (GetGuiType() == typeof(ComboBoxExt))
+            {
+                Cbxt.Enabled = false;
+            }
+
+            else if (GetGuiType() == typeof(ComboBoxExtTrackTbl))
+            {
+                Cbxtr.Enabled = false;
+            }
+
+            else if (GetGuiType() == typeof(TextBox))
             {
                 Tbx.Enabled = false;
+            }
+
+            else if (GetGuiType() == typeof(TextBoxExt))
+            {
+                Tbxt.Enabled = false;
             }
         }
 
@@ -197,9 +312,24 @@ namespace CsiMigrationHelper
                 Cbx.Enabled = true;
             }
 
-            if (GetGuiType() == typeof(TextBox))
+            else if (GetGuiType() == typeof(ComboBoxExt))
+            {
+                Cbxt.Enabled = true;
+            }
+
+            else if (GetGuiType() == typeof(ComboBoxExtTrackTbl))
+            {
+                Cbxtr.Enabled = true;
+            }
+
+            else if (GetGuiType() == typeof(TextBox))
             {
                 Tbx.Enabled = true;
+            }
+
+            else if (GetGuiType() == typeof(TextBoxExt))
+            {
+                Tbxt.Enabled = true;
             }
         }
 
@@ -217,9 +347,39 @@ namespace CsiMigrationHelper
                     isTextSet = Cbx.Text.Length > 0;
                 }
             }
-            if (GetGuiType() == typeof(TextBox))
+
+            else if (GetGuiType() == typeof(ComboBoxExt))
+            {
+                if (Cbxt.Items.Count > 0)
+                {
+                    isTextSet = Cbxt.SelectedIndex > 0;
+                }
+                else
+                {
+                    isTextSet = Cbxt.Text.Length > 0;
+                }
+            }
+
+            else if (GetGuiType() == typeof(ComboBoxExtTrackTbl))
+            {
+                if (Cbxtr.Items.Count > 0)
+                {
+                    isTextSet = Cbxtr.SelectedIndex > 0;
+                }
+                else
+                {
+                    isTextSet = Cbxtr.Text.Length > 0;
+                }
+            }
+
+            else if (GetGuiType() == typeof(TextBox))
             {
                 isTextSet = Tbx.Text.Length > 0;
+            }
+
+            else if (GetGuiType() == typeof(TextBoxExt))
+            {
+                isTextSet = Tbxt.Text.Length > 0;
             }
             return isTextSet;
         }
@@ -227,19 +387,36 @@ namespace CsiMigrationHelper
         public bool IsEnabled()
         {
             bool isEnabled = false;
+            
             if (GetGuiType() == typeof(ComboBox))
             {
                 isEnabled = Cbx.Enabled;
             }
-            if (GetGuiType() == typeof(TextBox))
+
+            else if (GetGuiType() == typeof(ComboBoxExt))
+            {
+                isEnabled = Cbxt.Enabled;
+            }
+
+            else if (GetGuiType() == typeof(ComboBoxExtTrackTbl))
+            {
+                isEnabled = Cbxtr.Enabled;
+            }
+
+            else if (GetGuiType() == typeof(TextBox))
             {
                 isEnabled = Tbx.Enabled;
+            }
+
+            else if (GetGuiType() == typeof(TextBoxExt))
+            {
+                isEnabled = Tbxt.Enabled;
             }
             return isEnabled;
         }
         public void PopulateGuiElem(GuiElem gui, DataSetForGui ds)
         {
-            if (ds.Ds != null)
+            if (gui != null && ds != null && ds.Ds != null)
             {
                 try
                 {
@@ -251,20 +428,52 @@ namespace CsiMigrationHelper
                         if (Cbx.Items.Count > 1)
                         {
                             gui.Cbx.Enabled = true;
-                            gui.Cbx.DroppedDown = true;
+                            gui.Cbx.DroppedDown = Options.autoDropDownComboBoxes;
                             gui.Cbx.SelectedIndex = 0;
                             //gui.Cbx.Focus();
                         }
-                        else
+                    }
+
+                    else if (gui.GetGuiType() == typeof(ComboBoxExt))
+                    {
+                        gui.Cbxt.DataSource = ds.Ds.Tables[0];
+                        gui.Cbxt.ValueMember = ds.ParamSelect.ParamMetaData.ValueMember;
+                        gui.Cbxt.DisplayMember = ds.ParamSelect.ParamMetaData.DisplayMember;
+                        if (Cbxt.Items.Count > 1)
                         {
-                            //gui.Cbx.Enabled = false;
+                            gui.Cbxt.Enabled = true;
+                            gui.Cbxt.DroppedDown = Options.autoDropDownComboBoxes;
+                            gui.Cbxt.SelectedIndex = 0;
+                            //gui.Cbxt.Focus();
                         }
                     }
-                    if (gui.GetGuiType() == typeof(TextBox))
+
+                    else if (gui.GetGuiType() == typeof(ComboBoxExtTrackTbl))
+                    {
+                        gui.Cbxtr.DataSource = ds.Ds.Tables[0];
+                        gui.Cbxtr.ValueMember = ds.ParamSelect.ParamMetaData.ValueMember;
+                        gui.Cbxtr.DisplayMember = ds.ParamSelect.ParamMetaData.DisplayMember;
+                        if (Cbxtr.Items.Count > 1)
+                        {
+                            gui.Cbxtr.Enabled = true;
+                            gui.Cbxtr.DroppedDown = Options.autoDropDownComboBoxes;
+                            gui.Cbxtr.SelectedIndex = 0;
+                            //gui.Cbxt.Focus();
+                        }
+                    }
+
+                    else if (gui.GetGuiType() == typeof(TextBox))
                     {
                         gui.Tbx.Text = ds.Ds.Tables[0].Rows[1][ds.ParamSelect.ParamMetaData.DisplayMember].ToString();
                         gui.Tbx.Enabled = true;
                         gui.Tbx.Focus();
+                    }
+
+                    else if (gui.GetGuiType() == typeof(TextBoxExt))
+                    {
+                        gui.Tbxt.Text = ds.Ds.Tables[0].Rows[1][ds.ParamSelect.ParamMetaData.DisplayMember].ToString();
+                        gui.Tbxt.Enabled = true;
+                        gui.Tbxt.Focus();
                     }
                 }
                 catch (Exception ex)
@@ -279,11 +488,32 @@ namespace CsiMigrationHelper
             string sReturn = string.Empty;
             try
             {
-                DataRowView oDataRowView = Cbx.SelectedItem as DataRowView;
-
-                if (oDataRowView != null)
+                if (this.GetGuiType() == typeof(ComboBox))
                 {
-                    sReturn = oDataRowView.Row[displayMember] as string;
+                    DataRowView oDataRowView = Cbx.SelectedItem as DataRowView;
+
+                    if (oDataRowView != null)
+                    {
+                        sReturn = oDataRowView.Row[displayMember] as string;
+                    }
+                }
+                else if (this.GetGuiType() == typeof(ComboBoxExt))
+                {
+                    DataRowView oDataRowView = Cbxt.SelectedItem as DataRowView;
+
+                    if (oDataRowView != null)
+                    {
+                        sReturn = oDataRowView.Row[displayMember] as string;
+                    }
+                }
+                else if (this.GetGuiType() == typeof(ComboBoxExtTrackTbl))
+                {
+                    DataRowView oDataRowView = Cbxtr.SelectedItem as DataRowView;
+
+                    if (oDataRowView != null)
+                    {
+                        sReturn = oDataRowView.Row[displayMember] as string;
+                    }
                 }
             }
             catch (Exception ex)

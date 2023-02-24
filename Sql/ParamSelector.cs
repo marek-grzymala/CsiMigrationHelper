@@ -29,12 +29,16 @@ namespace CsiMigrationHelper
                     case "ConstraintDefinition":
                         SqlQueryText = SqlText.GetSqlConstraintDefinitionByTableName();
                         break;
+                    case "MigrationTrackingTable":
+                        SqlQueryText = SqlText.GetSqlMigrationTrackingByProjectName(tn);
+                        break;
                 }
             }
             else
             {
                 SqlQueryText = SqlText.GetSqlObjectListByNodeLevel(tn);
             }
+            
             switch (tn.Data.ObjectBranch)
             {
                 case (int)DbObjectBranch.Root:
@@ -48,15 +52,21 @@ namespace CsiMigrationHelper
                 case (int)DbObjectBranch.Tgt:
                     BranchName = "Target";
                     break;
+
+                case (int)DbObjectBranch.TrckTbl:
+                    BranchName = "Tracking Table";
+                    break;
             }
                
-            ParamMetaData = GetParamMetaByObjectLvl(tn.TreeNodeLevel);
+            ParamMetaData = GetParamMetaByObjectLvl(tn.TreeNodeLevel, tn.Data.ObjectBranch);
             SqlParamList = new List<SqlParameter>();
             SqlParameter p_schName;
             SqlParameter p_tblName;
             SqlParameter p_colName;
             SqlParameter p_dataTypeName;
+            //SqlParameter p_projName;
 
+            // collect SQL Query parameters based on ObjectLevel:
             switch (tn.Data.ObjectLevel)
             {
                 case (int)DbObjectLevel.Database:
@@ -80,53 +90,66 @@ namespace CsiMigrationHelper
 
                 case (int)DbObjectLevel.Column:                    
                     
-                    p_schName = new SqlParameter()
+                    if (tn.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl)
                     {
-                        ParameterName = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Schema).Data.GetSqlParam().ParameterName,
-                        SqlDbType = SqlDbType.VarChar,
-                        Size = 4000,
-                        Value = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Schema).Data.GetSqlParam().Value
-                    };
-                    SqlParamList.Add(p_schName);
+
+                    }
+                    else
+                    {
+                        p_schName = new SqlParameter()
+                        {
+                            ParameterName = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Schema).Data.GetSqlParam().ParameterName,
+                            SqlDbType = SqlDbType.VarChar,
+                            Size = 4000,
+                            Value = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Schema).Data.GetSqlParam().Value
+                        };
+                        SqlParamList.Add(p_schName);
                     
-                    p_tblName = new SqlParameter()
-                    {
-                        ParameterName = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Table).Data.GetSqlParam().ParameterName,
-                        SqlDbType = SqlDbType.VarChar,
-                        Size = 4000,
-                        Value = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Table).Data.GetSqlParam().Value
-                    };
-                    SqlParamList.Add(p_tblName);
+                        p_tblName = new SqlParameter()
+                        {
+                            ParameterName = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Table).Data.GetSqlParam().ParameterName,
+                            SqlDbType = SqlDbType.VarChar,
+                            Size = 4000,
+                            Value = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Table).Data.GetSqlParam().Value
+                        };
+                        SqlParamList.Add(p_tblName);
+                    }
                     break;
 
                 case (int)DbObjectLevel.DataType:
-                    
-                    p_schName = new SqlParameter()
+                    if (tn.Data.ObjectBranch == (int)DbObjectBranch.TrckTbl)
                     {
-                        ParameterName = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Schema).Data.GetSqlParam().ParameterName,
-                        SqlDbType = SqlDbType.VarChar,
-                        Size = 4000,
-                        Value = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Schema).Data.GetSqlParam().Value
-                    };
-                    SqlParamList.Add(p_schName);
-                    
-                    p_tblName = new SqlParameter()
+
+                    }
+                    else
                     {
-                        ParameterName = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Table).Data.GetSqlParam().ParameterName,
-                        SqlDbType = SqlDbType.VarChar,
-                        Size = 4000,
-                        Value = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Table).Data.GetSqlParam().Value
-                    };
-                    SqlParamList.Add(p_tblName);
+                        p_schName = new SqlParameter()
+                        {
+                            ParameterName = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Schema).Data.GetSqlParam().ParameterName,
+                            SqlDbType = SqlDbType.VarChar,
+                            Size = 4000,
+                            Value = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Schema).Data.GetSqlParam().Value
+                        };
+                        SqlParamList.Add(p_schName);
                     
-                    p_colName = new SqlParameter()
-                    {
-                        ParameterName = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Column).Data.GetSqlParam().ParameterName,
-                        SqlDbType = SqlDbType.VarChar,
-                        Size = 4000,
-                        Value = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Column).Data.GetSqlParam().Value
-                    };
-                    SqlParamList.Add(p_colName);
+                        p_tblName = new SqlParameter()
+                        {
+                            ParameterName = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Table).Data.GetSqlParam().ParameterName,
+                            SqlDbType = SqlDbType.VarChar,
+                            Size = 4000,
+                            Value = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Table).Data.GetSqlParam().Value
+                        };
+                        SqlParamList.Add(p_tblName);
+                    
+                        p_colName = new SqlParameter()
+                        {
+                            ParameterName = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Column).Data.GetSqlParam().ParameterName,
+                            SqlDbType = SqlDbType.VarChar,
+                            Size = 4000,
+                            Value = tn.TraverseUpUntil(tn, (int)DbObjectLevel.Column).Data.GetSqlParam().Value
+                        };
+                        SqlParamList.Add(p_colName);
+                    }
                     
                     break;
 
@@ -216,10 +239,10 @@ namespace CsiMigrationHelper
             public string ErrorMsgIfNoneFound;
         }
 
-        public static StrctParMetaData GetParamMetaByObjectLvl(int lvl)
+        public static StrctParMetaData GetParamMetaByObjectLvl(int lvl, int branch)
         {
             StrctParMetaData pm = new StrctParMetaData();            
-            pm.ErrorMsgIfNoneFound = string.Concat("Could not find any objects of type: [", DbObject.GetObjectLevelByIndex(lvl), "]");
+            pm.ErrorMsgIfNoneFound = string.Concat("Could not find any objects of type: [", DbObject.GetObjectLevelByIndex(lvl, branch), "]");
             switch (lvl)
             {
                 case (int)DbObjectLevel.Database:
@@ -244,17 +267,37 @@ namespace CsiMigrationHelper
                     break;
 
                 case (int)DbObjectLevel.Column:
-                    pm.ValueMember = "column_id";
-                    pm.DisplayMember = "ColumnName";
-                    pm.SelectedText = "--select column--";
-                    pm.ParameterName = "@ColumnName";
+                    if (branch == (int)DbObjectBranch.TrckTbl)
+                    {
+                        pm.ValueMember = "project_id";
+                        pm.DisplayMember = "ProjectName";
+                        pm.SelectedText = "--select project--";
+                        pm.ParameterName = "@ProjectName";
+                    }
+                    else
+                    {
+                        pm.ValueMember = "column_id";
+                        pm.DisplayMember = "ColumnName";
+                        pm.SelectedText = "--select column--";
+                        pm.ParameterName = "@ColumnName";
+                    }
                     break;
 
                 case (int)DbObjectLevel.DataType:
-                    pm.ValueMember = "data_type_id";
-                    pm.DisplayMember = "DataTypeName";
-                    pm.SelectedText = "--select data type--";
-                    pm.ParameterName = "@DataTypeName";
+                    if (branch == (int)DbObjectBranch.TrckTbl)
+                    {
+                        pm.ValueMember = "project_id";
+                        pm.DisplayMember = "ProjectDescription";
+                        pm.SelectedText = "--select project--";
+                        pm.ParameterName = "@ProjectDescription";
+                    }
+                    else
+                    {
+                        pm.ValueMember = "data_type_id";
+                        pm.DisplayMember = "DataTypeName";
+                        pm.SelectedText = "--select data type--";
+                        pm.ParameterName = "@DataTypeName";
+                    }                    
                     break;
 
                 case (int)DbObjectLevel.PartitionScheme:

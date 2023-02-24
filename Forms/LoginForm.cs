@@ -8,11 +8,23 @@ namespace CsiMigrationHelper
     {
 
         private DbUtil con;
-        public LoginForm()
+        public LoginForm(object sender)
         {
             InitializeComponent();
+            Button bt = sender as Button;
+            if (bt.Name.Contains("Src"))
+            {
+                serverNmTxtb.Text = ConfigurationManager.AppSettings["ServerNameSrc"];
+            }
+            else if (bt.Name.Contains("Tgt"))
+            {
+                serverNmTxtb.Text = ConfigurationManager.AppSettings["ServerNameTgt"];
+            }
+            else if (bt.Name.Contains("Track"))
+            {
+                serverNmTxtb.Text = ConfigurationManager.AppSettings["ServerNameTrack"];
+            }
             authenticationCmb.Text = ConfigurationManager.AppSettings["Authentication"];
-            serverNmTxtb.Text = ConfigurationManager.AppSettings["ServerName"];
             userNmTxtb.Text = ConfigurationManager.AppSettings["UserName"];
             passwordTxtb.Text = ConfigurationManager.AppSettings["Password"];
             this.con = new DbUtil();
@@ -76,17 +88,17 @@ namespace CsiMigrationHelper
             this.DialogResult = DialogResult.Cancel;
         }
 
-        public static bool HandleLoginBtnClick(object sender, TreeNode<DbObject> currentNode, SrcTgtSelectionHandler hdlr)
+        public static bool HandleLoginBtnClick(object sender, TreeNode<DbObject> currentNode)
         {
             DialogResult diagResult;
-            using (LoginForm login = new LoginForm())
+            using (LoginForm login = new LoginForm(sender))
             {
                 diagResult = login.ShowDialog();
                 if (diagResult == DialogResult.OK)
                 {
                     currentNode.Data.Dbu = login.GetConnection();
-                    currentNode.SetTreeNodeText(currentNode, currentNode.Data.Dbu.GetDataSource());
-                    hdlr.PopulateChildNodes(sender, currentNode, currentNode.Data.Dbu.GetDataSource());
+                    currentNode.SetTreeNodeText(currentNode, currentNode.Data.Dbu.GetDataSource(), false);
+                    CmBxSelectHndlr.PopulateChildNodes(sender, currentNode);
                 }
             }
             return diagResult == DialogResult.OK;

@@ -58,7 +58,7 @@ namespace CsiMigrationHelper
             {
                 instanceNode.Data.Dbu.OpenConnection();
                 {
-                    var parser = new TSql160Parser(true); //sql server 2022 parser
+                    var parser = new TSql150Parser(true); //sql server 2022 parser
                     IList<ParseError> errorList;
                     var reader = new StringReader(sql);
                     var res = parser.Parse(reader, out errorList);
@@ -85,7 +85,7 @@ namespace CsiMigrationHelper
             return true;
         }
 
-        public bool ExecuteSql(TreeNode<DbObject> instanceNode, string sql)
+        public bool ExecuteSqlNonQuery(TreeNode<DbObject> instanceNode, string sql, string customMsgOnError)
         {
             using (instanceNode.Data.Dbu)
             {
@@ -94,16 +94,131 @@ namespace CsiMigrationHelper
                     SqlCommand cmd = new SqlCommand(sql, con);
                     try
                     {
-                        cmd.ExecuteNonQuery();
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        instanceNode.Data.Dbu.CloseConnection();
+                        //EventLog.AppendLog(string.Concat("Successfully executed: ", Environment.NewLine, sql));
+                        //Console.WriteLine(string.Concat("Records affected by command:", rowsAffected));
+                        Console.WriteLine(sql);
+                        return true;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        instanceNode.Data.Dbu.CloseConnection();
+                        cmd.Dispose();
+                        throw new ExceptionSqlExecError(ex.Message, customMsgOnError);
+                    }
+                    finally
+                    {
+                        cmd.Dispose();
+                    }
+                }
+            }
+        }
+
+        public int ExecuteSqlScalar(TreeNode<DbObject> instanceNode, string sql, string customMsgOnError)
+        {
+            {
+                instanceNode.Data.Dbu.OpenConnection();
+                {
+                    SqlCommand cmd = new SqlCommand(sql, con);
+                    try
+                    {
+                        var result = cmd.ExecuteScalar();
                         instanceNode.Data.Dbu.CloseConnection();
                         EventLog.AppendLog(string.Concat("Successfully executed: ", Environment.NewLine, sql));
+                        return (int)result;
+                    }
+                    catch (Exception ex)
+                    {
+                        instanceNode.Data.Dbu.CloseConnection();
+                        cmd.Dispose();
+                        throw new ExceptionSqlExecError(ex.Message, customMsgOnError);
+                    }
+                    finally
+                    {
+                        cmd.Dispose();
+                    }
+                }
+            }
+        }
+
+        public int ExecuteSqlUsp(TreeNode<DbObject> instanceNode, string uspName, List<SqlParameter> sqlParamList)
+        {
+            {
+                instanceNode.Data.Dbu.OpenConnection();
+                {
+                    SqlCommand cmd = new SqlCommand(uspName, con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    foreach (SqlParameter p in sqlParamList)
+                    {
+                        if (p != null)
+                        {
+                            //cmd.Parameters.AddWithValue(p.ParameterName, p.Value);
+                            cmd.Parameters.Add(p);
+                        }
+                    }
+
+                    try
+                    {
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        instanceNode.Data.Dbu.CloseConnection();
+                        EventLog.AppendLog(string.Concat("Successfully executed: ", uspName, " Rows Affected: ", rowsAffected));
+                        return rowsAffected;
+                    }
+                    catch (Exception ex)
+                    {
+                        instanceNode.Data.Dbu.CloseConnection();
+                        cmd.Dispose();
+                        throw new ExceptionSqlExecError(ex.Message, string.Concat("Error executing: ", uspName));
+                    }
+                    finally
+                    {
+                        cmd.Dispose();
+                    }
+                }
+            }
+        }
+
+        public bool ExecuteSqlUspOutParams(TreeNode<DbObject> instanceNode, string sql, string customMsgOnError, List<SqlParameter> sqlParamList)
+        {
+            using (instanceNode.Data.Dbu)
+            {
+                instanceNode.Data.Dbu.OpenConnection();
+                {
+                    SqlCommand cmd = new SqlCommand(sql, con);
+                    cmd.Connection = instanceNode.Data.Dbu.con;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = sql;
+
+                    foreach (SqlParameter p in sqlParamList)
+                    {
+                        if (p != null)
+                        {
+                            //cmd.Parameters.AddWithValue(p.ParameterName, p.Value);
+                            cmd.Parameters.Add(p);
+                        }
+                    }
+
+                    try
+                    {
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        //foreach (SqlParameter p in sqlParamList)
+                        //{
+                        //    if (p != null) // && p.Direction == ParameterDirection.Output)
+                        //    {
+                        //        Console.WriteLine(string.Concat(p.ParameterName, ":", p.Value.ToString()));
+                        //    }
+                        //}
+                        instanceNode.Data.Dbu.CloseConnection();
                         return true;
                     }
                     catch (Exception ex)
                     {
                         instanceNode.Data.Dbu.CloseConnection();
                         cmd.Dispose();
-                        throw new ExceptionSqlExecError(ex.Message);
+                        throw new ExceptionSqlExecError(ex.Message, customMsgOnError);
                     }
                     finally
                     {
@@ -115,13 +230,13 @@ namespace CsiMigrationHelper
 
         public DataSetForGui GetDataSetForGui(TreeNode<DbObject> instanceNode, TreeNode<DbObject> childNode, string dsOptions)
         {
-            DataSetForGui dataSetForGui = null;            
+            DataSetForGui dataSetForGui = null;
             using (instanceNode.Data.Dbu)
             {
                 instanceNode.Data.Dbu.OpenConnection();
-                    ParamSelector dsParams = new ParamSelector(childNode, dsOptions);
-                    DataSet ds = PopulateDataSet(dsParams, dsOptions);
-                    dataSetForGui = new DataSetForGui(ds, dsParams);
+                ParamSelector dsParams = new ParamSelector(childNode, dsOptions);
+                DataSet ds = PopulateDataSet(dsParams, dsOptions);
+                dataSetForGui = new DataSetForGui(ds, dsParams);
                 instanceNode.Data.Dbu.CloseConnection();
             }
             return dataSetForGui;
@@ -222,6 +337,11 @@ namespace CsiMigrationHelper
         public SqlConnection GetConnection()
         {
             return con;
+        }
+
+        public SqlCredential GetCredential()
+        {
+            return con.Credential;
         }
 
         public DataTable GetDataTable(string SQL)

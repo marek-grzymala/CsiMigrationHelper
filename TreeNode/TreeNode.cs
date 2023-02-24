@@ -76,7 +76,10 @@ namespace CsiMigrationHelper
                                 DbObject dbObject = (DbObject)Convert.ChangeType(node.Data, typeof(DbObject));
                                 if (dbObject != null)
                                 {
-                                    childNode.CloneableFromSrc = value;
+                                    if (dbObject.ObjectBranch == (int)DbObjectBranch.Tgt)
+                                    {
+                                        childNode.CloneableFromSrc = value;
+                                    }
                                 }
                             }
                         }
@@ -384,6 +387,40 @@ namespace CsiMigrationHelper
             }
             return returnNode;
         }
+
+        public bool IsBranchTextSet(TreeNode<T> startingNode, int upperLimit)
+        {
+            bool result = false;
+                TreeNode<T> returnNode = startingNode;
+                if ((upperLimit <= (int)DbObjectLevel.Root) || (upperLimit > startingNode.TreeNodeLevel))
+                {
+                    throw new Exception(string.Concat("Parameter upperLimit supplied to method IsBranchTextSet(): [", upperLimit
+                    , "] does not fit within the correct value-range, which is: ["
+                    , (int)DbObjectLevel.Root, "] - [", startingNode.TreeNodeLevel, "]"));
+                }
+                else
+                {
+                    while ((returnNode.TreeNodeLevel != upperLimit) && (returnNode.TreeNodeLevel > (int)DbObjectLevel.Root) && (!returnNode.IsDummyNode))
+                    {
+                        result = returnNode.IsTextSet() ? true : false; 
+                        if (!result)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            returnNode = returnNode.Parent;
+                        }
+                    }
+                    if (returnNode.TreeNodeLevel <= 0)
+                    {
+                        throw new Exception(string.Concat("Method TraverseUpUntil() could not find a TreeNode with a level of: ["
+                        , upperLimit, "] traversing up from node: ["
+                        , startingNode.TreeNodeLevel, "]"));
+                    }
+                }
+            return result;
+        }
         #endregion
 
 
@@ -399,17 +436,22 @@ namespace CsiMigrationHelper
                         DbObject dbObject = (DbObject)Convert.ChangeType(node.Data, typeof(DbObject));
                         if (dbObject != null)
                         {
-                            if (dbObject.ObjectText.Length > 0) // we do not want to set an empty text of a node which is already empty because then
-                                                                // we would unnecessarily trigger events OnDbObjectModified
-                                                                // (which would then cause multiple triggers of SetTreeNodeText)
+                            if (dbObject.ObjectText != null)
                             {
-                                dbObject.SetDbObjectText(node, string.Empty);
+                                if (dbObject.ObjectText.Length > 0) // we do not want to set an empty text of a node which is already empty
+                                                                    // because then we would unnecessarily trigger events OnDbObjectModified
+                                                                    // (which would then cause multiple triggers of SetTreeNodeText)
+                                {
+                                    dbObject.SetDbObjectText(node, string.Empty, false);
+                                }
                             }
                             else
                             {
-                                // instead of emptying an already empty node text we clear its Gui object
-                                // (needed to cleanup remaining child Gui elements in case a parent ComboBox
-                                // is re-selected with SelectedIndex == 0)
+                                /*
+                                instead of emptying an already empty node text we clear its Gui object
+                                (needed to cleanup remaining child Gui elements in case a parent ComboBox
+                                is re - selected with SelectedIndex == 0)
+                                */
                                 if (dbObject.Gui != null)
                                 {
                                     dbObject.Gui.ClearGui();
@@ -421,7 +463,7 @@ namespace CsiMigrationHelper
             }
         }
 
-        public void SetTreeNodeText(TreeNode<DbObject> node, string newText)
+        public void SetTreeNodeText(TreeNode<DbObject> node, string newText, bool checkIfNewTextDiffers)
         {
             if (node != null)
             {
@@ -429,7 +471,20 @@ namespace CsiMigrationHelper
                 DbObject dbObject = TreeNode<DbObject>.ConvertToDbObject(node);
                 if (dbObject != null)
                 {
-                    dbObject.SetDbObjectText(node, newText);
+                    dbObject.SetDbObjectText(node, newText, checkIfNewTextDiffers);
+                }
+            }
+        }
+
+        public void SetTreeNodeTextNoSubtreeClearing(TreeNode<DbObject> node, string newText, bool checkIfNewTextDiffers)
+        {
+            if (node != null)
+            {
+                //node.EmptySubtreeText(node);
+                DbObject dbObject = TreeNode<DbObject>.ConvertToDbObject(node);
+                if (dbObject != null)
+                {
+                    dbObject.SetDbObjectText(node, newText, checkIfNewTextDiffers);
                 }
             }
         }
@@ -445,7 +500,7 @@ namespace CsiMigrationHelper
                         DbObject dbObject = (DbObject)Convert.ChangeType(node.Data, typeof(DbObject));
                         if (dbObject != null)
                         {
-                            dbObject.SetDbObjectText(ConvertToTreeNodeDbObject(node), newText);
+                            dbObject.SetDbObjectText(ConvertToTreeNodeDbObject(node), newText, true);
                         }
                     }
                 }
@@ -495,9 +550,9 @@ namespace CsiMigrationHelper
             {
                 throw new Exception(
                     "You are trying to assign a dbObject [" + e.DbObject.ObjectName
-                    + "] of type: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel)
-                    + "] to a TreeNode of type: [" + DbObject.GetObjectLevelByIndex(e.TreeNodeLevel - 1)
-                    + "] correct parent-assignment of this dbObject type should be to: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel - 1) + "]");
+                    + "] of type: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel, e.DbObject.ObjectBranch)
+                    + "] to a TreeNode of type: [" + DbObject.GetObjectLevelByIndex(e.TreeNodeLevel - 1, e.DbObject.ObjectBranch)
+                    + "] correct parent-assignment of this dbObject type should be to: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel - 1, e.DbObject.ObjectBranch) + "]");
             }
             //TreeNode<DbObject> t = (TreeNode<DbObject>)Convert.ChangeType(sender, typeof(TreeNode<DbObject>));
             TreeNode<DbObject> t = ConvertToTreeNodeDbObject(sender);
@@ -509,9 +564,9 @@ namespace CsiMigrationHelper
                 {
                     throw new Exception(
                     "You are trying to assign a dbObject [" + e.DbObject.ObjectName
-                    + "] of type: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel)
-                    + "] to a Parent of type: [" + DbObject.GetObjectLevelByIndex(dbParent.ObjectLevel)
-                    + "] correct parent-assignment of this dbObject type should be to: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel - 1) + "]");
+                    + "] of type: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel, e.DbObject.ObjectBranch)
+                    + "] to a Parent of type: [" + DbObject.GetObjectLevelByIndex(dbParent.ObjectLevel, e.DbObject.ObjectBranch)
+                    + "] correct parent-assignment of this dbObject type should be to: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel - 1, e.DbObject.ObjectBranch) + "]");
                 }
             }
         }
@@ -523,9 +578,9 @@ namespace CsiMigrationHelper
             {
                 throw new Exception(
                     "You are trying to assign a dbObject [" + e.DbObject.ObjectName
-                    + "] of type: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel)
-                    + "] to a TreeNode of type: [" + DbObject.GetObjectLevelByIndex(e.TreeNodeLevel - 1)
-                    + "] correct parent-assignment of this dbObject type should be to: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel - 1) + "]");
+                    + "] of type: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel, e.DbObject.ObjectBranch)
+                    + "] to a TreeNode of type: [" + DbObject.GetObjectLevelByIndex(e.TreeNodeLevel - 1, e.DbObject.ObjectBranch)
+                    + "] correct parent-assignment of this dbObject type should be to: [" + DbObject.GetObjectLevelByIndex(e.DbObject.ObjectLevel - 1, e.DbObject.ObjectBranch) + "]");
             }
         }
 
