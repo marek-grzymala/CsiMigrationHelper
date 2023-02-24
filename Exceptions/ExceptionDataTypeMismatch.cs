@@ -19,7 +19,7 @@ namespace CsiMigrationHelper
             : base(message)
         {
             if (MessageBox.Show(string.Concat(message, Environment.NewLine
-                , "DataType mismatch - are you sure you want to keep the selection?"), "Confirm Selection"
+                , "DataType mismatch between Source and Target - are you sure you want to keep the selection?"), "Confirm Selection"
                 , MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 retry = false;

@@ -15,18 +15,20 @@ namespace CsiMigrationHelper
         {
         }
 
-        public ExceptionSqlExecError(string message)
+        public ExceptionSqlExecError(string message, string customMsgOnError)
             : base(message)
         {
-            if (MessageBox.Show(string.Concat(message, Environment.NewLine
-                , "Do you want to retry?"), "Confirm Selection"
-                , MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
-                retry = false;
-            }
-            else
-            {
-                retry = true;
+                if (MessageBox.Show(string.Concat(customMsgOnError + Environment.NewLine + message, Environment.NewLine
+                    , "Do you want to retry?"), "Confirm Selection"
+                    , MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    retry = true;
+                }
+                else
+                {
+                    retry = false;
+                }
             }
         }
 
